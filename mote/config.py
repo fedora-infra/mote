@@ -13,8 +13,8 @@ dbname = "mote"
 Scraper Configuration
 '''
 
-# log_endpoint = "http://meetbot.fedoraproject.org"
-log_endpoint = "/srv/web/zodbot"
+log_endpoint = "/srv/web/meetbot"
+# log_endpoint = ""
 
 # Fedora has a "teams" folder which contains
 # logs from meetings started with a certain team name
@@ -25,5 +25,14 @@ log_team_folder = "teams"
 # Directories to ignore in crawling the logs.
 # These folders are ignored. The "meetbot" folder is
 # an infinite loop on Fedora's meetbot.
-# This should probably be fixed.
-ignore_dir = ["teams", "meetbot"]
+# This should probably be fixed. This should probably be
+# an array, but...
+ignore_dir = "meetbot"
+
+'''
+General Configuration
+'''
+enable_debug = True
+app_port = 5000
+app_host = "127.0.0.1"
+admin_groups = ["sysadmin-mote"]

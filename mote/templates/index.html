@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% set thispage = "home" %}
+{% block body %}
+<div class="center">
+    <img src="/static/fedora_logo.svg" width="20%" height:"20%" />
+
+    <h1>møte meetbot wrangler</h1>
+    <p>møte allows the Fedora community to search and explore IRC meetings.
+        <br />
+        More information on meetings can be found
+    <a href="https://fedoraproject.org/wiki/Meeting_channel?rd=Fedora_meeting_channel">here</a>.</p>
+    <p>Administrators can update møte configuration and expressions through the <a href="/admin">admin panel</a></p>
+    <br />
+    <div class="row">
+        <div class="col-lg-4 col-lg-offset-4">
+            <div class="inner-addon left-addon">
+                <i class="fa fa-search"></i>
+                <input type="text" placeholder="search" class="center-input form-control" />
+            </div>
+        </div>
+    </div>
+    <br />
+    <a href="javascript:void();" id="search" class="btn btn-primary">Search</a>&nbsp;
+    <a href="/browse" id="browse" class="btn btn-info">Browse</a>
+</div>
+{% endblock %}
