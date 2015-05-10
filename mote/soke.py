@@ -45,12 +45,8 @@ meetbot_team_dir = config.log_team_folder
 def run():
     d_channel_meetings = dict() # direct channel meetings (i.e meeting channel)
     t_channel_meetings = dict() # team channel meetings (i.e meeting topics)
-    neither_date = 0
 
     for root, dirs, files in os.walk(meetbot_root_dir):
-        '''if meetbot_team_dir in dirs:
-            dirs.remove(meetbot_team_dir)'''
-        '''el'''
         if config.ignore_dir in dirs:
             dirs.remove(config.ignore_dir)
 
@@ -87,18 +83,24 @@ def run():
             # if new team
             # all files under this folder will directly be the meeting logs
             t_channel_meetings[curr_folder_qual_name] = dict()
+            t_channel_meetings[curr_folder_qual_name]["minutes"] = minutes
+            t_channel_meetings[curr_folder_qual_name]["logs"] = logs
         else:
+            # if is a child of direct channel
             par1_path = abspath(join(root, ".."))
             par2_path = abspath(join(root, "../.."))
             parent_group_name = split(par1_path)[1]
             # is a child of a team or a channels`
             if par2_path == meetbot_root_dir:
-                # is channel meeting date
+                # is channel meeting
+                # date is `curr_folder_qual_name`
                 try:
                     d_channel_meetings[parent_group_name][curr_folder_qual_name] = dict()
-                    minutes = glob(join(root + ".*[0-9]{2}.html"))
                     minutes = [f for f in files if re.match('.*?[0-9]{2}\.html', f)]
-
-                    print minutes
+                    logs = [f for f in files if re.match('.*?[0-9]{2}\.log\.html', f)]
+                    d_channel_meetings[parent_group_name][curr_folder_qual_name]["minutes"] = minutes
+                    d_channel_meetings[parent_group_name][curr_folder_qual_name]["logs"] = logs
                 except Exception as e:
                     print e
+    mc["mote:channel_meetings"] = d_channel_meetings
+    mc["mote:team_meetings"] = t_channel_meetings

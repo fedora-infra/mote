@@ -72,4 +72,6 @@ def admin_panel():
 
 @app.route('/browse', methods=['GET'])
 def browse():
-    return render_template('browse.html')
+    channel_meetings = mc["mote:channel_meetings"]
+    team_meetings = mc["mote:team_meetings"]
+    return render_template('browse.html', channel_meetings=channel_meetings, team_meetings=team_meetings)
