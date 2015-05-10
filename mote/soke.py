@@ -20,9 +20,11 @@
 # e.g date
 # link files through the file extension
 
-import pylibmc, config, os, json, re, peewee
+import pylibmc, config, os, json, re, peewee, sys
 from glob import glob
 from os.path import join, getsize, split, abspath
+reload(sys)
+sys.setdefaultencoding("utf-8")
 
 # the `mc` variable is used to map to memcached
 mc = pylibmc.Client(["127.0.0.1"], binary=True,
@@ -35,9 +37,15 @@ def memcached_dict_add(dictn, key, val, cxn=mc):
     u_dictn = mc[dictn]
     u_dictn[key] = val
     mc[dictn] = u_dictn
+def get_date_fn(filename):
+    # get date of meeting from
+    # meetbot log filename
+    m = re.search(".*?\.([0-9]{4}\-[0-9]{2}\-[0-9]{2})\-.*", filename)
+    if m == None:
+        return "Date Undefined"
+    return m.group(1)
 
 
-# print json.dumps(["ah", "bah"])
 meetbot_root_dir = config.log_endpoint
 meetbot_team_dir = config.log_team_folder
 
@@ -82,9 +90,23 @@ def run():
         elif is_direct_team_child == True:
             # if new team
             # all files under this folder will directly be the meeting logs
+            minutes = [f for f in files if re.match('.*?[0-9]{2}\.html', f)]
+            logs = [f for f in files if re.match('.*?[0-9]{2}\.log\.html', f)]
             t_channel_meetings[curr_folder_qual_name] = dict()
-            t_channel_meetings[curr_folder_qual_name]["minutes"] = minutes
-            t_channel_meetings[curr_folder_qual_name]["logs"] = logs
+            for minute in minutes:
+                meeting_date = get_date_fn(minute)
+                if meeting_date not in t_channel_meetings[curr_folder_qual_name]:
+                    t_channel_meetings[curr_folder_qual_name][meeting_date] = dict()
+                    t_channel_meetings[curr_folder_qual_name][meeting_date]["minutes"] = []
+                    t_channel_meetings[curr_folder_qual_name][meeting_date]["logs"] = []
+
+                t_channel_meetings[curr_folder_qual_name][meeting_date]["minutes"].append(minute)
+
+            for log in logs:
+                meeting_date = get_date_fn(log)
+                t_channel_meetings[curr_folder_qual_name][meeting_date]["logs"].append(log)
+
+
         else:
             # if is a child of direct channel
             par1_path = abspath(join(root, ".."))

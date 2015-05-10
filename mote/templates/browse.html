@@ -37,8 +37,31 @@
 </div>
 <div>
     <h3>Team Meetings</h3>
-
-    <p>Nothing here yet</p>
-
+    {% if (team_meetings | length) < 1 %}
+        <p>Nothing here yet</p>
+    {% else %}
+        <ul>
+        {% for tm_key, tm_val in team_meetings.iteritems(): %}
+            <li><b>{{tm_key}}</a></li>
+                <ul>
+                    {% for tm_date, tm_links in tm_val.iteritems() %}
+                        <h4>{{tm_date}}</h4>
+                        <i>Minutes</i>
+                        <ul>
+                            {% for minutes in tm_links["minutes"] %}
+                            <li><a href="http://meetbot.fedoraproject.org/teams/{{tm_key}}/{{minutes}}">{{minutes}}</a></li>
+                            {% endfor %}
+                        </ul>
+                        <i>Logs</i>
+                        <ul>
+                            {% for logs in tm_links["logs"] %}
+                            <li><a href="http://meetbot.fedoraproject.org/teams/{{tm_key}}/{{logs}}">{{logs}}</a></li>
+                            {% endfor %}
+                        </ul>
+                    {% endfor %}
+                </ul>
+        </ul>
+        {% endfor %}
+    {% endif %}
 </div>
 {% endblock %}
