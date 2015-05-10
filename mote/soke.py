@@ -21,6 +21,7 @@
 # link files through the file extension
 
 import pylibmc, config, os, json, re, peewee
+from glob import glob
 from os.path import join, getsize, split, abspath
 
 # the `mc` variable is used to map to memcached
@@ -62,7 +63,7 @@ def run():
         }
 
         folder_name = split(root)
-        current_group_name = folder_name[1]
+        curr_folder_qual_name = folder_name[1]
         is_direct_child = abspath(join(root, os.pardir)) == meetbot_root_dir
         is_direct_team_child = abspath(join(root, os.pardir)) == join(meetbot_root_dir, meetbot_team_dir)
         is_team_folder = join(meetbot_root_dir, meetbot_team_dir) == root
@@ -74,21 +75,30 @@ def run():
             pass
         if is_direct_child == True:
             # if direct child of meetbot_root_dir
-            if current_group_name == meetbot_team_dir:
+            if curr_folder_qual_name == meetbot_team_dir:
                 # is team directory
                 pass
             else:
                 # if new channel
-                # current_group_name is the team name
+                # curr_folder_qual_name is the team name
                 # create a new key for the channel
-                d_channel_meetings[current_group_name] = dict()
+                d_channel_meetings[curr_folder_qual_name] = dict()
         elif is_direct_team_child == True:
             # if new team
             # all files under this folder will directly be the meeting logs
-            t_channel_meetings[current_group_name] = dict()
+            t_channel_meetings[curr_folder_qual_name] = dict()
         else:
+            par1_path = abspath(join(root, ".."))
             par2_path = abspath(join(root, "../.."))
-            # is a child of a team or a channels
+            parent_group_name = split(par1_path)[1]
+            # is a child of a team or a channels`
             if par2_path == meetbot_root_dir:
                 # is channel meeting date
-                pass
+                try:
+                    d_channel_meetings[parent_group_name][curr_folder_qual_name] = dict()
+                    minutes = glob(join(root + ".*[0-9]{2}.html"))
+                    minutes = [f for f in files if re.match('.*?[0-9]{2}\.html', f)]
+
+                    print minutes
+                except Exception as e:
+                    print e
