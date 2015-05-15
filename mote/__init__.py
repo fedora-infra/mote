@@ -16,7 +16,7 @@
 
 # TODO: needs some regex group stuff
 # get regexes and stuff from a db
-import flask, peewee, random, string, pylibmc, json
+import flask, peewee, random, string, pylibmc, json, util
 from flask import Flask, render_template, request, url_for, session, redirect
 from flask_fas_openid import fas_login_required, cla_plus_one_required, FAS
 from database import *
@@ -69,6 +69,7 @@ def search_sugg():
         if search_term in tmk:
             results.append({"id": tmk, "name": tmk, "type": "team", "description": "A friendly meeting group."})
             res_num += 1
+    results = util.filter_list(results, search_term) # sort results
     results_json = json.dumps(results)
     return ('''
     {"items": %s}
