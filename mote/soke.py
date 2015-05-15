@@ -21,7 +21,6 @@
 # link files through the file extension
 
 import pylibmc, config, os, json, re, peewee, sys
-from glob import glob
 from os.path import join, getsize, split, abspath
 reload(sys)
 sys.setdefaultencoding("utf-8")
@@ -57,14 +56,6 @@ def run():
     for root, dirs, files in os.walk(meetbot_root_dir):
         if config.ignore_dir in dirs:
             dirs.remove(config.ignore_dir)
-
-        fl_expr = {
-            "fedora-fr": "Fedora French",
-            "fedora-meeting": "Miscellaneous"
-        }
-        team_expr = {
-            "famna": "Fedora NA Ambassadors"
-        }
 
         folder_name = split(root)
         curr_folder_qual_name = folder_name[1]

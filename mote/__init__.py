@@ -16,7 +16,7 @@
 
 # TODO: needs some regex group stuff
 # get regexes and stuff from a db
-import flask, peewee, random, string, pylibmc
+import flask, peewee, random, string, pylibmc, json
 from flask import Flask, render_template, request, url_for, session, redirect
 from flask_fas_openid import fas_login_required, cla_plus_one_required, FAS
 from database import *
@@ -44,6 +44,35 @@ def index():
 def post_auth():
     session['logged'] = True
     return redirect(url_for('index'))
+
+@app.route('/search_sugg', methods=['GET'])
+def search_sugg():
+    search_term = request.args.get('q', '')
+    channel_meetings = mc["mote:channel_meetings"]
+    team_meetings = mc["mote:team_meetings"]
+    results = []
+    res_num = 0
+    display_num = 20
+    # return top 20 search results
+    # TODO: match friendly names
+    for cmk in channel_meetings:
+        # cmk = meeting group name
+        if res_num >= display_num:
+            break
+        if search_term in cmk:
+            results.append({"id": cmk, "name": cmk, "type": "channel", "description": "A friendly meeting group."})
+            res_num += 1
+    for tmk in team_meetings:
+        # tmk = meeting group name
+        if res_num >= display_num:
+            break
+        if search_term in tmk:
+            results.append({"id": tmk, "name": tmk, "type": "team", "description": "A friendly meeting group."})
+            res_num += 1
+    results_json = json.dumps(results)
+    return ('''
+    {"items": %s}
+    ''' % results_json)
 
 @app.route('/auth', methods=['GET'])
 def auth_login():

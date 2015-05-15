@@ -1,9 +1,7 @@
-.center-input {
-    // width: 40%;
-}
 .center {
     text-align: center;
 }
+
 /* Bootstrap Fixes */
 body {
   padding-top: 60px;
