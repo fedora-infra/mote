@@ -70,7 +70,46 @@ function openList(ln) {
     // $("#open-"+ln).css('display', 'initial');
     $("#open-"+ln).slideToggle();
 }
-
+function showLogs(date_stamp) {
+    // request logs through AJAX based on date and group
+    // use variables current_group_id and current_group_type
+    var data = {
+        "group_id": current_group_id,
+        "group_type": current_group_type,
+        "date_stamp": date_stamp
+    };
+    $("#minlogs").html("<i class='fa fa-spinner fa-4x fa-spin'></i>");
+    $.ajax({
+      type: "POST",
+      url: "/request_logs",
+      data: data,
+      success: function (res) {
+          var minutes = res.minutes;
+          var logs = res.logs;
+          var minutes_markup = "<b>Minutes</b><br /><ul class='minlog-ul'>";
+          var logs_markup = "<b>Logs</b><br /><ul class='minlog-ul'>";
+          var link_prefix;
+          if (current_group_type == "team") {
+              link_prefix = "http://meetbot.fedoraproject.org/teams/" + current_group_id + "/";
+          }
+          else {
+              link_prefix = "http://meetbot.fedoraproject.org/" + current_group_id + "/" + date_stamp + "/";
+          }
+          minutes.forEach(function (ele, ind, arr) {
+              minutes_markup += "<li><a href='"+ link_prefix + ele +"'>" + ele + "</a></li>";
+          });
+          logs.forEach(function (ele, ind, arr) {
+              logs_markup += "<li><a href='" + link_prefix + ele +"'>" + ele + "</a></li>";
+          });
+          minutes_markup += "</ul>";
+          logs_markup += "</ul>";
+          concat_markup = minutes_markup + logs_markup;
+          $("#minlogs").html(concat_markup);
+          console.log(res);
+      },
+      dataType: "json"
+    });
+}
 $eventSelect.on("select2:select", function (e) {
     group_id = e.params.data.id;
     group_type = e.params.data.type;

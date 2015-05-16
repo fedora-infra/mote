@@ -9,11 +9,11 @@
     padding-left: 40px;
     text-align: left;
 }
-/*
-.hid-list {
-    display: none;
+.minlog-ul
+{
+    list-style-type: none;
 }
-*/
+
 /* Bootstrap Fixes */
 body {
   padding-top: 60px;

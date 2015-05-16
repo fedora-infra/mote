@@ -9,12 +9,14 @@
         <h3>Group Details</h3>
         {% if friendly_name %}
             <h4>{{friendly_name}}</h4>
+        {% else %}
+            <h4>{{name}}</h4>
         {% endif %}
         <b>name: </b> {{name}}</b> |
         <b>type: </b> {{type}}</b>
     <div class="row">
         <div class="col-md-4 col-md-offset-2">
-            <h4>Search</h4>
+            <h4>Search for another group</h4>
             <select id="search-field" class="tpa form-control center-input" autocomplete="off" data-placeholder="Search..." class="center-input form-control"></select>
         </div>
         <div class="col-md-4">
@@ -35,7 +37,7 @@
                     <h4><a href="javascript:void();" onclick="openList('{{year}}-{{month}}');" class="list-group-item list-group-item-info">{{month}}</a></h4>
                     <ul id="open-{{year}}-{{month}}" class="list-group lev2 hid-list">
                     {% for day in avail_dates[year][month] %}
-                        <a href="javascript:void();" class="list-group-item">{{day}}</a>
+                        <a href="javascript:void();" onclick="showLogs('{{day}}')" class="list-group-item">{{day}}</a>
                     {% endfor %}
                     </ul>
                 {% endfor %}
@@ -46,8 +48,14 @@
         </div>
         <div class="col-md-4">
             <h4>Minutes and Logs</h4>
+            <div id="minlogs">
+            </div>
         </div>
     </div>
+    <script>
+        window.current_group_id = "{{name}}";
+        window.current_group_type = "{{type}}";
+    </script>
     <script src="/static/js/sresults-vars.js"></script>
     <script src="/static/js/select2.min.js"></script>
     <script src="/static/js/index.js"></script>

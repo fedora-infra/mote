@@ -46,6 +46,30 @@ def post_auth():
     session['logged'] = True
     return redirect(url_for('index'))
 
+@app.route('/request_logs', methods=['GET', 'POST'])
+def request_logs():
+    if request.method == "GET":
+        return return_error("400 Bad Request")
+    else:
+        group_id = request.form["group_id"]
+        group_type = request.form["group_type"]
+        # Meeting date
+        date_stamp = request.form["date_stamp"]
+        if group_type == "team":
+            meetings = mc["mote:team_meetings"]
+        elif group_type == "channel":
+            meetings = mc["mote:channel_meetings"]
+        try:
+            workable_array = meetings[group_id][date_stamp]
+            # lists with links to minutes and logs
+            minutes = workable_array["minutes"]
+            logs = workable_array["logs"]
+
+            response = json.dumps({"minutes": minutes, "logs": logs})
+            return response
+        except:
+            return return_error("404 Not Found")
+
 @app.route('/sresults', methods=['GET'])
 def sresults():
     group_id = request.args.get('group_id', '')
