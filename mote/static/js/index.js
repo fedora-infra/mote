@@ -60,8 +60,7 @@ $(".tpa").select2({
   escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
   minimumInputLength: 1,
   templateResult: formatRes,
-  templateSelection: formatResSelection,
-  debug: true
+  templateSelection: formatResSelection
 });
 function redirectResults (group_id, type) {
     window.location = "/sresults?group_id=" + group_id + "&type=" + type;
