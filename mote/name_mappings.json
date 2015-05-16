@@ -1,0 +1,17 @@
+{
+    "famna": {
+        "friendly-name": "Fedora North American Ambassadors",
+        "chan-aliases": [""],
+        "team-aliases": [""],
+        "chan-regex-aliases": "",
+        "team-regex-aliases": ""
+
+    },
+    "infrastructure": {
+        "friendly-name": "Fedora Infrastructure Team",
+        "chan-aliases": [""],
+        "team-aliases": ["fedora-infrastructure", "fedora_infrastructure"],
+        "chan-regex-aliases": "",
+        "team-regex-aliases": ""
+    }
+}

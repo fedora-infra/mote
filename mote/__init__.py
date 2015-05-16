@@ -14,7 +14,7 @@
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 #
 
-import flask, peewee, random, string, pylibmc, json, util
+import flask, peewee, random, string, pylibmc, json, util, os
 import dateutil.parser, operator
 from flask import Flask, render_template, request, url_for, session, redirect
 from flask_fas_openid import fas_login_required, cla_plus_one_required, FAS
@@ -32,6 +32,9 @@ fas = FAS(app)
 app.secret_key = ''.join(random.SystemRandom().choice(string.uppercase + string.digits) for _ in xrange(20))
 app.config['FAS_OPENID_ENDPOINT'] = 'http://id.fedoraproject.org/'
 app.config['FAS_CHECK_CERT'] = True
+cwd = os.getcwd()
+with open(os.path.join(cwd, "mote", 'name_mappings.json')) as data_file:
+    name_mappings = json.load(data_file)
 
 def return_error(msg):
     return render_template('error.html', error=msg)

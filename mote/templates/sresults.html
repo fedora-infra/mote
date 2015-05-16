@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% set thispage = "home" %}
+{% set thispage = thispage|default('browse') %}
 {% block head %}
 <link href="/static/css/select2.min.css" rel="stylesheet">
 {% endblock %}
