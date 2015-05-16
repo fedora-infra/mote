@@ -4,7 +4,7 @@ møte - Fedora meetbot log wrangler
 ### About
 
 møte allows the Fedora community to search and explore IRC meetings. 
-More information on meetings can be found (here)[https://fedoraproject.org/wiki/Meeting_channel?rd=Fedora_meeting_channel]
+More information on meetings can be found [here](https://fedoraproject.org/wiki/Meeting_channel?rd=Fedora_meeting_channel)
 
 ### Using møte
 
