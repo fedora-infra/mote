@@ -77,7 +77,10 @@ def request_logs():
 def sresults():
     group_id = request.args.get('group_id', '')
     group_type = request.args.get('type', '')
-    friendly_name = False
+    try:
+        friendly_name = name_mappings[group_id]["friendly-name"]
+    except:
+        friendly_name = False
     if (group_id == '') or (group_type == ''):
         return return_error("Invalid group ID or type.")
 
