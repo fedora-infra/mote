@@ -1,0 +1,17 @@
+{
+    "_comment": "Category mappings for /browse are gathered from this file.",
+    "_comment_": "Create a PR to add new information to the file!",
+
+    "Ambassadors": ["famna", "#fedora-ambassadors"],
+    "Infrastructure": ["infrastructure", "#fedora-apps", "#fedora-admin"],
+    "Design": [],
+    "Documentation": [],
+    "Epel": [],
+    "Internationalization": [],
+    "Localization": [],
+    "Marketing": [],
+    "Magazine": [],
+    "Packaging": [],
+    "Quality Assurance": [],
+    "Websites": []
+}

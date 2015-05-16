@@ -33,8 +33,11 @@ app.secret_key = ''.join(random.SystemRandom().choice(string.uppercase + string.
 app.config['FAS_OPENID_ENDPOINT'] = 'http://id.fedoraproject.org/'
 app.config['FAS_CHECK_CERT'] = True
 cwd = os.getcwd()
-with open(os.path.join(cwd, "mote", 'name_mappings.json')) as data_file:
+with open(os.path.join(cwd, 'name_mappings.json')) as data_file:
     name_mappings = json.load(data_file)
+
+with open(os.path.join(cwd, 'category_mappings.json')) as data_file:
+    category_mappings = json.load(data_file)
 
 def return_error(msg):
     return render_template('error.html', error=msg)
@@ -174,6 +177,4 @@ def admin_panel():
 
 @app.route('/browse', methods=['GET'])
 def browse():
-    channel_meetings = mc["mote:channel_meetings"]
-    team_meetings = mc["mote:team_meetings"]
-    return render_template('browse.html', channel_meetings=channel_meetings, team_meetings=team_meetings)
+    return render_template('browse.html', category_mappings=category_mappings)
