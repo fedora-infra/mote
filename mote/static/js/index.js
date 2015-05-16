@@ -66,7 +66,10 @@ $(".tpa").select2({
 function redirectResults (group_id, type) {
     window.location = "/sresults?group_id=" + group_id + "&type=" + type;
 }
-function openList(ln) {
+function closeOthers() {
+    $('.lev1').slideUp();
+}
+function openList(ln, close_all) {
     // $("#open-"+ln).css('display', 'initial');
     $("#open-"+ln).slideToggle();
 }

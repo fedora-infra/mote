@@ -31,7 +31,7 @@
             <h4>Dates</h4>
             <ul class="list-group main-list-group">
                 {% for year in avail_dates %}
-                <h3><a onclick="openList('{{year}}');" href="javascript:void();" class="list-group-item list-group-item-success">{{year}}</a></h3>
+                <h3><a onclick="closeOthers();openList('{{year}}');" href="javascript:void();" class="list-group-item list-group-item-success">{{year}}</a></h3>
                 <ul id="open-{{year}}" class="list-group lev1 hid-list">
                 {% for month in avail_dates[year] %}
                     <h4><a href="javascript:void();" onclick="openList('{{year}}-{{month}}');" class="list-group-item list-group-item-info">{{month}}</a></h4>
@@ -49,6 +49,7 @@
         <div class="col-md-4">
             <h4>Minutes and Logs</h4>
             <div id="minlogs">
+                <p>Select a meeting date from the left to view its minutes and logs.</p>
             </div>
         </div>
     </div>
