@@ -1,7 +1,19 @@
 .center {
     text-align: center;
 }
-
+.lev1 {
+    padding-left: 20px;
+    text-align: left;
+}
+.lev2 {
+    padding-left: 40px;
+    text-align: left;
+}
+/*
+.hid-list {
+    display: none;
+}
+*/
 /* Bootstrap Fixes */
 body {
   padding-top: 60px;

@@ -14,9 +14,8 @@
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 #
 
-# TODO: needs some regex group stuff
-# get regexes and stuff from a db
 import flask, peewee, random, string, pylibmc, json, util
+import dateutil.parser, operator
 from flask import Flask, render_template, request, url_for, session, redirect
 from flask_fas_openid import fas_login_required, cla_plus_one_required, FAS
 from database import *
@@ -34,6 +33,8 @@ app.secret_key = ''.join(random.SystemRandom().choice(string.uppercase + string.
 app.config['FAS_OPENID_ENDPOINT'] = 'http://id.fedoraproject.org/'
 app.config['FAS_CHECK_CERT'] = True
 
+def return_error(msg):
+    return render_template('error.html', error=msg)
 
 @app.route('/', methods=['GET'])
 def index():
@@ -45,6 +46,47 @@ def post_auth():
     session['logged'] = True
     return redirect(url_for('index'))
 
+@app.route('/sresults', methods=['GET'])
+def sresults():
+    group_id = request.args.get('group_id', '')
+    group_type = request.args.get('type', '')
+    friendly_name = False
+    if (group_id == '') or (group_type == ''):
+        return return_error("Invalid group ID or type.")
+
+    if group_type == "team":
+        meetings = mc["mote:team_meetings"]
+    elif group_type == "channel":
+        meetings = mc["mote:channel_meetings"]
+    else:
+        return return_error("Invalid group type.")
+    try:
+        # set meetings to specific group meetings only
+        groupx_meetings = meetings[group_id]
+    except:
+        return return_error("Group not found.")
+    try:
+        avail_dates = dict()
+        # avail_dates[year][month][year-month-day]
+        for date in groupx_meetings:
+            parsed_date = dateutil.parser.parse(date)
+            month = parsed_date.strftime("%B")
+            year = parsed_date.year
+            if year not in avail_dates:
+                avail_dates[year] = dict()
+            if month not in avail_dates[year]:
+                avail_dates[year][month] = []
+            avail_dates[year][month].append(date)
+        # structure: groupx_meetings[meeting_date]["minutes"]
+    except:
+        pass
+
+    return render_template('sresults.html',
+        friendly_name = friendly_name,
+        name = group_id,
+        type = group_type,
+        avail_dates = avail_dates
+    )
 @app.route('/search_sugg', methods=['GET'])
 def search_sugg():
     search_term = request.args.get('q', '')

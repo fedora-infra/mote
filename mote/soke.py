@@ -52,7 +52,6 @@ meetbot_team_dir = config.log_team_folder
 def run():
     d_channel_meetings = dict() # direct channel meetings (i.e meeting channel)
     t_channel_meetings = dict() # team channel meetings (i.e meeting topics)
-
     for root, dirs, files in os.walk(meetbot_root_dir):
         if config.ignore_dir in dirs:
             dirs.remove(config.ignore_dir)

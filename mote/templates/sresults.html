@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% set thispage = "home" %}
+{% block head %}
+<link href="/static/css/select2.min.css" rel="stylesheet">
+{% endblock %}
+{% block body %}
+<div class="container-fluid">
+    <div class="center row">
+        <h3>Group Details</h3>
+        {% if friendly_name %}
+            <h4>{{friendly_name}}</h4>
+        {% endif %}
+        <b>name: </b> {{name}}</b> |
+        <b>type: </b> {{type}}</b>
+    <div class="row">
+        <div class="col-md-4 col-md-offset-2">
+            <h4>Search</h4>
+            <select id="search-field" class="tpa form-control center-input" autocomplete="off" data-placeholder="Search..." class="center-input form-control"></select>
+        </div>
+        <div class="col-md-4">
+            <h4>Browse</h4>
+            Not sure which team or channel you are looking for?
+            Try <a href="/browse">browsing</a>!
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-4 col-md-offset-2">
+            <h4>Dates</h4>
+            <ul class="list-group main-list-group">
+                {% for year in avail_dates %}
+                <h3><a onclick="openList('{{year}}');" href="javascript:void();" class="list-group-item list-group-item-success">{{year}}</a></h3>
+                <ul id="open-{{year}}" class="list-group lev1 hid-list">
+                {% for month in avail_dates[year] %}
+                    <h4><a href="javascript:void();" onclick="openList('{{year}}-{{month}}');" class="list-group-item list-group-item-info">{{month}}</a></h4>
+                    <ul id="open-{{year}}-{{month}}" class="list-group lev2 hid-list">
+                    {% for day in avail_dates[year][month] %}
+                        <a href="javascript:void();" class="list-group-item">{{day}}</a>
+                    {% endfor %}
+                    </ul>
+                {% endfor %}
+                </ul>
+
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-md-4">
+            <h4>Minutes and Logs</h4>
+        </div>
+    </div>
+    <script src="/static/js/sresults-vars.js"></script>
+    <script src="/static/js/select2.min.js"></script>
+    <script src="/static/js/index.js"></script>
+</div>
+{% endblock %}
