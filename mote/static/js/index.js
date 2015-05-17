@@ -87,8 +87,8 @@ function openLogModal(fname) {
       dataType: "html"
     }).done(function (res) {
         console.log(res);
-      var modal = '\
-      <div class="modal fade" id="SLModal" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true">\
+        var modal = '\
+        <div class="modal fade" id="SLModal" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true">\
         <div class="modal-dialog">\
           <div class="modal-content">\
             <div class="modal-header">\
@@ -103,20 +103,20 @@ function openLogModal(fname) {
             </div>\
           </div>\
         </div>\
-      </div>\
-      ';
-      var markup;
-      console.log(res);
-      markup = res;
-      modal = modal.replace("#{title}", "Meeting");
-      modal = modal.replace("#{body}", markup);
-      $('body').append(modal);
-      $('#SLModal').modal();
-      $( "body" ).delegate( "#SLModal", "hidden.bs.modal", function () {
+        </div>\
+        ';
+        var markup;
+        console.log(res);
+        markup = res;
+        modal = modal.replace("#{title}", "Meeting");
+        modal = modal.replace("#{body}", markup);
+        $('body').append(modal);
+        $('#SLModal').modal();
+        $( "body" ).delegate( "#SLModal", "hidden.bs.modal", function () {
             $('#SLModal').remove(); // Get rid of the modal so that users can see refreshed content
-      });
+        });
 
-      return true;
+        return true;
     });
     return true;
 }
