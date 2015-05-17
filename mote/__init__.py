@@ -15,7 +15,7 @@
 #
 
 import flask, peewee, random, string, pylibmc, json, util, os
-import dateutil.parser, requests
+import dateutil.parser, requests, collections
 from bs4 import BeautifulSoup
 from flask import Flask, render_template, request, url_for, session, redirect
 from flask_fas_openid import fas_login_required, cla_plus_one_required, FAS
@@ -98,9 +98,7 @@ def get_meeting_log():
             body_content = body_content.replace("</br>", "")
             return body_content
         except Exception as e:
-            print e
             return "404"
-
 
 @app.route('/sresults', methods=['GET'])
 def sresults():
@@ -136,7 +134,6 @@ def sresults():
             if month not in avail_dates[year]:
                 avail_dates[year][month] = []
             avail_dates[year][month].append(date)
-        # structure: groupx_meetings[meeting_date]["minutes"]
     except:
         pass
 
@@ -155,21 +152,35 @@ def search_sugg():
     res_num = 0
     display_num = 20
     # return top 20 search results
-    # TODO: match friendly names
     for cmk in channel_meetings:
         # cmk = meeting group name
         if res_num >= display_num:
+            # if 20 results are already found
             break
         if search_term in cmk:
-            results.append({"id": cmk, "name": cmk, "type": "channel", "description": "A friendly meeting group."})
+            # if the term corresponds, match its friendly name and add its name
+            # to the list of results
+            try:
+                friendly_name = name_mappings[cmk]["friendly-name"]
+            except:
+                friendly_name = "A friendly meeting group."
+
+            results.append({"id": cmk, "name": cmk, "type": "channel", "description": friendly_name})
             res_num += 1
     for tmk in team_meetings:
         # tmk = meeting group name
         if res_num >= display_num:
+            # if 20 results already found
             break
         if search_term in tmk:
-            results.append({"id": tmk, "name": tmk, "type": "team", "description": "A friendly meeting group."})
+            try:
+                friendly_name = name_mappings[tmk]["friendly-name"]
+            except:
+                friendly_name = "A friendly meeting group."
+
+            results.append({"id": tmk, "name": tmk, "type": "team", "description": friendly_name})
             res_num += 1
+
     results = util.filter_list(results, search_term) # sort results
     results_json = json.dumps(results)
     return ('''
@@ -203,4 +214,12 @@ def admin_panel():
 
 @app.route('/browse', methods=['GET'])
 def browse():
-    return render_template('browse.html', category_mappings=category_mappings)
+    browse_nmappings = dict()
+    for category_index in category_mappings:
+        for category in category_mappings[category_index]:
+            try:
+                browse_nmappings[category] = name_mappings[category]["friendly-name"]
+            except:
+                browse_nmappings[category] = category
+    print browse_nmappings
+    return render_template('browse.html', category_mappings=category_mappings, browse_nmappings=browse_nmappings)

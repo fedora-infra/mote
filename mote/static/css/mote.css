@@ -9,12 +9,13 @@
     padding-left: 40px;
     text-align: left;
 }
-.minlog-ul
-{
+.minlog-ul {
     list-style-type: none;
     text-align: left;
 }
-
+.browse_pad {
+    padding-bottom: 35px;
+}
 /* Meetbot Display CSS */
 .modal-body .details {
     font-size: 12px;
