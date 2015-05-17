@@ -12,8 +12,24 @@
 .minlog-ul
 {
     list-style-type: none;
+    text-align: left;
 }
 
+/* Meetbot Display CSS */
+.details {
+    font-size: 12px;
+    font-weight:bold;
+}
+.itemtype {
+    font-style: normal;
+    font-weight: bold;
+}
+.modal-body {
+  overflow-x: auto;
+}
+.modal-dialog {
+  width: 80%;
+}
 /* Bootstrap Fixes */
 body {
   padding-top: 60px;

@@ -15,10 +15,10 @@
 #
 
 import flask, peewee, random, string, pylibmc, json, util, os
-import dateutil.parser, operator
+import dateutil.parser, requests
+from bs4 import BeautifulSoup
 from flask import Flask, render_template, request, url_for, session, redirect
 from flask_fas_openid import fas_login_required, cla_plus_one_required, FAS
-from database import *
 
 mc = pylibmc.Client(["127.0.0.1"], binary=True,
                     behaviors={"tcp_nodelay": True, "ketama": True})
@@ -75,6 +75,32 @@ def request_logs():
             return response
         except:
             return return_error("404 Not Found")
+
+@app.route('/get_meeting_log', methods=["GET", "POST"])
+def get_meeting_log():
+    if request.method == "GET":
+        return return_error("400 Bad Request")
+    else:
+        group_type = request.form['group_type']
+        date_stamp = request.form['date_stamp']
+        group_id = request.form['group_id']
+        file_name = request.form['file_name']
+
+        if group_type == "team":
+            link_prefix = config.meetbot_prefix+"/teams/" + group_id + "/"
+        else:
+            link_prefix = config.meetbot_prefix+ "/" + group_id + "/" + date_stamp + "/"
+        url = link_prefix + file_name
+        try:
+            fetch_result = requests.get(url)
+            fetch_soup = BeautifulSoup(fetch_result.text)
+            body_content = str(fetch_soup.body)
+            body_content = body_content.replace("</br>", "")
+            return body_content
+        except Exception as e:
+            print e
+            return "404"
+
 
 @app.route('/sresults', methods=['GET'])
 def sresults():
