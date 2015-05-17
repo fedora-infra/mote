@@ -16,7 +16,7 @@
 }
 
 /* Meetbot Display CSS */
-.details {
+.modal-body .details {
     font-size: 12px;
     font-weight:bold;
 }
@@ -30,6 +30,19 @@
 .modal-dialog {
   width: 80%;
 }
+.modal-body pre { white-space: pre-wrap; }
+.modal-body pre { background: #f0f0f0; }
+
+.modal-body pre .tm  { color: #007020 }                      /* time */
+.modal-body pre .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+.modal-body pre .nka { color: #007020; font-weight: bold }  /* action nick */
+.modal-body pre .ac  { color: #00A000 }                      /* action line */
+.modal-body pre .hi  { color: #4070a0 }                 /* hilights */
+/* Things to make particular MeetBot commands stick out */
+.modal-body pre .topic     { color: #007020; font-weight: bold }
+.modal-body pre .topicline { color: #000080; font-weight: bold }
+.modal-body pre .cmd       { color: #007020; font-weight: bold }
+.modal-body pre .cmdline  { font-weight: bold }
 /* Bootstrap Fixes */
 body {
   padding-top: 60px;
