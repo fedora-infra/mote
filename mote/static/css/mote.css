@@ -80,6 +80,11 @@ body {
 /* Bootstrap Theming */
 
 /* navbar */
+
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+    background-color: transparent;
+}
+
 .navbar-default {
     background-color: #294172;
     border-color: #E7E7E7;
