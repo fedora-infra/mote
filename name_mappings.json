@@ -1,8 +1,4 @@
 {
-    "_comment": "Name mappings are gathered from this file.",
-    "_comment_": "Create a PR to add new information to the file!",
-    "_comment__": "Not all fields are required. Only friendly-name is required.",
-
     "famna": {
         "friendly-name": "Fedora North American Ambassadors",
         "chan-aliases": [""],
