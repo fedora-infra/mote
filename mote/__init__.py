@@ -221,5 +221,4 @@ def browse():
                 browse_nmappings[category] = name_mappings[category]["friendly-name"]
             except:
                 browse_nmappings[category] = category
-    print browse_nmappings
     return render_template('browse.html', category_mappings=category_mappings, browse_nmappings=browse_nmappings)
