@@ -1,20 +1,9 @@
 '''
-Database Configuration
-'''
-# DB Type: ["mysql", "postgresql"]
-dbtype = "mysql"
-
-dbhost = "localhost"
-dbuser = "root"
-dbpass = "root"
-dbname = "mote"
-
-'''
 Scraper Configuration
 '''
 
 log_endpoint = "/srv/web/meetbot"
-# log_endpoint = ""
+# log_endpoint = "/home/user/mote/test_data/meetbot"
 
 # Fedora has a "teams" folder which contains
 # logs from meetings started with a certain team name
@@ -28,6 +17,9 @@ log_team_folder = "teams"
 # This should probably be fixed. This should probably be
 # an array, but...
 ignore_dir = "meetbot"
+
+# Location where logs are stored (remote location)
+meetbot_prefix = "http://meetbot.fedoraproject.org"
 
 '''
 General Configuration
