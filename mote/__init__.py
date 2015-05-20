@@ -141,9 +141,11 @@ def sresults():
             if month not in avail_dates[year]:
                 avail_dates[year][month] = []
             avail_dates[year][month].append(date)
+        sorted_date_items = avail_dates.items()
+        sorted_date_items.reverse()
+        avail_dates = collections.OrderedDict(sorted_date_items)
     except:
         pass
-
     return render_template('sresults.html',
         friendly_name = friendly_name,
         name = group_id,
