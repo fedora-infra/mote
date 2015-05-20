@@ -14,6 +14,8 @@
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 #
 
+import collections
+
 import flask, peewee, random, string, pylibmc, json, util, os
 import dateutil.parser, requests, collections
 from bs4 import BeautifulSoup
@@ -122,15 +124,20 @@ def sresults():
         groupx_meetings = meetings[group_id]
     except:
         return return_error("Group not found.")
+
+    sorted_dates = list(groupx_meetings.keys())
+    sorted_dates.sort(key=dateutil.parser.parse)
+
+    avail_dates = collections.OrderedDict()
+    # avail_dates[year][month][year-month-day]
+
     try:
-        avail_dates = dict()
-        # avail_dates[year][month][year-month-day]
-        for date in groupx_meetings:
+        for date in sorted_dates:
             parsed_date = dateutil.parser.parse(date)
             month = parsed_date.strftime("%B")
             year = parsed_date.year
             if year not in avail_dates:
-                avail_dates[year] = dict()
+                avail_dates[year] = collections.OrderedDict()
             if month not in avail_dates[year]:
                 avail_dates[year][month] = []
             avail_dates[year][month].append(date)
