@@ -17,7 +17,11 @@
 from mote import app, soke
 import mote.config
 
-# generate cache
-mote.soke.run()
+def main:
+    # generate cache
+    mote.soke.run()
 
-app.run(debug=mote.config.enable_debug , port=mote.config.app_port, host=mote.config.app_host)
+    app.run(debug=mote.config.enable_debug , port=mote.config.app_port, host=mote.config.app_host)
+
+if __name__ == "__main__":
+    main()
