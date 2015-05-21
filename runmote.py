@@ -17,7 +17,7 @@
 from mote import app, soke
 import mote.config
 
-def main:
+def main():
     # generate cache
     mote.soke.run()
 
