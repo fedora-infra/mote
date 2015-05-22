@@ -17,7 +17,7 @@ Dependencies:
  - Install using `pip install -r requirements.txt`
 
 Running møte:
- - Edit `mote/config.py` with necessary information
+ - Edit `files/config.py` with necessary information and place `config.py` in `mote/config.py`
  - Run `python runmote.py`
 
 ### Contribute to møte
