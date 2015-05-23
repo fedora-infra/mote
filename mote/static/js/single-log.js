@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+/*
 #
 # Copyright © 2015 Chaoyi Zha <cydrobolt@fedoraproject.org>
 #
@@ -13,22 +13,33 @@
 # with this program; if not, write to the Free Software Foundation,
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 #
-from werkzeug.routing import BaseConverter
+*/
 
-def filter_list(li, word):
-    res_list = sorted(li, key=lambda k: len(k['name']))
-    return res_list
+function loadLogContents() {
+    // type == minutes or logs
+    var data = {
+        "group_type": current_group_type,
+        "group_id": current_group_id,
+        "date_stamp": current_date_stamp,
+        "file_name": current_fname,
+    };
+    $.ajax({
+      type: "POST",
+      url: "/get_meeting_log",
+      data: data,
+      dataType: "html"
+    }).done(function (res) {
+        var markup;
+        markup = res;
+        $('.logdisplay').html(markup);
+        return true;
+    });
+    return true;
+}
 
-class RegexConverter(BaseConverter):
-    # flask URL regex converter
-    def __init__(self, url_map, *items):
-        super(RegexConverter, self).__init__(url_map)
-        self.regex = items[0]
-def get_meeting_type(extension):
-    if extension == "html":
-        return "minutes"
-    elif extension == "log.html":
-        return "logs"
-    else:
-        # if plain-text file
-        return "plain-text"
+$(function () {
+    loadLogContents();
+    if (window.current_log_type == "minutes") {
+        $(".logdisplay").addClass("single-log-minutes");
+    }
+});

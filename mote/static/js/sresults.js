@@ -15,56 +15,6 @@
 #
 */
 
-var $eventSelect = $(".tpa");
-
-function formatRes (res) {
-    if (res.loading) return res.text;
-
-    var markup = '<div class="clearfix">' +
-    '<div>' +
-    '<h4>' + res.name + '</h4>' +
-    '<b>type: </b>' + res.type +
-    '</div>' +
-    '</div>';
-
-    if (res.description) {
-      markup += '<div>' + res.description + '</div>';
-    }
-    return markup;
-}
-
-function formatResSelection (res) {
-    return res.name;
-}
-
-$(".tpa").select2({
-  ajax: {
-    url: "/search_sugg",
-    dataType: 'json',
-    delay: 250,
-    data: function (params) {
-      return {
-        q: params.term, // search term
-      };
-    },
-    processResults: function (data, page) {
-      // parse the results into the format expected by Select2.
-      // since we are using custom formatting functions we do not need to
-      // alter the remote JSON data
-      return {
-        results: data.items
-      };
-    },
-    cache: true
-  },
-  escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
-  minimumInputLength: 1,
-  templateResult: formatRes,
-  templateSelection: formatResSelection
-});
-function redirectResults (group_id, type) {
-    window.location = "/sresults?group_id=" + group_id + "&type=" + type;
-}
 function closeOthers() {
     // $('.lev1').slideUp();
 }
@@ -86,7 +36,6 @@ function openLogModal(fname) {
       data: data,
       dataType: "html"
     }).done(function (res) {
-        console.log(res);
         var modal = '\
         <div class="modal fade" id="SLModal" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true">\
         <div class="modal-dialog">\
@@ -95,7 +44,7 @@ function openLogModal(fname) {
               <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>\
               <h4 class="modal-title" id="modalLabel">#{title}</h4>\
             </div>\
-            <div class="modal-body">\
+            <div class="modal-body logdisplay">\
               #{body}\
             </div>\
             <div class="modal-footer">\
@@ -160,22 +109,10 @@ function showLogs(date_stamp) {
       dataType: "json"
     });
 }
-
-$eventSelect.on("select2:select", function (e) {
-    group_id = e.params.data.id;
-    group_type = e.params.data.type;
-    if (auto_search === true) {
-        redirectResults(group_id, group_type);
-    }
-    else {
-        window.group_id = group_id;
-        window.group_type = group_type;
-    }
-});
-
-$("#search").click(function () {
-    redirectResults(group_id, group_type);
-});
 $(function () {
     $(".hid-list").hide();
+    $(".meeting-day").click(function () {
+        $(".meeting-day").removeClass("active");
+        $(this).addClass("active");
+    });
 });

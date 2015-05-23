@@ -1,6 +1,9 @@
 .center {
     text-align: center;
 }
+.logdisplay {
+    padding-top: 20px;
+}
 .lev1 {
     padding-left: 20px;
     text-align: left;
@@ -17,10 +20,11 @@
     padding-bottom: 35px;
 }
 /* Meetbot Display CSS */
-.modal-body .details {
+.logdisplay .details {
     font-size: 12px;
     font-weight:bold;
 }
+.single-log-minutes {}
 .itemtype {
     font-style: normal;
     font-weight: bold;
@@ -31,19 +35,19 @@
 .modal-dialog {
   width: 80%;
 }
-.modal-body pre { white-space: pre-wrap; }
-.modal-body pre { background: #f0f0f0; }
+.logdisplay pre { white-space: pre-wrap; }
+.logdisplay pre { background: #f0f0f0; }
 
-.modal-body pre .tm  { color: #007020 }                      /* time */
-.modal-body pre .nk  { color: #062873; font-weight: bold }   /* nick, regular */
-.modal-body pre .nka { color: #007020; font-weight: bold }  /* action nick */
-.modal-body pre .ac  { color: #00A000 }                      /* action line */
-.modal-body pre .hi  { color: #4070a0 }                 /* hilights */
+.logdisplay pre .tm  { color: #007020 }                      /* time */
+.logdisplay pre .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+.logdisplay pre .nka { color: #007020; font-weight: bold }  /* action nick */
+.logdisplay pre .ac  { color: #00A000 }                      /* action line */
+.logdisplay pre .hi  { color: #4070a0 }                 /* hilights */
 /* Things to make particular MeetBot commands stick out */
-.modal-body pre .topic     { color: #007020; font-weight: bold }
-.modal-body pre .topicline { color: #000080; font-weight: bold }
-.modal-body pre .cmd       { color: #007020; font-weight: bold }
-.modal-body pre .cmdline  { font-weight: bold }
+.logdisplay pre .topic     { color: #007020; font-weight: bold }
+.logdisplay pre .topicline { color: #000080; font-weight: bold }
+.logdisplay pre .cmd       { color: #007020; font-weight: bold }
+.logdisplay pre .cmdline  { font-weight: bold }
 /* Bootstrap Fixes */
 body {
   padding-top: 60px;

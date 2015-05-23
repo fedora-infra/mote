@@ -16,11 +16,14 @@
 
 import collections
 
-import flask, peewee, random, string, pylibmc, json, util, os
+import flask, peewee, random, string, pylibmc, json, util, os, re
 import dateutil.parser, requests, collections
 from bs4 import BeautifulSoup
 from flask import Flask, render_template, request, url_for, session, redirect
 from flask_fas_openid import fas_login_required, cla_plus_one_required, FAS
+from util import RegexConverter
+
+fn_search_regex = "(.*?)\.([0-9]{4}\-[0-9]{2}\-[0-9]{2})\-.*?\..*?\.(.*)"
 
 try:
     # if different config directory provided
@@ -48,6 +51,9 @@ app.secret_key = ''.join(random.SystemRandom().choice(string.uppercase + string.
 app.config['FAS_OPENID_ENDPOINT'] = 'http://id.fedoraproject.org/'
 app.config['FAS_CHECK_CERT'] = True
 cwd = os.getcwd()
+app.url_map.converters['regex'] = RegexConverter
+
+
 with open(os.path.join(cwd, 'name_mappings.json')) as data_file:
     name_mappings = json.load(data_file)
 
@@ -55,20 +61,71 @@ with open(os.path.join(cwd, 'category_mappings.json')) as data_file:
     category_mappings = json.load(data_file)
 
 def return_error(msg):
+    # generic error handler
+    # see return_error()
     return render_template('error.html', error=msg)
 
 @app.route('/', methods=['GET'])
 def index():
+    # main page
     return render_template('index.html')
 
 @app.route('/post_auth', methods=['GET'])
 @fas_login_required
 def post_auth():
+    # after FedOAuth processes login
     session['logged'] = True
     return redirect(url_for('index'))
 
+@app.route('/<meeting_channel>/<date>/<regex("(.*?)\.[0-9]{4}\-[0-9]{2}\-[0-9]{2}\-.*"):file_name>')
+def catch_channel_logrequest(date, file_name, meeting_channel):
+    # catch standard log requests
+    # links referencing a meeting channel will be caught by this route
+    # e.g URLs provided by MeetBot at the end of a meeting, or links referencing
+    # a specific meeting channel, such as #fedora-meeting or #fedora-ambassadors
+    log_gtype = "channel"
+    m = re.search(fn_search_regex, file_name)
+    group_name = m.group(1) # name of channel, e.g fedora-meeting
+    meeting_date = date # date of log requested: YYYY-MM-DD
+    log_extension = m.group(3) # type of log requsted: log.html, html, or txt
+    log_type = util.get_meeting_type(log_extension)
+    if group_name != meeting_channel:
+        # if team name can be acquired, then
+        # treat the group as a team rather than a generic channel meeting
+        log_gtype = "team"
+    # group_name + meeting_date + requested_log_type
+    if log_type == "plain-text":
+        # redirect to plain-text result
+        built_url = "{}/{}/{}/{}".format(config.meetbot_prefix, meeting_channel, date, file_name)
+        return redirect(built_url)
+
+    return render_template("single-log.html", gtype=log_gtype, ltype=log_type, group=group_name, date=meeting_date, filename=file_name)
+
+@app.route('/teams/<meeting_team>/<regex("(.*?)\.[0-9]{4}\-[0-9]{2}\-[0-9]{2}\-.*"):file_name>')
+def catch_team_logrequest(file_name, meeting_team):
+    # catch team log requests
+    # links referencing a meeting team will be caught by this route
+    # these URLs are not provided by MeetBot at the end of a meeting
+    # one must manually inscribe this URL, although this is a rare occurence
+    # a specific meeting team, such as famna or infrastructure
+
+    m = re.search(fn_search_regex, file_name)
+    group_name = m.group(1) # name of team, e.g famna
+    meeting_date = m.group(2) # date of log requested: YYYY-MM-DD
+    log_extension = m.group(3) # type of log requsted: log.html, html, or txt
+    # group_name + meeting_date + requested_log_type
+    log_type = util.get_meeting_type(log_extension)
+    if log_type == "plain-text":
+        # redirect to plain-text result
+        built_url = "{}/teams/{}/{}".format(config.meetbot_prefix, meeting_team, file_name)
+        return redirect(built_url)
+    return render_template("single-log.html", gtype="team", ltype=log_type, group=group_name, date=meeting_date, filename=file_name)
+
 @app.route('/request_logs', methods=['GET', 'POST'])
 def request_logs():
+    # log request endpoint
+    # called when a date is specified and
+    # log filenames are requested
     if request.method == "GET":
         return return_error("400 Bad Request")
     else:
@@ -93,6 +150,10 @@ def request_logs():
 
 @app.route('/get_meeting_log', methods=["GET", "POST"])
 def get_meeting_log():
+    # bs4 meeting log scraper
+    # called when "View Log" is pressed on sresults
+    # performs a GET on the meetbot log archive, then
+    # returns the log HTML to be displayed in the modal
     if request.method == "GET":
         return return_error("400 Bad Request")
     else:
@@ -117,6 +178,7 @@ def get_meeting_log():
 
 @app.route('/sresults', methods=['GET'])
 def sresults():
+    # search result display
     group_id = request.args.get('group_id', '')
     group_type = request.args.get('type', '')
     try:

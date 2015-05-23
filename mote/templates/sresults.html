@@ -37,7 +37,7 @@
                     <h4><a href="javascript:void();" onclick="openList('{{year}}-{{month}}');" class="list-group-item list-group-item-info">{{month}}</a></h4>
                     <ul id="open-{{year}}-{{month}}" class="list-group lev2 hid-list">
                     {% for day in avail_dates[year][month] %}
-                        <a href="javascript:void();" onclick="showLogs('{{day}}')" class="list-group-item">{{day}}</a>
+                        <a href="javascript:void();" onclick="showLogs('{{day}}')" class="meeting-day list-group-item">{{day}}</a>
                     {% endfor %}
                     </ul>
                 {% endfor %}
@@ -59,6 +59,7 @@
     </script>
     <script src="/static/js/sresults-vars.js"></script>
     <script src="/static/js/select2.min.js"></script>
-    <script src="/static/js/index.js"></script>
+    <script src="/static/js/search.js"></script>
+    <script src="/static/js/sresults.js"></script>
 </div>
 {% endblock %}
