@@ -16,7 +16,7 @@
 
 # mote searching module
 
-import pylibmc, os, json, re, peewee, sys
+import pylibmc, os, json, re, sys
 from os.path import join, getsize, split, abspath
 
 try:

@@ -16,7 +16,7 @@
 
 import collections
 
-import flask, peewee, random, string, pylibmc, json, util, os, re
+import flask, random, string, pylibmc, json, util, os, re
 import dateutil.parser, requests, collections
 from bs4 import BeautifulSoup
 from flask import Flask, render_template, request, url_for, session, redirect

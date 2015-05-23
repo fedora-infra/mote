@@ -48,19 +48,18 @@ Requires: python-beautifulsoup4
 A Meetbot log wrangler, providing a user-friendly interface for Fedora Project's logs. Mote allows contributors to the Fedora Project to quickly search and find logs beneficial in keeping up to date with the project's activities.
 
 %prep
-%setup -q
+%setup -q -n mote-master
 
 %build
 %{__python} setup.py build
 
 %install
-# rm -rf $RPM_BUILD_ROOT
+rm -rf $RPM_BUILD_ROOT
 %{__python} setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT
 
 # Install apache configuration file
 mkdir -p $RPM_BUILD_ROOT/%{_sysconfdir}/httpd/conf.d/
 install -m 644 files/mote.conf $RPM_BUILD_ROOT/%{_sysconfdir}/httpd/conf.d/mote.conf
-
 
 # Install mote configuration file
 mkdir -p $RPM_BUILD_ROOT/%{_sysconfdir}/mote
@@ -75,6 +74,9 @@ install -m 644 files/mote.wsgi $RPM_BUILD_ROOT/%{_datadir}/mote/mote.wsgi
 %dir %{_sysconfdir}/mote/
 %config(noreplace) %{_sysconfdir}/httpd/conf.d/mote.conf
 %config(noreplace) %{_sysconfdir}/mote/config.py
+%config(noreplace) %{_sysconfdir}/mote/config.pyc
+%config(noreplace) %{_sysconfdir}/mote/config.pyo
+%{_bindir}/mote
 %{_datadir}/mote/
 %{python_sitelib}/mote/
 %{python_sitelib}/mote*.egg-info
