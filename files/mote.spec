@@ -27,6 +27,7 @@ BuildRequires: python-openid-teams
 BuildRequires: python-requests
 BuildRequires: python-dateutil
 BuildRequires: python-beautifulsoup4
+BuildRequires: python-fedora-flask
 
 Requires: python2
 Requires: python-pip
@@ -43,6 +44,7 @@ Requires: python-openid-teams
 Requires: python-requests
 Requires: python-dateutil
 Requires: python-beautifulsoup4
+Requires: python-fedora-flask
 
 %description
 A Meetbot log wrangler, providing a user-friendly interface for Fedora Project's logs. Mote allows contributors to the Fedora Project to quickly search and find logs beneficial in keeping up to date with the project's activities.

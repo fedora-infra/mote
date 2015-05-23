@@ -53,12 +53,8 @@ app.config['FAS_CHECK_CERT'] = True
 cwd = os.getcwd()
 app.url_map.converters['regex'] = RegexConverter
 
-
-with open(os.path.join(cwd, 'name_mappings.json')) as data_file:
-    name_mappings = json.load(data_file)
-
-with open(os.path.join(cwd, 'category_mappings.json')) as data_file:
-    category_mappings = json.load(data_file)
+name_mappings = requests.get("https://raw.githubusercontent.com/fedora-infra/mote/master/category_mappings.json").text
+category_mappings = requests.get("https://raw.githubusercontent.com/fedora-infra/mote/master/name_mappings.json").text
 
 def return_error(msg):
     # generic error handler
