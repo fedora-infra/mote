@@ -57,7 +57,6 @@ name_mappings = requests.get("https://raw.githubusercontent.com/fedora-infra/mot
 category_mappings = requests.get("https://raw.githubusercontent.com/fedora-infra/mote/master/category_mappings.json").text
 name_mappings = json.loads(name_mappings)
 category_mappings = json.loads(category_mappings)
-print category_mappings
 
 def return_error(msg):
     # generic error handler
