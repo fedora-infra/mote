@@ -15,18 +15,27 @@
 #
 
 # mote searching module
-# first match teams/expressions
-# then its children are made into categories within the team
-# e.g date
-# link files through the file extension
 
-import pylibmc, config, os, json, re, peewee, sys
+import pylibmc, os, json, re, peewee, sys
 from os.path import join, getsize, split, abspath
+
+try:
+    # if different config directory provided
+    # e.g ran in mod_wsgi
+    import site
+    config_path = os.environ['MOTE_CONFIG_FOLDER']
+    site.addsitedir(config_path) # default: "/etc/mote"
+except:
+    # different config directory not specified
+    # e.g running from git clone
+    pass
+
+import config
 reload(sys)
 sys.setdefaultencoding("utf-8")
 
 # the `mc` variable is used to map to memcached
-mc = pylibmc.Client(["127.0.0.1"], binary=True,
+mc = pylibmc.Client([config.memcached_ip], binary=True,
                     behaviors={"tcp_nodelay": True, "ketama": True})
 def memcached_dict_add(dictn, key, val, cxn=mc):
     # cxn = memcached connection

@@ -28,3 +28,4 @@ enable_debug = True
 app_port = 5000
 app_host = "127.0.0.1"
 admin_groups = ["sysadmin-mote"]
+memcached_ip = "127.0.0.1"

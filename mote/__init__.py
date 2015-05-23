@@ -22,7 +22,7 @@ from bs4 import BeautifulSoup
 from flask import Flask, render_template, request, url_for, session, redirect
 from flask_fas_openid import fas_login_required, cla_plus_one_required, FAS
 
-mc = pylibmc.Client(["127.0.0.1"], binary=True,
+mc = pylibmc.Client([config.memcached_ip], binary=True,
                     behaviors={"tcp_nodelay": True, "ketama": True})
 
 __version__ = "0.0.0"
