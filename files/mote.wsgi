@@ -21,4 +21,4 @@ os.environ['MOTE_CONFIG_FOLDER'] = '/etc/mote/'
 from mote import app as application
 from mote import soke
 # Generate cache and store in memcached
-mote.soke.run()
+soke.run()
