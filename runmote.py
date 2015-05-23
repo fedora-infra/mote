@@ -17,6 +17,9 @@
 from mote import app, soke
 import mote.config
 
+# This script should not be used in production
+# `config` will not be served correctly in such situations
+
 def main():
     # generate cache
     mote.soke.run()

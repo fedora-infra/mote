@@ -22,6 +22,19 @@ from bs4 import BeautifulSoup
 from flask import Flask, render_template, request, url_for, session, redirect
 from flask_fas_openid import fas_login_required, cla_plus_one_required, FAS
 
+try:
+    # if different config directory provided
+    # e.g ran in mod_wsgi
+    import site
+    config_path = os.environ['MOTE_CONFIG_FOLDER']
+    site.addsitedir(config_path) # default: "/etc/mote"
+except:
+    # different config directory not specified
+    # e.g running from git clone
+    pass
+
+import config
+
 mc = pylibmc.Client([config.memcached_ip], binary=True,
                     behaviors={"tcp_nodelay": True, "ketama": True})
 
