@@ -71,11 +71,6 @@ def run():
         is_direct_team_child = abspath(join(root, os.pardir)) == join(meetbot_root_dir, meetbot_team_dir)
         is_team_folder = join(meetbot_root_dir, meetbot_team_dir) == root
 
-        if re.match("[0-9]{4}\-[0-9]{2}\-[0-9]{2}", folder_name[1]):
-            # If current folder name is a date
-            pass
-        if re.match("fedora\-meeting\-[0-9]{1,}", split(folder_name[0])[1]):
-            pass
         if is_direct_child == True:
             # if direct child of meetbot_root_dir
             if curr_folder_qual_name == meetbot_team_dir:
