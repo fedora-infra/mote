@@ -79,7 +79,7 @@ def post_auth():
 def catch_channel_logrequest(date, file_name, meeting_channel):
     # catch standard log requests
     # links referencing a meeting channel will be caught by this route
-    # e.g URLs provided by MeetBot at the end of a meeting, or links referencing
+    # URLs provided by MeetBot at the end of a meeting, or links referencing
     # a specific meeting channel, such as #fedora-meeting or #fedora-ambassadors
     log_gtype = "channel"
     m = re.search(fn_search_regex, file_name)
@@ -89,9 +89,8 @@ def catch_channel_logrequest(date, file_name, meeting_channel):
     log_type = util.get_meeting_type(log_extension)
     if group_name != meeting_channel:
         # if team name can be acquired, then
-        # treat the group as a team rather than a generic channel meeting
+        # treat the group as a team rather than a channel
         log_gtype = "team"
-    # group_name + meeting_date + requested_log_type
     if log_type == "plain-text":
         # redirect to plain-text result
         built_url = "{}/{}/{}/{}".format(config.meetbot_prefix, meeting_channel, date, file_name)
@@ -104,14 +103,14 @@ def catch_team_logrequest(file_name, meeting_team):
     # catch team log requests
     # links referencing a meeting team will be caught by this route
     # these URLs are not provided by MeetBot at the end of a meeting
-    # one must manually inscribe this URL, although this is a rare occurence
+    # one must manually write this URL, although this is a rare occurence
+
     # a specific meeting team, such as famna or infrastructure
 
     m = re.search(fn_search_regex, file_name)
     group_name = m.group(1) # name of team, e.g famna
     meeting_date = m.group(2) # date of log requested: YYYY-MM-DD
     log_extension = m.group(3) # type of log requsted: log.html, html, or txt
-    # group_name + meeting_date + requested_log_type
     log_type = util.get_meeting_type(log_extension)
     if log_type == "plain-text":
         # redirect to plain-text result
