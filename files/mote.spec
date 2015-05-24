@@ -47,7 +47,8 @@ Requires: python-beautifulsoup4
 Requires: python-fedora-flask
 
 %description
-A Meetbot log wrangler, providing a user-friendly interface for Fedora Project's logs. Mote allows contributors to the Fedora Project to quickly search and find logs beneficial in keeping up to date with the project's activities.
+A Meetbot log wrangler, providing a user-friendly interface for Fedora Project's logs.
+Mote allows contributors to the Fedora Project to quickly search and find logs beneficial in keeping up to date with the project's activities.
 
 %prep
 %setup -q -n mote-master
