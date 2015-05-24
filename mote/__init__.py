@@ -85,7 +85,7 @@ def catch_channel_logrequest(date, file_name, meeting_channel):
     m = re.search(fn_search_regex, file_name)
     group_name = m.group(1) # name of channel, e.g fedora-meeting
     meeting_date = date # date of log requested: YYYY-MM-DD
-    log_extension = m.group(3) # type of log requsted: log.html, html, or txt
+    log_extension = m.group(3) # type of log requested: log.html, html, or txt
     log_type = util.get_meeting_type(log_extension)
     if group_name != meeting_channel:
         # if team name can be acquired, then
@@ -110,7 +110,7 @@ def catch_team_logrequest(file_name, meeting_team):
     m = re.search(fn_search_regex, file_name)
     group_name = m.group(1) # name of team, e.g famna
     meeting_date = m.group(2) # date of log requested: YYYY-MM-DD
-    log_extension = m.group(3) # type of log requsted: log.html, html, or txt
+    log_extension = m.group(3) # type of log requested: log.html, html, or txt
     log_type = util.get_meeting_type(log_extension)
     if log_type == "plain-text":
         # redirect to plain-text result
