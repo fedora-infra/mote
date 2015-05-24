@@ -2,7 +2,7 @@
 %distutils.sysconfig import get_python_lib; print (get_python_lib())")}
 
 Name:     mote
-Version:  0.0.2b2
+Version:  0.0.3b1
 Release:  1%{?dist}
 Summary:  A meetbot log wrangler, providing a user-friendly interface for Fedora's logs.
 
@@ -51,7 +51,7 @@ A Meetbot log wrangler, providing a user-friendly interface for Fedora Project's
 Mote allows contributors to the Fedora Project to quickly search and find logs beneficial in keeping up to date with the project's activities.
 
 %prep
-%setup -q -n mote-master
+%setup -q -n %{name}-%{version}
 
 %build
 %{__python} setup.py build
@@ -87,7 +87,7 @@ install -m 644 files/mote.wsgi $RPM_BUILD_ROOT/%{_datadir}/mote/mote.wsgi
 %changelog
 
 * Sat May 23 2015 Chaoyi Zha <cydrobolt@fedoraproject.org>
-- Update 0.0.2 Beta 2
+- Update 0.0.3 Beta 1
 - Multiple fixes to bugs blocking successful build
 - Fixes to WSGI and folder access
 - Removal of unneeded JSON data files
