@@ -2,7 +2,7 @@
 %distutils.sysconfig import get_python_lib; print (get_python_lib())")}
 
 Name:     mote
-Version:  0.0.3b1
+Version:  0.0.4b1
 Release:  1%{?dist}
 Summary:  A meetbot log wrangler, providing a user-friendly interface for Fedora's logs.
 
@@ -15,13 +15,11 @@ Source0:  %{name}-%{version}.tar.gz
 BuildRequires: python2-devel
 BuildRequires: python-pip
 BuildRequires: memcached
-BuildRequires: libmemcached
-BuildRequires: libmemcached-devel
 BuildRequires: mod_wsgi
 BuildRequires: python-flask
 BuildRequires: python-fedora
 BuildRequires: python-openid
-BuildRequires: python-pylibmc
+BuildRequires: python-memcached
 BuildRequires: python-openid-cla
 BuildRequires: python-openid-teams
 BuildRequires: python-requests
@@ -32,13 +30,11 @@ BuildRequires: python-fedora-flask
 Requires: python2
 Requires: python-pip
 Requires: memcached
-Requires: libmemcached
-Requires: libmemcached-devel
 Requires: mod_wsgi
 Requires: python-flask
 Requires: python-fedora
 Requires: python-openid
-Requires: python-pylibmc
+Requires: python-memcached
 Requires: python-openid-cla
 Requires: python-openid-teams
 Requires: python-requests
@@ -85,7 +81,9 @@ install -m 644 files/mote.wsgi $RPM_BUILD_ROOT/%{_datadir}/mote/mote.wsgi
 %{python_sitelib}/mote*.egg-info
 
 %changelog
-
+* Tue May 26 2015 Chaoyi Zha <cydrobolt@fedoraproject.org>
+- Update 0.0.4 Beta 1
+- Migrate to python-memcached from pylibmc
 * Sat May 23 2015 Chaoyi Zha <cydrobolt@fedoraproject.org>
 - Update 0.0.3 Beta 1
 - Multiple fixes to bugs blocking successful build

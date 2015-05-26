@@ -6,9 +6,9 @@ beautifulsoup4==4.3.2
 itsdangerous==0.24
 kitchen==1.2.1
 munch==2.0.2
-pylibmc==1.4.2
 python-dateutil==2.4.2
 python-fedora==0.4.0
+python-memcached==1.54
 python-openid==2.2.5
 python-openid-cla==1.0
 python-openid-teams==1.0

@@ -16,7 +16,7 @@
 
 import collections
 
-import flask, random, string, pylibmc, json, util, os, re
+import flask, random, string, memcache, json, util, os, re
 import dateutil.parser, requests, collections
 from bs4 import BeautifulSoup
 from flask import Flask, render_template, request, url_for, session, redirect
@@ -38,8 +38,7 @@ except:
 
 import config
 
-mc = pylibmc.Client([config.memcached_ip], binary=True,
-                    behaviors={"tcp_nodelay": True, "ketama": True})
+mc = memcache.Client([config.memcached_ip], debug=0)
 
 __version__ = "0.0.0"
 
@@ -124,9 +123,9 @@ def request_logs():
         group_type = request.form["group_type"]
         date_stamp = request.form["date_stamp"]
         if group_type == "team":
-            meetings = mc["mote:team_meetings"]
+            meetings = mc.get("mote:team_meetings")
         elif group_type == "channel":
-            meetings = mc["mote:channel_meetings"]
+            meetings = mc.get("mote:channel_meetings")
         try:
             workable_array = meetings[group_id][date_stamp]
             minutes = workable_array["minutes"]
@@ -175,9 +174,9 @@ def sresults():
         return return_error("Invalid group ID or type.")
 
     if group_type == "team":
-        meetings = mc["mote:team_meetings"]
+        meetings = mc.get("mote:team_meetings")
     elif group_type == "channel":
-        meetings = mc["mote:channel_meetings"]
+        meetings = mc.get("mote:channel_meetings")
     else:
         return return_error("Invalid group type.")
     try:
@@ -215,8 +214,8 @@ def sresults():
 def search_sugg():
     # Find and return the top 20 search results.
     search_term = request.args.get('q', '')
-    channel_meetings = mc["mote:channel_meetings"]
-    team_meetings = mc["mote:team_meetings"]
+    channel_meetings = mc.get("mote:channel_meetings")
+    team_meetings = mc.get("mote:team_meetings")
     results = []
     res_num = 0
     display_num = 20
