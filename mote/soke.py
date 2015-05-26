@@ -14,9 +14,7 @@
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 #
 
-# mote searching module
-
-import pylibmc, os, json, re, sys
+import memcache, os, json, re, sys
 from os.path import join, getsize, split, abspath
 
 try:
@@ -35,13 +33,12 @@ reload(sys)
 sys.setdefaultencoding("utf-8")
 
 # The "mc" variable can be used to map to memcached.
-mc = pylibmc.Client([config.memcached_ip], binary=True,
-                    behaviors={"tcp_nodelay": True, "ketama": True})
+mc = memcache.Client([config.memcached_ip], debug=0)
 def memcached_dict_add(dictn, key, val, cxn=mc):
     # Add a key to a dictionary in memcached.
-    u_dictn = mc[dictn]
+    u_dictn = mc.get(dictn)
     u_dictn[key] = val
-    mc[dictn] = u_dictn
+    mc.set(dictn, u_dictn)
 
 def get_date_fn(filename):
     # Return a meeting's date from a filename.
@@ -112,5 +109,5 @@ def run():
                 except:
                     pass
 
-    mc["mote:channel_meetings"] = d_channel_meetings
-    mc["mote:team_meetings"] = t_channel_meetings
+    mc.set("mote:channel_meetings", d_channel_meetings)
+    mc.set("mote:team_meetings", t_channel_meetings)
