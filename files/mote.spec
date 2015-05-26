@@ -81,7 +81,7 @@ install -m 644 files/mote.wsgi $RPM_BUILD_ROOT/%{_datadir}/mote/mote.wsgi
 %{python_sitelib}/mote*.egg-info
 
 %changelog
-* Mar May 26 2015 Chaoyi Zha <cydrobolt@fedoraproject.org>
+* Tues May 26 2015 Chaoyi Zha <cydrobolt@fedoraproject.org>
 - Update 0.0.4 Beta 1
 - Migrate to python-memcached from pylibmc
 * Sat May 23 2015 Chaoyi Zha <cydrobolt@fedoraproject.org>
