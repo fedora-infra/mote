@@ -21,7 +21,7 @@ Running møte:
 
 ### Contribute to møte
 
-You can contribute code or data. møte is in need of contributors to increase it's name association data pool.
+You can contribute code or data. møte is in need of contributors to increase its name association data pool.
 Some of the meeting groups' names are difficult to understand: for instance, the term `famna` may be unfamiliar to prospective ambassadors. To help add friendlier names and create a clear grouping of meeting groups, you can fork, edit, and send a pull request to the following data files:
 
 https://github.com/fedora-infra/mote/blob/master/name_mappings.json
