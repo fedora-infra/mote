@@ -34,20 +34,17 @@ import config
 reload(sys)
 sys.setdefaultencoding("utf-8")
 
-# the `mc` variable is used to map to memcached
+# The "mc" variable can be used to map to memcached.
 mc = pylibmc.Client([config.memcached_ip], binary=True,
                     behaviors={"tcp_nodelay": True, "ketama": True})
 def memcached_dict_add(dictn, key, val, cxn=mc):
-    # cxn = memcached connection
-    # dictn = name of remote dictionary to modify
-    # key = key to add
-    # val = value of key
+    # Add a key to a dictionary in memcached.
     u_dictn = mc[dictn]
     u_dictn[key] = val
     mc[dictn] = u_dictn
+
 def get_date_fn(filename):
-    # get date of meeting from
-    # meetbot log filename
+    # Return a meeting's date from a filename.
     m = re.search(".*?\.([0-9]{4}\-[0-9]{2}\-[0-9]{2})\-.*", filename)
     if m == None:
         return "Date Undefined"
@@ -59,8 +56,8 @@ meetbot_team_dir = config.log_team_folder
 
 
 def run():
-    d_channel_meetings = dict() # direct channel meetings (i.e meeting channel)
-    t_channel_meetings = dict() # team channel meetings (i.e meeting topics)
+    d_channel_meetings = dict() # channel meetings (i.e meeting channel)
+    t_channel_meetings = dict() # team meetings (i.e meeting names)
     for root, dirs, files in os.walk(meetbot_root_dir):
         if config.ignore_dir in dirs:
             dirs.remove(config.ignore_dir)
@@ -72,18 +69,15 @@ def run():
         is_team_folder = join(meetbot_root_dir, meetbot_team_dir) == root
 
         if is_direct_child == True:
-            # if direct child of meetbot_root_dir
+            # If current folder is a direct child of meetbot_root_dir.
             if curr_folder_qual_name == meetbot_team_dir:
-                # is team directory
                 pass
             else:
-                # if new channel
-                # curr_folder_qual_name is the team name
-                # create a new key for the channel
+                # If a new channel has been located.
                 d_channel_meetings[curr_folder_qual_name] = dict()
         elif is_direct_team_child == True:
-            # if new team
-            # all files under this folder will directly be the meeting logs
+            # If a new team has been located.
+            # All files in this folder should be the meeting logs.
             minutes = [f for f in files if re.match('.*?[0-9]{2}\.html', f)]
             logs = [f for f in files if re.match('.*?[0-9]{2}\.log\.html', f)]
             t_channel_meetings[curr_folder_qual_name] = dict()
@@ -102,21 +96,21 @@ def run():
 
 
         else:
-            # if is a child of direct channel
             par1_path = abspath(join(root, ".."))
             par2_path = abspath(join(root, "../.."))
             parent_group_name = split(par1_path)[1]
             # is a child of a team or a channels`
             if par2_path == meetbot_root_dir:
-                # is channel meeting
-                # date is `curr_folder_qual_name`
+                # If the current folder is a channel meeting folder.
+                # The date represented by `curr_folder_qual_name`.
                 try:
                     d_channel_meetings[parent_group_name][curr_folder_qual_name] = dict()
                     minutes = [f for f in files if re.match('.*?[0-9]{2}\.html', f)]
                     logs = [f for f in files if re.match('.*?[0-9]{2}\.log\.html', f)]
                     d_channel_meetings[parent_group_name][curr_folder_qual_name]["minutes"] = minutes
                     d_channel_meetings[parent_group_name][curr_folder_qual_name]["logs"] = logs
-                except Exception as e:
-                    print e
+                except:
+                    pass
+
     mc["mote:channel_meetings"] = d_channel_meetings
     mc["mote:team_meetings"] = t_channel_meetings

@@ -59,28 +59,28 @@ name_mappings = json.loads(name_mappings)
 category_mappings = json.loads(category_mappings)
 
 def return_error(msg):
-    # generic error handler
-    # see return_error()
     return render_template('error.html', error=msg)
 
 @app.route('/', methods=['GET'])
 def index():
-    # main page
+    # Renders main page template.
     return render_template('index.html')
 
 @app.route('/post_auth', methods=['GET'])
 @fas_login_required
 def post_auth():
-    # after FedOAuth processes login
+    # Set local session variables after
+    # FedOAuth authenticates the user.
     session['logged'] = True
     return redirect(url_for('index'))
 
 @app.route('/<meeting_channel>/<date>/<regex("(.*?)\.[0-9]{4}\-[0-9]{2}\-[0-9]{2}\-.*"):file_name>')
 def catch_channel_logrequest(date, file_name, meeting_channel):
-    # catch standard log requests
-    # links referencing a meeting channel will be caught by this route
-    # URLs provided by MeetBot at the end of a meeting, or links referencing
-    # a specific meeting channel, such as #fedora-meeting or #fedora-ambassadors
+    # This route catches standard log requests.
+    # Links referencing a meeting channel will be caught by this route.
+    # These URLs include those provided by MeetBot at the end of a meeting,
+    # or links referencing a specific meeting channel,
+    # such as #fedora-meeting or #fedora-ambassadors
     log_gtype = "channel"
     m = re.search(fn_search_regex, file_name)
     group_name = m.group(1) # name of channel, e.g fedora-meeting
@@ -88,11 +88,10 @@ def catch_channel_logrequest(date, file_name, meeting_channel):
     log_extension = m.group(3) # type of log requested: log.html, html, or txt
     log_type = util.get_meeting_type(log_extension)
     if group_name != meeting_channel:
-        # if team name can be acquired, then
-        # treat the group as a team rather than a channel
+        # Prefer using team names if one can be extracted from the filename.
         log_gtype = "team"
     if log_type == "plain-text":
-        # redirect to plain-text result
+        # Redirect to the plaintext file is one is requested.
         built_url = "{}/{}/{}/{}".format(config.meetbot_prefix, meeting_channel, date, file_name)
         return redirect(built_url)
 
@@ -100,12 +99,9 @@ def catch_channel_logrequest(date, file_name, meeting_channel):
 
 @app.route('/teams/<meeting_team>/<regex("(.*?)\.[0-9]{4}\-[0-9]{2}\-[0-9]{2}\-.*"):file_name>')
 def catch_team_logrequest(file_name, meeting_team):
-    # catch team log requests
-    # links referencing a meeting team will be caught by this route
-    # these URLs are not provided by MeetBot at the end of a meeting
-    # one must manually write this URL, although this is a rare occurence
-
-    # a specific meeting team, such as famna or infrastructure
+    # This route catches standard log requests.
+    # Links referencing a meeting team will be caught by this route.
+    # e.g referencing famna or infrastructure
 
     m = re.search(fn_search_regex, file_name)
     group_name = m.group(1) # name of team, e.g famna
@@ -113,22 +109,19 @@ def catch_team_logrequest(file_name, meeting_team):
     log_extension = m.group(3) # type of log requested: log.html, html, or txt
     log_type = util.get_meeting_type(log_extension)
     if log_type == "plain-text":
-        # redirect to plain-text result
         built_url = "{}/teams/{}/{}".format(config.meetbot_prefix, meeting_team, file_name)
         return redirect(built_url)
     return render_template("single-log.html", gtype="team", ltype=log_type, group=group_name, date=meeting_date, filename=file_name)
 
 @app.route('/request_logs', methods=['GET', 'POST'])
 def request_logs():
-    # log request endpoint
-    # called when a date is specified and
-    # log filenames are requested
+    # Return a list of filenames for minutes and/or logs
+    # for a specified date.
     if request.method == "GET":
         return return_error("400 Bad Request")
     else:
         group_id = request.form["group_id"]
         group_type = request.form["group_type"]
-        # Meeting date
         date_stamp = request.form["date_stamp"]
         if group_type == "team":
             meetings = mc["mote:team_meetings"]
@@ -136,7 +129,6 @@ def request_logs():
             meetings = mc["mote:channel_meetings"]
         try:
             workable_array = meetings[group_id][date_stamp]
-            # lists with links to minutes and logs
             minutes = workable_array["minutes"]
             logs = workable_array["logs"]
 
@@ -147,10 +139,7 @@ def request_logs():
 
 @app.route('/get_meeting_log', methods=["GET", "POST"])
 def get_meeting_log():
-    # bs4 meeting log scraper
-    # called when "View Log" is pressed on sresults
-    # performs a GET on the meetbot log archive, then
-    # returns the log HTML to be displayed in the modal
+    # Return specific logs or minutes to client.
     if request.method == "GET":
         return return_error("400 Bad Request")
     else:
@@ -175,7 +164,7 @@ def get_meeting_log():
 
 @app.route('/sresults', methods=['GET'])
 def sresults():
-    # search result display
+    # Display results for a meeting group.
     group_id = request.args.get('group_id', '')
     group_type = request.args.get('type', '')
     try:
@@ -192,7 +181,6 @@ def sresults():
     else:
         return return_error("Invalid group type.")
     try:
-        # set meetings to specific group meetings only
         groupx_meetings = meetings[group_id]
     except:
         return return_error("Group not found.")
@@ -201,7 +189,6 @@ def sresults():
     sorted_dates.sort(key=dateutil.parser.parse)
 
     avail_dates = collections.OrderedDict()
-    # avail_dates[year][month][year-month-day]
 
     try:
         for date in sorted_dates:
@@ -226,21 +213,17 @@ def sresults():
     )
 @app.route('/search_sugg', methods=['GET'])
 def search_sugg():
+    # Find and return the top 20 search results.
     search_term = request.args.get('q', '')
     channel_meetings = mc["mote:channel_meetings"]
     team_meetings = mc["mote:team_meetings"]
     results = []
     res_num = 0
     display_num = 20
-    # return top 20 search results
     for cmk in channel_meetings:
-        # cmk = meeting group name
         if res_num >= display_num:
-            # if 20 results are already found
             break
         if search_term in cmk:
-            # if the term corresponds, match its friendly name and add its name
-            # to the list of results
             try:
                 friendly_name = name_mappings[cmk]["friendly-name"]
             except:
@@ -249,9 +232,7 @@ def search_sugg():
             results.append({"id": cmk, "name": cmk, "type": "channel", "description": friendly_name})
             res_num += 1
     for tmk in team_meetings:
-        # tmk = meeting group name
         if res_num >= display_num:
-            # if 20 results already found
             break
         if search_term in tmk:
             try:
@@ -261,8 +242,8 @@ def search_sugg():
 
             results.append({"id": tmk, "name": tmk, "type": "team", "description": friendly_name})
             res_num += 1
-
-    results = util.filter_list(results, search_term) # sort results
+    # Sort results based on relevance.
+    results = util.filter_list(results, search_term)
     results_json = json.dumps(results)
     return ('''
     {"items": %s}
