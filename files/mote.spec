@@ -94,12 +94,17 @@ ln -s /usr/share/fonts/fontawesome %{buildroot}/%{python_sitelib}/mote/static/fo
 %{python_sitelib}/mote*.egg-info
 
 %changelog
+<<<<<<< HEAD
 * Thu May 26 2015 Chaoyi Zha <cydrobolt@fedoraproject.org> - 0.0.5b1
 - Update 0.0.5 Beta 1
 - Remove bundled fontawesome fonts, symlink to appropriate font
 - Clean up RPM spec, fix issues
 * Tue May 26 2015 Chaoyi Zha <cydrobolt@fedoraproject.org> - 0.0.4b1
 - Update 0.0.4 Beta 1
+=======
+* Tue May 26 2015 Chaoyi Zha <cydrobolt@fedoraproject.org>
+- Update 0.0.4 Beta 2
+>>>>>>> a1a18f28d096542fa77d24bab5d679b39553cff6
 - Migrate to python-memcached from pylibmc
 * Sat May 23 2015 Chaoyi Zha <cydrobolt@fedoraproject.org> - 0.0.3b1
 - Update 0.0.3 Beta 1
