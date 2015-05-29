@@ -10,7 +10,6 @@ License:    GPLv2+
 URL:        https://github.com/fedora-infra/mote
 Source0:    %{name}-%{version}.tar.gz
 BuildArch:  noarch
-# Source0:  https://github.com/fedora-infra/mote/archive/master.tar.gz
 
 BuildRequires: python2-devel
 BuildRequires: python-pip
