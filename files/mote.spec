@@ -94,7 +94,7 @@ ln -s /usr/share/fonts/fontawesome %{buildroot}/%{python_sitelib}/mote/static/fo
 %{python_sitelib}/mote*.egg-info
 
 %changelog
-* Thu May 26 2015 Chaoyi Zha <cydrobolt@fedoraproject.org> - 0.0.5b1
+* Thu May 28 2015 Chaoyi Zha <cydrobolt@fedoraproject.org> - 0.0.5b1
 - Update 0.0.5 Beta 1
 - Remove bundled fontawesome fonts, symlink to appropriate font
 - Clean up RPM spec, fix issues
