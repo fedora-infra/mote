@@ -8,7 +8,7 @@ Summary:    A MeetBot log wrangler, providing a user-friendly interface for Fedo
 
 License:    GPLv2+
 URL:        https://github.com/fedora-infra/mote
-Source0:    %{name}-%{version}.tar.gz
+Source0:    https://github.com/fedora-infra/mote/archive/%{version}.tar.gz
 BuildArch:  noarch
 
 BuildRequires: python2-devel
