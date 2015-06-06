@@ -40,8 +40,8 @@ Requires: python-requests
 Requires: python-dateutil
 Requires: python-beautifulsoup4
 Requires: python-fedora-flask
-Requires: fontawesome-fonts
-Requires: fontawesome-fonts-web
+#Requires: fontawesome-fonts
+#Requires: fontawesome-fonts-web
 
 %description
 A Meetbot log wrangler, providing a user-friendly interface for
@@ -76,8 +76,8 @@ install -m 644 files/mote.wsgi $RPM_BUILD_ROOT/%{_datadir}/mote/mote.wsgi
 # Remove bundled font files
 rm -rf %{buildroot}/%{python_sitelib}/mote/static/fonts
 
-# Symlink bundled font files
-ln -s /usr/share/fonts/fontawesome %{buildroot}/%{python_sitelib}/mote/static/fonts
+# Symlink font files
+# ln -s /usr/share/fonts/fontawesome %{buildroot}/%{python_sitelib}/mote/static/fonts
 
 %files
 %doc README.md
@@ -93,6 +93,11 @@ ln -s /usr/share/fonts/fontawesome %{buildroot}/%{python_sitelib}/mote/static/fo
 %{python_sitelib}/mote*.egg-info
 
 %changelog
+* Fri June 5 2015 Chaoyi Zha <cydrobolt@fedoraproject.org> - 0.0.6b1
+- Update 0.0.6 Beta 1
+- Move to FontAwesome CDN
+- Set cache expiry time and recreate cache when it is expired
+- Small bugfixes
 * Thu May 28 2015 Chaoyi Zha <cydrobolt@fedoraproject.org> - 0.0.5b1
 - Update 0.0.5 Beta 1
 - Remove bundled fontawesome fonts, symlink to appropriate font

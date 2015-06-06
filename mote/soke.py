@@ -109,5 +109,5 @@ def run():
                 except:
                     pass
 
-    mc.set("mote:channel_meetings", d_channel_meetings)
-    mc.set("mote:team_meetings", t_channel_meetings)
+    mc.set("mote:channel_meetings", d_channel_meetings, config.cache_expire_time)
+    mc.set("mote:team_meetings", t_channel_meetings, config.cache_expire_time)

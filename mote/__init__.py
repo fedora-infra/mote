@@ -16,7 +16,7 @@
 
 import collections
 
-import flask, random, string, memcache, json, util, os, re
+import flask, random, memcache, string, json, util, os, re
 import dateutil.parser, requests, collections
 from bs4 import BeautifulSoup
 from flask import Flask, render_template, request, url_for, session, redirect
@@ -38,8 +38,6 @@ except:
 
 import config
 
-mc = memcache.Client([config.memcached_ip], debug=0)
-
 __version__ = "0.0.0"
 
 user_sessions = dict()
@@ -57,8 +55,22 @@ category_mappings = requests.get("https://raw.githubusercontent.com/fedora-infra
 name_mappings = json.loads(name_mappings)
 category_mappings = json.loads(category_mappings)
 
+mc = memcache.Client([config.memcached_ip], debug=0)
+
 def return_error(msg):
     return render_template('error.html', error=msg)
+
+def get_cache_data(key_name):
+    try:
+        res = mc.get(key_name)
+        if res == None:
+            raise ValueError('Could not find requested key.')
+        return res
+    except:
+        # Refresh cache if expired or nonexistent
+        soke.run()
+        res = mc.get(key_name)
+        return res
 
 @app.route('/', methods=['GET'])
 def index():
@@ -123,9 +135,9 @@ def request_logs():
         group_type = request.form["group_type"]
         date_stamp = request.form["date_stamp"]
         if group_type == "team":
-            meetings = mc.get("mote:team_meetings")
+            meetings = get_cache_data("mote:team_meetings")
         elif group_type == "channel":
-            meetings = mc.get("mote:channel_meetings")
+            meetings = get_cache_data("mote:channel_meetings")
         try:
             workable_array = meetings[group_id][date_stamp]
             minutes = workable_array["minutes"]
@@ -174,9 +186,9 @@ def sresults():
         return return_error("Invalid group ID or type.")
 
     if group_type == "team":
-        meetings = mc.get("mote:team_meetings")
+        meetings = get_cache_data("mote:team_meetings")
     elif group_type == "channel":
-        meetings = mc.get("mote:channel_meetings")
+        meetings = get_cache_data("mote:channel_meetings")
     else:
         return return_error("Invalid group type.")
     try:
@@ -185,7 +197,10 @@ def sresults():
         return return_error("Group not found.")
 
     sorted_dates = list(groupx_meetings.keys())
-    sorted_dates.sort(key=dateutil.parser.parse)
+    try:
+        sorted_dates.sort(key=dateutil.parser.parse)
+    except:
+        return return_error("An error occured while fetching meetings.")
 
     avail_dates = collections.OrderedDict()
 
@@ -214,8 +229,8 @@ def sresults():
 def search_sugg():
     # Find and return the top 20 search results.
     search_term = request.args.get('q', '')
-    channel_meetings = mc.get("mote:channel_meetings")
-    team_meetings = mc.get("mote:team_meetings")
+    channel_meetings = get_cache_data("mote:channel_meetings")
+    team_meetings = get_cache_data("mote:team_meetings")
     results = []
     res_num = 0
     display_num = 20
