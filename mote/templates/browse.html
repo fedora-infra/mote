@@ -15,9 +15,9 @@
                 {% for group in category_mappings[category] %}
                     {% if "#" in group %}
                         {% set group = group[1:] %}
-                        <a href="/sresults?group_id={{group}}&type=channel">{{browse_nmappings[group]}}</a>
+                        <a href="/sresults?group_id={{group}}&type=channel">{{ browse_nmappings[group] | e }}</a>
                     {% else %}
-                        <a href="/sresults?group_id={{group}}&type=team">{{browse_nmappings[group]}}</a>
+                        <a href="/sresults?group_id={{group}}&type=team">{{ browse_nmappings[group] | e }}</a>
                     {% endif %}
                 {% endfor %}
             {% else %}
