@@ -77,7 +77,7 @@ install -m 644 files/mote.wsgi $RPM_BUILD_ROOT/%{_datadir}/mote/mote.wsgi
 rm -rf %{buildroot}/%{python_sitelib}/mote/static/fonts
 
 # Symlink font files
-# ln -s /usr/share/fonts/fontawesome %{buildroot}/%{python_sitelib}/mote/static/fonts
+# ln -s /usr/share/fonts/fontawesome +{buildroot}/+{python_sitelib}/mote/static/fonts
 
 %files
 %doc README.md
@@ -93,7 +93,7 @@ rm -rf %{buildroot}/%{python_sitelib}/mote/static/fonts
 %{python_sitelib}/mote*.egg-info
 
 %changelog
-* Fri June 5 2015 Chaoyi Zha <cydrobolt@fedoraproject.org> - 0.0.6b1
+* Fri Jun 5 2015 Chaoyi Zha <cydrobolt@fedoraproject.org> - 0.0.6b1
 - Update 0.0.6 Beta 1
 - Move to FontAwesome CDN
 - Set cache expiry time and recreate cache when it is expired
