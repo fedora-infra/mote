@@ -3,7 +3,7 @@
 %{!?_licensedir:%global license %doc}
 
 Name:       mote
-Version:    0.0.6b1
+Version:    0.0.6b2
 Release:    1%{?dist}
 Summary:    A MeetBot log wrangler, providing a user-friendly interface for Fedora's logs
 
@@ -94,8 +94,8 @@ rm -rf %{buildroot}/%{python_sitelib}/mote/static/fonts
 %{python_sitelib}/mote*.egg-info
 
 %changelog
-* Fri Jun 5 2015 Chaoyi Zha <cydrobolt@fedoraproject.org> - 0.0.6b1
-- Update 0.0.6 Beta 1
+* Fri Jun 5 2015 Chaoyi Zha <cydrobolt@fedoraproject.org> - 0.0.6b2
+- Update 0.0.6 Beta 2
 - Move to FontAwesome CDN
 - Set cache expiry time and recreate cache when it is expired
 - Small bugfixes
