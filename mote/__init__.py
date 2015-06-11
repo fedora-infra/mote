@@ -55,22 +55,42 @@ category_mappings = requests.get("https://raw.githubusercontent.com/fedora-infra
 name_mappings = json.loads(name_mappings)
 category_mappings = json.loads(category_mappings)
 
-mc = memcache.Client([config.memcached_ip], debug=0)
+if config.use_memcached == True:
+    mc = memcache.Client([config.memcached_ip], debug=0)
 
 def return_error(msg):
     return render_template('error.html', error=msg)
 
 def get_cache_data(key_name):
-    try:
-        res = mc.get(key_name)
-        if res == None:
-            raise ValueError('Could not find requested key.')
+    if key_name == "mote:team_meetings":
+        meeting_type = "team"
+    elif key_name == "mote:channel_meetings":
+        meeting_type = "channel"
+    else:
+        meeting_type = None
+
+    if config.use_memcached == True:
+        try:
+            res = mc.get(key_name)
+            if res == None:
+                raise ValueError('Could not find requested key.')
+            return res
+        except ValueError:
+            try:
+                res = util.get_json_cache(meeting_type)
+            except RuntimeError:
+                soke.run()
+                res = util.get_json_cache(meeting_type)
+            return res
+    else:
+        # Skip memcached, use JSON store directly
+        try:
+            res = util.get_json_cache(meeting_type)
+        except RuntimeError:
+            soke.run()
+            res = util.get_json_cache(meeting_type)
         return res
-    except:
-        # Refresh cache if expired or nonexistent
-        soke.run()
-        res = mc.get(key_name)
-        return res
+
 
 @app.route('/', methods=['GET'])
 def index():
@@ -170,7 +190,7 @@ def get_meeting_log():
             body_content = str(fetch_soup.body)
             body_content = body_content.replace("</br>", "")
             return body_content
-        except Exception as e:
+        except:
             return "404"
 
 @app.route('/sresults', methods=['GET'])

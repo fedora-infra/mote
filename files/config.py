@@ -37,3 +37,8 @@ General Configuration
 app_host = "127.0.0.1"
 admin_groups = ["sysadmin-mote"]
 memcached_ip = "127.0.0.1:11211"
+# memcached must be installed for this feature
+use_memcached = False # Use a memcached store for greater performance
+
+# JSON cache store location
+json_cache_location = "cache.json"

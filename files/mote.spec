@@ -2,7 +2,7 @@
 %distutils.sysconfig import get_python_lib; print (get_python_lib())")}
 
 Name:       mote
-Version:    0.0.6b3
+Version:    0.1.1b1
 Release:    1%{?dist}
 Summary:    A MeetBot log wrangler, providing a user-friendly interface for Fedora's logs
 
@@ -13,7 +13,7 @@ BuildArch:  noarch
 
 BuildRequires: python2-devel
 BuildRequires: python-pip
-BuildRequires: memcached
+#BuildRequires: memcached
 BuildRequires: mod_wsgi
 BuildRequires: python-flask
 BuildRequires: python-fedora
@@ -28,7 +28,7 @@ BuildRequires: python-fedora-flask
 
 Requires: python2
 Requires: python-pip
-Requires: memcached
+#Requires: memcached
 Requires: mod_wsgi
 Requires: python-flask
 Requires: python-fedora
@@ -94,6 +94,10 @@ rm -rf %{buildroot}/%{python_sitelib}/mote/static/fonts
 %{python_sitelib}/mote*.egg-info
 
 %changelog
+* Fri Jun 11 2015 Chaoyi Zha <cydrobolt@fedoraproject.org> - 0.1.1b1
+- Update 0.1.1 Beta 1
+- Added JSON filestore as backup to memcached store
+- Made memcached store optional
 * Fri Jun 5 2015 Chaoyi Zha <cydrobolt@fedoraproject.org> - 0.0.6b2
 - Update 0.0.6 Beta 2
 - Move to FontAwesome CDN

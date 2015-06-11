@@ -14,7 +14,7 @@
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 #
 
-import memcache, os, json, re, sys
+import memcache, os, json, re, sys, util
 from os.path import join, getsize, split, abspath
 
 try:
@@ -33,8 +33,10 @@ reload(sys)
 sys.setdefaultencoding("utf-8")
 
 # The "mc" variable can be used to map to memcached.
-mc = memcache.Client([config.memcached_ip], debug=0)
-def memcached_dict_add(dictn, key, val, cxn=mc):
+if config.use_memcached == True:
+    mc = memcache.Client([config.memcached_ip], debug=0)
+
+def memcached_dict_add(dictn, key, val):
     # Add a key to a dictionary in memcached.
     u_dictn = mc.get(dictn)
     u_dictn[key] = val
@@ -108,6 +110,9 @@ def run():
                     d_channel_meetings[parent_group_name][curr_folder_qual_name]["logs"] = logs
                 except:
                     pass
-
-    mc.set("mote:channel_meetings", d_channel_meetings, config.cache_expire_time)
-    mc.set("mote:team_meetings", t_channel_meetings, config.cache_expire_time)
+    if config.use_memcached == True:
+        mc.set("mote:channel_meetings", d_channel_meetings, config.cache_expire_time)
+        mc.set("mote:team_meetings", t_channel_meetings, config.cache_expire_time)
+        util.set_json_cache(d_channel_meetings, t_channel_meetings, config.cache_expire_time)
+    else:
+        util.set_json_cache(d_channel_meetings, t_channel_meetings, config.cache_expire_time)

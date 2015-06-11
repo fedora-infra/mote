@@ -63,3 +63,6 @@ config.py
 # Test Data
 test_data
 mote/test_data
+
+# Cache Files
+cache.json
