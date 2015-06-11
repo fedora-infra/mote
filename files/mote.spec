@@ -92,7 +92,7 @@ rm -rf %{buildroot}/%{python_sitelib}/mote/static/fonts
 %{python_sitelib}/mote*.egg-info
 
 %changelog
-* Fri Jun 11 2015 Chaoyi Zha <cydrobolt@fedoraproject.org> - 0.1.1b1
+* Thu Jun 11 2015 Chaoyi Zha <cydrobolt@fedoraproject.org> - 0.1.1b1
 - Update 0.1.1 Beta 1
 - Added JSON filestore as backup to memcached store
 - Made memcached store optional
