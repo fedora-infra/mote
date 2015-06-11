@@ -13,7 +13,6 @@ BuildArch:  noarch
 
 BuildRequires: python2-devel
 BuildRequires: python-pip
-#BuildRequires: memcached
 BuildRequires: mod_wsgi
 BuildRequires: python-flask
 BuildRequires: python-fedora
@@ -28,7 +27,6 @@ BuildRequires: python-fedora-flask
 
 Requires: python2
 Requires: python-pip
-#Requires: memcached
 Requires: mod_wsgi
 Requires: python-flask
 Requires: python-fedora
