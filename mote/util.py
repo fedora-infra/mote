@@ -15,7 +15,7 @@
 #
 from werkzeug.routing import BaseConverter
 import memcache, soke, config
-import time, json
+import time, json, os
 
 def filter_list(li, word):
     res_list = sorted(li, key=lambda k: len(k['name']))
@@ -53,6 +53,12 @@ def get_json_cache(meeting_type):
     except IOError:
         raise RuntimeError("Cache not found.")
 
+def check_folder_exist(file_path):
+    split_file_path = os.path.split(file_path)
+    directory = split_file_path[0]
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+
 def set_json_cache(channel, team, expiry_time):
     file_write = dict()
     file_write["team"] = team
@@ -61,6 +67,7 @@ def set_json_cache(channel, team, expiry_time):
     unix_time_expiration = expiry_time + current_unix_time
     file_write["expiry"] = unix_time_expiration
     try:
+        check_folder_exist(config.json_cache_location)
         with open(config.json_cache_location, mode='w') as json_store:
             json.dump(file_write, json_store)
     except Exception as inst:
