@@ -98,22 +98,27 @@ ln -s /usr/share/fonts/fontawesome %{buildroot}/%{python_sitelib}/mote/static/fo
 - Add permalink button and fix hardcoded "original" button
 - Fix small typo on front page
 - Other small bugfixes
+
 * Thu Jun 11 2015 Chaoyi Zha <cydrobolt@fedoraproject.org> - 0.1.1b1
 - Update 0.1.1 Beta 1
 - Added JSON filestore as backup to memcached store
 - Made memcached store optional
+
 * Fri Jun 5 2015 Chaoyi Zha <cydrobolt@fedoraproject.org> - 0.0.6b2
 - Update 0.0.6 Beta 2
 - Move to FontAwesome CDN
 - Set cache expiry time and recreate cache when it is expired
 - Small bugfixes
+
 * Thu May 28 2015 Chaoyi Zha <cydrobolt@fedoraproject.org> - 0.0.5b1
 - Update 0.0.5 Beta 1
 - Remove bundled fontawesome fonts, symlink to appropriate font
 - Clean up RPM spec, fix issues
+
 * Tue May 26 2015 Chaoyi Zha <cydrobolt@fedoraproject.org> - 0.0.4b2
 - Update 0.0.4 Beta 2
 - Migrate to python-memcached from pylibmc
+
 * Sat May 23 2015 Chaoyi Zha <cydrobolt@fedoraproject.org> - 0.0.3b1
 - Update 0.0.3 Beta 1
 - Multiple fixes to bugs blocking successful build
@@ -121,6 +126,7 @@ ln -s /usr/share/fonts/fontawesome %{buildroot}/%{python_sitelib}/mote/static/fo
 - Removal of unneeded JSON data files
 - Inclusion of needed templates and static files
 - Fix httpd serve root
+
 * Fri May 22 2015 Chaoyi Zha <cydrobolt@fedoraproject.org> - 0.0.1a1
 - Update 0.0.1 Alpha
 - Initial Release
