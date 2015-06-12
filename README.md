@@ -9,7 +9,7 @@ More information on meetings can be found [here](https://fedoraproject.org/wiki/
 ### Using møte
 
 Dependencies:
- - `memcached` (`sudo yum install memcached`)
+ - Optional: `memcached` (`sudo yum install memcached`)
  - Python 2.7.x
 
 `pip` Dependencies:
