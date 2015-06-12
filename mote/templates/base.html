@@ -32,15 +32,6 @@
                             <li class="{% if thispage == "browse"%}active{% endif %}"><a href="/browse">Browse</a></li>
 
                         </ul>
-                        <ul class="nav navbar-nav pull-right">
-                        {% if session['logged'] %}
-                            <li class="{% if thispage == "admin"%}active{% endif %}"><a href="/admin">Admin</a></li>
-                            <li><a href="/logout">Log Out</a></li>
-                        {% else %}
-                            <li><a href="/auth">Log In</a></li>
-                        {% endif %}
-                        </ul>
-
                       </div><!--/.nav-collapse -->
                   </nav>
             </div>

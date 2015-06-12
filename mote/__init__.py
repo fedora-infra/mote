@@ -16,7 +16,7 @@
 
 import collections
 
-import flask, random, memcache, string, json, util, os, re
+import flask, random, string, json, util, os, re
 import dateutil.parser, requests, collections
 from bs4 import BeautifulSoup
 from flask import Flask, render_template, request, url_for, session, redirect
@@ -63,6 +63,7 @@ name_mappings = json.loads(name_mappings)
 category_mappings = json.loads(category_mappings)
 
 if config.use_memcached == True:
+    import memcache
     mc = memcache.Client([config.memcached_ip], debug=0)
 
 def return_error(msg):
