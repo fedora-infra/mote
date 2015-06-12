@@ -38,8 +38,8 @@ Requires: python-requests
 Requires: python-dateutil
 Requires: python-beautifulsoup4
 Requires: python-fedora-flask
-#Requires: fontawesome-fonts
-#Requires: fontawesome-fonts-web
+Requires: fontawesome-fonts
+Requires: fontawesome-fonts-web
 
 %description
 A Meetbot log wrangler, providing a user-friendly interface for
@@ -75,7 +75,7 @@ install -m 644 files/mote.wsgi $RPM_BUILD_ROOT/%{_datadir}/mote/mote.wsgi
 rm -rf %{buildroot}/%{python_sitelib}/mote/static/fonts
 
 # Symlink font files
-# ln -s /usr/share/fonts/fontawesome +{buildroot}/+{python_sitelib}/mote/static/fonts
+ln -s /usr/share/fonts/fontawesome %{buildroot}/%{python_sitelib}/mote/static/fonts
 
 %files
 %doc README.md
