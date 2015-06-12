@@ -89,10 +89,10 @@ function showLogs(date_stamp) {
           var logs_markup = "<b>Logs</b><br /><ul class='minlog-ul'>";
           var link_prefix;
           if (current_group_type == "team") {
-              link_prefix = "http://meetbot.fedoraproject.org/teams/" + current_group_id + "/";
+              link_prefix = window.meetbot_location + "/teams/" + current_group_id + "/";
           }
           else {
-              link_prefix = "http://meetbot.fedoraproject.org/" + current_group_id + "/" + date_stamp + "/";
+              link_prefix = window.meetbot_location + "/" + current_group_id + "/" + date_stamp + "/";
           }
           minutes.forEach(function (ele, ind, arr) {
               minutes_markup += "<li>"+ ele +"<br /><a class='btn btn-info btn-xs' href='javascript:void();' onclick=\"openLogModal('"+ ele +"');\">View Log</a>  <a target='_blank' class='btn btn-warning btn-xs' href='"+ link_prefix + ele +"'>Original</a></li>";

@@ -180,9 +180,9 @@ def get_meeting_log():
         file_name = request.form['file_name']
 
         if group_type == "team":
-            link_prefix = config.meetbot_prefix+"/teams/" + group_id + "/"
+            link_prefix = config.meetbot_prefix + "/teams/" + group_id + "/"
         else:
-            link_prefix = config.meetbot_prefix+ "/" + group_id + "/" + date_stamp + "/"
+            link_prefix = config.meetbot_prefix + "/" + group_id + "/" + date_stamp + "/"
         url = link_prefix + file_name
         try:
             fetch_result = requests.get(url)
@@ -243,7 +243,8 @@ def sresults():
         friendly_name = friendly_name,
         name = group_id,
         type = group_type,
-        avail_dates = avail_dates
+        avail_dates = avail_dates,
+        meetbot_location = config.meetbot_prefix
     )
 @app.route('/search_sugg', methods=['GET'])
 def search_sugg():

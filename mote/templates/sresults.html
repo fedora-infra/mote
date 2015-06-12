@@ -55,7 +55,8 @@
     </div>
     <script>
         window.current_group_id = "{{ name | e }}";
-        window.current_group_type = "{{type}}";
+        window.current_group_type = "{{ type | e }}";
+        window.meetbot_location = "{{ meetbot_location }}";
     </script>
     <script src="/static/js/sresults-vars.js"></script>
     <script src="/static/js/select2.min.js"></script>
