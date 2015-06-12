@@ -1,7 +1,7 @@
 {
     "famna": {
         "friendly-name": "Fedora North American Ambassadors",
-        "aliases": [""],
+        "aliases": [""]
     },
     "infrastructure": {
         "friendly-name": "Fedora Infrastructure Team",
