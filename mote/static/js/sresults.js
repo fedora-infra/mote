@@ -88,17 +88,21 @@ function showLogs(date_stamp) {
           var minutes_markup = "<b>Minutes</b><br /><ul class='minlog-ul'>";
           var logs_markup = "<b>Logs</b><br /><ul class='minlog-ul'>";
           var link_prefix;
+          var prefix_ending;
+
           if (current_group_type == "team") {
-              link_prefix = window.meetbot_location + "/teams/" + current_group_id + "/";
+              prefix_ending = "/teams/" + current_group_id + "/";
+              link_prefix = window.meetbot_location + prefix_ending;
           }
           else {
-              link_prefix = window.meetbot_location + "/" + current_group_id + "/" + date_stamp + "/";
+              prefix_ending = "/" + current_group_id + "/" + date_stamp + "/";
+              link_prefix = window.meetbot_location + prefix_ending;
           }
           minutes.forEach(function (ele, ind, arr) {
-              minutes_markup += "<li>"+ ele +"<br /><a class='btn btn-info btn-xs' href='javascript:void();' onclick=\"openLogModal('"+ ele +"');\">View Log</a>  <a target='_blank' class='btn btn-warning btn-xs' href='"+ link_prefix + ele +"'>Original</a></li>";
+              minutes_markup += "<li>"+ ele +"<br /><a class='btn btn-info btn-xs' href='javascript:void();' onclick=\"openLogModal('"+ ele +"');\">View Log</a>  <a target='_blank' class='btn btn-warning btn-xs' href='"+ link_prefix + ele +"'>Original</a> <a target='_blank' class='btn btn-success btn-xs' href='"+ prefix_ending + ele +"'>Permalink</a></li>";
           });
           logs.forEach(function (ele, ind, arr) {
-              logs_markup += "<li>"+ ele +"<br /><a class='btn btn-info btn-xs' href='javascript:void();' onclick=\"openLogModal('"+ ele +"');\">View Log</a>  <a target='_blank' class='btn btn-warning btn-xs' href='"+ link_prefix + ele +"'>Original</a></li>";
+              logs_markup += "<li>"+ ele +"<br /><a class='btn btn-info btn-xs' href='javascript:void();' onclick=\"openLogModal('"+ ele +"');\">View Log</a>  <a target='_blank' class='btn btn-warning btn-xs' href='"+ link_prefix + ele +"'>Original</a> <a target='_blank' class='btn btn-success btn-xs' href='"+ prefix_ending + ele +"'>Permalink</a></li>";
           });
           minutes_markup += "</ul>";
           logs_markup += "</ul>";
