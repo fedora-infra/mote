@@ -1,12 +1,10 @@
 {
     "famna": {
         "friendly-name": "Fedora North American Ambassadors",
-        "chan-aliases": [""],
-        "team-aliases": [""]
+        "aliases": [""],
     },
     "infrastructure": {
         "friendly-name": "Fedora Infrastructure Team",
-        "chan-aliases": [""],
-        "team-aliases": ["fedora-infrastructure", "fedora_infrastructure"]
+        "aliases": ["fedora-infrastructure", "fedora_infrastructure", "#fedora-apps", "#fedora-admin"]
     }
 }
