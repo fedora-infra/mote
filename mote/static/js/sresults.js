@@ -55,7 +55,6 @@ function openLogModal(fname) {
         </div>\
         ';
         var markup;
-        console.log(res);
         markup = res;
         modal = modal.replace("#{title}", "Meeting");
         modal = modal.replace("#{body}", markup);
