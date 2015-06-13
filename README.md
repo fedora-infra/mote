@@ -1,6 +1,8 @@
 # mote
 møte - Fedora meetbot log wrangler
 
+[__Staging__](https://meetbot.stg.fedoraproject.org) | [__Production__](https://meetbot.fedoraproject.org)
+
 ### About
 
 møte allows the Fedora community to search and explore IRC meetings.
