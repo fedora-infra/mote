@@ -24,6 +24,10 @@ BuildRequires: python-requests
 BuildRequires: python-dateutil
 BuildRequires: python-beautifulsoup4
 BuildRequires: python-fedora-flask
+BuildRequires: fedmsg
+
+# For rpm macros so we know where to install the service file.
+BuildRequires: systemd
 
 Requires: python2
 Requires: python-pip
@@ -40,6 +44,7 @@ Requires: python-beautifulsoup4
 Requires: python-fedora-flask
 Requires: fontawesome-fonts
 Requires: fontawesome-fonts-web
+Requires: fedmsg
 
 %description
 A Meetbot log wrangler, providing a user-friendly interface for
@@ -77,6 +82,11 @@ rm -rf %{buildroot}/%{python_sitelib}/mote/static/fonts
 # Symlink font files
 ln -s /usr/share/fonts/fontawesome %{buildroot}/%{python_sitelib}/mote/static/fonts
 
+# systemd service file for the fedmsg cache updater
+%{__mkdir_p} %{buildroot}%{_unitdir}
+%{__install} -pm644 files/mote-updater.service \
+    %{buildroot}%{_unitdir}/mote-updater.service
+
 %files
 %doc README.md
 %{!?_licensedir:%global license %doc}
@@ -88,6 +98,7 @@ ln -s /usr/share/fonts/fontawesome %{buildroot}/%{python_sitelib}/mote/static/fo
 %config(noreplace) %{_sysconfdir}/mote/config.pyo
 %{_bindir}/mote
 %{_datadir}/mote/
+%{_unitdir}/mote-updater.service
 %{python_sitelib}/mote/
 %{python_sitelib}/mote*.egg-info
 
