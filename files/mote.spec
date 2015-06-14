@@ -101,6 +101,7 @@ ln -s /usr/share/fonts/fontawesome %{buildroot}/%{python_sitelib}/mote/static/fo
 %{_unitdir}/mote-updater.service
 %{python_sitelib}/mote/
 %{python_sitelib}/mote*.egg-info
+%{_bindir}/mote-updater
 
 %changelog
 * Sun Jun 14 2015 Chaoyi Zha <cydrobolt@fedoraproject.org> - 0.2.1b1
