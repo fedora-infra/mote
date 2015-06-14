@@ -1,0 +1,14 @@
+[Unit]
+Description=cache updater for mote
+After=network.target
+Documentation=https://github.com/fedora-infra/mote
+
+[Service]
+ExecStart=/usr/bin/mote-updater
+Type=simple
+User=apache
+Group=apache
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
