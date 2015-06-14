@@ -82,6 +82,7 @@ setup(
         'six==1.9.0',
         'urllib3==1.10.4',
         'wsgiref==0.1.2',
+        'fedmsg',
     ],
 
     include_package_data=True,
@@ -92,6 +93,7 @@ setup(
     entry_points={
         'console_scripts': [
             'mote=runmote:main',
+            'mote-updater=mote.fedmsg_consumer:main',
         ],
     },
 )
