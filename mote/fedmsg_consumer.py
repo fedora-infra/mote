@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # Copyright © 2015 Chaoyi Zha <cydrobolt@fedoraproject.org>
+#                  Ralph Bean <rbean@redhat.com>
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions
@@ -14,7 +15,25 @@
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 #
 
+from __future__ import print_function
+import time
+import fedmsg
 import soke
 
-# Currently a placeholder
-pass
+target = '.meetbot.meeting.complete'
+
+def main():
+    for _, _, topic, msg in fedmsg.tail_messages():
+
+        # XXX - if you want to debug whether or not this is receiving fedmsg
+        # messages, you can put a print statement here, before the 'continue'
+        # statement.
+
+        if not topic.endswith(target):
+            continue
+
+        print("A meeting just ended!  Let's sleep for 2s to dodge a race.")
+        time.sleep(2)
+        print("Running soke.run()...")
+        soke.run()
+        print("Done.")

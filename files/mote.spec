@@ -2,7 +2,7 @@
 %distutils.sysconfig import get_python_lib; print (get_python_lib())")}
 
 Name:       mote
-Version:    0.1.2b1
+Version:    0.2.1b1
 Release:    1%{?dist}
 Summary:    A MeetBot log wrangler, providing a user-friendly interface for Fedora's logs
 
@@ -24,6 +24,10 @@ BuildRequires: python-requests
 BuildRequires: python-dateutil
 BuildRequires: python-beautifulsoup4
 BuildRequires: python-fedora-flask
+BuildRequires: fedmsg
+
+# For rpm macros so we know where to install the service file.
+BuildRequires: systemd
 
 Requires: python2
 Requires: python-pip
@@ -40,6 +44,7 @@ Requires: python-beautifulsoup4
 Requires: python-fedora-flask
 Requires: fontawesome-fonts
 Requires: fontawesome-fonts-web
+Requires: fedmsg
 
 %description
 A Meetbot log wrangler, providing a user-friendly interface for
@@ -77,6 +82,11 @@ rm -rf %{buildroot}/%{python_sitelib}/mote/static/fonts
 # Symlink font files
 ln -s /usr/share/fonts/fontawesome %{buildroot}/%{python_sitelib}/mote/static/fonts
 
+# systemd service file for the fedmsg cache updater
+%{__mkdir_p} %{buildroot}%{_unitdir}
+%{__install} -pm644 files/mote-updater.service \
+    %{buildroot}%{_unitdir}/mote-updater.service
+
 %files
 %doc README.md
 %{!?_licensedir:%global license %doc}
@@ -88,10 +98,16 @@ ln -s /usr/share/fonts/fontawesome %{buildroot}/%{python_sitelib}/mote/static/fo
 %config(noreplace) %{_sysconfdir}/mote/config.pyo
 %{_bindir}/mote
 %{_datadir}/mote/
+%{_unitdir}/mote-updater.service
 %{python_sitelib}/mote/
 %{python_sitelib}/mote*.egg-info
+%{_bindir}/mote-updater
 
 %changelog
+* Sun Jun 14 2015 Chaoyi Zha <cydrobolt@fedoraproject.org> - 0.2.1b1
+- Update 0.2.1 Beta 1
+- Add Fedmsg listener, refresh cache when new meeting ends
+
 * Fri Jun 12 2015 Chaoyi Zha <cydrobolt@fedoraproject.org> - 0.1.2b1
 - Update 0.1.2 Beta 1
 - Remove some external font and JS dependencies

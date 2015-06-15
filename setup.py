@@ -16,8 +16,6 @@
 
 # Always prefer setuptools over distutils
 from setuptools import setup, find_packages
-# To use a consistent encoding
-from codecs import open
 from os import path
 
 here = path.abspath(path.dirname(__file__))
@@ -65,24 +63,25 @@ setup(
     # requirements files see:
     # https://packaging.python.org/en/latest/requirements.html
     install_requires=[
-        'Flask==0.10.1',
-        'Jinja2==2.7.3',
-        'MarkupSafe==0.23',
-        'Werkzeug==0.10.4',
-        'beautifulsoup4==4.3.2',
-        'itsdangerous==0.24',
-        'kitchen==1.2.1',
-        'munch==2.0.2',
-        'python-dateutil==2.4.2',
-        'python-fedora==0.4.0',
-        'python-memcached==1.54',
-        'python-openid==2.2.5',
-        'python-openid-cla==1.0',
-        'python-openid-teams==1.0',
-        'requests==2.7.0',
-        'six==1.9.0',
-        'urllib3==1.10.4',
-        'wsgiref==0.1.2',
+        'Flask',
+        'Jinja2',
+        'MarkupSafe',
+        'Werkzeug',
+        'beautifulsoup4',
+        'itsdangerous',
+        'kitchen',
+        'munch',
+        'python-dateutil',
+        'python-fedora',
+        'python-memcached',
+        'python-openid',
+        'python-openid-cla',
+        'python-openid-teams',
+        'requests',
+        'six',
+        'urllib3',
+        'wsgiref',
+        'fedmsg',
     ],
 
     include_package_data=True,
@@ -93,6 +92,7 @@ setup(
     entry_points={
         'console_scripts': [
             'mote=runmote:main',
+            'mote-updater=mote.fedmsg_consumer:main',
         ],
     },
 )
