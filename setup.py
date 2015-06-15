@@ -64,11 +64,7 @@ setup(
     # https://packaging.python.org/en/latest/requirements.html
     install_requires=[
         'Flask',
-        'MarkupSafe',
         'beautifulsoup4',
-        'itsdangerous',
-        'kitchen',
-        'munch',
         'python-dateutil',
         'python-fedora',
         'python-memcached',
