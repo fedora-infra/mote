@@ -16,11 +16,8 @@
 #
 
 from __future__ import print_function
-
 import time
-
 import fedmsg
-
 import soke
 
 target = '.meetbot.meeting.complete'
