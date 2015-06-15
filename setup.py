@@ -72,7 +72,6 @@ setup(
         'python-openid-cla',
         'python-openid-teams',
         'requests',
-        'wsgiref',
         'fedmsg',
     ],
 
