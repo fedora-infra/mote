@@ -27,6 +27,11 @@ target = '.meetbot.meeting.complete'
 
 def main():
     for _, _, topic, msg in fedmsg.tail_messages():
+
+        # XXX - if you want to debug whether or not this is receiving fedmsg
+        # messages, you can put a print statement here, before the 'continue'
+        # statement.
+
         if not topic.endswith(target):
             continue
 
