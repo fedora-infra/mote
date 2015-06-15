@@ -26,7 +26,7 @@ setup(
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version='0.0.5b1',
+    version='0.2.1b1',
 
     description="""møte is a Fedora IRC meeting log wrangler,
     allowing users to employ an easy-to-use web front to explore the Fedora Project's
@@ -64,9 +64,7 @@ setup(
     # https://packaging.python.org/en/latest/requirements.html
     install_requires=[
         'Flask',
-        'Jinja2',
         'MarkupSafe',
-        'Werkzeug',
         'beautifulsoup4',
         'itsdangerous',
         'kitchen',
@@ -78,8 +76,6 @@ setup(
         'python-openid-cla',
         'python-openid-teams',
         'requests',
-        'six',
-        'urllib3',
         'wsgiref',
         'fedmsg',
     ],
