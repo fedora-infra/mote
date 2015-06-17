@@ -17,7 +17,7 @@
 import collections
 
 import flask, random, string, json, util, os, re
-import dateutil.parser, requests, collections
+import dateutil.parser, requests, collections, arrow
 from bs4 import BeautifulSoup
 from flask import Flask, render_template, request, url_for, session, redirect
 from flask_fas_openid import fas_login_required, cla_plus_one_required, FAS
@@ -274,11 +274,19 @@ def search_sugg():
             except:
                 friendly_name = "A friendly meeting group."
 
+            dates = [arrow.get(date) for date in channel_meetings[cmk].keys()]
+            if not dates:
+                continue
+            dates.sort()
+            latest = dates.pop()
+
             results.append({
                 "id": cmk,
                 "name": cmk,
                 "type": "channel",
                 "description": friendly_name,
+                "latest": latest.timestamp,
+                "latest_human": latest.humanize(),
             })
             res_num += 1
 
@@ -291,15 +299,24 @@ def search_sugg():
             except:
                 friendly_name = "A friendly meeting group."
 
+            dates = [arrow.get(date) for date in team_meetings[tmk].keys()]
+            if not dates:
+                continue
+            dates.sort()
+            latest = dates.pop()
+
             results.append({
                 "id": tmk,
                 "name": tmk,
                 "type": "team",
                 "description": friendly_name,
+                "latest": latest.timestamp,
+                "latest_human": latest.humanize(),
             })
             res_num += 1
+
     # Sort results based on relevance.
-    results = util.filter_list(results, search_term)
+    results = list(reversed(sorted(results, key=lambda k: k['latest'])))
     return flask.jsonify(dict(items=results))
 
 

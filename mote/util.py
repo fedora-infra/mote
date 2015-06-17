@@ -14,12 +14,9 @@
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 #
 from werkzeug.routing import BaseConverter
-import memcache, soke, config
+import config
 import time, json, os
 
-def filter_list(li, word):
-    res_list = sorted(li, key=lambda k: len(k['name']))
-    return res_list
 
 class RegexConverter(BaseConverter):
     # flask URL regex converter

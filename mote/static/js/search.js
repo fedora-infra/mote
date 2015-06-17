@@ -23,6 +23,7 @@ function formatRes (res) {
     var markup = '<div class="clearfix">' +
     '<div>' +
     '<h4>' + res.name + '</h4>' +
+    '<b>active: </b>' + res.latest_human + ' ' +
     '<b>type: </b>' + res.type +
     '</div>' +
     '</div>';

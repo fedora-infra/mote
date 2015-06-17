@@ -15,7 +15,7 @@ Dependencies:
  - Python 2.7.x
 
 `pip` Dependencies:
- - Install using `pip install -r requirements.txt`
+ - Install using ``python setup.py develop`
 
 Running møte:
  - Edit `files/config.py` with necessary information and place `config.py` in `mote/config.py`
