@@ -1,14 +1,15 @@
 {
+    "Project Leadership": ["board"],
+    "Engineering Leadership": ["fesco"],
     "Ambassadors": ["famna", "#fedora-ambassadors"],
     "Infrastructure": ["infrastructure", "#fedora-apps", "#fedora-admin"],
-    "Design": [],
-    "Documentation": [],
-    "Epel": [],
-    "Internationalization": [],
-    "Localization": [],
-    "Marketing": [],
-    "Magazine": [],
-    "Packaging": [],
-    "Quality Assurance": [],
-    "Websites": []
+    "Design": ["fedora-design"],
+    "Documentation": ["fedora-docs"],
+    "Epel": ["epel"],
+    "Internationalization": ["i18n"],
+    "Marketing": ["fedora-mktg"],
+    "Packaging": ["fpc"],
+    "Quality Assurance": ["fedora-qa"],
+    "Websites": ["fedora-websites"],
+    "Release Engineering": ["releng"]
 }
