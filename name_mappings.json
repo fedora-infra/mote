@@ -1,10 +1,54 @@
 {
     "famna": {
         "friendly-name": "Fedora North American Ambassadors",
-        "aliases": [""]
+        "aliases": []
     },
     "infrastructure": {
         "friendly-name": "Fedora Infrastructure Team",
         "aliases": ["fedora-infrastructure", "fedora_infrastructure", "#fedora-apps", "#fedora-admin"]
+    },
+    "fedora-design": {
+        "friendly-name": "Fedora Design Team",
+        "aliases": ["fedora-design", "designteam", "#fedora-design"]
+    },
+    "epel": {
+        "friendly-name": "EPEL",
+        "aliases": []
+    },
+    "fedora-mktg": {
+        "friendly-name": "Fedora Marketing",
+        "aliases": []
+    },
+    "fedora-docs": {
+        "friendly-name": "Fedora Docs Team",
+        "aliases": []
+    },
+    "i18n": {
+        "friendly-name": "Fedora i18n Team",
+        "aliases": []
+    },
+    "fpc": {
+        "friendly-name": "Fedora Packaging Committee (FPC)",
+        "aliases": []
+    },
+    "fedora-qa": {
+        "friendly-name": "Fedora QA",
+        "aliases": []
+    },
+    "fedora-websites": {
+        "friendly-name": "Fedora Websites Team",
+        "aliases": []
+    },
+    "releng": {
+        "friendly-name": "Fedora Release Engineering (releng)",
+        "aliases": []
+    },
+    "fesco": {
+        "friendly-name": "Fedora Engineering Steering Committee (FESCo)",
+        "aliases": []
+    },
+    "board": {
+        "friendly-name": "The Board",
+        "aliases": []
     }
 }
