@@ -45,6 +45,19 @@ def main():
 
         log.info("A meeting just ended!  Sleeping 2s.  %r" % msg.get('msg_id'))
         time.sleep(2)
+
+        teams_cmd = "/usr/local/bin/meetings_by_team.sh"
+        log.info("Running %r" % teams_cmd)
+        proc = sp.Popen(teams_cmd.split(), stdout=sp.PIPE, stderr=sp.PIPE)
+        stdout, stderr = proc.communicate()
+        if proc.returncode:
+            # Calling log.error in fedora infrastructure with fedmsg logging
+            # configured, should send an email to the sysadmin-datanommer
+            # group.
+            log.error("Error %r running %r.\n  STDOUT:  %s\n  STDERR:  %s" % (
+                proc.returncode, teams_cmd, stdout, stderr))
+
         log.info("Running soke.run()...")
         soke.run()
+
         log.info("Done.")
