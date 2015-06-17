@@ -16,13 +16,24 @@
 #
 
 from __future__ import print_function
+from logging.config import dictConfig
+import logging
 import time
+
 import fedmsg
+import fedmsg.config
+
 import soke
+
+log = logging.getLogger('fedmsg')
 
 target = '.meetbot.meeting.complete'
 
 def main():
+    fedmsg_config = fedmsg.config.load_config()
+    dictConfig(fedmsg_config.get('logging', {'version': 1}))
+
+    log.info("Listening to the bus via fedmsg.tail_messages()")
     for _, _, topic, msg in fedmsg.tail_messages():
 
         # XXX - if you want to debug whether or not this is receiving fedmsg
@@ -32,8 +43,8 @@ def main():
         if not topic.endswith(target):
             continue
 
-        print("A meeting just ended!  Let's sleep for 2s to dodge a race.")
+        log.info("A meeting just ended!  Sleeping 2s.  %r" % msg.get('msg_id'))
         time.sleep(2)
-        print("Running soke.run()...")
+        log.info("Running soke.run()...")
         soke.run()
-        print("Done.")
+        log.info("Done.")
