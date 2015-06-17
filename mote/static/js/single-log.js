@@ -24,7 +24,7 @@ function loadLogContents() {
         "file_name": current_fname,
     };
     $.ajax({
-      type: "POST",
+      type: "GET",
       url: "/get_meeting_log",
       data: data,
       dataType: "html"

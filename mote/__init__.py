@@ -150,54 +150,51 @@ def catch_team_logrequest(file_name, meeting_team):
         return redirect(built_url)
     return render_template("single-log.html", gtype="team", ltype=log_type, group=group_name, date=meeting_date, filename=file_name)
 
-@app.route('/request_logs', methods=['GET', 'POST'])
+@app.route('/request_logs')
 def request_logs():
-    # Return a list of filenames for minutes and/or logs
-    # for a specified date.
-    if request.method == "GET":
-        return return_error("400 Bad Request")
-    else:
-        group_id = request.form["group_id"]
-        group_type = request.form["group_type"]
-        date_stamp = request.form["date_stamp"]
-        if group_type == "team":
-            meetings = get_cache_data("mote:team_meetings")
-        elif group_type == "channel":
-            meetings = get_cache_data("mote:channel_meetings")
-        try:
-            workable_array = meetings[group_id][date_stamp]
-            minutes = workable_array["minutes"]
-            logs = workable_array["logs"]
+    """ Return a list of filenames for minutes and/or logs
+    for a specified date.
+    """
+    group_id = request.args["group_id"]
+    group_type = request.args["group_type"]
+    date_stamp = request.args["date_stamp"]
+    if group_type == "team":
+        meetings = get_cache_data("mote:team_meetings")
+    elif group_type == "channel":
+        meetings = get_cache_data("mote:channel_meetings")
+    try:
+        workable_array = meetings[group_id][date_stamp]
+        minutes = workable_array["minutes"]
+        logs = workable_array["logs"]
 
-            response = json.dumps({"minutes": minutes, "logs": logs})
-            return response
-        except:
-            return return_error("404 Not Found")
+        response = json.dumps({"minutes": minutes, "logs": logs})
+        return response
+    except:
+        flask.abort(404)
 
-@app.route('/get_meeting_log', methods=["GET", "POST"])
+@app.route('/get_meeting_log')
 def get_meeting_log():
-    # Return specific logs or minutes to client.
-    if request.method == "GET":
-        return return_error("400 Bad Request")
-    else:
-        group_type = request.form['group_type']
-        date_stamp = request.form['date_stamp']
-        group_id = request.form['group_id']
-        file_name = request.form['file_name']
+    """ Return specific logs or minutes to client. """
+    group_type = request.args['group_type']
+    date_stamp = request.args['date_stamp']
+    group_id = request.args['group_id']
+    file_name = request.args['file_name']
 
-        if group_type == "team":
-            link_prefix = config.meetbot_prefix + "/teams/" + group_id + "/"
-        else:
-            link_prefix = config.meetbot_prefix + "/" + group_id + "/" + date_stamp + "/"
-        url = link_prefix + file_name
-        try:
-            fetch_result = requests.get(url)
-            fetch_soup = BeautifulSoup(fetch_result.text)
-            body_content = str(fetch_soup.body)
-            body_content = body_content.replace("</br>", "")
-            return body_content
-        except:
-            return "404"
+    if group_type == "team":
+        link_prefix = config.meetbot_prefix + "/teams/" + group_id + "/"
+    else:
+        link_prefix = config.meetbot_prefix + "/" + group_id + "/" + date_stamp + "/"
+
+    url = link_prefix + file_name
+
+    try:
+        fetch_result = requests.get(url)
+        fetch_soup = BeautifulSoup(fetch_result.text)
+        body_content = str(fetch_soup.body)
+        body_content = body_content.replace("</br>", "")
+        return body_content
+    except:
+        flask.abort(404)
 
 @app.route('/sresults', methods=['GET'])
 def sresults():
