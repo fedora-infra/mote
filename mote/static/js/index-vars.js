@@ -1,1 +1,1 @@
-window.auto_search = false;
+window.auto_search = true;
