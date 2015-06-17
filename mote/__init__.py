@@ -14,8 +14,6 @@
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 #
 
-import collections
-
 import flask, random, string, json, util, os, re
 import dateutil.parser, requests, collections
 from bs4 import BeautifulSoup
