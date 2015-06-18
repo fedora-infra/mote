@@ -14,14 +14,7 @@
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 #
 
-import flask, random, string, json, util, os, re
-import dateutil.parser, requests, collections, arrow
-from bs4 import BeautifulSoup
-from flask import Flask, render_template, request, url_for, session, redirect
-from flask_fas_openid import fas_login_required, cla_plus_one_required, FAS
-from util import RegexConverter
-
-fn_search_regex = "(.*?)\.([0-9]{4}\-[0-9]{2}\-[0-9]{2})\-.*?\..*?\.(.*)"
+import os
 
 try:
     # if different config directory provided
@@ -33,6 +26,16 @@ except:
     # different config directory not specified
     # e.g running from git clone
     pass
+
+import flask, random, string, json, util, re
+import dateutil.parser, requests, collections, arrow
+from bs4 import BeautifulSoup
+from flask import Flask, render_template, request, url_for, session, redirect
+from flask_fas_openid import fas_login_required, cla_plus_one_required, FAS
+from util import RegexConverter
+
+fn_search_regex = "(.*?)\.([0-9]{4}\-[0-9]{2}\-[0-9]{2})\-.*?\..*?\.(.*)"
+
 
 import config
 
