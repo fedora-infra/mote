@@ -24,6 +24,7 @@ BuildRequires: python-requests
 BuildRequires: python-dateutil
 BuildRequires: python-beautifulsoup4
 BuildRequires: python-fedora-flask
+BuildRequires: python-arrow
 BuildRequires: fedmsg
 
 # For rpm macros so we know where to install the service file.
@@ -42,6 +43,7 @@ Requires: python-requests
 Requires: python-dateutil
 Requires: python-beautifulsoup4
 Requires: python-fedora-flask
+Requires: python-arrow
 Requires: fontawesome-fonts
 Requires: fontawesome-fonts-web
 Requires: fedmsg
