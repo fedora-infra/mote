@@ -23,7 +23,8 @@ function openList(ln, close_all) {
     $("#open-"+ln).slideToggle();
 }
 function openLogModal(fname) {
-    // type == minutes or logs
+    $("#loading-icon").html("<i class='fa fa-cog fa-spin fa-3x'></i>");
+
     var data = {
         "group_type": current_group_type,
         "group_id": current_group_id,
@@ -54,16 +55,15 @@ function openLogModal(fname) {
         </div>\
         </div>\
         ';
-        var markup;
-        markup = res;
+        var markup = res;
         modal = modal.replace("#{title}", "Meeting");
         modal = modal.replace("#{body}", markup);
         $('body').append(modal);
+        $("#loading-icon").html("");
         $('#SLModal').modal();
         $( "body" ).delegate( "#SLModal", "hidden.bs.modal", function () {
             $('#SLModal').remove(); // Get rid of the modal so that users can see refreshed content
         });
-
         return true;
     });
     return true;
@@ -77,7 +77,7 @@ function showLogs(date_stamp) {
         "group_type": current_group_type,
         "date_stamp": date_stamp
     };
-    $("#minlogs").html("<i class='fa fa-spinner fa-4x fa-spin'></i>");
+    $("#minlogs").html("<i class='fa fa-spinner fa-spin fa-4x'></i>");
     $.ajax({
       type: "GET",
       url: "/request_logs",

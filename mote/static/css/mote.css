@@ -19,6 +19,11 @@
 .browse_pad {
     padding-bottom: 35px;
 }
+#loading-icon {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
 /* Meetbot Display CSS */
 .logdisplay .details {
     font-size: 12px;
