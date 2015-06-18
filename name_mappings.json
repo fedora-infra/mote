@@ -12,7 +12,7 @@
         "aliases": ["fedora-design", "designteam", "#fedora-design"]
     },
     "epel": {
-        "friendly-name": "EPEL",
+        "friendly-name": "Extra Packages for Enterprise Linux",
         "aliases": []
     },
     "fedora-mktg": {
