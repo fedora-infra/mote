@@ -18,6 +18,7 @@
 from __future__ import print_function
 from logging.config import dictConfig
 import logging
+import subprocessing as sp
 import time
 
 import fedmsg
