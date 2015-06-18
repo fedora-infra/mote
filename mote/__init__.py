@@ -17,7 +17,7 @@
 import collections
 
 import flask, random, string, json, util, os, re
-import dateutil.parser, requests, collections
+import dateutil.parser, requests, collections, arrow
 from bs4 import BeautifulSoup
 from flask import Flask, render_template, request, url_for, session, redirect
 from flask_fas_openid import fas_login_required, cla_plus_one_required, FAS
@@ -254,6 +254,8 @@ def sresults():
         avail_dates = avail_dates,
         meetbot_location = config.meetbot_prefix
     )
+
+
 @app.route('/search_sugg', methods=['GET'])
 def search_sugg():
     # Find and return the top 20 search results.
@@ -272,8 +274,22 @@ def search_sugg():
             except:
                 friendly_name = "A friendly meeting group."
 
-            results.append({"id": cmk, "name": cmk, "type": "channel", "description": friendly_name})
+            dates = [arrow.get(date) for date in channel_meetings[cmk].keys()]
+            if not dates:
+                continue
+            dates.sort()
+            latest = dates.pop()
+
+            results.append({
+                "id": cmk,
+                "name": cmk,
+                "type": "channel",
+                "description": friendly_name,
+                "latest": latest.timestamp,
+                "latest_human": latest.humanize(),
+            })
             res_num += 1
+
     for tmk in team_meetings:
         if res_num >= display_num:
             break
@@ -283,14 +299,26 @@ def search_sugg():
             except:
                 friendly_name = "A friendly meeting group."
 
-            results.append({"id": tmk, "name": tmk, "type": "team", "description": friendly_name})
+            dates = [arrow.get(date) for date in team_meetings[tmk].keys()]
+            if not dates:
+                continue
+            dates.sort()
+            latest = dates.pop()
+
+            results.append({
+                "id": tmk,
+                "name": tmk,
+                "type": "team",
+                "description": friendly_name,
+                "latest": latest.timestamp,
+                "latest_human": latest.humanize(),
+            })
             res_num += 1
+
     # Sort results based on relevance.
-    results = util.filter_list(results, search_term)
-    results_json = json.dumps(results)
-    return ('''
-    {"items": %s}
-    ''' % results_json)
+    results = list(reversed(sorted(results, key=lambda k: k['latest'])))
+    return flask.jsonify(dict(items=results))
+
 
 @app.route('/auth', methods=['GET'])
 def auth_login():
