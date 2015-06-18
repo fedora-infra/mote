@@ -106,11 +106,12 @@ ln -s /usr/share/fonts/fontawesome %{buildroot}/%{python_sitelib}/mote/static/fo
 %{_bindir}/mote-updater
 
 %changelog
-* Sun Jun 14 2015 Chaoyi Zha <cydrobolt@fedoraproject.org> - 0.3.1b1
+* Thu Jun 18 2015 Chaoyi Zha <cydrobolt@fedoraproject.org> - 0.3.1b1
 - Update 0.3.1 Beta 1
 - List most recent results first
 - Use GET instead of POST in meeting log requests
 - Run teams script after meeting in order to fix slow sync
+- Add loading icon while waiting for modal loading
 - Other small bugfixes
 
 * Wed Jun 17 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.2.2b1-2
