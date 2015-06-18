@@ -19,6 +19,9 @@ ignore_dir = "meetbot"
 # Location where raw logs/minutes are stored (remote location)
 meetbot_prefix = "http://meetbot-raw.fedoraproject.org"
 
+# Location to fetch raw logs/minutes from (remote or local location)
+meetbot_fetch_prefix = "http://meetbot-raw.fedoraproject.org"
+
 # Time (in seconds) after which the log/meeting cache expires
 cache_expire_time = 60 * 60 * 1
 

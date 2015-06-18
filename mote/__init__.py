@@ -181,9 +181,9 @@ def get_meeting_log():
     file_name = request.args['file_name']
 
     if group_type == "team":
-        link_prefix = config.meetbot_prefix + "/teams/" + group_id + "/"
+        link_prefix = config.meetbot_fetch_prefix + "/teams/" + group_id + "/"
     else:
-        link_prefix = config.meetbot_prefix + "/" + group_id + "/" + date_stamp + "/"
+        link_prefix = config.meetbot_fetch_prefix + "/" + group_id + "/" + date_stamp + "/"
 
     url = link_prefix + file_name
 
