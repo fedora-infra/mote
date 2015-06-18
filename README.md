@@ -1,4 +1,4 @@
-# mote
+# møte
 møte - Fedora meetbot log wrangler
 
 [__Staging__](https://meetbot.stg.fedoraproject.org) | [__Production__](https://meetbot.fedoraproject.org)
