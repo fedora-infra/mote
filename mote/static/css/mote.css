@@ -16,7 +16,7 @@
     list-style-type: none;
     text-align: left;
 }
-.browse_pad {
+.browse_pad, .date-list-header {
     padding-bottom: 35px;
 }
 #loading-icon {

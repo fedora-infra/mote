@@ -36,7 +36,6 @@ from util import RegexConverter
 
 fn_search_regex = "(.*?)\.([0-9]{4}\-[0-9]{2}\-[0-9]{2})\-.*?\..*?\.(.*)"
 
-
 import config
 
 __version__ = "0.0.0"
@@ -113,6 +112,44 @@ def post_auth():
     # FedOAuth authenticates the user.
     session['logged'] = True
     return redirect(url_for('index'))
+
+@app.route('/<meeting_channel>/<regex("([0-9]{4}\-[0-9]{2}\-[0-9]{2})"):date_stamp>')
+def catch_channel_daterequest(meeting_channel, date_stamp):
+    try:
+        meetings = get_cache_data("mote:channel_meetings")
+        workable_array = meetings[meeting_channel][date_stamp]
+        minutes = workable_array["minutes"]
+        logs = workable_array["logs"]
+        return render_template(
+            "date-list.html",
+            minutes=minutes,
+            date=date_stamp,
+            logs=logs,
+            type="channel",
+            group_name=meeting_channel
+        )
+    except Exception as inst:
+        print inst
+        return return_error("Requested meetings could not be located.")
+
+@app.route('/teams/<meeting_team>/<regex("([0-9]{4}\-[0-9]{2}\-[0-9]{2})"):date_stamp>')
+def catch_team_daterequest(meeting_team, date_stamp):
+    try:
+        meetings = get_cache_data("mote:team_meetings")
+        workable_array = meetings[meeting_team][date_stamp]
+        minutes = workable_array["minutes"]
+        logs = workable_array["logs"]
+        return render_template(
+            "date-list.html",
+            date=date_stamp,
+            minutes=minutes,
+            logs=logs,
+            type="team",
+            group_name=meeting_team
+        )
+    except:
+        return return_error("Requested meetings could not be located.")
+
 
 @app.route('/<meeting_channel>/<date>/<regex("(.*?)\.[0-9]{4}\-[0-9]{2}\-[0-9]{2}\-.*"):file_name>')
 def catch_channel_logrequest(date, file_name, meeting_channel):

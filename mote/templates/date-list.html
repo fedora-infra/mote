@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% set thispage = thispage|default('browse') %}
+
+{% block body %}
+<div class="date-list-header center">
+    <h2>Meetings on {{ date }} for {{ type }} {{ group_name | e }}</h2>
+</div>
+
+<div class="col-md-4 col-md-offset-2">
+    {% for fn in minutes %}
+    <p>
+        <b>{{ date }}</b> -
+            {% if type == "team" %}
+                <a href="/teams/{{ group_name }}/{{ fn }}">{{ fn }}</a>
+            {% else %}
+                <a href="/{{ group_name }}/{{ date }}/{{ fn }}">{{ fn }}</a>
+            {% endif %}
+        </p>
+    {% endfor %}
+</div>
+<div class="col-md-4">
+    {% for fn in logs %}
+    <p>
+        <b>{{ date }}</b> -
+            {% if type == "team" %}
+                <a href="/teams/{{ group_name }}/{{ fn }}">{{ fn }}</a>
+            {% else %}
+                <a href="/{{ group_name }}/{{ date }}/{{ fn }}">{{ fn }}</a>
+            {% endif %}
+    </p>
+    {% endfor %}
+</div>
+{% endblock %}
