@@ -106,6 +106,7 @@ def index():
     return render_template('index.html')
 
 @app.route('/post_auth', methods=['GET'])
+@app.route('/post_auth/', methods=['GET'])
 @fas_login_required
 def post_auth():
     # Set local session variables after
@@ -114,6 +115,7 @@ def post_auth():
     return redirect(url_for('index'))
 
 @app.route('/<meeting_channel>/<regex("([0-9]{4}\-[0-9]{2}\-[0-9]{2})"):date_stamp>')
+@app.route('/<meeting_channel>/<regex("([0-9]{4}\-[0-9]{2}\-[0-9]{2})"):date_stamp>/')
 def catch_channel_daterequest(meeting_channel, date_stamp):
     try:
         meetings = get_cache_data("mote:channel_meetings")
@@ -133,6 +135,7 @@ def catch_channel_daterequest(meeting_channel, date_stamp):
         return return_error("Requested meetings could not be located.")
 
 @app.route('/teams/<meeting_team>/<regex("([0-9]{4}\-[0-9]{2}\-[0-9]{2})"):date_stamp>')
+@app.route('/teams/<meeting_team>/<regex("([0-9]{4}\-[0-9]{2}\-[0-9]{2})"):date_stamp>/')
 def catch_team_daterequest(meeting_team, date_stamp):
     try:
         meetings = get_cache_data("mote:team_meetings")
@@ -152,6 +155,7 @@ def catch_team_daterequest(meeting_team, date_stamp):
 
 
 @app.route('/<meeting_channel>/<date>/<regex("(.*?)\.[0-9]{4}\-[0-9]{2}\-[0-9]{2}\-.*"):file_name>')
+@app.route('/<meeting_channel>/<date>/<regex("(.*?)\.[0-9]{4}\-[0-9]{2}\-[0-9]{2}\-.*"):file_name>/')
 def catch_channel_logrequest(date, file_name, meeting_channel):
     # This route catches standard log requests.
     # Links referencing a meeting channel will be caught by this route.
@@ -175,6 +179,7 @@ def catch_channel_logrequest(date, file_name, meeting_channel):
     return render_template("single-log.html", gtype=log_gtype, ltype=log_type, group=group_name, date=meeting_date, filename=file_name)
 
 @app.route('/teams/<meeting_team>/<regex("(.*?)\.[0-9]{4}\-[0-9]{2}\-[0-9]{2}\-.*"):file_name>')
+@app.route('/teams/<meeting_team>/<regex("(.*?)\.[0-9]{4}\-[0-9]{2}\-[0-9]{2}\-.*"):file_name>/')
 def catch_team_logrequest(file_name, meeting_team):
     # This route catches standard log requests.
     # Links referencing a meeting team will be caught by this route.
@@ -191,6 +196,7 @@ def catch_team_logrequest(file_name, meeting_team):
     return render_template("single-log.html", gtype="team", ltype=log_type, group=group_name, date=meeting_date, filename=file_name)
 
 @app.route('/request_logs')
+@app.route('/request_logs/')
 def request_logs():
     """ Return a list of filenames for minutes and/or logs
     for a specified date.
@@ -213,6 +219,7 @@ def request_logs():
         flask.abort(404)
 
 @app.route('/get_meeting_log')
+@app.route('/get_meeting_log/')
 def get_meeting_log():
     """ Return specific logs or minutes to client. """
     group_type = request.args['group_type']
@@ -237,6 +244,7 @@ def get_meeting_log():
         flask.abort(404)
 
 @app.route('/sresults', methods=['GET'])
+@app.route('/sresults/', methods=['GET'])
 def sresults():
     # Display results for a meeting group.
     group_id = request.args.get('group_id', '')
@@ -292,6 +300,7 @@ def sresults():
 
 
 @app.route('/search_sugg', methods=['GET'])
+@app.route('/search_sugg/', methods=['GET'])
 def search_sugg():
     # Find and return the top 20 search results.
     search_term = request.args.get('q', '')
@@ -356,12 +365,14 @@ def search_sugg():
 
 
 @app.route('/auth', methods=['GET'])
+@app.route('/auth/', methods=['GET'])
 def auth_login():
     groups = config.admin_groups
     next_url = url_for('post_auth')
     return fas.login(return_url=next_url, groups=groups)
 
 @app.route('/logout', methods=['GET'])
+@app.route('/logout/', methods=['GET'])
 def logout():
     if flask.g.fas_user:
         fas.logout()
@@ -369,6 +380,7 @@ def logout():
     return redirect(url_for('index'))
 
 @app.route('/admin', methods=['GET'])
+@app.route('/admin/', methods=['GET'])
 @fas_login_required
 def admin_panel():
     is_admin = False
@@ -381,6 +393,7 @@ def admin_panel():
         return render_template('error.html', error="Your account does not have access to this resource.")
 
 @app.route('/browse', methods=['GET'])
+@app.route('/browse/', methods=['GET'])
 def browse():
     browse_nmappings = dict()
     for category_index in category_mappings:
