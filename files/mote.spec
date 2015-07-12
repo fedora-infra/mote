@@ -2,7 +2,7 @@
 %distutils.sysconfig import get_python_lib; print (get_python_lib())")}
 
 Name:       mote
-Version:    0.3.3
+Version:    0.3.4
 Release:    2%{?dist}
 Summary:    A MeetBot log wrangler, providing a user-friendly interface for Fedora's logs
 
@@ -106,6 +106,10 @@ ln -s /usr/share/fonts/fontawesome %{buildroot}/%{python_sitelib}/mote/static/fo
 %{_bindir}/mote-updater
 
 %changelog
+* Sun Jul 12 2015 Chaoyi Zha <cydrobolt@fedoraproject.org> - 0.3.4
+- Update 0.3.4
+- Catch links with trailing slash, e.g blockerbug date links
+
 * Tue Jun 23 2015 Chaoyi Zha <cydrobolt@fedoraproject.org> - 0.3.3
 - Update 0.3.3
 - Fix mote-updater
