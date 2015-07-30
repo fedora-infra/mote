@@ -154,6 +154,13 @@ def catch_team_daterequest(meeting_team, date_stamp):
         return return_error("Requested meetings could not be located.")
 
 
+@app.route('/teams/<meeting_team>')
+@app.route('/teams/<meeting_team>/')
+def catch_team_baserequest(meeting_team):
+    url = flask.url_for('sresults', group_id=meeting_team, type='team')
+    return flask.redirect(url)
+
+
 @app.route('/<meeting_channel>/<date>/<regex("(.*?)\.[0-9]{4}\-[0-9]{2}\-[0-9]{2}\-.*"):file_name>')
 @app.route('/<meeting_channel>/<date>/<regex("(.*?)\.[0-9]{4}\-[0-9]{2}\-[0-9]{2}\-.*"):file_name>/')
 def catch_channel_logrequest(date, file_name, meeting_channel):
