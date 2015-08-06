@@ -20,13 +20,13 @@
                         <i>Minutes</i>
                         <ul>
                             {% for minutes in cm_links["minutes"] %}
-                            <li><a href="http://meetbot.fedoraproject.org/{{cm_key}}/{{cm_date}}/{{minutes}}">{{minutes}}</a></li>
+                            <li><a href="https://meetbot.fedoraproject.org/{{cm_key}}/{{cm_date}}/{{minutes}}">{{minutes}}</a></li>
                             {% endfor %}
                         </ul>
                         <i>Logs</i>
                         <ul>
                             {% for logs in cm_links["logs"] %}
-                            <li><a href="http://meetbot.fedoraproject.org/{{cm_key}}/{{cm_date}}/{{logs}}">{{logs}}</a></li>
+                            <li><a href="https://meetbot.fedoraproject.org/{{cm_key}}/{{cm_date}}/{{logs}}">{{logs}}</a></li>
                             {% endfor %}
                         </ul>
                     {% endfor %}
@@ -49,13 +49,13 @@
                         <i>Minutes</i>
                         <ul>
                             {% for minutes in tm_links["minutes"] %}
-                            <li><a href="http://meetbot.fedoraproject.org/teams/{{tm_key}}/{{minutes}}">{{minutes}}</a></li>
+                            <li><a href="https://meetbot.fedoraproject.org/teams/{{tm_key}}/{{minutes}}">{{minutes}}</a></li>
                             {% endfor %}
                         </ul>
                         <i>Logs</i>
                         <ul>
                             {% for logs in tm_links["logs"] %}
-                            <li><a href="http://meetbot.fedoraproject.org/teams/{{tm_key}}/{{logs}}">{{logs}}</a></li>
+                            <li><a href="https://meetbot.fedoraproject.org/teams/{{tm_key}}/{{logs}}">{{logs}}</a></li>
                             {% endfor %}
                         </ul>
                     {% endfor %}
