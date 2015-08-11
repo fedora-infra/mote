@@ -302,7 +302,8 @@ def sresults():
         name = group_id,
         type = group_type,
         avail_dates = avail_dates,
-        meetbot_location = config.meetbot_prefix
+        meetbot_location = config.meetbot_prefix,
+        latest_meeting = next(reversed(avail_dates.items()[0][1].items()[-1][1]))
     )
 
 
