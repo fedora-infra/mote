@@ -99,10 +99,10 @@ function showLogs(date_stamp) {
               link_prefix = window.meetbot_location + prefix_ending;
           }
           minutes.forEach(function (ele, ind, arr) {
-              minutes_markup += "<li>"+ ele +"<br /><a class='btn btn-info btn-xs' href='javascript:void();' onclick=\"openLogModal('"+ ele +"');\">View</a>  <a target='_blank' class='btn btn-warning btn-xs' href='"+ link_prefix + ele +"'>Original</a> <a target='_blank' class='btn btn-success btn-xs' href='"+ prefix_ending + ele +"'>Permalink</a></li>";
+              minutes_markup += "<li>"+ ele +"<br /><a class='btn btn-info hidden-xs btn-xs' href='javascript:void();' onclick=\"openLogModal('"+ ele +"');\">View</a>  <a target='_blank' class='btn btn-warning btn-xs' href='"+ link_prefix + ele +"'>Original</a> <a target='_blank' class='btn btn-success btn-xs' href='"+ prefix_ending + ele +"'>Permalink</a></li>";
           });
           logs.forEach(function (ele, ind, arr) {
-              logs_markup += "<li>"+ ele +"<br /><a class='btn btn-info btn-xs' href='javascript:void();' onclick=\"openLogModal('"+ ele +"');\">View Log</a>  <a target='_blank' class='btn btn-warning btn-xs' href='"+ link_prefix + ele +"'>Original</a> <a target='_blank' class='btn btn-success btn-xs' href='"+ prefix_ending + ele +"'>Permalink</a></li>";
+              logs_markup += "<li>"+ ele +"<br /><a class='btn btn-info hidden-xs btn-xs' href='javascript:void();' onclick=\"openLogModal('"+ ele +"');\">View Log</a>  <a target='_blank' class='btn btn-warning btn-xs' href='"+ link_prefix + ele +"'>Original</a> <a target='_blank' class='btn btn-success btn-xs' href='"+ prefix_ending + ele +"'>Permalink</a></li>";
           });
           minutes_markup += "</ul>";
           logs_markup += "</ul>";
