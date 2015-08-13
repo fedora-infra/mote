@@ -6,6 +6,7 @@
     "Design": ["fedora-design"],
     "Documentation": ["fedora-docs"],
     "Epel": ["epel"],
+    "Globalization": ["g11n"],
     "Internationalization": ["i18n"],
     "Marketing": ["fedora-mktg"],
     "Packaging": ["fpc"],
