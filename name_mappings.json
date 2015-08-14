@@ -23,6 +23,10 @@
         "friendly-name": "Fedora Docs Team",
         "aliases": []
     },
+    "g11n": {
+        "friendly-name": "Fedora g11n Team",
+        "aliases": ["fedora-g11n", "fedora-globalization", "#fedora-g11n"]
+    },
     "i18n": {
         "friendly-name": "Fedora i18n Team",
         "aliases": []
