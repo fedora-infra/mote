@@ -162,7 +162,6 @@ def catch_team_baserequest(meeting_team):
 
 
 @app.route('/<meeting_channel>/<date>/<regex("(.*?)\.[0-9]{4}\-[0-9]{2}\-[0-9]{2}\-.*"):file_name>')
-@app.route('/<meeting_channel>/<date>/<regex("(.*?)\.[0-9]{4}\-[0-9]{2}\-[0-9]{2}\-.*"):file_name>/')
 def catch_channel_logrequest(date, file_name, meeting_channel):
     # This route catches standard log requests.
     # Links referencing a meeting channel will be caught by this route.
@@ -186,7 +185,6 @@ def catch_channel_logrequest(date, file_name, meeting_channel):
     return render_template("single-log.html", gtype=log_gtype, ltype=log_type, group=group_name, date=meeting_date, filename=file_name)
 
 @app.route('/teams/<meeting_team>/<regex("(.*?)\.[0-9]{4}\-[0-9]{2}\-[0-9]{2}\-.*"):file_name>')
-@app.route('/teams/<meeting_team>/<regex("(.*?)\.[0-9]{4}\-[0-9]{2}\-[0-9]{2}\-.*"):file_name>/')
 def catch_team_logrequest(file_name, meeting_team):
     # This route catches standard log requests.
     # Links referencing a meeting team will be caught by this route.
