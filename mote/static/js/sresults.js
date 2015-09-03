@@ -30,6 +30,7 @@ function openLogModal(fname, prefix_ending) {
         "group_id": current_group_id,
         "date_stamp": current_date_stamp,
         "file_name": fname,
+        "file_type": "log"
     };
     $.ajax({
       type: "GET",

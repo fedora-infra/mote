@@ -229,23 +229,34 @@ def get_meeting_log():
     """ Return specific logs or minutes to client. """
     group_type = request.args['group_type']
     date_stamp = request.args['date_stamp']
-    group_id = request.args['group_id']
-    file_name = request.args['file_name']
+    group_id   = request.args['group_id']
+    file_name  = request.args['file_name']
+    file_type  = request.args.get('file_type')
 
     if group_type == "team":
-        link_prefix = config.meetbot_fetch_prefix + "/teams/" + group_id + "/"
+        link_prefix_ending = "/teams/" + group_id + "/"
     else:
-        link_prefix = config.meetbot_fetch_prefix + "/" + group_id + "/" + date_stamp + "/"
+        link_prefix_ending = "/" + group_id + "/" + date_stamp + "/"
 
-    url = link_prefix + file_name
+    url = config.meetbot_fetch_prefix + link_prefix_ending + file_name
 
     try:
         fetch_result = requests.get(url)
         fetch_soup = BeautifulSoup(fetch_result.text)
+        if file_type == "log":
+            # text = re.compile('your regex here')
+            full_log_links = fetch_soup.findAll('a', text="full logs")
+            for a in full_log_links:
+                # prefix "full logs" links with correct paths
+                full_log_file_name = a['href']
+                a['href'] = link_prefix_ending + full_log_file_name
+                a['target'] = "_blank"
+
         body_content = str(fetch_soup.body)
         body_content = body_content.replace("</br>", "")
         return body_content
-    except:
+    except Exception as e:
+        print e
         flask.abort(404)
 
 @app.route('/sresults', methods=['GET'])
