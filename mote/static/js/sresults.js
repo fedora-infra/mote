@@ -22,7 +22,7 @@ function openList(ln, close_all) {
     // $("#open-"+ln).css('display', 'initial');
     $("#open-"+ln).slideToggle();
 }
-function openLogModal(fname) {
+function openLogModal(fname, prefix_ending) {
     $("#loading-icon").html("<i class='fa fa-cog fa-spin fa-3x'></i>");
 
     var data = {
@@ -43,7 +43,8 @@ function openLogModal(fname) {
           <div class="modal-content">\
             <div class="modal-header">\
               <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>\
-              <h4 class="modal-title" id="modalLabel">#{title}</h4>\
+              <h4 class="modal-title inline" id="modalLabel">#{title}</h4>\
+              <a target="_blank" class="btn btn-info btn-sm modal-button pull-right" href="#{permalink}">Permalink</a>\
             </div>\
             <div class="modal-body logdisplay">\
               #{body}\
@@ -56,17 +57,17 @@ function openLogModal(fname) {
         </div>\
         ';
         var markup = res;
+        var permalink =  prefix_ending + fname;
         modal = modal.replace("#{title}", "Meeting");
         modal = modal.replace("#{body}", markup);
+        modal = modal.replace("#{permalink}", permalink);
         $('body').append(modal);
         $("#loading-icon").html("");
         $('#SLModal').modal();
         $( "body" ).delegate( "#SLModal", "hidden.bs.modal", function () {
             $('#SLModal').remove(); // Get rid of the modal so that users can see refreshed content
         });
-        return true;
     });
-    return true;
 }
 function showLogs(date_stamp) {
     window.current_date_stamp = date_stamp;
@@ -99,10 +100,10 @@ function showLogs(date_stamp) {
               link_prefix = window.meetbot_location + prefix_ending;
           }
           minutes.forEach(function (ele, ind, arr) {
-              minutes_markup += "<li>"+ ele +"<br /><a class='btn btn-info hidden-xs btn-xs' href='javascript:void();' onclick=\"openLogModal('"+ ele +"');\">View</a>  <a target='_blank' class='btn btn-warning btn-xs' href='"+ link_prefix + ele +"'>Original</a> <a target='_blank' class='btn btn-success btn-xs' href='"+ prefix_ending + ele +"'>Permalink</a></li>";
+              minutes_markup += "<li>"+ ele +"<br /><a class='btn btn-info hidden-xs btn-xs' href='javascript:void();' onclick=\"openLogModal('"+ ele +"', '"+ prefix_ending +"');\">View</a>  <a target='_blank' class='btn btn-warning btn-xs' href='"+ link_prefix + ele +"'>Original</a> <a target='_blank' class='btn btn-success btn-xs' href='"+ prefix_ending + ele +"'>Permalink</a></li>";
           });
           logs.forEach(function (ele, ind, arr) {
-              logs_markup += "<li>"+ ele +"<br /><a class='btn btn-info hidden-xs btn-xs' href='javascript:void();' onclick=\"openLogModal('"+ ele +"');\">View Log</a>  <a target='_blank' class='btn btn-warning btn-xs' href='"+ link_prefix + ele +"'>Original</a> <a target='_blank' class='btn btn-success btn-xs' href='"+ prefix_ending + ele +"'>Permalink</a></li>";
+              logs_markup += "<li>"+ ele +"<br /><a class='btn btn-info hidden-xs btn-xs' href='javascript:void();' onclick=\"openLogModal('"+ ele +"', '"+ prefix_ending +"');\">View Log</a>  <a target='_blank' class='btn btn-warning btn-xs' href='"+ link_prefix + ele +"'>Original</a> <a target='_blank' class='btn btn-success btn-xs' href='"+ prefix_ending + ele +"'>Permalink</a></li>";
           });
           minutes_markup += "</ul>";
           logs_markup += "</ul>";

@@ -1,6 +1,12 @@
 .center {
     text-align: center;
 }
+.inline {
+    display: inline;
+}
+.modal-button {
+    margin-right: 50px;
+}
 .logdisplay {
     padding-top: 20px;
 }
