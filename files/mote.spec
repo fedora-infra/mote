@@ -106,7 +106,7 @@ ln -s /usr/share/fonts/fontawesome %{buildroot}/%{python_sitelib}/mote/static/fo
 %{_bindir}/mote-updater
 
 %changelog
-* Sun Sep 7 2015 Chaoyi Zha <cydrobolt@fedoraproject.org> - 0.4.1
+* Mon Sep 7 2015 Chaoyi Zha <cydrobolt@fedoraproject.org> - 0.4.1
 - Update 0.4.1
 - Add modal permalink option
 - Fix full log links in modals and full views
