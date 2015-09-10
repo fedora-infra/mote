@@ -38,6 +38,8 @@ app_host = "127.0.0.1"
 General Configuration
 '''
 
+# admin_groups currently has no effect on the application
+# it is reserved for future use
 admin_groups = ["sysadmin-mote"]
 memcached_ip = "127.0.0.1:11211"
 # memcached must be installed for this feature
