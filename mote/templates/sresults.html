@@ -29,21 +29,20 @@
     <div class="row">
         <div class="col-md-4 col-md-offset-2">
             <h4>Dates</h4>
-            <a onclick="showLogs('{{latest_meeting}}')" class="btn btn-sm btn-info">Latest Meeting</a>
+            <a id="showLatestMeeting" data-latestmtg="{{latest_meeting}}" class="btn btn-sm btn-info">Latest Meeting</a>
             <ul class="list-group main-list-group">
                 {% for year in avail_dates %}
-                <h3><a onclick="closeOthers();openList('{{year}}');" href="javascript:void();" class="list-group-item list-group-item-success">{{year}}</a></h3>
+                <h3><a data-year="{{year}}" class="yearToggle list-group-item list-group-item-success">{{year}}</a></h3>
                 <ul id="open-{{year}}" class="list-group lev1 hid-list">
                 {% for month in avail_dates[year] %}
-                    <h4><a href="javascript:void();" onclick="openList('{{year}}-{{month}}');" class="list-group-item list-group-item-info">{{month}}</a></h4>
+                    <h4><a data-month="{{year}}-{{month}}" class="monthToggle list-group-item list-group-item-info">{{month}}</a></h4>
                     <ul id="open-{{year}}-{{month}}" class="list-group lev2 hid-list">
                     {% for day in avail_dates[year][month] %}
-                        <a href="javascript:void();" onclick="showLogs('{{day}}')" class="meeting-day list-group-item">{{day}}</a>
+                        <a data-day="{{day}}" class="meeting-day dayToggle list-group-item">{{day}}</a>
                     {% endfor %}
                     </ul>
                 {% endfor %}
                 </ul>
-
                 {% endfor %}
             </ul>
         </div>
