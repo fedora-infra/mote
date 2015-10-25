@@ -2,7 +2,7 @@
 %distutils.sysconfig import get_python_lib; print (get_python_lib())")}
 
 Name:       mote
-Version:    0.4.1
+Version:    0.4.2
 Release:    2%{?dist}
 Summary:    A MeetBot log wrangler, providing a user-friendly interface for Fedora's logs
 
@@ -106,6 +106,11 @@ ln -s /usr/share/fonts/fontawesome %{buildroot}/%{python_sitelib}/mote/static/fo
 %{_bindir}/mote-updater
 
 %changelog
+* Sat Oct 24 2015 Chaoyi Zha <cydrobolt@fedoraproject.org> - 0.4.2
+- Update 0.4.2
+- Use event binding rather than "onclick"
+- README improvements and general bugfixes
+
 * Mon Sep 7 2015 Chaoyi Zha <cydrobolt@fedoraproject.org> - 0.4.1
 - Update 0.4.1
 - Add modal permalink option
