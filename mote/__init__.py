@@ -31,6 +31,7 @@ import flask, random, string, json, util, re
 import dateutil.parser, requests, collections, arrow
 from bs4 import BeautifulSoup
 from flask import Flask, render_template, request, url_for, session, redirect
+from flask import abort
 from flask_fas_openid import fas_login_required, cla_plus_one_required, FAS
 from util import RegexConverter
 
@@ -163,16 +164,22 @@ def catch_team_baserequest(meeting_team):
 
 @app.route('/<meeting_channel>/<date>/<regex("(.*?)\.[0-9]{4}\-[0-9]{2}\-[0-9]{2}\-.*"):file_name>')
 def catch_channel_logrequest(date, file_name, meeting_channel):
-    # This route catches standard log requests.
+    # This route catches standard log requests (.log.html, .html, or .txt)
     # Links referencing a meeting channel will be caught by this route.
     # These URLs include those provided by MeetBot at the end of a meeting,
     # or links referencing a specific meeting channel,
     # such as #fedora-meeting or #fedora-ambassadors
+    # example: https://meetbot.fedoraproject.org/fedora-meeting-1/2015-02-09/releng.2015-02-09-16.31.html
+
     log_gtype = "channel"
     m = re.search(fn_search_regex, file_name)
+    if m == None:
+        return abort(404)
+
     group_name = m.group(1) # name of channel, e.g fedora-meeting
-    meeting_date = date # date of log requested: YYYY-MM-DD
     log_extension = m.group(3) # type of log requested: log.html, html, or txt
+
+    meeting_date = date # date of log requested: YYYY-MM-DD
     log_type = util.get_meeting_type(log_extension)
     if group_name != meeting_channel:
         # Prefer using team names if one can be extracted from the filename.
@@ -186,15 +193,20 @@ def catch_channel_logrequest(date, file_name, meeting_channel):
 
 @app.route('/teams/<meeting_team>/<regex("(.*?)\.[0-9]{4}\-[0-9]{2}\-[0-9]{2}\-.*"):file_name>')
 def catch_team_logrequest(file_name, meeting_team):
-    # This route catches standard log requests.
+    # This route catches standard log requests (.log.html, .html, or .txt)
     # Links referencing a meeting team will be caught by this route.
     # e.g referencing famna or infrastructure
+    # example: https://meetbot.fedoraproject.org/teams/fedora-mktg/fedora-mktg.2013-10-07-19.02.html
 
     m = re.search(fn_search_regex, file_name)
+    if m == None:
+        return abort(404)
+
     group_name = m.group(1) # name of team, e.g famna
     meeting_date = m.group(2) # date of log requested: YYYY-MM-DD
     log_extension = m.group(3) # type of log requested: log.html, html, or txt
     log_type = util.get_meeting_type(log_extension)
+
     if log_type == "plain-text":
         built_url = "{}/teams/{}/{}".format(config.meetbot_prefix, meeting_team, file_name)
         return redirect(built_url)
@@ -420,3 +432,7 @@ def browse():
             except:
                 browse_nmappings[category] = category
     return render_template('browse.html', category_mappings=category_mappings, browse_nmappings=browse_nmappings)
+
+@app.errorhandler(404)
+def not_found_404(e):
+    return render_template('error.html', error="404, page not found."), 404
