@@ -435,4 +435,8 @@ def browse():
 
 @app.errorhandler(404)
 def not_found_404(e):
-    return render_template('error.html', error="404, page not found."), 404
+    return render_template('404.html'), 404
+
+@app.errorhandler(500)
+def server_error_500(e):
+    return render_template('500.html'), 500
