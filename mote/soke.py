@@ -44,7 +44,7 @@ def memcached_dict_add(dictn, key, val):
 
 def get_date_fn(filename):
     # Return a meeting's date from a filename.
-    m = re.search(".*?[\-\.]([0-9]{4}\-[0-9]{2}\-[0-9]{2})[\-\.].*", filename)
+    m = re.search(".*[\-\.]([0-9]{4}\-[0-9]{2}\-[0-9]{2})[\-\.][0-9]{2}\.[0-9]{2}\.(html|log\.html|txt|log\.txt)", filename)
     if m == None:
         raise ValueError("Failed to parse date from %r" % filename)
     return m.group(1)
