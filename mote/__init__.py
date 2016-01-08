@@ -256,7 +256,6 @@ def get_meeting_log():
         fetch_result = requests.get(url)
         fetch_soup = BeautifulSoup(fetch_result.text)
         if file_type == "log":
-            # text = re.compile('your regex here')
             full_log_links = fetch_soup.findAll('a', text="full logs")
             for a in full_log_links:
                 # prefix "full logs" links with correct paths
