@@ -6,12 +6,12 @@ møte - Fedora meetbot log wrangler
 ### About
 
 møte allows the Fedora community to search and explore IRC meetings.
-More information on meetings can be found [here](https://fedoraproject.org/wiki/Meeting_channel)
+More information on meetings can be found [here](https://fedoraproject.org/wiki/Meeting_channel).
 
 ### Using møte
 
 Dependencies:
- - Optional: `memcached` (`sudo yum install memcached`)
+ - Optional: `memcached` (`sudo dnf install memcached`)
  - Python 2.7.x
 
 `pip` Dependencies:
