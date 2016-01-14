@@ -1,8 +1,4 @@
 {
-    "board": {
-        "friendly-name": "The Fedora Board (archived)",
-        "aliases": []
-    },
     "emea": {
         "friendly-name": "Fedora Europe, Middle East, and Africa (EMEA) Ambassadors",
         "aliases": ["emea", "emea_ambassadors", "emea-ambassadors"]
@@ -21,7 +17,7 @@
     },
     "fedora-council": {
         "friendly-name": "Fedora Council",
-        "aliases": ["council"]
+        "aliases": ["council", "board"]
     },
     "fedora-design": {
         "friendly-name": "Fedora Design Team",
