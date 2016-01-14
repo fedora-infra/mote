@@ -1,5 +1,6 @@
 {
     "Ambassadors": ["famna", "emea_ambassadors", "#fedora-ambassadors"],
+    "Community Operations": ["commops"],
     "Design": ["fedora-design"],
     "Documentation": ["fedora-docs"],
     "Engineering Leadership": ["fesco"],
@@ -7,7 +8,7 @@
     "Globalization": ["g11n"],
     "Infrastructure": ["infrastructure", "#fedora-apps", "#fedora-admin"],
     "Internationalization": ["i18n"],
-    "Marketing": ["fedora-mktg"],
+    "Marketing": ["fedora-mktg", "magazine"],
     "Packaging": ["fpc"],
     "Project Leadership": ["board", "council"],
     "Quality Assurance": ["fedora-qa"],

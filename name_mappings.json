@@ -63,6 +63,10 @@
         "friendly-name": "Fedora Infrastructure Team",
         "aliases": ["fedora-infrastructure", "fedora_infrastructure", "#fedora-apps", "#fedora-admin"]
     },
+    "magazine": {
+        "friendly-name": "Fedora Magazine Editorial Board",
+        "aliases": ["magazine", "magazine_editorial_board", "fedora_magazine"]
+    },
     "releng": {
         "friendly-name": "Fedora Release Engineering (releng)",
         "aliases": []
