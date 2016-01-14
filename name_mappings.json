@@ -3,6 +3,10 @@
         "friendly-name": "The Fedora Board (archived)",
         "aliases": []
     },
+    "emea": {
+        "friendly-name": "Fedora Europe, Middle East, and Africa (EMEA) Ambassadors",
+        "aliases": ["emea", "emea_ambassadors", "emea-ambassadors"]
+    },
     "epel": {
         "friendly-name": "Extra Packages for Enterprise Linux",
         "aliases": []
