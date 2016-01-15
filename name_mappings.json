@@ -1,38 +1,34 @@
 {
-    "famna": {
-        "friendly-name": "Fedora North American Ambassadors",
-        "aliases": []
-    },
-    "infrastructure": {
-        "friendly-name": "Fedora Infrastructure Team",
-        "aliases": ["fedora-infrastructure", "fedora_infrastructure", "#fedora-apps", "#fedora-admin"]
-    },
-    "fedora-design": {
-        "friendly-name": "Fedora Design Team",
-        "aliases": ["fedora-design", "designteam", "#fedora-design"]
+    "emea_ambassadors": {
+        "friendly-name": "Fedora Europe, Middle East, and Africa (EMEA) Ambassadors",
+        "aliases": ["emea"]
     },
     "epel": {
         "friendly-name": "Extra Packages for Enterprise Linux",
         "aliases": []
     },
-    "fedora-mktg": {
-        "friendly-name": "Fedora Marketing",
+    "famna": {
+        "friendly-name": "Fedora North American Ambassadors",
         "aliases": []
+    },
+    "fedora-commops": {
+        "friendly-name": "Fedora Community Operations (CommOps)",
+        "aliases": ["commops", "CommOps", "community-operations", "community_operations"]
+    },
+    "fedora_council": {
+        "friendly-name": "Fedora Council",
+        "aliases": ["council", "board"]
+    },
+    "fedora-design": {
+        "friendly-name": "Fedora Design Team",
+        "aliases": ["fedora-design", "designteam", "#fedora-design"]
     },
     "fedora-docs": {
         "friendly-name": "Fedora Docs Team",
         "aliases": []
     },
-    "g11n": {
-        "friendly-name": "Fedora g11n Team",
-        "aliases": ["fedora-g11n", "fedora-globalization", "#fedora-g11n"]
-    },
-    "i18n": {
-        "friendly-name": "Fedora i18n Team",
-        "aliases": []
-    },
-    "fpc": {
-        "friendly-name": "Fedora Packaging Committee (FPC)",
+    "fedora-mktg": {
+        "friendly-name": "Fedora Marketing",
         "aliases": []
     },
     "fedora-qa": {
@@ -43,16 +39,32 @@
         "friendly-name": "Fedora Websites Team",
         "aliases": []
     },
-    "releng": {
-        "friendly-name": "Fedora Release Engineering (releng)",
+    "fpc": {
+        "friendly-name": "Fedora Packaging Committee (FPC)",
         "aliases": []
     },
     "fesco": {
         "friendly-name": "Fedora Engineering Steering Committee (FESCo)",
         "aliases": []
     },
-    "board": {
-        "friendly-name": "The Board",
+    "g11n": {
+        "friendly-name": "Fedora G11n Team",
+        "aliases": ["fedora-g11n", "fedora-globalization", "#fedora-g11n"]
+    },
+    "i18n": {
+        "friendly-name": "Fedora i18n Team",
+        "aliases": []
+    },
+    "infrastructure": {
+        "friendly-name": "Fedora Infrastructure Team",
+        "aliases": ["fedora-infrastructure", "fedora_infrastructure", "#fedora-apps", "#fedora-admin"]
+    },
+    "magazine": {
+        "friendly-name": "Fedora Magazine Editorial Board",
+        "aliases": ["magazine", "magazine_editorial_board", "fedora_magazine"]
+    },
+    "releng": {
+        "friendly-name": "Fedora Release Engineering (releng)",
         "aliases": []
     }
 }

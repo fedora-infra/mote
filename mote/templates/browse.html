@@ -12,19 +12,23 @@
         <div>
             <h3>{{category}}</h3>
             {% if category_mappings[category] != [] %}
+                <dl>
                 {% for group in category_mappings[category] %}
+                    <dt>
                     {% if "#" in group %}
                         {% set group = group[1:] %}
                         <a href="/sresults?group_id={{group}}&type=channel">{{ browse_nmappings[group] | e }}</a>
                     {% else %}
                         <a href="/sresults?group_id={{group}}&type=team">{{ browse_nmappings[group] | e }}</a>
                     {% endif %}
+                    </dt>
                 {% endfor %}
+                </dl>
             {% else %}
                 <p>Nothing here yet.</p>
             {% endif %}
-        {% endfor %}
         </div>
+    {% endfor %}
     </div>
 </div>
 {% endblock %}
