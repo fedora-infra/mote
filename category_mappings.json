@@ -10,7 +10,7 @@
     "Internationalization": ["i18n"],
     "Marketing": ["fedora-mktg", "magazine"],
     "Packaging": ["fpc"],
-    "Project Leadership": ["council"],
+    "Project Leadership": ["fedora_council"],
     "Quality Assurance": ["fedora-qa"],
     "Release Engineering": ["releng"],
     "Websites": ["fedora-websites"]

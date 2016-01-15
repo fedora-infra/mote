@@ -1,7 +1,7 @@
 {
-    "emea": {
+    "emea_ambassadors": {
         "friendly-name": "Fedora Europe, Middle East, and Africa (EMEA) Ambassadors",
-        "aliases": ["emea", "emea_ambassadors", "emea-ambassadors"]
+        "aliases": ["emea"]
     },
     "epel": {
         "friendly-name": "Extra Packages for Enterprise Linux",
@@ -15,7 +15,7 @@
         "friendly-name": "Fedora Community Operations (CommOps)",
         "aliases": ["commops", "CommOps", "community-operations", "community_operations"]
     },
-    "fedora-council": {
+    "fedora_council": {
         "friendly-name": "Fedora Council",
         "aliases": ["council", "board"]
     },
