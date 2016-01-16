@@ -23,6 +23,9 @@ Running møte:
  - Edit [config.py](https://github.com/fedora-infra/mote/blob/master/files/config.py) with necessary information and place the `config.py` in [`mote/`](https://github.com/fedora-infra/mote/tree/master/mote)
  - Run `python runmote.py`
 
+Running tests:
+ - `sh run_tests.sh`
+
 ### Contribute to møte
 
 You can contribute code or data. møte is in need of contributors to increase its name association data pool.
