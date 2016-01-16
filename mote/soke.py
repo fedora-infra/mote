@@ -36,12 +36,6 @@ sys.setdefaultencoding("utf-8")
 if config.use_memcached == True:
     mc = memcache.Client([config.memcached_ip], debug=0)
 
-def memcached_dict_add(dictn, key, val):
-    # Add a key to a dictionary in memcached.
-    u_dictn = mc.get(dictn)
-    u_dictn[key] = val
-    mc.set(dictn, u_dictn)
-
 def get_date_fn(filename):
     # Return a meeting's date from a filename.
     m = re.search(".*?[\-\.]([0-9]{4}\-[0-9]{2}\-[0-9]{2})[\-\.].*", filename)
@@ -110,6 +104,7 @@ def run():
                     d_channel_meetings[parent_group_name][curr_folder_qual_name]["logs"] = logs
                 except:
                     pass
+
     if config.use_memcached == True:
         mc.set("mote:channel_meetings", d_channel_meetings, config.cache_expire_time)
         mc.set("mote:team_meetings", t_channel_meetings, config.cache_expire_time)

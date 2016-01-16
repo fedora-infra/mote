@@ -13,3 +13,34 @@
 # with this program; if not, write to the Free Software Foundation,
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 #
+
+import sys, os
+from os import path
+sys.path.insert(1, '..')
+
+from mote import util
+
+cwd = os.getcwd()
+
+def test_folder_exists():
+    new_dir_path = path.join(cwd, 'test_tmp/test_create/test')
+    util.check_folder_exists(new_dir_path)
+
+    assert os.path.isdir(path.abspath(path.join(new_dir_path, '..'))) == True
+
+def test_json_cache():
+    channel_data = {
+        "one": "two",
+        "three": "four"
+    }
+    team_data = {
+        "five": "six",
+        "seven": "eight"
+    }
+    util.set_json_cache(channel_data, team_data, 10000)
+
+    json_cache_team = util.get_json_cache("team")
+    json_cache_channel = util.get_json_cache("channel")
+
+    assert json_cache_team == team_data
+    assert json_cache_channel == channel_data
