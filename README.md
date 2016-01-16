@@ -1,6 +1,8 @@
 # møte
 møte - Fedora meetbot log wrangler
 
+[![](https://travis-ci.org/fedora-infra/mote.svg)](https://travis-ci.org/fedora-infra/mote)
+
 [__Staging__](https://meetbot.stg.fedoraproject.org) | [__Production__](https://meetbot.fedoraproject.org)
 
 ### About
