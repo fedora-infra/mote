@@ -22,7 +22,7 @@ OFF='\e[0m'
 echo -e "${BLUE} Setting up test environment..."
 # copy mock configuration file
 
-mv mote/config.py mote/config.py.bak
+mv mote/config.py mote/config.py.bak || true
 
 cp files/test_config.py mote/config.py
 
@@ -57,4 +57,4 @@ nosetests
 echo -e "${BLUE} Cleaning up...${OFF}"
 
 rm -rf test_tmp
-mv mote/config.py.bak mote/config.py
+mv mote/config.py.bak mote/config.py || true
