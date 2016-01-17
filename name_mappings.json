@@ -13,7 +13,7 @@
     },
     "fedora-commops": {
         "friendly-name": "Fedora Community Operations (CommOps)",
-        "aliases": ["commops", "CommOps", "community-operations", "community_operations"]
+        "aliases": ["commops", "CommOps", "community-operations", "community_operations", "fedora_commops"]
     },
     "fedora_council": {
         "friendly-name": "Fedora Council",
