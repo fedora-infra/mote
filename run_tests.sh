@@ -53,8 +53,11 @@ cd ..
 echo -e "${BLUE} Running nosetests...${OFF}"
 
 nosetests
+NOSERETURN=$?
 
 echo -e "${BLUE} Cleaning up...${OFF}"
 
 rm -rf test_tmp
 mv mote/config.py.bak mote/config.py || true
+
+exit $NOSERETURN
