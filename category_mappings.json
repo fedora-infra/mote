@@ -1,6 +1,6 @@
 {
-    "Ambassadors": ["famna", "emea_ambassadors", "#fedora-ambassadors"],
-    "Community Operations": ["commops"],
+    "Ambassadors": ["famna", "emea_ambassadors", "fedora-latam", "#fedora-ambassadors"],
+    "Community Operations": ["fedora-commops"],
     "Design": ["fedora-design"],
     "Documentation": ["fedora-docs"],
     "Engineering Leadership": ["fesco"],
