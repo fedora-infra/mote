@@ -27,6 +27,10 @@
         "friendly-name": "Fedora Docs Team",
         "aliases": []
     },
+    "fedora-latam": {
+    	"friendly-name": "Fedora Latin American Ambassadors",
+    	"aliases": ["fedora_latam_meeting", "fedora_latam", "fedora_latam_ambassadors", "fedora_latam_ambassadors_meeting", "latam_ambassadors", "latam_ambassadors_meeting", "ambassadors_latam", "fedora_ambassadors_latam", "fedora-latam", "latam"]
+    },
     "fedora-mktg": {
         "friendly-name": "Fedora Marketing",
         "aliases": []
