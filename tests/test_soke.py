@@ -24,7 +24,8 @@ def test_date_fn():
         ("fesco.2016-01-08-17.22.html", "2016-01-08"),
         ("fesco.2015-04-01-18.00.html", "2015-04-01"),
         ("fedora-meeting-1.2014-02-04-20.11.html", "2014-02-04"),
-        ("fedora-meeting-1.2013-12-09-16.34.html", "2013-12-09")
+        ("fedora-meeting-1.2013-12-09-16.34.html", "2013-12-09"),
+        ("fedora-it_-_incontro_periodico_della_comunita_italiana.2015-12-08-21.00.html", "2015-12-08")
     ]
 
     false_filenames = [
