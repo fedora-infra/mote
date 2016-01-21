@@ -1,7 +1,7 @@
 {
     "commops": {
         "friendly-name": "Fedora Community Operations (CommOps)",
-        "aliases": ["fedora-commops", "CommOps", "community-operations", "community_operations", "fedora_commops"]
+        "aliases": ["fedora_commops"]
     },
     "emea_ambassadors": {
         "friendly-name": "Fedora Europe, Middle East, and Africa (EMEA) Ambassadors",
