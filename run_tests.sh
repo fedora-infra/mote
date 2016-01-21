@@ -50,6 +50,11 @@ cd ..
 # return to project root
 cd ..
 
+echo -e "${BLUE} Running pyflakes...${OFF}"
+
+pyflakes mote
+pyflakes tests
+
 echo -e "${BLUE} Running nosetests...${OFF}"
 
 nosetests
