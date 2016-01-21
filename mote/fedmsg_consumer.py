@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright © 2015 Chaoyi Zha <cydrobolt@fedoraproject.org>
+# Copyright © 2016 Chaoyi Zha <cydrobolt@fedoraproject.org>
 #                  Ralph Bean <rbean@redhat.com>
 #
 # This copyrighted material is made available to anyone wishing to use,

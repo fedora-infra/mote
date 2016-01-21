@@ -1,4 +1,4 @@
-/*
+# -*- coding: utf-8 -*-
 #
 # Copyright © 2016 Chaoyi Zha <cydrobolt@fedoraproject.org>
 #
@@ -13,33 +13,28 @@
 # with this program; if not, write to the Free Software Foundation,
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 #
-*/
 
-function loadLogContents() {
-    // type == minutes or logs
-    var data = {
-        "group_type": current_group_type,
-        "group_id": current_group_id,
-        "date_stamp": current_date_stamp,
-        "file_name": current_fname,
-    };
-    $.ajax({
-      type: "GET",
-      url: "/get_meeting_log",
-      data: data,
-      dataType: "html"
-    }).done(function (res) {
-        var markup;
-        markup = res;
-        $('.logdisplay').html(markup);
-        return true;
-    });
-    return true;
-}
+import sys, json
+sys.path.insert(1, '..')
 
-$(function () {
-    loadLogContents();
-    if (window.current_log_type == "minutes") {
-        $(".logdisplay").addClass("single-log-minutes");
-    }
-});
+with open("name_mappings.json", 'r') as f:
+    name_mappings = json.loads(f.read())
+
+def test_name_mappings_integrity():
+    ga = dict()
+
+    for key, nm in name_mappings.iteritems():
+        ga[key] = True
+
+        try:
+            nm_aliases = nm["aliases"]
+        except KeyError:
+            continue
+
+        for al in nm_aliases:
+            if al == key:
+                raise Exception("Do not include group itself as an alias in {}".format(al))
+            if al in ga:
+                raise ValueError("Duplicate alias in name mappings: {}".format(al))
+
+            ga[al] = True
