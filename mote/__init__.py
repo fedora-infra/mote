@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright © 2015 Chaoyi Zha <cydrobolt@fedoraproject.org>
+# Copyright © 2015-2016 Chaoyi Zha <cydrobolt@fedoraproject.org>
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions
@@ -28,12 +28,12 @@ except:
     pass
 
 import flask, random, string, json, util, re
-import dateutil.parser, requests, collections, arrow
+import dateutil.parser, requests, collections
 from bs4 import BeautifulSoup
 from flask import Flask, render_template, request, url_for, session, redirect
 from flask import abort
 from flask_fas_openid import fas_login_required, cla_plus_one_required, FAS
-from util import RegexConverter
+from util import RegexConverter, map_name_aliases, get_arrow_dates
 
 fn_search_regex = "(.*?)\.([0-9]{4}\-[0-9]{2}\-[0-9]{2})\-.*?\..*?\.(.*)"
 
@@ -60,8 +60,9 @@ else:
     with open(config.category_mappings_path, 'r') as f:
         category_mappings = f.read()
 
-name_mappings = json.loads(name_mappings)
+name_mappings = map_name_aliases(json.loads(name_mappings))
 category_mappings = json.loads(category_mappings)
+
 
 if config.use_memcached == True:
     import memcache
@@ -100,6 +101,16 @@ def get_cache_data(key_name):
             res = util.get_json_cache(meeting_type)
         return res
 
+def get_friendly_name(group_id, channel=False):
+    if channel == True:
+        group_id = "#{}".format(group_id)
+
+    try:
+        friendly_name = name_mappings[group_id]["friendly-name"]
+    except KeyError:
+        friendly_name = False
+
+    return friendly_name
 
 @app.route('/', methods=['GET'])
 def index():
@@ -276,10 +287,9 @@ def sresults():
     # Display results for a meeting group.
     group_id = request.args.get('group_id', '')
     group_type = request.args.get('type', '')
-    try:
-        friendly_name = name_mappings[group_id]["friendly-name"]
-    except:
-        friendly_name = False
+
+    friendly_name = get_friendly_name(group_id)
+
     if (group_id == '') or (group_type == ''):
         return return_error("Invalid group ID or type.")
 
@@ -289,12 +299,14 @@ def sresults():
         meetings = get_cache_data("mote:channel_meetings")
     else:
         return return_error("Invalid group type.")
+
     try:
         groupx_meetings = meetings[group_id]
     except:
         return return_error("Group not found.")
 
     sorted_dates = list(groupx_meetings.keys())
+
     try:
         sorted_dates.sort(key=dateutil.parser.parse)
     except:
@@ -312,11 +324,13 @@ def sresults():
             if month not in avail_dates[year]:
                 avail_dates[year][month] = []
             avail_dates[year][month].append(date)
+
         sorted_date_items = avail_dates.items()
         sorted_date_items.reverse()
         avail_dates = collections.OrderedDict(sorted_date_items)
     except:
         pass
+
     return render_template('sresults.html',
         friendly_name = friendly_name,
         name = group_id,
@@ -337,20 +351,20 @@ def search_sugg():
     results = []
     res_num = 0
     display_num = 20
+
     for cmk in channel_meetings:
         if res_num >= display_num:
             break
         if search_term in cmk:
-            try:
-                friendly_name = name_mappings[cmk]["friendly-name"]
-            except:
-                friendly_name = "A friendly meeting group."
+            friendly_name = get_friendly_name(cmk) or "A friendly meeting group."
 
-            dates = [arrow.get(date) for date in channel_meetings[cmk].keys()]
+            try:
+                dates, latest = get_arrow_dates(team_meetings[cmk])
+            except KeyError:
+                continue
+
             if not dates:
                 continue
-            dates.sort()
-            latest = dates.pop()
 
             results.append({
                 "id": cmk,
@@ -360,22 +374,19 @@ def search_sugg():
                 "latest": latest.timestamp,
                 "latest_human": latest.humanize(),
             })
+
             res_num += 1
 
     for tmk in team_meetings:
         if res_num >= display_num:
             break
-        if search_term in tmk:
-            try:
-                friendly_name = name_mappings[tmk]["friendly-name"]
-            except:
-                friendly_name = "A friendly meeting group."
 
-            dates = [arrow.get(date) for date in team_meetings[tmk].keys()]
-            if not dates:
+        if search_term in tmk:
+            friendly_name = get_friendly_name(tmk) or "A friendly meeting group."
+            try:
+                dates, latest = get_arrow_dates(team_meetings[tmk])
+            except KeyError:
                 continue
-            dates.sort()
-            latest = dates.pop()
 
             results.append({
                 "id": tmk,
@@ -385,6 +396,7 @@ def search_sugg():
                 "latest": latest.timestamp,
                 "latest_human": latest.humanize(),
             })
+
             res_num += 1
 
     # Sort results based on relevance.
@@ -415,6 +427,7 @@ def admin_panel():
     for admin_group in config.admin_groups:
         if admin_group in flask.g.fas_user.groups:
             is_admin = True
+
     if is_admin == True:
         return render_template("admin.html")
     else:
@@ -430,6 +443,7 @@ def browse():
                 browse_nmappings[category] = name_mappings[category]["friendly-name"]
             except:
                 browse_nmappings[category] = category
+
     return render_template('browse.html', category_mappings=category_mappings, browse_nmappings=browse_nmappings)
 
 @app.errorhandler(404)

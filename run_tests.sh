@@ -52,7 +52,7 @@ cd ..
 
 echo -e "${BLUE} Running nosetests...${OFF}"
 
-nosetests
+nosetests --verbose
 NOSERETURN=$?
 
 echo -e "${BLUE} Cleaning up...${OFF}"

@@ -21,7 +21,7 @@
     },
     "fedora-design": {
         "friendly-name": "Fedora Design Team",
-        "aliases": ["fedora-design", "designteam", "#fedora-design"]
+        "aliases": ["designteam", "#fedora-design"]
     },
     "fedora-docs": {
         "friendly-name": "Fedora Docs Team",
@@ -29,7 +29,7 @@
     },
     "fedora-latam": {
     	"friendly-name": "Fedora Latin American Ambassadors",
-    	"aliases": ["fedora_latam_meeting", "fedora_latam", "fedora_latam_ambassadors", "fedora_latam_ambassadors_meeting", "latam_ambassadors", "latam_ambassadors_meeting", "ambassadors_latam", "fedora_ambassadors_latam", "fedora-latam", "latam"]
+    	"aliases": ["fedora_latam_meeting", "fedora_latam", "fedora_latam_ambassadors", "fedora_latam_ambassadors_meeting", "latam_ambassadors", "latam_ambassadors_meeting", "ambassadors_latam", "fedora_ambassadors_latam", "latam"]
     },
     "fedora-mktg": {
         "friendly-name": "Fedora Marketing",
@@ -37,7 +37,7 @@
     },
     "fedora-qa": {
         "friendly-name": "Fedora QA",
-        "aliases": []
+        "aliases": ["fedora-qa-meeting"]
     },
     "fedora-websites": {
         "friendly-name": "Fedora Websites Team",
@@ -65,7 +65,7 @@
     },
     "magazine": {
         "friendly-name": "Fedora Magazine Editorial Board",
-        "aliases": ["magazine", "magazine_editorial_board", "fedora_magazine"]
+        "aliases": ["magazine_editorial_board", "fedora_magazine"]
     },
     "releng": {
         "friendly-name": "Fedora Release Engineering (releng)",

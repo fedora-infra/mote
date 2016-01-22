@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright © 2015 Chaoyi Zha <cydrobolt@fedoraproject.org>
+# Copyright © 2015-2016 Chaoyi Zha <cydrobolt@fedoraproject.org>
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions
@@ -15,7 +15,8 @@
 #
 from werkzeug.routing import BaseConverter
 import config
-import time, json, os
+import time, json, os, copy
+import arrow
 
 
 class RegexConverter(BaseConverter):
@@ -70,3 +71,31 @@ def set_json_cache(channel, team, expiry_time):
     except Exception as inst:
         print inst
     return True
+
+def map_name_aliases(name_mappings):
+    name_mappings_copy = copy.deepcopy(name_mappings)
+
+    for key, nm in name_mappings_copy.iteritems():
+        try:
+            # For each group
+            aliases = nm["aliases"]
+            for al in aliases:
+                # For each alias
+                name_mappings[al] = dict()
+                name_mappings[al]["friendly-name"] = nm["friendly-name"]
+
+        except KeyError:
+            continue
+
+    return name_mappings
+
+def get_arrow_dates(team_meetings):
+    dates = [arrow.get(date) for date in team_meetings.keys()]
+
+    if not dates:
+        raise KeyError("Unavailable dates.")
+
+    dates.sort()
+    latest = dates.pop()
+
+    return dates, latest

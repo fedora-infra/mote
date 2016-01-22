@@ -13,3 +13,28 @@
 # with this program; if not, write to the Free Software Foundation,
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 #
+
+import sys, json
+sys.path.insert(1, '..')
+
+with open("name_mappings.json", 'r') as f:
+    name_mappings = json.loads(f.read())
+
+def test_name_mappings_integrity():
+    ga = dict()
+
+    for key, nm in name_mappings.iteritems():
+        ga[key] = True
+
+        try:
+            nm_aliases = nm["aliases"]
+        except KeyError:
+            continue
+
+        for al in nm_aliases:
+            if al == key:
+                raise Exception("Do not include group itself as an alias in {}".format(al))
+            if al in ga:
+                raise ValueError("Duplicate alias in name mappings: {}".format(al))
+
+            ga[al] = True
