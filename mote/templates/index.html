@@ -4,27 +4,31 @@
 <link href="/static/css/select2.min.css" rel="stylesheet">
 {% endblock %}
 {% block body %}
-<div class="center">
-    <img src="/static/fedora_logo.svg" width="20%" height:"20%" />
 
-    <h1>møte meetbot wrangler</h1>
-    <p>møte allows the Fedora community to search and explore IRC meetings.
-    <br />
-    More information on meetings can be found
-    <a target="_blank" href="https://fedoraproject.org/wiki/Meeting_channel">here</a>,
-    and more information on møte can be found <a target="_blank" href="https://fedoraproject.org/wiki/Fedora_Infrastructure_Mote">here</a>.<br />
-    Use the search bar below to select the meeting group you are looking for in order to locate the appropriate logs.</p>
-    <br />
-    <div class="row">
-        <div class="col-md-4 col-md-offset-4">
-            <select id="search-field" class="tpa form-control center-input" data-placeholder="Search..." autocomplete="off" class="center-input form-control"></select>
+<div class="index-wrapper">
+    <div class="center well index-midpage col-md-10 col-md-offset-1">
+        <img src="/static/fedora_logo.svg" style='width: 250px;'>
+
+        <h1>møte: meeting wrangler</h1>
+        <p>møte allows the Fedora community to search and explore IRC meetings.</p>
+
+        <p>More information on meetings can be found
+        <a target="_blank" href="https://fedoraproject.org/wiki/Meeting_channel">here</a>,
+        and more information on møte can be found <a target="_blank" href="https://fedoraproject.org/wiki/Fedora_Infrastructure_Mote">here</a>.<br />
+        Use the search bar below to select the meeting group you are looking for in order to locate the appropriate logs.</p>
+
+        <div class="row index-searchbar">
+            <div class="col-md-4 col-md-offset-4">
+                <select id="search-field" class="tpa form-control center-input" data-placeholder="Search..." autocomplete="off" class="center-input form-control"></select>
+            </div>
         </div>
+
+        <a  id="search" class="btn btn-primary">Search</a>&nbsp;
+        <a href="/browse" id="browse" class="btn btn-info">Browse</a>
+        <script src="/static/js/select2.min.js"></script>
+        <script src="/static/js/index-vars.js"></script>
+        <script src="/static/js/search.js"></script>
     </div>
-    <br />
-    <a  id="search" class="btn btn-primary">Search</a>&nbsp;
-    <a href="/browse" id="browse" class="btn btn-info">Browse</a>
-    <script src="/static/js/select2.min.js"></script>
-    <script src="/static/js/index-vars.js"></script>
-    <script src="/static/js/search.js"></script>
 </div>
+
 {% endblock %}

@@ -1,6 +1,3 @@
-.center {
-    text-align: center;
-}
 .inline {
     display: inline;
 }
@@ -206,4 +203,16 @@ footer > p {
 }
 a {
     cursor: pointer;
+}
+
+.index-midpage {
+    margin-top: 10%;
+}
+
+.index-searchbar {
+    margin-bottom: 17px;
+}
+
+.select2-results__option {
+    word-wrap: break-word;
 }
