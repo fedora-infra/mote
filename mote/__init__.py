@@ -355,11 +355,12 @@ def search_sugg():
     for cmk in channel_meetings:
         if res_num >= display_num:
             break
+
         if search_term in cmk:
             friendly_name = get_friendly_name(cmk) or "A friendly meeting group."
 
             try:
-                dates, latest = get_arrow_dates(team_meetings[cmk])
+                dates, latest = get_arrow_dates(channel_meetings[cmk])
             except KeyError:
                 continue
 

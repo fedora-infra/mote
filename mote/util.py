@@ -96,6 +96,6 @@ def get_arrow_dates(team_meetings):
         raise KeyError("Unavailable dates.")
 
     dates.sort()
-    latest = dates.pop()
+    latest = dates[-1]
 
     return dates, latest
