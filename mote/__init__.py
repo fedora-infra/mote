@@ -32,7 +32,7 @@ import dateutil.parser, requests, collections
 from bs4 import BeautifulSoup
 from flask import Flask, render_template, request, url_for, session, redirect
 from flask import abort
-from flask_fas_openid import fas_login_required, cla_plus_one_required, FAS
+from flask_fas_openid import fas_login_required, FAS
 from util import RegexConverter, map_name_aliases, get_arrow_dates
 
 fn_search_regex = "(.*?)\.([0-9]{4}\-[0-9]{2}\-[0-9]{2})\-.*?\..*?\.(.*)"

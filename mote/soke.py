@@ -14,8 +14,8 @@
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 #
 
-import memcache, os, json, re, sys, util
-from os.path import join, getsize, split, abspath
+import memcache, os, re, sys, util
+from os.path import join, split, abspath
 
 try:
     # if different config directory provided
