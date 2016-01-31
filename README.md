@@ -7,8 +7,10 @@ møte - Fedora meetbot log wrangler
 
 ### About
 
-møte allows the Fedora community to search and explore IRC meetings.
+møte is an interface to MeetBot logs that allows the Fedora community to search and explore IRC meetings.
 More information on meetings can be found [here](https://fedoraproject.org/wiki/Meeting_channel).
+
+møte organises and serves meetings as a drop-in replacement, without needing any modification to the MeetBot plugin itself.
 
 ### Using møte
 
