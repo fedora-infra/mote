@@ -26,7 +26,7 @@ setup(
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version='0.4.2',
+    version='0.4.3',
 
     description="""møte is a Fedora IRC meeting log wrangler,
     allowing users to employ an easy-to-use web front to explore the Fedora Project's
@@ -82,7 +82,6 @@ setup(
     # pip to create the appropriate form of executable for the target platform.
     entry_points={
         'console_scripts': [
-            'mote=runmote:main',
             'mote-updater=mote.fedmsg_consumer:main',
         ],
     },
