@@ -13,5 +13,6 @@
     "Project Leadership": ["fedora_council"],
     "Quality Assurance": ["fedora-qa"],
     "Release Engineering": ["releng"],
-    "Websites": ["fedora-websites"]
+    "Websites": ["fedora-websites"],
+    "Local Communities": ["fzug"]
 }
