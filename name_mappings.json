@@ -70,5 +70,9 @@
     "releng": {
         "friendly-name": "Fedora Release Engineering (releng)",
         "aliases": []
+    },
+    "fzug": {
+        "friendly-name": "Fedora Zhongwen User Group (FZUG)",
+        "aliases": ["#fedora-zh", "fedora-zh", "fzug_weekly_meeting"]
     }
 }
