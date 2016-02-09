@@ -254,7 +254,6 @@ def get_meeting_log():
 
     url = config.meetbot_fetch_prefix + link_prefix_ending + file_name
 
-    print url
     try:
         fetch_result = requests.get(url)
         fetch_soup = BeautifulSoup(fetch_result.text)
