@@ -112,6 +112,24 @@ def get_friendly_name(group_id, channel=False):
 
     return friendly_name
 
+def handle_meeting_date_request(group_type, meeting_group, date_stamp):
+    try:
+        meetings = get_cache_data("mote:{}_meetings".format(group_type))
+
+        workable_array = meetings[meeting_group][date_stamp]
+        minutes = workable_array["minutes"]
+        logs = workable_array["logs"]
+        return render_template(
+            "date-list.html",
+            minutes=minutes,
+            date=date_stamp,
+            logs=logs,
+            type=group_type,
+            group_name=meeting_group
+        )
+    except:
+        raise ValueError("Meetings unable to be located.")
+
 @app.route('/', methods=['GET'])
 def index():
     # Renders main page template.
@@ -128,41 +146,18 @@ def post_auth():
 
 @app.route('/<meeting_channel>/<regex("([0-9]{4}\-[0-9]{2}\-[0-9]{2})"):date_stamp>')
 @app.route('/<meeting_channel>/<regex("([0-9]{4}\-[0-9]{2}\-[0-9]{2})"):date_stamp>/')
-def catch_channel_daterequest(meeting_channel, date_stamp):
+def catch_channel_date_request(meeting_channel, date_stamp):
     try:
-        meetings = get_cache_data("mote:channel_meetings")
-        workable_array = meetings[meeting_channel][date_stamp]
-        minutes = workable_array["minutes"]
-        logs = workable_array["logs"]
-        return render_template(
-            "date-list.html",
-            minutes=minutes,
-            date=date_stamp,
-            logs=logs,
-            type="channel",
-            group_name=meeting_channel
-        )
-    except Exception as inst:
-        print inst
+        return handle_meeting_date_request("channel", meeting_channel, date_stamp)
+    except ValueError:
         return return_error("Requested meetings could not be located.")
 
 @app.route('/teams/<meeting_team>/<regex("([0-9]{4}\-[0-9]{2}\-[0-9]{2})"):date_stamp>')
 @app.route('/teams/<meeting_team>/<regex("([0-9]{4}\-[0-9]{2}\-[0-9]{2})"):date_stamp>/')
-def catch_team_daterequest(meeting_team, date_stamp):
+def catch_team_date_request(meeting_team, date_stamp):
     try:
-        meetings = get_cache_data("mote:team_meetings")
-        workable_array = meetings[meeting_team][date_stamp]
-        minutes = workable_array["minutes"]
-        logs = workable_array["logs"]
-        return render_template(
-            "date-list.html",
-            date=date_stamp,
-            minutes=minutes,
-            logs=logs,
-            type="team",
-            group_name=meeting_team
-        )
-    except:
+        return handle_meeting_date_request("team", meeting_team, date_stamp)
+    except ValueError:
         return return_error("Requested meetings could not be located.")
 
 
@@ -182,25 +177,21 @@ def catch_channel_logrequest(date, file_name, meeting_channel):
     # such as #fedora-meeting or #fedora-ambassadors
     # example: https://meetbot.fedoraproject.org/fedora-meeting-1/2015-02-09/releng.2015-02-09-16.31.html
 
-    log_gtype = "channel"
     m = re.search(fn_search_regex, file_name)
     if m == None:
         return abort(404)
 
-    group_name = m.group(1) # name of channel, e.g fedora-meeting
     log_extension = m.group(3) # type of log requested: log.html, html, or txt
 
     meeting_date = date # date of log requested: YYYY-MM-DD
     log_type = util.get_meeting_type(log_extension)
-    if group_name != meeting_channel:
-        # Prefer using team names if one can be extracted from the filename.
-        log_gtype = "team"
+
     if log_type == "plain-text":
         # Redirect to the plaintext file is one is requested.
         built_url = "{}/{}/{}/{}".format(config.meetbot_prefix, meeting_channel, date, file_name)
         return redirect(built_url)
 
-    return render_template("single-log.html", gtype=log_gtype, ltype=log_type, group=group_name, date=meeting_date, filename=file_name)
+    return render_template("single-log.html", gtype="channel", ltype=log_type, group=meeting_channel, date=meeting_date, filename=file_name)
 
 @app.route('/teams/<meeting_team>/<regex("(.*?)\.[0-9]{4}\-[0-9]{2}\-[0-9]{2}\-.*"):file_name>')
 def catch_team_logrequest(file_name, meeting_team):
@@ -263,6 +254,7 @@ def get_meeting_log():
 
     url = config.meetbot_fetch_prefix + link_prefix_ending + file_name
 
+    print url
     try:
         fetch_result = requests.get(url)
         fetch_soup = BeautifulSoup(fetch_result.text)
@@ -278,7 +270,6 @@ def get_meeting_log():
         body_content = body_content.replace("</br>", "")
         return body_content
     except Exception as e:
-        print e
         flask.abort(404)
 
 @app.route('/sresults', methods=['GET'])
