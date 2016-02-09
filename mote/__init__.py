@@ -112,6 +112,33 @@ def get_friendly_name(group_id, channel=False):
 
     return friendly_name
 
+def get_merged_data(group_name):
+    if group_name not in name_mappings:
+        raise ValueError("Merged name not found in name mappings")
+
+    team_meetings = get_cache_data("mote:team_meetings")
+    channel_meetings = get_cache_data("mote:channel_meetings")
+    groups_in_merge = name_mappings[group_name]["aliases"]
+
+    merged_meetings = []
+
+    for group_id in groups_in_merge:
+        meetings = []
+        if group_id.startswith('#'):
+            # is channel
+            try:
+                meetings = channel_meetings[group_id]
+            except KeyError:
+                pass
+        else:
+            # is team
+            try:
+                meetings = team_meetings[group_id]
+            except KeyError:
+                pass
+        merged_meetings += meetings
+    return merged_meetings
+
 @app.route('/', methods=['GET'])
 def index():
     # Renders main page template.
@@ -297,12 +324,20 @@ def sresults():
         meetings = get_cache_data("mote:team_meetings")
     elif group_type == "channel":
         meetings = get_cache_data("mote:channel_meetings")
+    elif group_type == "merged":
+        # fetch merged meetings
+        meetings = get_merged_data(group_id)
     else:
         return return_error("Invalid group type.")
 
+    print meetings
+
     try:
-        groupx_meetings = meetings[group_id]
-    except:
+        if group_type != "merged":
+            groupx_meetings = meetings[group_id]
+        else:
+            groupx_meetings = meetings
+    except KeyError:
         return return_error("Group not found.")
 
     sorted_dates = list(groupx_meetings.keys())
@@ -339,6 +374,7 @@ def sresults():
         meetbot_location = config.meetbot_prefix,
         latest_meeting = next(reversed(avail_dates.items()[0][1].items()[-1][1]))
     )
+
 
 
 @app.route('/search_sugg', methods=['GET'])
