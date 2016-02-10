@@ -127,7 +127,7 @@ def handle_meeting_date_request(group_type, meeting_group, date_stamp):
             type=group_type,
             group_name=meeting_group
         )
-    except:
+    except KeyError:
         raise ValueError("Meetings unable to be located.")
 
 @app.route('/', methods=['GET'])
