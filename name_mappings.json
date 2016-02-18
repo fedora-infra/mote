@@ -33,7 +33,7 @@
     },
     "fedora-mktg": {
         "friendly-name": "Fedora Marketing",
-        "aliases": []
+        "aliases": ["marketing"]
     },
     "fedora-qa": {
         "friendly-name": "Fedora QA",
