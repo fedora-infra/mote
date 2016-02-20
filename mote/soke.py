@@ -17,6 +17,8 @@
 import memcache, os, re, sys, util
 from os.path import join, split, abspath
 
+from latest_meetings import get_latest_meetings
+
 try:
     # if different config directory provided
     # e.g ran in mod_wsgi
@@ -105,9 +107,14 @@ def run():
                 except:
                     pass
 
+    # fetch latest meetings using datagrepper for the past 24 hours
+    latest_meetings = get_latest_meetings()
+
     if config.use_memcached == True:
         mc.set("mote:channel_meetings", d_channel_meetings, config.cache_expire_time)
         mc.set("mote:team_meetings", t_channel_meetings, config.cache_expire_time)
-        util.set_json_cache(d_channel_meetings, t_channel_meetings, config.cache_expire_time)
+        mc.set("mote:latest_meetings", latest_meetings, config.cache_expire_time)
+
+        util.set_json_cache(d_channel_meetings, t_channel_meetings, latest_meetings, config.cache_expire_time)
     else:
-        util.set_json_cache(d_channel_meetings, t_channel_meetings, config.cache_expire_time)
+        util.set_json_cache(d_channel_meetings, t_channel_meetings, latest_meetings, config.cache_expire_time)

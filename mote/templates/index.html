@@ -5,30 +5,64 @@
 {% endblock %}
 {% block body %}
 
-<div class="index-wrapper">
-    <div class="center well index-midpage col-md-10 col-md-offset-1">
-        <img src="/static/fedora_logo.svg" style='width: 250px;'>
+<div class="index-wrapper row">
+    <div class="well index-midpage col-md-10 col-md-offset-1">
+        <div class="col-md-6 center">
+            <img src="/static/fedora_logo.svg" style='width: 250px;'>
 
-        <h1>møte: meeting wrangler</h1>
-        <p>møte allows the Fedora community to search and explore IRC meetings.</p>
+            <h1>møte: meeting wrangler</h1>
+            <p>møte allows the Fedora community to search and explore IRC meetings.</p>
 
-        <p>More information on meetings can be found
-        <a target="_blank" href="https://fedoraproject.org/wiki/Meeting_channel">here</a>,
-        and more information on møte can be found <a target="_blank" href="https://fedoraproject.org/wiki/Fedora_Infrastructure_Mote">here</a>.<br />
-        Use the search bar below to select the meeting group you are looking for in order to locate the appropriate logs.</p>
+            <p>More information on meetings can be found
+            <a target="_blank" href="https://fedoraproject.org/wiki/Meeting_channel">here</a>,
+            and more information on møte can be found <a target="_blank" href="https://fedoraproject.org/wiki/Fedora_Infrastructure_Mote">here</a>.<br />
+            Use the search bar below to select the meeting group you are looking for in order to locate the appropriate logs.</p>
 
-        <div class="row index-searchbar">
-            <div class="col-md-6 col-md-offset-3">
-                <select id="search-field" class="tpa form-control center-input" data-placeholder="Search..." autocomplete="off" class="center-input form-control"></select>
+            <div class="row index-searchbar">
+                <div class="col-md-8 col-md-offset-2">
+                    <select id="search-field" class="form-control center-input" data-placeholder="Search..." autocomplete="off" class="center-input form-control"></select>
+                </div>
+            </div>
+
+            <a id="search" class="btn btn-primary">Search</a>&nbsp;
+            <a href="/browse" id="browse" class="btn btn-info">Browse</a>
+            <script src="/static/js/select2.min.js"></script>
+            <script src="/static/js/index-vars.js"></script>
+            <script src="/static/js/search.js"></script>
+        </div>
+        <div class="col-md-6 hidden-sm hidden-xs">
+            <div class='center'>
+                <h3 class='latest-meetings-header'>Latest Meetings</h3>
+                <span class='text-muted'>from the past day</span>
+            </div>
+
+            <div class='latest-meetings-list'>
+                {% if latest_meetings %}
+                    <ul>
+                        {% for meeting in latest_meetings %}
+                        <li>
+                            <div class='row'>
+                                <div class='col-md-7'>
+                                    <p>
+                                        <b>{{meeting['meeting_topic']}}</b>
+                                    </p>
+                                    <p class='text-muted'>{{((current_time - meeting['details']['time_']) / 60) | round(1, 'floor')}} minutes ago</p>
+                                </div>
+                                <div class='col-md-5'>
+                                    <a class='btn btn-success btn-xs' href='{{meeting['url']}}.html'>Minutes</a>
+                                    <a class='btn btn-warning btn-xs' href='{{meeting['url']}}.log.html'>Logs</a>
+                                </div>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                <h3 class='latest-meetings-missing center'>No meetings found in the past day.</h3>
+                {% endif %}
             </div>
         </div>
-
-        <a  id="search" class="btn btn-primary">Search</a>&nbsp;
-        <a href="/browse" id="browse" class="btn btn-info">Browse</a>
-        <script src="/static/js/select2.min.js"></script>
-        <script src="/static/js/index-vars.js"></script>
-        <script src="/static/js/search.js"></script>
     </div>
+
 </div>
 
 {% endblock %}

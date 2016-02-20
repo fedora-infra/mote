@@ -14,71 +14,72 @@
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 #
 */
+var $eventSelect = $('#search-field');
 
-var $eventSelect = $(".tpa");
-
-function formatRes (res) {
+function formatRes(res) {
     if (res.loading) return res.text;
 
     var markup = '<div class="clearfix">' +
-    '<div>' +
-    '<h4>' + res.name + '</h4>' +
-    '<b>active: </b>' + res.latest_human + ' ' +
-    '<b>type: </b>' + res.type +
-    '</div>' +
-    '</div>';
+        '<div>' +
+        '<h4>' + res.name + '</h4>' +
+        '<b>active: </b>' + res.latest_human + ' ' +
+        '<b>type: </b>' + res.type +
+        '</div>' +
+        '</div>';
 
     if (res.description) {
-      markup += '<div>' + res.description + '</div>';
+        markup += '<div>' + res.description + '</div>';
     }
     return markup;
 }
 
-function formatResSelection (res) {
+function formatResSelection(res) {
     return res.name;
 }
 
-$(".tpa").select2({
-  ajax: {
-    url: "/search_sugg",
-    dataType: 'json',
-    delay: 250,
-    data: function (params) {
-      return {
-        q: params.term, // search term
-      };
+$eventSelect.select2({
+    ajax: {
+        url: "/search_sugg",
+        dataType: 'json',
+        delay: 250,
+        data: function(params) {
+            return {
+                q: params.term, // search term
+            };
+        },
+        processResults: function(data, page) {
+            // parse the results into the format expected by Select2.
+            // since we are using custom formatting functions we do not need to
+            // alter the remote JSON data
+            return {
+                results: data.items
+            };
+        },
+        cache: true
     },
-    processResults: function (data, page) {
-      // parse the results into the format expected by Select2.
-      // since we are using custom formatting functions we do not need to
-      // alter the remote JSON data
-      return {
-        results: data.items
-      };
-    },
-    cache: true
-  },
-  escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
-  minimumInputLength: 1,
-  templateResult: formatRes,
-  templateSelection: formatResSelection
+    escapeMarkup: function(markup) {
+        return markup;
+    }, // let our custom formatter work
+    minimumInputLength: 1,
+    templateResult: formatRes,
+    templateSelection: formatResSelection
 });
-function redirectResults (group_id, type) {
+
+function redirectResults(group_id, type) {
     window.location = "/sresults?group_id=" + group_id + "&type=" + type;
 }
 
-$eventSelect.on("select2:select", function (e) {
+$eventSelect.on("select2:select", function(e) {
     group_id = e.params.data.id;
     group_type = e.params.data.type;
     if (auto_search === true) {
         redirectResults(group_id, group_type);
-    }
-    else {
+    } else {
         window.group_id = group_id;
         window.group_type = group_type;
     }
 });
 
-$("#search").click(function () {
+$("#search").click(function() {
     redirectResults(group_id, group_type);
 });
