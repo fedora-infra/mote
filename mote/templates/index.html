@@ -1,8 +1,10 @@
 {% extends "base.html" %}
 {% set thispage = "home" %}
-{% block head %}
+
+{% block css %}
 <link href="/static/css/select2.min.css" rel="stylesheet">
 {% endblock %}
+
 {% block body %}
 
 <div class="index-wrapper row">
@@ -26,9 +28,6 @@
 
             <a id="search" class="btn btn-primary">Search</a>&nbsp;
             <a href="/browse" id="browse" class="btn btn-info">Browse</a>
-            <script src="/static/js/select2.min.js"></script>
-            <script src="/static/js/index-vars.js"></script>
-            <script src="/static/js/search.js"></script>
         </div>
         <div class="col-md-6 hidden-sm hidden-xs">
             <div class='center'>
@@ -46,7 +45,7 @@
                                     <p>
                                         <b>{{meeting['meeting_topic']}}</b>
                                     </p>
-                                    <p class='text-muted'>{{((current_time - meeting['details']['time_']) / 60) | round(1, 'floor')}} minutes ago</p>
+                                    <p class='text-muted moment' data-timestamp='{{ meeting['details']['time_'] }}'></p>
                                 </div>
                                 <div class='col-md-5'>
                                     <a class='btn btn-success btn-xs' href='{{meeting['url']}}.html'>Minutes</a>
@@ -65,4 +64,13 @@
 
 </div>
 
+{% endblock %}
+
+{% block js %}
+<script src="/static/js/select2.min.js"></script>
+<script src="/static/js/index-vars.js"></script>
+<script src="/static/js/search.js"></script>
+
+<script src="/static/js/moment.min.js"></script>
+<script src="/static/js/index.js"></script>
 {% endblock %}

@@ -27,7 +27,7 @@ except:
     # e.g running from git clone
     pass
 
-import flask, random, string, json, util, re, time
+import flask, random, string, json, util, re
 import dateutil.parser, requests, collections
 from bs4 import BeautifulSoup
 from flask import Flask, render_template, request, url_for, session, redirect
@@ -136,11 +136,10 @@ def handle_meeting_date_request(group_type, meeting_group, date_stamp):
 def index():
     # Get latest meetings
     latest_meetings = get_cache_data('mote:latest_meetings')
-    current_time = time.time()
 
     # Renders main page template.
     return render_template('index.html',
-        latest_meetings=latest_meetings, current_time=current_time)
+        latest_meetings=latest_meetings)
 
 @app.route('/post_auth', methods=['GET'])
 @app.route('/post_auth/', methods=['GET'])

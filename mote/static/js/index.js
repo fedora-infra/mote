@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+/*
 #
 # Copyright © 2015-2016 Chaoyi Zha <cydrobolt@fedoraproject.org>
 #
@@ -13,24 +13,12 @@
 # with this program; if not, write to the Free Software Foundation,
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 #
+*/
 
-import requests, json
-
-seconds_delta = 86400;
-topic = 'org.fedoraproject.prod.meetbot.meeting.complete';
-
-url_template = "https://apps.fedoraproject.org/datagrepper/raw?delta={}&topic={}".format(seconds_delta, topic)
-
-def get_latest_meetings():
-    # fetch meetings from the last day using datagrepper
-    last_day_raw = requests.get(url_template)
-
-    if last_day_raw.status_code != 200:
-        return []
-
-    last_day = json.loads(last_day_raw.text)['raw_messages']
-
-    # keep five latest meetings
-    last_day_truncated = [k['msg'] for k in last_day[:4]]
-
-    return last_day_truncated
+$('.moment').each(function (i) {
+    $(this).html(
+        moment.unix(
+            $(this).data('timestamp')
+        ).fromNow()
+    );
+});
