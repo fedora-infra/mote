@@ -37,7 +37,7 @@ def test_json_cache():
         "five": "six",
         "seven": "eight"
     }
-    util.set_json_cache(channel_data, team_data, 10000)
+    util.set_json_cache(channel_data, team_data, [], 10000)
 
     json_cache_team = util.get_json_cache("team")
     json_cache_channel = util.get_json_cache("channel")
