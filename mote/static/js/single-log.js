@@ -32,10 +32,15 @@ function loadLogContents() {
         var markup;
         markup = res;
         $('.logdisplay').html(markup);
-        var line = document.getElementsByName(location.hash.split('#')[1]);
+        var tms = document.getElementsByClassName("tm");
+        var lineNum = location.hash.split('-')[1];
+        var navBarHeight = $('nav').height();
+
+ 	    var line = tms[lineNum];
         $line = $(line);
-          $('html, body').animate({
-            'scrollTop' : $line.offset().top
+        
+        $('body, html').animate({
+             scrollTop : $line.offset().top -5
         });
         return true;
     });
