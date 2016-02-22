@@ -32,6 +32,11 @@ function loadLogContents() {
         var markup;
         markup = res;
         $('.logdisplay').html(markup);
+        var line = document.getElementsByName(location.hash.split('#')[1]);
+        $line = $(line);
+          $('html, body').animate({
+            'scrollTop' : $line.offset().top
+        });
         return true;
     });
     return true;
