@@ -28,10 +28,17 @@ function loadLogContents() {
       url: "/get_meeting_log",
       data: data,
       dataType: "html"
-    }).done(function (res) {
-        var markup;
-        markup = res;
+  }).done(function (markup) {
         $('.logdisplay').html(markup);
+
+        var container = $('.wrapper');
+        var lineNum = location.hash.split('-')[1];
+
+ 	    var line = $('[name="l-' + lineNum + '"]').next();
+
+        $('body').animate({
+             scrollTop: line.offset().top - container.offset().top + container.scrollTop()
+        });
     });
 }
 

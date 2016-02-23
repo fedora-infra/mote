@@ -9,6 +9,9 @@
 <div class="logdisplay">
     <i class="fa fa-spin fa-spinner fa-3x"></i>
 </div>
+{% endblock %}
+
+{% block js %}
 <script>
     window.current_group_type = "{{gtype}}";
     window.current_group_id = "{{group}}";
@@ -16,5 +19,6 @@
     window.current_fname = "{{filename}}";
     window.current_log_type = "{{ltype}}";
 </script>
+
 <script src="/static/js/single-log.js"></script>
 {% endblock %}
