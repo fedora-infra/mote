@@ -32,9 +32,7 @@ function loadLogContents() {
         var markup;
         markup = res;
         $('.logdisplay').html(markup);
-        return true;
     });
-    return true;
 }
 
 $(function () {
