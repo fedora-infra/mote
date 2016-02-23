@@ -106,6 +106,14 @@ ln -s /usr/share/fonts/fontawesome %{buildroot}/%{python_sitelib}/mote/static/fo
 %{_bindir}/mote-updater
 
 %changelog
+* Tue Feb 23 2016 Chaoyi Zha <cydrobolt@fedoraproject.org> - 0.5.1
+- Update 0.5.1
+- Tighten wide try/except clauses
+- Add latest meetings section on main page
+- Defer JS loading
+- Remove mote console script entry point
+- Fix scroll-to-line within log viewer
+
 * Sat Jan 30 2016 Chaoyi Zha <cydrobolt@fedoraproject.org> - 0.4.3
 - Update 0.4.3
 - Several updates to name and group mapping files
