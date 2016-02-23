@@ -98,7 +98,6 @@ ln -s /usr/share/fonts/fontawesome %{buildroot}/%{python_sitelib}/mote/static/fo
 %config(noreplace) %{_sysconfdir}/mote/config.py
 %config(noreplace) %{_sysconfdir}/mote/config.pyc
 %config(noreplace) %{_sysconfdir}/mote/config.pyo
-%{_bindir}/mote
 %{_datadir}/mote/
 %{_unitdir}/mote-updater.service
 %{python_sitelib}/mote/
