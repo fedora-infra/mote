@@ -25,7 +25,7 @@ def get_latest_meetings():
     # fetch meetings from the last day using datagrepper
     last_day_raw = requests.get(url_template)
 
-    if last_day_raw.status_code != 200:
+    if not bool(last_day_raw):
         return []
 
     last_day = json.loads(last_day_raw.text)['raw_messages']
