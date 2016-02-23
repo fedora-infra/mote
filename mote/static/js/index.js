@@ -15,29 +15,10 @@
 #
 */
 
-function loadLogContents() {
-    // type == minutes or logs
-    var data = {
-        "group_type": current_group_type,
-        "group_id": current_group_id,
-        "date_stamp": current_date_stamp,
-        "file_name": current_fname,
-    };
-    $.ajax({
-      type: "GET",
-      url: "/get_meeting_log",
-      data: data,
-      dataType: "html"
-    }).done(function (res) {
-        var markup;
-        markup = res;
-        $('.logdisplay').html(markup);
-    });
-}
-
-$(function () {
-    loadLogContents();
-    if (window.current_log_type == "minutes") {
-        $(".logdisplay").addClass("single-log-minutes");
-    }
+$('.moment').each(function (i) {
+    $(this).html(
+        moment.unix(
+            $(this).data('timestamp')
+        ).fromNow()
+    );
 });

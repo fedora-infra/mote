@@ -76,6 +76,8 @@ def get_cache_data(key_name):
         meeting_type = "team"
     elif key_name == "mote:channel_meetings":
         meeting_type = "channel"
+    elif key_name == "mote:latest_meetings":
+        meeting_type = "latest_meetings"
     else:
         meeting_type = None
 
@@ -132,8 +134,12 @@ def handle_meeting_date_request(group_type, meeting_group, date_stamp):
 
 @app.route('/', methods=['GET'])
 def index():
+    # Get latest meetings
+    latest_meetings = get_cache_data('mote:latest_meetings')
+
     # Renders main page template.
-    return render_template('index.html')
+    return render_template('index.html',
+        latest_meetings=latest_meetings)
 
 @app.route('/post_auth', methods=['GET'])
 @app.route('/post_auth/', methods=['GET'])
@@ -432,7 +438,7 @@ def browse():
         for category in category_mappings[category_index]:
             try:
                 browse_nmappings[category] = name_mappings[category]["friendly-name"]
-            except:
+            except KeyError:
                 browse_nmappings[category] = category
 
     return render_template('browse.html', category_mappings=category_mappings, browse_nmappings=browse_nmappings)

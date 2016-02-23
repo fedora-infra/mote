@@ -1,4 +1,4 @@
-/*
+# -*- coding: utf-8 -*-
 #
 # Copyright © 2015-2016 Chaoyi Zha <cydrobolt@fedoraproject.org>
 #
@@ -13,31 +13,24 @@
 # with this program; if not, write to the Free Software Foundation,
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 #
-*/
 
-function loadLogContents() {
-    // type == minutes or logs
-    var data = {
-        "group_type": current_group_type,
-        "group_id": current_group_id,
-        "date_stamp": current_date_stamp,
-        "file_name": current_fname,
-    };
-    $.ajax({
-      type: "GET",
-      url: "/get_meeting_log",
-      data: data,
-      dataType: "html"
-    }).done(function (res) {
-        var markup;
-        markup = res;
-        $('.logdisplay').html(markup);
-    });
-}
+import requests, json
 
-$(function () {
-    loadLogContents();
-    if (window.current_log_type == "minutes") {
-        $(".logdisplay").addClass("single-log-minutes");
-    }
-});
+seconds_delta = 86400;
+topic = 'org.fedoraproject.prod.meetbot.meeting.complete';
+
+url_template = "https://apps.fedoraproject.org/datagrepper/raw?delta={}&topic={}".format(seconds_delta, topic)
+
+def get_latest_meetings():
+    # fetch meetings from the last day using datagrepper
+    last_day_raw = requests.get(url_template)
+
+    if not bool(last_day_raw):
+        return []
+
+    last_day = json.loads(last_day_raw.text)['raw_messages']
+
+    # keep five latest meetings
+    last_day_truncated = [k['msg'] for k in last_day[:4]]
+
+    return last_day_truncated
