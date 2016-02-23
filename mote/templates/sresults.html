@@ -1,8 +1,10 @@
 {% extends "base.html" %}
 {% set thispage = thispage|default('browse') %}
-{% block head %}
+
+{% block css %}
 <link href="/static/css/select2.min.css" rel="stylesheet">
 {% endblock %}
+
 {% block body %}
 <div class="container-fluid">
     <div class="center row">
@@ -54,14 +56,18 @@
             <span id="loading-icon"></span>
         </div>
     </div>
-    <script>
-        window.current_group_id = "{{ name | e }}";
-        window.current_group_type = "{{ type | e }}";
-        window.meetbot_location = "{{ meetbot_location }}";
-    </script>
-    <script src="/static/js/sresults-vars.js"></script>
-    <script src="/static/js/select2.min.js"></script>
-    <script src="/static/js/search.js"></script>
-    <script src="/static/js/sresults.js"></script>
+
 </div>
+{% endblock %}
+
+{% block js %}
+<script>
+    window.current_group_id = "{{ name | e }}";
+    window.current_group_type = "{{ type | e }}";
+    window.meetbot_location = "{{ meetbot_location }}";
+</script>
+<script src="/static/js/sresults-vars.js"></script>
+<script src="/static/js/select2.min.js"></script>
+<script src="/static/js/search.js"></script>
+<script src="/static/js/sresults.js"></script>
 {% endblock %}
