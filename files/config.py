@@ -25,6 +25,8 @@ meetbot_fetch_prefix = "http://meetbot-raw.fedoraproject.org"
 # Time (in seconds) after which the log/meeting cache expires
 cache_expire_time = 60 * 60 * 1
 
+# datagrepper URL
+datagrepper_base_url = "https://apps.fedoraproject.org"
 
 '''
 Development Configuration
