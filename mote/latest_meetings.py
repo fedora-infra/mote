@@ -15,11 +15,12 @@
 #
 
 import requests, json
+from config import datagrepper_base_url
 
 seconds_delta = 86400;
 topic = 'org.fedoraproject.prod.meetbot.meeting.complete';
 
-url_template = "https://apps.fedoraproject.org/datagrepper/raw?delta={}&topic={}".format(seconds_delta, topic)
+url_template = "{}/datagrepper/raw?delta={}&topic={}".format(datagrepper_base_url, seconds_delta, topic)
 
 def get_latest_meetings():
     # fetch meetings from the last day using datagrepper
