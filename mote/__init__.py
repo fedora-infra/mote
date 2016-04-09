@@ -29,6 +29,9 @@ except:
 
 import flask, random, string, json, util, re
 import dateutil.parser, requests, collections
+
+from six.moves import html_parser as html_parser_six
+
 from bs4 import BeautifulSoup
 from flask import Flask, render_template, request, url_for, session, redirect
 from flask import abort
@@ -48,6 +51,8 @@ fas = FAS(app)
 app.secret_key = ''.join(random.SystemRandom().choice(string.uppercase + string.digits) for _ in xrange(20))
 app.config['FAS_OPENID_ENDPOINT'] = 'http://id.fedoraproject.org/'
 app.config['FAS_CHECK_CERT'] = True
+html_parser = html_parser_six.HTMLParser()
+
 cwd = os.getcwd()
 app.url_map.converters['regex'] = RegexConverter
 
@@ -250,8 +255,11 @@ def get_meeting_log():
     group_type = request.args['group_type']
     date_stamp = request.args['date_stamp']
     group_id   = request.args['group_id']
+
     file_name  = request.args['file_name']
     file_type  = request.args.get('file_type')
+
+    file_name = html_parser.unescape(file_name)
 
     if group_type == "team":
         link_prefix_ending = "/teams/" + group_id + "/"
