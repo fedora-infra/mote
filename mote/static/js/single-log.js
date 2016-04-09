@@ -36,9 +36,14 @@ function loadLogContents() {
 
  	    var line = $('[name="l-' + lineNum + '"]').next();
 
-        $('body').animate({
-             scrollTop: line.offset().top - container.offset().top + container.scrollTop()
-        });
+        try {
+            $('body').animate({
+                 scrollTop: line.offset().top - container.offset().top + container.scrollTop()
+            });
+        }
+        catch (e) {
+            console.log("No line specified. Not scrolling.");
+        }
     });
 }
 
