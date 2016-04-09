@@ -2,7 +2,7 @@
 %distutils.sysconfig import get_python_lib; print (get_python_lib())")}
 
 Name:       mote
-Version:    0.5.1
+Version:    0.5.2
 Release:    2%{?dist}
 Summary:    A MeetBot log wrangler, providing a user-friendly interface for Fedora's logs
 
@@ -24,6 +24,7 @@ BuildRequires: python-requests
 BuildRequires: python-dateutil
 BuildRequires: python-beautifulsoup4
 BuildRequires: python-fedora-flask
+BuildRequires: python-six
 BuildRequires: python-arrow
 BuildRequires: fedmsg
 
@@ -43,6 +44,7 @@ Requires: python-requests
 Requires: python-dateutil
 Requires: python-beautifulsoup4
 Requires: python-fedora-flask
+Requires: python-six
 Requires: python-arrow
 Requires: fontawesome-fonts
 Requires: fontawesome-fonts-web
@@ -105,6 +107,11 @@ ln -s /usr/share/fonts/fontawesome %{buildroot}/%{python_sitelib}/mote/static/fo
 %{_bindir}/mote-updater
 
 %changelog
+* Sat Apr 9 2016 Chaoyi Zha <cydrobolt@fedoraproject.org> - 0.5.2
+- Update 0.5.2
+- Fix datagrepper access in staging
+- Fix meeting serving when symbols are included in the filename
+
 * Tue Feb 23 2016 Chaoyi Zha <cydrobolt@fedoraproject.org> - 0.5.1
 - Update 0.5.1
 - Tighten wide try/except clauses
