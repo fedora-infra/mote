@@ -71,7 +71,7 @@ category_mappings = json.loads(category_mappings)
 
 logging_format = '%(asctime)-15s %(message)s'
 logging.basicConfig(format=logging_format)
-logger = logging.getLogger('tcpserver')
+logger = logging.getLogger(__name__)
 
 if config.use_memcached == True:
     import memcache
