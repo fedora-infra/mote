@@ -29,6 +29,7 @@ except:
 
 import flask, random, string, json, util, re
 import dateutil.parser, requests, collections
+import logging
 
 from six.moves import html_parser as html_parser_six
 
@@ -68,6 +69,9 @@ else:
 name_mappings = map_name_aliases(json.loads(name_mappings))
 category_mappings = json.loads(category_mappings)
 
+logging_format = '%(asctime)-15s %(message)s'
+logging.basicConfig(format=logging_format)
+logger = logging.getLogger(__name__)
 
 if config.use_memcached == True:
     import memcache
