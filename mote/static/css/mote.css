@@ -6,7 +6,7 @@
     margin-right: 50px;
 }
 
-.logdisplay {
+.log-display {
     padding-top: 20px;
 }
 
@@ -35,7 +35,7 @@
 }
 
 /* Meetbot Display CSS */
-.logdisplay .details {
+.log-display .details {
     font-size: 12px;
     font-weight:bold;
 }
@@ -54,19 +54,19 @@
   width: 80%;
 }
 
-.logdisplay pre { white-space: pre-wrap; }
-.logdisplay pre { background: #f0f0f0; }
+.log-display pre { white-space: pre-wrap; }
+.log-display pre { background: #f0f0f0; }
 
-.logdisplay pre .tm  { color: #007020 }                      /* time */
-.logdisplay pre .nk  { color: #062873; font-weight: bold }   /* nick, regular */
-.logdisplay pre .nka { color: #007020; font-weight: bold }  /* action nick */
-.logdisplay pre .ac  { color: #00A000 }                      /* action line */
-.logdisplay pre .hi  { color: #4070a0 }                 /* hilights */
+.log-display pre .tm  { color: #007020 }                      /* time */
+.log-display pre .nk  { color: #062873; font-weight: bold }   /* nick, regular */
+.log-display pre .nka { color: #007020; font-weight: bold }  /* action nick */
+.log-display pre .ac  { color: #00A000 }                      /* action line */
+.log-display pre .hi  { color: #4070a0 }                 /* hilights */
 /* Things to make particular MeetBot commands stick out */
-.logdisplay pre .topic     { color: #007020; font-weight: bold }
-.logdisplay pre .topicline { color: #000080; font-weight: bold }
-.logdisplay pre .cmd       { color: #007020; font-weight: bold }
-.logdisplay pre .cmdline  { font-weight: bold }
+.log-display pre .topic     { color: #007020; font-weight: bold }
+.log-display pre .topicline { color: #000080; font-weight: bold }
+.log-display pre .cmd       { color: #007020; font-weight: bold }
+.log-display pre .cmdline  { font-weight: bold }
 
 /* Bootstrap Fixes */
 
