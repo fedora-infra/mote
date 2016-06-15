@@ -223,6 +223,7 @@ def catch_team_logrequest(file_name, meeting_team):
     if log_type == "plain-text":
         built_url = "{}/teams/{}/{}".format(config.meetbot_prefix, meeting_team, file_name)
         return redirect(built_url)
+
     return render_template("single-log.html", gtype="team", ltype=log_type, group=group_name, date=meeting_date, filename=file_name)
 
 @app.route('/request_logs')

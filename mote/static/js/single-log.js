@@ -17,6 +17,11 @@
 
 function loadLogContents() {
     // type == minutes or logs
+
+    if (window.current_log_type == "minutes") {
+        $(".log-display").addClass("single-log-minutes");
+    }
+
     var data = {
         "group_type": current_group_type,
         "group_id": current_group_id,
@@ -24,32 +29,53 @@ function loadLogContents() {
         "file_name": current_fname,
     };
     $.ajax({
-      type: "GET",
-      url: "/get_meeting_log",
-      data: data,
-      dataType: "html"
-  }).done(function (markup) {
-        $('.logdisplay').html(markup);
+        type: "GET",
+        url: "/get_meeting_log",
+        data: data,
+        dataType: "html"
+    }).done(function(markup) {
+        $('.log-display').html(markup);
 
         var container = $('.wrapper');
         var lineNum = location.hash.split('-')[1];
 
- 	    var line = $('[name="l-' + lineNum + '"]').next();
+        var line = $('[name="l-' + lineNum + '"]').next();
 
         try {
             $('body').animate({
-                 scrollTop: line.offset().top - container.offset().top + container.scrollTop()
+                scrollTop: line.offset().top - container.offset().top + container.scrollTop()
             });
-        }
-        catch (e) {
+        } catch (e) {
             console.log("No line specified. Not scrolling.");
         }
     });
 }
 
-$(function () {
-    loadLogContents();
-    if (window.current_log_type == "minutes") {
-        $(".logdisplay").addClass("single-log-minutes");
+$(function() {
+    if (window.current_log_type != 'meeting') {
+        loadLogContents();
     }
+
+    $('.select-meeting-type').click(function () {
+        // if the log type is 'meeting', load the log
+        // only after the user makes their selection
+
+        $('.display-container').show();
+        var new_log_type = $(this).data('mtype');
+
+        console.log(new_log_type);
+        window.current_log_type = new_log_type;
+
+        // trim off .mtg
+        var new_fname = window.current_fname.slice(0, -3);
+        // add new extension
+        console.log(current_log_type);
+        new_fname += window.log_extensions[window.current_log_type];
+
+        window.current_fname = new_fname;
+        loadLogContents();
+
+        $('.select-meeting-type-container').slideUp();
+    });
+
 });

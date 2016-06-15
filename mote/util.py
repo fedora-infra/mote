@@ -31,6 +31,10 @@ def get_meeting_type(extension):
         return "minutes"
     elif extension == "log.html":
         return "logs"
+    elif extension == "mtg":
+        # returning the type 'meeting' will allow
+        # the user to select the log type
+        return "meeting"
     else:
         # if plain-text file
         return "plain-text"
