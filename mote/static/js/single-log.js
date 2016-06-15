@@ -63,7 +63,6 @@ $(function() {
         $('.display-container').show();
         var new_log_type = $(this).data('mtype');
 
-        console.log(new_log_type);
         window.current_log_type = new_log_type;
 
         // trim off .mtg
