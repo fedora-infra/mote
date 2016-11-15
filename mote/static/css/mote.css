@@ -250,6 +250,14 @@ a {
     word-wrap: break-word;
 }
 
+.select2-results__option h4 {
+    display: inline;
+}
+
+.select2-results__option .group-icon {
+    margin-right: 0.5em;
+}
+
 .latest-meetings-header {
     margin-top: 2em;
 }

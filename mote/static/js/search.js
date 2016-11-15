@@ -20,11 +20,20 @@ var $eventSelect = $('#search-field');
 function formatRes(res) {
     if (res.loading) return res.text;
 
+    var group_icon = 'users';
+    if (res.type == 'channel') {
+        // Set 'comments' fontawesome icon
+        // if group is a channel
+        group_icon = 'comments';
+    }
+
     var markup = '<div class="clearfix">' +
         '<div>' +
-        '<h4>' + res.name + '</h4>' +
+        '<i class="fa group-icon fa-'+ group_icon +'"></i>' +
+        '<h4>' + res.name + '</h4> (' + res.type + ')' +
+        '<p>' +
         '<b>active: </b>' + res.latest_human + ' ' +
-        '<b>type: </b>' + res.type +
+        '</p>' +
         '</div>' +
         '</div>';
 
