@@ -317,7 +317,7 @@ def sresults():
     sorted_dates = list(groupx_meetings.keys())
 
     try:
-        sorted_dates.sort(key=dateutil.parser.parse)
+        sorted_dates.sort(key=dateutil.parser.parse, reverse=True)
     except:
         return return_error("An error occured while fetching meetings.")
 
@@ -335,7 +335,6 @@ def sresults():
             avail_dates[year][month].append(date)
 
         sorted_date_items = avail_dates.items()
-        sorted_date_items.reverse()
         avail_dates = collections.OrderedDict(sorted_date_items)
     except:
         pass
