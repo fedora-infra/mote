@@ -3,7 +3,7 @@
 
 Name:       mote
 Version:    0.6.1
-Release:    2%{?dist}
+Release:    4%{?dist}
 Summary:    A MeetBot log wrangler, providing a user-friendly interface for Fedora's logs
 
 License:    GPLv2+
@@ -113,6 +113,12 @@ ln -s /usr/share/fonts/fontawesome %{buildroot}/%{python_sitelib}/mote/static/fo
 - Add "deep link" #94
 - Implement more descriptive team icons
 - Other small bug fixes and improvements
+
+* Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
+
+* Tue Jul 19 2016 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.5.2-3
+- https://fedoraproject.org/wiki/Changes/Automatic_Provides_for_Python_RPM_Packages
 
 * Sat Apr 9 2016 Chaoyi Zha <cydrobolt@fedoraproject.org> - 0.5.2
 - Update 0.5.2
