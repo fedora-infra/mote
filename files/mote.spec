@@ -2,7 +2,7 @@
 %distutils.sysconfig import get_python_lib; print (get_python_lib())")}
 
 Name:       mote
-Version:    0.6.1
+Version:    0.6.2
 Release:    4%{?dist}
 Summary:    A MeetBot log wrangler, providing a user-friendly interface for Fedora's logs
 
@@ -107,6 +107,11 @@ ln -s /usr/share/fonts/fontawesome %{buildroot}/%{python_sitelib}/mote/static/fo
 %{_bindir}/mote-updater
 
 %changelog
+* Tue May 2 2017 Chaoyi Zha <cydrobolt@fedoraproject.org> - 0.6.2
+- Update 0.6.2
+- Fix latest meeting button
+- Add missing import for soke in __init__ that may have been causing uncaught 500s
+
 * Tue Mar 28 2017 Chaoyi Zha <cydrobolt@fedoraproject.org> - 0.6.1
 - Update 0.6.1
 - Fix exception logging
