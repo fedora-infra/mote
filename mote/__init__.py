@@ -29,7 +29,7 @@ except:
 
 import flask, random, string, json, util, re
 import dateutil.parser, requests, collections
-import logging
+import logging, soke
 
 from six.moves import html_parser as html_parser_six
 
@@ -345,7 +345,7 @@ def sresults():
         type = group_type,
         avail_dates = avail_dates,
         meetbot_location = config.meetbot_prefix,
-        latest_meeting = next(reversed(avail_dates.items()[0][1].items()[-1][1]))
+        latest_meeting = avail_dates.items()[0][1].items()[0][1][0]
     )
 
 
