@@ -1,14 +1,18 @@
 {
-	"badges": {
-		"friendly-name": "Fedora Badges Team",
-		"aliases": ["fedora_badges", "fedbadges", "badges_team", "fedora_badges_team"]
-	},
+    "apac" : {
+        "friendly-name": "APAC Ambassadors (Asia-Pacific)",
+        "aliases": ["apac-special-meeting", "apac_special_meeting"]
+    },
+    "badges": {
+        "friendly-name": "Fedora Badges Team",
+        "aliases": ["fedora_badges", "fedbadges", "badges_team", "fedora_badges_team"]
+    },
     "commops": {
         "friendly-name": "Fedora Community Operations (CommOps)",
         "aliases": ["fedora_commops"]
     },
     "emea_ambassadors": {
-        "friendly-name": "Fedora Europe, Middle East, and Africa (EMEA) Ambassadors",
+        "friendly-name": "EMEA Ambassadors (Europe, Middle East, and Africa)",
         "aliases": ["emea"]
     },
     "epel": {
@@ -16,7 +20,7 @@
         "aliases": []
     },
     "famna": {
-        "friendly-name": "Fedora North American Ambassadors",
+        "friendly-name": "NA Ambassadors (North America)",
         "aliases": []
     },
     "fedora_council": {
@@ -32,12 +36,12 @@
         "aliases": []
     },
     "fedora-latam": {
-    	"friendly-name": "Fedora Latin American Ambassadors",
+    	"friendly-name": "LATAM Ambassadors (Latin America)",
     	"aliases": ["fedora_latam_meeting", "fedora_latam", "fedora_latam_ambassadors", "fedora_latam_ambassadors_meeting", "latam_ambassadors", "latam_ambassadors_meeting", "ambassadors_latam", "fedora_ambassadors_latam", "latam"]
     },
-    "fedora-mktg": {
+    "marketing": {
         "friendly-name": "Fedora Marketing",
-        "aliases": ["marketing"]
+        "aliases": ["fedora-mktg"]
     },
     "fedora-qa": {
         "friendly-name": "Fedora QA",
