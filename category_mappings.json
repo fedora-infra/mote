@@ -1,5 +1,5 @@
 {
-    "Ambassadors": ["famna", "emea_ambassadors", "fedora-latam", "#fedora-ambassadors"],
+    "Ambassadors": ["apac", "emea_ambassadors", "famna", "fedora-latam", "#fedora-ambassadors"],
     "Community Operations": ["commops"],
     "Design": ["fedora-design", "badges"],
     "Documentation": ["fedora-docs"],
