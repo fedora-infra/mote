@@ -20,7 +20,7 @@ Dependencies:
 
 Installation:
  - Optional: create virtual environment
- - pip install -r requirements.txt
+ - `pip install -r requirements.txt`
  - Install using `python setup.py develop`
 
 Running møte:
