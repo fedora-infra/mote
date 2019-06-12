@@ -22,35 +22,22 @@ OFF='\e[0m'
 
 
 echo -e "${BLUE} Setting up test environment..."
-# copy mock configuration file
-
-mv mote/config.py mote/config.py.bak || true
-
-cp files/test_config.py mote/config.py
 
 # create directory for dummy data
-mkdir -p test_tmp
-cd test_tmp
+DATA=test_tmp/meetbot_data
+mkdir -vp $DATA/config
 
-# create dummy meetbot data
-mkdir meetbot_data
+cat files/test_config.py >$DATA/config/config.py
 
-cd meetbot_data
-mkdir -p fedora-meeting-1/2014-02-04
-mkdir -p fedora-meeting/2014-02-04
-mkdir -p teams/team_one
+mkdir -p $DATA/fedora-meeting-1/2014-02-04
+mkdir -p $DATA/fedora-meeting/2014-02-04
+mkdir -p $DATA/teams/team_one
 
-touch fedora-meeting-1/2014-02-04/fedora-meeting-1.2014-02-04-20.11.html
-touch fedora-meeting/2014-02-04/fedora-meeting.2014-02-04-20.11.html
+touch $DATA/fedora-meeting-1/2014-02-04/fedora-meeting-1.2014-02-04-20.11.html
+touch $DATA/fedora-meeting/2014-02-04/fedora-meeting.2014-02-04-20.11.html
 
-touch teams/team_one/team_one.2014-02-04-20.11.html
-touch teams/team_one/team_one.2014-02-04-20.11.log.html
-
-# return to test_tmp
-cd ..
-
-# return to project root
-cd ..
+touch $DATA/teams/team_one/team_one.2014-02-04-20.11.html
+touch $DATA/teams/team_one/team_one.2014-02-04-20.11.log.html
 
 echo -e "${BLUE} Running pyflakes...${OFF}"
 
@@ -59,12 +46,12 @@ echo -e "${BLUE} Running pyflakes...${OFF}"
 
 echo -e "${BLUE} Running nosetests...${OFF}"
 
+MOTE_CONFIG_FOLDER=$DATA/config \
 "$PYTHON" -m nose --verbose
 NOSERETURN=$?
 
 echo -e "${BLUE} Cleaning up...${OFF}"
 
 rm -rf test_tmp
-mv mote/config.py.bak mote/config.py || true
 
 exit $NOSERETURN
