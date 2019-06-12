@@ -14,6 +14,8 @@
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 #
 
+[ -n "$PYTHON" ] || PYTHON=python2
+
 BLUE='\e[0;34m'
 
 OFF='\e[0m'
@@ -52,12 +54,12 @@ cd ..
 
 echo -e "${BLUE} Running pyflakes...${OFF}"
 
-pyflakes mote
-pyflakes tests
+"$PYTHON" -m pyflakes mote
+"$PYTHON" -m pyflakes tests
 
 echo -e "${BLUE} Running nosetests...${OFF}"
 
-nosetests --verbose
+"$PYTHON" -m nose --verbose
 NOSERETURN=$?
 
 echo -e "${BLUE} Cleaning up...${OFF}"
