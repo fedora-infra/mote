@@ -20,27 +20,14 @@ from os.path import join, split, abspath
 from . import util
 from .latest_meetings import get_latest_meetings
 
-try:
-    # if different config directory provided
-    # e.g ran in mod_wsgi
-    import site
-    config_path = os.environ['MOTE_CONFIG_FOLDER']
-    site.addsitedir(config_path) # default: "/etc/mote"
-except:
-    # different config directory not specified
-    # e.g running from git clone
-    pass
-
-import config
-
 if sys.version_info < (3,):
     # This trick only works on python2. Let's assume we have unicode otherwise.
     reload(sys)
     sys.setdefaultencoding("utf-8")
 
 # The "mc" variable can be used to map to memcached.
-if config.use_memcached == True:
-    mc = memcache.Client([config.memcached_ip], debug=0)
+if util.config().use_memcached == True:
+    mc = memcache.Client([util.config().memcached_ip], debug=0)
 
 def get_date_fn(filename):
     # Return a meeting's date from a filename.
@@ -50,11 +37,11 @@ def get_date_fn(filename):
     return m.group(1)
 
 
-meetbot_root_dir = config.log_endpoint
-meetbot_team_dir = config.log_team_folder
-
-
 def run():
+    config = util.config()
+    meetbot_root_dir = config.log_endpoint
+    meetbot_team_dir = config.log_team_folder
+
     d_channel_meetings = dict() # channel meetings (i.e meeting channel)
     t_channel_meetings = dict() # team meetings (i.e meeting names)
     for root, dirs, files in os.walk(meetbot_root_dir):

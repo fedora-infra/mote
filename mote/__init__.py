@@ -16,17 +16,6 @@
 
 import os
 
-try:
-    # if different config directory provided
-    # e.g ran in mod_wsgi
-    import site
-    config_path = os.environ['MOTE_CONFIG_FOLDER']
-    site.addsitedir(config_path) # default: "/etc/mote"
-except:
-    # different config directory not specified
-    # e.g running from git clone
-    pass
-
 import flask, random, string, json, re
 import dateutil.parser, requests, collections
 import logging
@@ -41,7 +30,7 @@ from . import util, soke
 
 fn_search_regex = "(.*?)\.([0-9]{4}\-[0-9]{2}\-[0-9]{2})\-.*?\..*?\.(.*)"
 
-import config
+config = util.config()
 
 __version__ = "0.0.0"
 
