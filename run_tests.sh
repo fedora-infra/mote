@@ -23,21 +23,8 @@ OFF='\e[0m'
 
 echo -e "${BLUE} Setting up test environment..."
 
-# create directory for dummy data
-DATA=test_tmp/meetbot_data
-mkdir -vp $DATA/config
-
-cat files/test_config.py >$DATA/config/config.py
-
-mkdir -p $DATA/fedora-meeting-1/2014-02-04
-mkdir -p $DATA/fedora-meeting/2014-02-04
-mkdir -p $DATA/teams/team_one
-
-touch $DATA/fedora-meeting-1/2014-02-04/fedora-meeting-1.2014-02-04-20.11.html
-touch $DATA/fedora-meeting/2014-02-04/fedora-meeting.2014-02-04-20.11.html
-
-touch $DATA/teams/team_one/team_one.2014-02-04-20.11.html
-touch $DATA/teams/team_one/team_one.2014-02-04-20.11.log.html
+# create directory with dummy data
+tests/setup-test-dir.sh test_tmp
 
 echo -e "${BLUE} Running pyflakes...${OFF}"
 
@@ -46,12 +33,13 @@ echo -e "${BLUE} Running pyflakes...${OFF}"
 
 echo -e "${BLUE} Running nosetests...${OFF}"
 
-MOTE_CONFIG_FOLDER=$DATA/config \
+TEST_DATA=test_tmp \
+MOTE_CONFIG_FOLDER=test_tmp/config \
 "$PYTHON" -m nose --verbose
 NOSERETURN=$?
 
 echo -e "${BLUE} Cleaning up...${OFF}"
 
-rm -rf test_tmp
+#rm -rf test_tmp
 
 exit $NOSERETURN
