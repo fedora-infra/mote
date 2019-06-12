@@ -49,7 +49,7 @@ user_sessions = dict()
 
 app = Flask("mote")
 fas = FAS(app)
-app.secret_key = ''.join(random.SystemRandom().choice(string.uppercase + string.digits) for _ in xrange(20))
+app.secret_key = ''.join(random.SystemRandom().choice(string.uppercase + string.digits) for _ in range(20))
 app.config['FAS_OPENID_ENDPOINT'] = 'http://id.fedoraproject.org/'
 app.config['FAS_CHECK_CERT'] = True
 html_parser = html_parser_six.HTMLParser()
