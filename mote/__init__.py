@@ -345,7 +345,7 @@ def sresults():
         type = group_type,
         avail_dates = avail_dates,
         meetbot_location = config.meetbot_prefix,
-        latest_meeting = avail_dates.items()[0][1].items()[0][1][0]
+        latest_meeting = list(list(avail_dates.items())[0][1].items())[0][1][0]
     )
 
 
