@@ -31,8 +31,11 @@ except:
     pass
 
 import config
-reload(sys)
-sys.setdefaultencoding("utf-8")
+
+if sys.version_info < (3,):
+    # This trick only works on python2. Let's assume we have unicode otherwise.
+    reload(sys)
+    sys.setdefaultencoding("utf-8")
 
 # The "mc" variable can be used to map to memcached.
 if config.use_memcached == True:
