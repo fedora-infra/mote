@@ -86,7 +86,7 @@ def set_json_cache(channel, team, latest_meetings, expiry_time):
 def map_name_aliases(name_mappings):
     name_mappings_copy = copy.deepcopy(name_mappings)
 
-    for key, nm in name_mappings_copy.iteritems():
+    for key, nm in name_mappings_copy.items():
         try:
             # For each group
             aliases = nm["aliases"]

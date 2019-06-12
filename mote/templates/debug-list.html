@@ -12,10 +12,10 @@
         <p>Nothing here yet</p>
     {% else %}
         <ul>
-        {% for cm_key, cm_val in channel_meetings.iteritems(): %}
+        {% for cm_key, cm_val in channel_meetings.items(): %}
             <li><b>{{cm_key}}</a></li>
                 <ul>
-                    {% for cm_date, cm_links in cm_val.iteritems() %}
+                    {% for cm_date, cm_links in cm_val.items() %}
                         <h4>{{cm_date}}</h4>
                         <i>Minutes</i>
                         <ul>
@@ -41,10 +41,10 @@
         <p>Nothing here yet</p>
     {% else %}
         <ul>
-        {% for tm_key, tm_val in team_meetings.iteritems(): %}
+        {% for tm_key, tm_val in team_meetings.items(): %}
             <li><b>{{tm_key}}</a></li>
                 <ul>
-                    {% for tm_date, tm_links in tm_val.iteritems() %}
+                    {% for tm_date, tm_links in tm_val.items() %}
                         <h4>{{tm_date}}</h4>
                         <i>Minutes</i>
                         <ul>
