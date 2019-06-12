@@ -14,6 +14,8 @@
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 #
 
+from __future__ import print_function
+
 import sys
 sys.path.insert(1, '..')
 
@@ -50,7 +52,7 @@ def test_run():
 
     json_team_cache = util.get_json_cache("team")
     json_channel_cache = util.get_json_cache("channel")
-    print json_team_cache, json_channel_cache
+    print(json_team_cache, json_channel_cache)
     channel_meeting_1 = json_channel_cache["fedora-meeting-1"]["2014-02-04"]["minutes"][0]
 
     team_meeting_1_minutes = json_team_cache["team_one"]["2014-02-04"]["minutes"][0]

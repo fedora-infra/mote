@@ -14,6 +14,8 @@
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 #
 
+from __future__ import print_function
+
 from werkzeug.routing import BaseConverter
 import config
 import time, json, os, copy
@@ -79,7 +81,7 @@ def set_json_cache(channel, team, latest_meetings, expiry_time):
         with open(config.json_cache_location, mode='w') as json_store:
             json.dump(file_write, json_store)
     except Exception as inst:
-        print inst
+        print(inst)
 
 def map_name_aliases(name_mappings):
     name_mappings_copy = copy.deepcopy(name_mappings)
