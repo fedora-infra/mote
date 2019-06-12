@@ -287,7 +287,7 @@ def get_meeting_log():
         body_content = str(fetch_soup.body)
         body_content = body_content.replace("</br>", "")
         return body_content
-    except Exception as e:
+    except Exception:
         flask.abort(404)
 
 @app.route('/sresults', methods=['GET'])
