@@ -64,7 +64,6 @@ def run():
         curr_folder_qual_name = folder_name[1]
         is_direct_child = abspath(join(root, os.pardir)) == meetbot_root_dir
         is_direct_team_child = abspath(join(root, os.pardir)) == join(meetbot_root_dir, meetbot_team_dir)
-        is_team_folder = join(meetbot_root_dir, meetbot_team_dir) == root
 
         if is_direct_child == True:
             # If current folder is a direct child of meetbot_root_dir.
