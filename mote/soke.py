@@ -14,10 +14,11 @@
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 #
 
-import memcache, os, re, sys, util
+import memcache, os, re, sys
 from os.path import join, split, abspath
 
-from latest_meetings import get_latest_meetings
+from . import util
+from .latest_meetings import get_latest_meetings
 
 try:
     # if different config directory provided

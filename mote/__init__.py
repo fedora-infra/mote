@@ -27,9 +27,9 @@ except:
     # e.g running from git clone
     pass
 
-import flask, random, string, json, util, re
+import flask, random, string, json, re
 import dateutil.parser, requests, collections
-import logging, soke
+import logging
 
 from six.moves import html_parser as html_parser_six
 
@@ -37,7 +37,7 @@ from bs4 import BeautifulSoup
 from flask import Flask, render_template, request, url_for, session, redirect
 from flask import abort
 from flask_fas_openid import fas_login_required, FAS
-from util import RegexConverter, map_name_aliases, get_arrow_dates
+from . import util, soke
 
 fn_search_regex = "(.*?)\.([0-9]{4}\-[0-9]{2}\-[0-9]{2})\-.*?\..*?\.(.*)"
 
@@ -55,7 +55,7 @@ app.config['FAS_CHECK_CERT'] = True
 html_parser = html_parser_six.HTMLParser()
 
 cwd = os.getcwd()
-app.url_map.converters['regex'] = RegexConverter
+app.url_map.converters['regex'] = util.RegexConverter
 
 if config.use_mappings_github == True:
     name_mappings = requests.get("https://raw.githubusercontent.com/fedora-infra/mote/master/name_mappings.json").text
@@ -66,7 +66,7 @@ else:
     with open(config.category_mappings_path, 'r') as f:
         category_mappings = f.read()
 
-name_mappings = map_name_aliases(json.loads(name_mappings))
+name_mappings = util.map_name_aliases(json.loads(name_mappings))
 category_mappings = json.loads(category_mappings)
 
 logging_format = '%(asctime)-15s %(message)s'
@@ -368,7 +368,7 @@ def search_sugg():
             friendly_name = get_friendly_name(cmk) or "A friendly meeting group."
 
             try:
-                dates, latest = get_arrow_dates(channel_meetings[cmk])
+                dates, latest = util.get_arrow_dates(channel_meetings[cmk])
             except KeyError:
                 continue
 
@@ -393,7 +393,7 @@ def search_sugg():
         if search_term in tmk:
             friendly_name = get_friendly_name(tmk) or "A friendly meeting group."
             try:
-                dates, latest = get_arrow_dates(team_meetings[tmk])
+                dates, latest = util.get_arrow_dates(team_meetings[tmk])
             except KeyError:
                 continue
 
