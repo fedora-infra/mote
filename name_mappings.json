@@ -1,55 +1,67 @@
 {
     "apac" : {
-        "friendly-name": "APAC Ambassadors (Asia-Pacific)",
+        "friendly-name": "APAC (Asia-Pacific)",
         "aliases": ["apac-special-meeting", "apac_special_meeting"]
+    },
+    "arch_women": {
+        "friendly-name": "Arch Linux Women Community",
+        "aliases": ["archlinux-women", "arch-women", "#archlinux-women"]
     },
     "badges": {
         "friendly-name": "Fedora Badges Team",
-        "aliases": ["fedora_badges", "fedbadges", "badges_team", "fedora_badges_team"]
+        "aliases": ["fedora_badges", "fedbadges", "badges_team", "fedora_badges_team", "fedora-badges"]
     },
     "commops": {
-        "friendly-name": "Fedora Community Operations (CommOps)",
-        "aliases": ["fedora_commops"]
+        "friendly-name": "Community Operations (CommOps)",
+        "aliases": ["fedora_commops", "fedora-commops"]
     },
-    "emea_ambassadors": {
-        "friendly-name": "EMEA Ambassadors (Europe, Middle East, and Africa)",
-        "aliases": ["emea"]
+    "council": {
+        "friendly-name": "Fedora Council",
+        "aliases": ["council", "board", "fedora_council", "fedora-council"]
+    },
+    "design": {
+        "friendly-name": "Fedora Design Team",
+        "aliases": ["designteam", "fedora-design", "#fedora-design"]
+    },
+    "diversity_inclusion": {
+        "friendly-name": "Diversity & Inclusion Team",
+        "aliases": ["diversity", "diversity-inclusion", "fedora-diversity", "#fedora-diversity"]
+    },
+    "docs": {
+        "friendly-name": "Fedora Documentation Team",
+        "aliases": ["fedora-docs", "#fedora-docs"]
+    },
+    "emea": {
+        "friendly-name": "EMEA (Europe, Middle East, and Africa)",
+        "aliases": ["emea_ambassadors"]
     },
     "epel": {
         "friendly-name": "Extra Packages for Enterprise Linux",
         "aliases": []
     },
     "famna": {
-        "friendly-name": "NA Ambassadors (North America)",
+        "friendly-name": "NA (North America)",
         "aliases": []
     },
-    "fedora_council": {
-        "friendly-name": "Fedora Council",
-        "aliases": ["council", "board"]
+    "latam": {
+    	"friendly-name": "LATAM (Latin/South America)",
+    	"aliases": ["fedora_latam_meeting", "fedora_latam", "fedora_latam_ambassadors", "fedora_latam_ambassadors_meeting", "latam_ambassadors", "latam_ambassadors_meeting", "ambassadors_latam", "fedora_ambassadors_latam", "fedora-latam", "latam"]
     },
-    "fedora-design": {
-        "friendly-name": "Fedora Design Team",
-        "aliases": ["designteam", "#fedora-design"]
-    },
-    "fedora-docs": {
-        "friendly-name": "Fedora Docs Team",
-        "aliases": []
-    },
-    "fedora-latam": {
-    	"friendly-name": "LATAM Ambassadors (Latin America)",
-    	"aliases": ["fedora_latam_meeting", "fedora_latam", "fedora_latam_ambassadors", "fedora_latam_ambassadors_meeting", "latam_ambassadors", "latam_ambassadors_meeting", "ambassadors_latam", "fedora_ambassadors_latam", "latam"]
+    "magazine": {
+        "friendly-name": "Fedora Magazine Editorial Board",
+        "aliases": ["magazine_editorial_board", "fedora_magazine"]
     },
     "marketing": {
-        "friendly-name": "Fedora Marketing",
-        "aliases": ["fedora-mktg"]
+        "friendly-name": "Fedora Marketing Team",
+        "aliases": ["fedora-marketing", "fedora-mktg", "#fedora-mktg"]
+    },
+    "mindshare": {
+        "friendly-name": "Mindshare Committee",
+        "aliases": ["fedora-mindshare", "mindshare", "mindshare-committee"]
     },
     "fedora-qa": {
         "friendly-name": "Fedora QA",
         "aliases": ["fedora-qa-meeting"]
-    },
-    "fedora-websites": {
-        "friendly-name": "Fedora Websites Team",
-        "aliases": []
     },
     "fpc": {
         "friendly-name": "Fedora Packaging Committee (FPC)",
@@ -58,6 +70,10 @@
     "fesco": {
         "friendly-name": "Fedora Engineering Steering Committee (FESCo)",
         "aliases": []
+    },
+    "fzug": {
+        "friendly-name": "Fedora Zhongwen User Group (FZUG)",
+        "aliases": ["#fedora-zh", "fedora-zh", "fzug_weekly_meeting"]
     },
     "g11n": {
         "friendly-name": "Fedora Globalization (G11n) Team",
@@ -71,16 +87,12 @@
         "friendly-name": "Fedora Infrastructure Team",
         "aliases": ["fedora-infrastructure", "fedora_infrastructure", "#fedora-apps", "#fedora-admin"]
     },
-    "magazine": {
-        "friendly-name": "Fedora Magazine Editorial Board",
-        "aliases": ["magazine_editorial_board", "fedora_magazine"]
-    },
     "releng": {
         "friendly-name": "Fedora Release Engineering (releng)",
         "aliases": []
     },
-    "fzug": {
-        "friendly-name": "Fedora Zhongwen User Group (FZUG)",
-        "aliases": ["#fedora-zh", "fedora-zh", "fzug_weekly_meeting"]
+    "websites": {
+        "friendly-name": "Fedora Websites Team",
+        "aliases": ["fedora-websites", "#fedora-websites"]
     }
 }
