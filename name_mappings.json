@@ -17,7 +17,7 @@
     },
     "council": {
         "friendly-name": "Fedora Council",
-        "aliases": ["council", "board", "fedora_council", "fedora-council"]
+        "aliases": ["board", "fedora_council", "fedora-council"]
     },
     "design": {
         "friendly-name": "Fedora Design Team",
@@ -45,7 +45,7 @@
     },
     "latam": {
     	"friendly-name": "LATAM (Latin/South America)",
-    	"aliases": ["fedora_latam_meeting", "fedora_latam", "fedora_latam_ambassadors", "fedora_latam_ambassadors_meeting", "latam_ambassadors", "latam_ambassadors_meeting", "ambassadors_latam", "fedora_ambassadors_latam", "fedora-latam", "latam"]
+    	"aliases": ["fedora_latam_meeting", "fedora_latam", "fedora_latam_ambassadors", "fedora_latam_ambassadors_meeting", "latam_ambassadors", "latam_ambassadors_meeting", "ambassadors_latam", "fedora_ambassadors_latam", "fedora-latam"]
     },
     "magazine": {
         "friendly-name": "Fedora Magazine Editorial Board",
@@ -57,7 +57,7 @@
     },
     "mindshare": {
         "friendly-name": "Mindshare Committee",
-        "aliases": ["fedora-mindshare", "mindshare", "mindshare-committee"]
+        "aliases": ["fedora-mindshare", "mindshare-committee"]
     },
     "fedora-qa": {
         "friendly-name": "Fedora QA",
