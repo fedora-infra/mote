@@ -14,7 +14,7 @@
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 #
 
-[ -n "$PYTHON" ] || PYTHON=python2
+[ -n "$PYTHON" ] || PYTHON=python3
 
 BLUE='\e[0;34m'
 
