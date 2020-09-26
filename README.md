@@ -24,7 +24,7 @@ Installation:
  - Install using `python setup.py develop`
 
 Running møte:
- - Edit [config.py](https://github.com/fedora-infra/mote/blob/master/files/config.py) with necessary information and place the `config.py` in [`mote/`](https://github.com/fedora-infra/mote/tree/master/mote)
+ - Edit [config.py](./files/config.py) with necessary information and place the `config.py` in [`mote/`](./mote)
  - Run `python runmote.py`
 
 Running tests:
@@ -35,5 +35,5 @@ Running tests:
 You can contribute code or data. møte is in need of contributors to increase its name association data pool.
 Some of the meeting groups' names are difficult to understand: for instance, the term `famna` may be unfamiliar to prospective ambassadors. To help add friendlier names and create a clear grouping of meeting groups, you can fork, edit, and send a pull request to the following data files:
 
- - [name_mappings](https://github.com/fedora-infra/mote/blob/master/name_mappings.json)
- - [category_mappings](https://github.com/fedora-infra/mote/blob/master/category_mappings.json)
+ - [name_mappings](./name_mappings.json)
+ - [category_mappings](./category_mappings.json)
