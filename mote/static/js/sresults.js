@@ -47,7 +47,7 @@ function openLogModal(fname, prefix_ending) {
               <h4 class="modal-title inline" id="modalLabel">#{title}</h4>\
               <a target="_blank" class="btn btn-info btn-sm modal-button pull-right" href="#{permalink}">Permalink</a>\
             </div>\
-            <div class="modal-body logdisplay">\
+            <div class="modal-body log-display">\
               #{body}\
             </div>\
             <div class="modal-footer">\
