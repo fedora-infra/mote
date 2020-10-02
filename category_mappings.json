@@ -1,18 +1,8 @@
 {
-    "Ambassadors": ["apac", "emea_ambassadors", "famna", "fedora-latam", "#fedora-ambassadors"],
-    "Community Operations": ["commops"],
-    "Design": ["fedora-design", "badges"],
-    "Documentation": ["fedora-docs"],
-    "Engineering Leadership": ["fesco"],
-    "EPEL": ["epel"],
-    "Globalization": ["g11n"],
-    "Infrastructure": ["infrastructure", "#fedora-apps", "#fedora-admin"],
-    "Internationalization": ["i18n"],
-    "Marketing": ["fedora-mktg", "magazine"],
-    "Packaging": ["fpc"],
-    "Project Leadership": ["fedora_council"],
-    "Quality Assurance": ["fedora-qa"],
-    "Release Engineering": ["releng"],
-    "Websites": ["fedora-websites"],
-    "Local Communities": ["fzug"]
+    "Affiliated communities": ["arch_women", "fzug"],
+    "Ambassadors & Advocates": ["apac", "emea", "famna", "latam"],
+    "Engineering Teams": ["epel", "fedora-qa", "fpc", "infrastructure", "releng"],
+    "Globalization Teams": ["g11n", "i18n"],
+    "Leadership Teams": ["council", "diversity_inclusion", "fesco", "mindshare"],
+    "Mindshare Teams": ["badges", "commops", "design", "docs", "marketing", "magazine", "websites"]
 }
