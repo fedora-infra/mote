@@ -1,3 +1,4 @@
+#!/bin/bash
 # Set up a few files for testing in a directory.
 # The config file is in .../config/.
 

@@ -1,3 +1,4 @@
+#!/bin/bash
 # -*- coding: utf-8 -*-
 #
 # Copyright (c) 2015 Chaoyi Zha <cydrobolt@fedoraproject.org>
