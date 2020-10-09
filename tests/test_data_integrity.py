@@ -23,7 +23,7 @@ with open("name_mappings.json", 'r') as f:
 def test_name_mappings_integrity():
     ga = dict()
 
-    for key, nm in name_mappings.iteritems():
+    for key, nm in name_mappings.items():
         ga[key] = True
 
         try:

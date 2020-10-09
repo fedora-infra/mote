@@ -61,8 +61,7 @@ mote/config.py
 config.py
 
 # Test Data
-test_data
-mote/test_data
+test_tmp
 
 # Cache Files
 cache.json

@@ -14,29 +14,20 @@
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 #
 
-import memcache, os, re, sys, util
+import memcache, os, re, sys
 from os.path import join, split, abspath
 
-from latest_meetings import get_latest_meetings
+from . import util
+from .latest_meetings import get_latest_meetings
 
-try:
-    # if different config directory provided
-    # e.g ran in mod_wsgi
-    import site
-    config_path = os.environ['MOTE_CONFIG_FOLDER']
-    site.addsitedir(config_path) # default: "/etc/mote"
-except:
-    # different config directory not specified
-    # e.g running from git clone
-    pass
-
-import config
-reload(sys)
-sys.setdefaultencoding("utf-8")
+if sys.version_info < (3,):
+    # This trick only works on python2. Let's assume we have unicode otherwise.
+    reload(sys)
+    sys.setdefaultencoding("utf-8")
 
 # The "mc" variable can be used to map to memcached.
-if config.use_memcached == True:
-    mc = memcache.Client([config.memcached_ip], debug=0)
+if util.config().use_memcached == True:
+    mc = memcache.Client([util.config().memcached_ip], debug=0)
 
 def get_date_fn(filename):
     # Return a meeting's date from a filename.
@@ -46,11 +37,11 @@ def get_date_fn(filename):
     return m.group(1)
 
 
-meetbot_root_dir = config.log_endpoint
-meetbot_team_dir = config.log_team_folder
-
-
 def run():
+    config = util.config()
+    meetbot_root_dir = config.log_endpoint
+    meetbot_team_dir = config.log_team_folder
+
     d_channel_meetings = dict() # channel meetings (i.e meeting channel)
     t_channel_meetings = dict() # team meetings (i.e meeting names)
     for root, dirs, files in os.walk(meetbot_root_dir):
@@ -61,7 +52,6 @@ def run():
         curr_folder_qual_name = folder_name[1]
         is_direct_child = abspath(join(root, os.pardir)) == meetbot_root_dir
         is_direct_team_child = abspath(join(root, os.pardir)) == join(meetbot_root_dir, meetbot_team_dir)
-        is_team_folder = join(meetbot_root_dir, meetbot_team_dir) == root
 
         if is_direct_child == True:
             # If current folder is a direct child of meetbot_root_dir.
