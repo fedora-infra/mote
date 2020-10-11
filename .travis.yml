@@ -1,10 +1,21 @@
-language: python
-python:
-  - "3.8"
-# command to install dependencies
-install: "pip install -r requirements.txt"
-# command to run tests
-script: sh run_tests.sh
+---
+os: linux
+dist: bionic
+
+jobs:
+  include:
+    - language: python
+      python: 3.8
+      cache: pip
+      install: "pip install -r requirements.txt"
+      script: sh run_tests.sh
 
 notifications:
-  email: false
+  irc:
+    channels:
+      - "ircs://chat.freenode.net:6697/#fedora-apps"
+      - "ircs://chat.freenode.net:6697/#fedora-mote"
+    template:
+      - "[%{repository_name}:%{branch}@%{commit} - build #%{build_number}] CI %{result}! (%{build_url})"
+    on_success: change
+    on_failure: always
