@@ -2,7 +2,7 @@ language: python
 python:
   - "3.8"
 # command to install dependencies
-install: "pipenv install"
+install: "pip install $(pipenv lock --requirements)"
 # command to run tests
 script: sh run_tests.sh
 
