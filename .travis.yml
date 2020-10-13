@@ -7,4 +7,11 @@ install: "pip install $(pipenv lock --requirements)"
 script: sh run_tests.sh
 
 notifications:
-  email: false
+  irc:
+    channels:
+      - "ircs://chat.freenode.net:6697/#fedora-apps"
+      - "ircs://chat.freenode.net:6697/#fedora-mote"
+    template:
+      - "[%{repository_name}:%{branch}@%{commit} - build #%{build_number}] CI %{result}! (%{build_url})"
+    on_success: change
+    on_failure: always
