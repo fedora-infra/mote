@@ -16,7 +16,7 @@ møte organises and serves meetings as a drop-in replacement, without needing an
 
 Dependencies:
  - Optional: `memcached` (`sudo dnf install memcached`)
- - Python 2.7.x
+ - Python 2.7.x (`sudo dnf install python2`) (Should install Python 2.17.13)
 
 Installation:
  - Optional: create virtual environment
