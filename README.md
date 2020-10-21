@@ -15,12 +15,13 @@ møte organises and serves meetings as a drop-in replacement, without needing an
 ### Using møte
 
 Dependencies:
- - `memcached` (`sudo dnf install memcached`)
- - Python 3.8.X
- - Pipenv
+ - [`memcached`](https://memcached.org) (`sudo dnf install memcached`)
+ - Python 3.8.x
+ - [Pipenv](https://docs.pipenv.org/) (`sudo dnf install pipenv`)
 
-Installation:
- - `pipenv install` will create a new virtual environment and install the requirements. `
+Virtual Environment setup:
+ - `pipenv install` will create a new virtual environment and install the requirements.
+ - `pipenv shell` will activate Python's virtual environement's shell.
 
 Running møte:
  - Start `memcached` by typing `memcached` in the terminal and pressing Return (Enter) key.
