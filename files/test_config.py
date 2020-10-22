@@ -22,9 +22,10 @@ Mock configuration file for testing.
 
 Crawler Configuration
 '''
-cwd = os.getcwd()
+root = os.environ['TEST_DATA']
+root = path.abspath(root)
 
-log_endpoint = path.abspath(path.join(cwd, 'test_tmp/meetbot_data'))
+log_endpoint = path.join(root, 'meetbot_data')
 
 # Fedora has a "teams" folder which contains
 # logs from meetings started with a certain team name
@@ -69,11 +70,11 @@ memcached_ip = "127.0.0.1:11211"
 use_memcached = False # Use a memcached store for greater performance
 
 # JSON cache store location
-json_cache_location = path.abspath(path.join(cwd, "test_tmp/cache.json"))
+json_cache_location = path.abspath(path.join(root, "cache.json"))
 
 # Use group/name mappings fetched from GitHub
 use_mappings_github = False
 
 # If use_mappings_github is False, set alternate path
-name_mappings_path = path.abspath(path.join(cwd, "name_mappings.json"))
-category_mappings_path = path.abspath(path.join(cwd, "category_mappings.json"))
+name_mappings_path = path.join(root, "name_mappings.json")
+category_mappings_path = path.join(root, "category_mappings.json")

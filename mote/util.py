@@ -14,11 +14,27 @@
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 #
 
+from __future__ import print_function
+
 from werkzeug.routing import BaseConverter
-import config
 import time, json, os, copy
+import types
 import arrow
 
+CONFIG = None
+def config():
+    global CONFIG
+    if CONFIG == None:
+        try:
+            config_folder = os.environ['MOTE_CONFIG_FOLDER']
+        except KeyError:
+            config_folder = os.path.dirname(__file__)
+        config_file = open(os.path.join(config_folder, 'config.py'), 'rt')
+        d = types.ModuleType('config')
+        exec(config_file.read(), d.__dict__)
+        CONFIG = d
+
+    return CONFIG
 
 class RegexConverter(BaseConverter):
     # flask URL regex converter
@@ -41,7 +57,7 @@ def get_meeting_type(extension):
 
 def get_json_cache(meeting_type):
     try:
-        with open(config.json_cache_location, mode='r') as json_store:
+        with open(config().json_cache_location, mode='r') as json_store:
             cache = json.load(json_store)
 
             unix_time_expiration = cache["expiry"]
@@ -75,16 +91,16 @@ def set_json_cache(channel, team, latest_meetings, expiry_time):
     file_write["expiry"] = unix_time_expiration
 
     try:
-        check_folder_exists(config.json_cache_location)
-        with open(config.json_cache_location, mode='w') as json_store:
+        check_folder_exists(config().json_cache_location)
+        with open(config().json_cache_location, mode='w') as json_store:
             json.dump(file_write, json_store)
     except Exception as inst:
-        print inst
+        print(inst)
 
 def map_name_aliases(name_mappings):
     name_mappings_copy = copy.deepcopy(name_mappings)
 
-    for key, nm in name_mappings_copy.iteritems():
+    for key, nm in name_mappings_copy.items():
         try:
             # For each group
             aliases = nm["aliases"]

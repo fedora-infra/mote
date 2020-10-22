@@ -16,20 +16,9 @@
 
 import os
 
-try:
-    # if different config directory provided
-    # e.g ran in mod_wsgi
-    import site
-    config_path = os.environ['MOTE_CONFIG_FOLDER']
-    site.addsitedir(config_path) # default: "/etc/mote"
-except:
-    # different config directory not specified
-    # e.g running from git clone
-    pass
-
-import flask, random, string, json, util, re
+import flask, random, string, json, re
 import dateutil.parser, requests, collections
-import logging, soke
+import logging
 
 from six.moves import html_parser as html_parser_six
 
@@ -37,11 +26,11 @@ from bs4 import BeautifulSoup
 from flask import Flask, render_template, request, url_for, session, redirect
 from flask import abort
 from flask_fas_openid import fas_login_required, FAS
-from util import RegexConverter, map_name_aliases, get_arrow_dates
+from . import util, soke
 
 fn_search_regex = "(.*?)\.([0-9]{4}\-[0-9]{2}\-[0-9]{2})\-.*?\..*?\.(.*)"
 
-import config
+config = util.config()
 
 __version__ = "0.0.0"
 
@@ -49,13 +38,13 @@ user_sessions = dict()
 
 app = Flask("mote")
 fas = FAS(app)
-app.secret_key = ''.join(random.SystemRandom().choice(string.uppercase + string.digits) for _ in xrange(20))
+app.secret_key = ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(20))
 app.config['FAS_OPENID_ENDPOINT'] = 'http://id.fedoraproject.org/'
 app.config['FAS_CHECK_CERT'] = True
 html_parser = html_parser_six.HTMLParser()
 
 cwd = os.getcwd()
-app.url_map.converters['regex'] = RegexConverter
+app.url_map.converters['regex'] = util.RegexConverter
 
 if config.use_mappings_github == True:
     name_mappings = requests.get("https://raw.githubusercontent.com/fedora-infra/mote/master/name_mappings.json").text
@@ -66,7 +55,7 @@ else:
     with open(config.category_mappings_path, 'r') as f:
         category_mappings = f.read()
 
-name_mappings = map_name_aliases(json.loads(name_mappings))
+name_mappings = util.map_name_aliases(json.loads(name_mappings))
 category_mappings = json.loads(category_mappings)
 
 logging_format = '%(asctime)-15s %(message)s'
@@ -287,7 +276,7 @@ def get_meeting_log():
         body_content = str(fetch_soup.body)
         body_content = body_content.replace("</br>", "")
         return body_content
-    except Exception as e:
+    except Exception:
         flask.abort(404)
 
 @app.route('/sresults', methods=['GET'])
@@ -345,7 +334,7 @@ def sresults():
         type = group_type,
         avail_dates = avail_dates,
         meetbot_location = config.meetbot_prefix,
-        latest_meeting = avail_dates.items()[0][1].items()[0][1][0]
+        latest_meeting = list(list(avail_dates.items())[0][1].items())[0][1][0]
     )
 
 
@@ -368,7 +357,7 @@ def search_sugg():
             friendly_name = get_friendly_name(cmk) or "A friendly meeting group."
 
             try:
-                dates, latest = get_arrow_dates(channel_meetings[cmk])
+                dates, latest = util.get_arrow_dates(channel_meetings[cmk])
             except KeyError:
                 continue
 
@@ -393,7 +382,7 @@ def search_sugg():
         if search_term in tmk:
             friendly_name = get_friendly_name(tmk) or "A friendly meeting group."
             try:
-                dates, latest = get_arrow_dates(team_meetings[tmk])
+                dates, latest = util.get_arrow_dates(team_meetings[tmk])
             except KeyError:
                 continue
 
