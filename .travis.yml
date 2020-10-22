@@ -1,18 +1,14 @@
+---
 os: linux
 dist: bionic
 
 jobs:
   include:
-     - language: python
-
-python:
-  - "3.8"
-
-# command to install dependencies
-install: "pipenv install"
-
-# command to run tests
-script: sh run_tests.sh
+    - language: python
+      python: 3.8
+      cache: pip
+      install: "pip install -r requirements.txt"
+      script: sh run_tests.sh
 
 notifications:
   irc:
