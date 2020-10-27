@@ -10,6 +10,12 @@ jobs:
       install: "pip install -r requirements.txt"
       script: sh run_tests.sh
 
+    - language: python
+      python: 3.9
+      cache: pip
+      install: "pip install $(pipenv lock --requirements)"
+      script: sh docs_build.sh
+
 notifications:
   irc:
     channels:
