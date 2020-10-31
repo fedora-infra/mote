@@ -54,7 +54,7 @@
   width: 80%;
 }
 
-.log-display pre { white-space: pre-wrap; }
+.log-display pre { white-space: pre-wrap; word-break: keep-all; }
 .log-display pre { background: #f0f0f0; }
 
 .log-display pre .tm  { color: #007020 }                      /* time */
