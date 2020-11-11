@@ -13,7 +13,7 @@ jobs:
     - language: python
       python: 3.9
       cache: pip
-      install: "pip install $(pipenv lock --requirements)"
+      install: "pip install -r docs/requirements.txt"
       script: sh docs_build.sh
 
 notifications:
