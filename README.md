@@ -38,7 +38,7 @@ Using `docker-compose` to run møte:
  - Edit [config.py](./files/config.py) with necessary information and place the `config.py` in [`mote/`](./mote)
  - Modify the copied `config.py` to use memcached by setting `use_memcached = TRUE` (Optional)
    - You can do it by running the following command in command line too: `sed -i '/use_memcached = / s/False/True/' mote/config.py`
- - Run `docker-compose up --build`
+ - Run `docker-compose up`
 
 **Note :** Make sure `memcached` is running in the background.
 
