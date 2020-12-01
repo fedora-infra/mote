@@ -1,11 +1,11 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "e8a07cd88373375e43e295411f4d152ce0f3419ee06fa2ef2b206af6f8527e20"
+            "sha256": "faf77f5e5b23aec1fb2f73b4415b3450d4fdfe39d6755441621a7a0660375706"
         },
         "pipfile-spec": 6,
         "requires": {
-            "python_version": "3.8"
+            "python_version": "3.9"
         },
         "sources": [
             {
@@ -186,10 +186,10 @@
         },
         "python-fedora": {
             "hashes": [
-                "sha256:efb675929ebf588c2deffa2058ff407e65d1889bca1b545a58f525135367c9e4"
+                "sha256:8cca046074001cedec0f7af5f80b288ff588c596fa1d4ff983251984e9b4fcaa"
             ],
             "index": "pypi",
-            "version": "==1.0.0"
+            "version": "==1.1.0"
         },
         "python-memcached": {
             "hashes": [
@@ -247,11 +247,11 @@
         },
         "urllib3": {
             "hashes": [
-                "sha256:91056c15fa70756691db97756772bb1eb9678fa585d9184f24534b100dc60f4a",
-                "sha256:e7983572181f5e1522d9c98453462384ee92a0be7fac5f1413a1e35c56cc0461"
+                "sha256:8d7eaa5a82a1cac232164990f04874c594c9453ec55eef02eab885aa02fc17a2",
+                "sha256:f5321fbe4bf3fefa0efd0bfe7fb14e90909eb62a48ccda331726b4319897dd5e"
             ],
             "index": "pypi",
-            "version": "==1.25.10"
+            "version": "==1.25.11"
         },
         "werkzeug": {
             "hashes": [
