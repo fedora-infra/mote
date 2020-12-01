@@ -4,9 +4,10 @@ Quickstart:
 
   1. Scan through the current [issues] (https://github.com/fedora-infra/mote/issues) to find one that interests you.
   2. You can also create a [new issue](https://github.com/fedora-infra/mote/issues/new) to work on.
-  3. Fork from the [GitHub repository](https://github.com/fedora-infra/mote).
-  4. Fix the bug or add the feature, write tests to show bug fix or working feature.
-  5. Submit a pull request and wait for a review from maintainers.
+  3. Comment on the issue so it can be assigned to you.
+  4. Fork from the [GitHub repository](https://github.com/fedora-infra/mote).
+  5. Fix the bug or add the feature, write tests to show bug fix or working feature.
+  6. Submit a pull request and wait for a review from maintainers.
 
 # Development Environment
 
