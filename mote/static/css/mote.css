@@ -54,7 +54,7 @@
   width: 80%;
 }
 
-.log-display pre { white-space: pre-wrap; }
+.log-display pre { white-space: pre-wrap; word-break: keep-all; }
 .log-display pre { background: #f0f0f0; }
 
 .log-display pre .tm  { color: #007020 }                      /* time */
@@ -274,3 +274,9 @@ a {
 .latest-meetings-list li {
     list-style-type: none;
 }
+
+.select2-results__option--highlighted[aria-selected] {
+    background-color: #294172 !important;
+    color: white;
+  }
+  
