@@ -274,3 +274,9 @@ a {
 .latest-meetings-list li {
     list-style-type: none;
 }
+
+.select2-results__option--highlighted[aria-selected] {
+    background-color: #294172 !important;
+    color: white;
+  }
+  
