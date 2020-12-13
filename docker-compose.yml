@@ -2,6 +2,7 @@ version: "3.8"
 services:
   mote:
     build: .
+    command: python3 runmote.py
     ports:
       - "5000:5000"
     volumes:
