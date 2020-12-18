@@ -1,44 +1,44 @@
-Thanks for your interest in contributing to Fedora møte. Your efforts are greatly appreciated.
+Your interest in contributing to this project is greatly appreciated. Please know that coding is not the only way to contribute. 
 
-Quickstart:
+**Here are some ways you can help that doesn't involve coding:**
 
-  1. Scan through the current [issues] (https://github.com/fedora-infra/mote/issues) to find one that interests you.
-  2. You can also create a [new issue](https://github.com/fedora-infra/mote/issues/new) to work on.
-  3. Comment on the issue so it can be assigned to you.
-  4. Fork from the [GitHub repository](https://github.com/fedora-infra/mote).
-  5. Fix the bug or add the feature, write tests to show bug fix or working feature.
-  6. Submit a pull request and wait for a review from maintainers.
+- Review any active PRs. If the PR needs any changes, please exlpain them in a simple way.
+- You can test the project to see if it has any bugs. If you come across a bug that has not been addressed before, please explain the scenario in a clear and consice manner.
 
-# Development Environment
+**If coding is your choice of contribution:**
 
-## Dependencies:
- - [`memcached`](https://memcached.org) (`sudo dnf install memcached`)
- - Python 3.8.x
- - [Pipenv](https://docs.pipenv.org/) (`sudo dnf install pipenv`)
+- If you are not sure how to contribute, please contact the Mote modernizing team. 
+- If you find an [issue](https://github.com/fedora-infra/mote/issues) that interests you, comment under it so it can be assigned to you, as you can only create a PR for an issue you are assigned to.
+- Please keep the PRs atomic (only one PR per issue)
 
-## Virtual Environment setup:
- - `pipenv install` will create a new virtual environment and install the requirements.
- - `pipenv shell` will activate Python's virtual environement's shell.
+If this is your first time working with git, below are clear instructions on how to proceed.
 
-## Running møte:
- - Start `memcached` by typing `memcached` in the terminal and pressing Return (Enter) key.
- - Edit [config.py](./files/config.py) with necessary information and place the `config.py` in [`mote/`](./mote)
- - Modify the copied `config.py` to use memcached by setting `use_memcached = TRUE`
-   - You can do it by running the following command in command line too: `sed -i '/use_memcached = / s/False/True/' mote/config.py`
- - Enter the Pipenv's newly created virtualenv's shell with `pipenv shell`
- - Run `python runmote.py`
+a. Create your upstream repo: 
 
-**Note :** Make sure `memcached` is running in the background.
+  1. Go to the [upstream Mote repository](https://github.com/fedora-infra/mote).
+  2. Click on code dropdown menu and copy the content in Git.
+  3. In your terminal, go the the directory you want your repo to be in and run `git clone <GIT URL> -o upstream`. 
 
-## Running tests:
- - `sh run_tests.sh`
- 
- # Organizing Meeting Groups
- 
- Naming of some of the meeting groups are difficult to understand. For instance, the term `famna` may be unfamiliar to prospective ambassadors. To help add friendlier names and create clear meeting groups, you can fork, edit, and send a pull request to the following data files:
+b. Create your forked repo:
 
- - [name_mappings](./name_mappings.json)
- - [category_mappings](./category_mappings.json)
+  1. Go to the upstream repo, click on the fork button on the top right corner. 
+  2. Click on the code dropdown menu, copy the contents in SSH box.
+  3. From your terminal go to the directory where you cloned the upstream repo.
+  4. Run the command `git remote add origin <SSH URL>`.
+  
+c. Before every contribution:
+
+  1. Checkout the `master` branch.
+  2. Get the upstream changes with `git pull upstream master`.
+
+d. Making a contribution:
+
+  1. Create a new branch with `git checkout -b "branch name".
+  2. When ready, add the changes with `git add "file name"
+  3. Commit the changes `git commit -m "your commit message"`
+  4. Push your changes from local machine to your server `git push origin "branch name"`
+  5. In your web browser, go to your fork and create a Pull Request.
+  
 
 
 
