@@ -2,7 +2,7 @@ Your interest in contributing to this project is greatly appreciated. Please kno
 
 **Here are some ways you can help that doesn't involve coding:**
 
-- Review any active PRs. If the PR needs any changes, please exlpain them in a simple way.
+- Review any active PRs. If the PR needs any changes, please explain them in a simple way.
 - You can test the project to see if it has any bugs. If you come across a bug that has not been addressed before in the [issues](https://github.com/fedora-infra/mote/issues), please create a new issue to explain the scenario in a clear and concise manner.
 
 **If coding is your choice of contribution:**
