@@ -1,7 +1,7 @@
 # møte
 møte - Fedora meetbot log wrangler
 
-[![](https://travis-ci.org/fedora-infra/mote.svg)](https://travis-ci.org/fedora-infra/mote)
+[![Build Status](https://travis-ci.org/fedora-infra/mote.svg?branch=master)](https://travis-ci.org/fedora-infra/mote)
 
 [__Staging__](https://meetbot.stg.fedoraproject.org) | [__Production__](https://meetbot.fedoraproject.org)
 
