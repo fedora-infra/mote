@@ -12,7 +12,7 @@ jobs:
         - 'pipenv install --dev'
       script:
         - tox
-        - pylint **/*.py
+        # - pylint **/*.py
         # - sh run_tests.sh
 
     # - language: python
