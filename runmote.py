@@ -21,9 +21,12 @@ import mote.config
 # `config` will not be served correctly in such situations
 
 def main():
+    
     # generate cache
     soke.run()
-    app.run(debug=mote.config.enable_debug , port=mote.config.app_port, host=mote.config.app_host)
+    #app.run(debug=mote.config.enable_debug , port=mote.config.app_port, host=mote.config.app_host)
+    print(f'debug mode mote.config.enable_debug {mote.config.enable_debug}')
+    app.run(debug=True , port=mote.config.app_port, host=mote.config.app_host)
 
 if __name__ == "__main__":
     main()

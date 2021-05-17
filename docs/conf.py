@@ -22,9 +22,9 @@ import sphinx_rtd_theme
 # -- Project information -----------------------------------------------------
 
 project = "Fedora Møte"
-copyright = "2020, Fedora Community"
+copyright = "2021, Fedora Community"
 author = (
-    "Justin W. Flory, Ramya Parimi, Akashdeep Dhar, Nasir Hussain, Fedora Community"
+    "Justin W. Flory, Ramya Parimi, Akashdeep Dhar, Nasir Hussain, Jan Kuparinen, Fedora Community"
 )
 
 # The short X.Y version

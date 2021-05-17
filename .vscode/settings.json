@@ -1,0 +1,5 @@
+{
+    "python.pythonPath": "/home/copper/.local/share/virtualenvs/mote-WmkFaNkE/bin/python",
+    "python.linting.pylintEnabled": true,
+    "python.linting.enabled": true
+}

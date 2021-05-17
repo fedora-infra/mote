@@ -7,21 +7,26 @@ jobs:
     - language: python
       python: 3.9
       cache: pip
-      install: "pip install -r requirements.txt"
-      script: sh run_tests.sh
+      install:
+        - 'pip install pipenv'
+        - 'pipenv install --dev'
+      script:
+        - tox
+        - pylint **/*.py
+        # - sh run_tests.sh
 
-    - language: python
-      python: 3.9
-      cache: pip
-      install: "pip install -r docs/requirements.txt"
-      script: sh docs_build.sh
+    # - language: python
+    #   python: 3.9
+    #   cache: pip
+    #   install: "pip install -r docs/requirements.txt"
+    #   script: sh docs_build.sh
 
 notifications:
   irc:
     channels:
-      - "ircs://chat.freenode.net:6697/#fedora-apps"
-      - "ircs://chat.freenode.net:6697/#fedora-mote"
+      - 'ircs://chat.freenode.net:6697/#fedora-apps'
+      - 'ircs://chat.freenode.net:6697/#fedora-mote'
     template:
-      - "[%{repository_name}:%{branch}@%{commit} - build #%{build_number}] CI %{result}! (%{build_url})"
+      - '[%{repository_name}:%{branch}@%{commit} - build #%{build_number}] CI %{result}! (%{build_url})'
     on_success: change
     on_failure: always
