@@ -80,7 +80,6 @@ async function populate_meeting_list(channel, datetxt) {
         "channame": channel,
         "datename": datetxt
     }, function (data) {
-        console.log(data);
         for (let indx in data) {
             $("#listmeet-uols").append(`
                 <li class="list-group-item" 

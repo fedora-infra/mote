@@ -32,7 +32,7 @@
             }
         </style>
     </head>
-    <body class="body">
+    <body class="body bg-light">
         <nav class="navbar sticky-top navbar-expand-lg navbar-dark" style="background-color: #008080;">
             <div class="container-fluid">
                 <a class="navbar-brand head fw-bold" href="#">Fragment</a>
@@ -64,7 +64,7 @@
                 </div>
             </div>
         </nav>
-        <div class="container">
+        <div class="container-lg">
             <div class="card text-center" style="margin-top: 10%;">
                 <div class="card-body">
                     <div class="text-center">
@@ -106,15 +106,15 @@
                         </p>
                     </div>
                 </div>
-                <div class="card-footer text-muted">
+                <div class="card-footer text-white small" style="background-color: #008080;">
                     Fragment &copy 2021 Akashdeep Dhar and others
                 </div>
             </div>
         </div>
         <div class="modal fade" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true" id="chanmode">
-            <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
+            <div class="modal-dialog modal-dialog-centered modal-xl modal-fullscreen-lg-down modal-dialog-scrollable">
                 <div class="modal-content">
-                    <div class="modal-header text-white" style="background-color: #008080;">
+                    <div class="modal-header text-white justify-content-center" style="background-color: #008080;">
                         <h6 class="modal-title head fw-bold">Explore meetings</h6>
                     </div>
                     <div class="modal-body">
@@ -129,16 +129,22 @@
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer justify-content-center text-white" style="background-color: #008080;">
-                        <button type="button" class="btn btn-sm btn-light m-0" data-bs-dismiss="modal">Close</button>
+                    <div class="modal-footer justify-content-between text-white" style="background-color: #008080;">
+                        <div class="float-left">
+                            <button type="button" class="btn btn-sm btn-light m-0 disabled" id="chanback">Back</button>
+                        </div>
+                        <span class="small fst-italic">Pick a channel of your choice</span>
+                        <div class="float-right">
+                            <button type="button" class="btn btn-sm btn-light m-0" data-bs-dismiss="modal">Close</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="modal fade" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true" id="datemode">
-            <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
+            <div class="modal-dialog modal-dialog-centered modal-xl modal-fullscreen-lg-down modal-dialog-scrollable">
                 <div class="modal-content">
-                    <div class="modal-header text-white" style="background-color: #008080;">
+                    <div class="modal-header text-white justify-content-center" style="background-color: #008080;">
                         <h6 class="modal-title head fw-bold">Explore meetings</h6>
                     </div>
                     <div class="modal-body">
@@ -153,8 +159,25 @@
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer justify-content-center text-white" style="background-color: #008080;">
-                        <button type="button" class="btn btn-sm btn-light m-0" data-bs-dismiss="modal">Close</button>
+                    <div class="modal-footer justify-content-between text-white" style="background-color: #008080;">
+                        <div class="float-left">
+                            <button type="button"
+                                    class="btn btn-sm btn-light m-0"
+                                    id="dateback"
+                                    data-bs-toggle="modal"
+                                    data-bs-dismiss="modal"
+                                    data-bs-target="#chanmode">
+                                Back
+                            </button>
+                        </div>
+                        <span class="small fst-italic">Pick a date of your choice</span>
+                        <div class="float-right">
+                            <button type="button"
+                                    class="btn btn-sm btn-light m-0"
+                                    data-bs-dismiss="modal">
+                                Close
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -164,9 +187,9 @@
              data-bs-backdrop="static"
              data-bs-keyboard="true"
              id="meetmode">
-            <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
+            <div class="modal-dialog modal-dialog-centered modal-xl modal-fullscreen-lg-down modal-dialog-scrollable">
                 <div class="modal-content">
-                    <div class="modal-header text-white" style="background-color: #008080;">
+                    <div class="modal-header text-white justify-content-center" style="background-color: #008080;">
                         <h6 class="modal-title head fw-bold">Explore meetings</h6>
                     </div>
                     <div class="modal-body">
@@ -181,16 +204,33 @@
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer justify-content-center text-white" style="background-color: #008080;">
-                        <button type="button" class="btn btn-sm btn-light m-0" data-bs-dismiss="modal">Close</button>
+                    <div class="modal-footer justify-content-between text-white" style="background-color: #008080;">
+                        <div class="float-left">
+                            <button type="button"
+                                    class="btn btn-sm btn-light m-0"
+                                    id="meetback"
+                                    data-bs-toggle="modal"
+                                    data-bs-dismiss="modal"
+                                    data-bs-target="#datemode">
+                                Back
+                            </button>
+                        </div>
+                        <span class="small fst-italic">Pick a meeting of your choice</span>
+                        <div class="float-right">
+                            <button type="button"
+                                    class="btn btn-sm btn-light m-0"
+                                    data-bs-dismiss="modal">
+                                Close
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="modal fade" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true" id="mainmode">
-            <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
+            <div class="modal-dialog modal-dialog-centered modal-xl modal-fullscreen-lg-down modal-dialog-scrollable">
                 <div class="modal-content">
-                    <div class="modal-header text-white" style="background-color: #008080;">
+                    <div class="modal-header text-white justify-content-center" style="background-color: #008080;">
                         <h6 class="modal-title head fw-bold">Explore meetings</h6>
                     </div>
                     <div class="modal-body">
@@ -297,8 +337,24 @@
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer justify-content-center text-white" style="background-color: #008080;">
-                        <button type="button" class="btn btn-sm btn-light m-0" data-bs-dismiss="modal">Close</button>
+                    <div class="modal-footer justify-content-between text-white" style="background-color: #008080;">
+                        <div class="float-left">
+                            <button type="button"
+                                    class="btn btn-sm btn-light m-0"
+                                    id="mainback"
+                                    data-bs-toggle="modal"
+                                    data-bs-dismiss="modal"
+                                    data-bs-target="#meetmode">
+                                Back
+                            </button>
+                        </div>
+                        <div class="float-right">
+                            <button type="button"
+                                    class="btn btn-sm btn-light m-0"
+                                    data-bs-dismiss="modal">
+                                Close
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
