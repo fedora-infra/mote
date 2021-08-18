@@ -59,7 +59,7 @@ def fetch_meeting_dict(channel: str, datetxt: str):
                               channel + "/" + datetxt + "/" + meeting.string
                 meeting_sum = "https://meetbot-raw.fedoraproject.org" + "/" + \
                               channel + "/" + datetxt + "/" + meeting.string.replace(".log.html", ".html")
-                meeting_key = meeting.string.replace(datetxt + "-", "").replace(".log.html", "")
+                meeting_key = meeting.string.replace(".log.html", "")
                 meeting_dict[meeting_key] = {
                     "logs": meeting_log,
                     "summary": meeting_sum
@@ -69,21 +69,14 @@ def fetch_meeting_dict(channel: str, datetxt: str):
         return False, {"exception": str(expt)}
 
 
-def fetch_meeting_logs_and_summary(meetname: str, summlink: str, logslink: str):
+def fetch_meeting_logs_and_summary(summlink: str, logslink: str):
     try:
         summary_markup = ulrq.urlopen(ulpr.quote(summlink, safe=":/")).read().decode()
         logs_markup = ulrq.urlopen(ulpr.quote(logslink, safe=":/")).read().decode()
         textitem_dict = {
-            "meetname": meetname,
             "summary_markup": summary_markup,
             "logs_markup": logs_markup
         }
         return True, textitem_dict
     except Exception as expt:
         return False, {"exception": str(expt)}
-
-
-if __name__ == "__main__":
-    print(fetch_channel_dict())
-    print(fetch_datetxt_dict("allegheny"))
-    print(fetch_meeting_dict("allegheny", "2010-04-08"))
