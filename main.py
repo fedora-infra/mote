@@ -1,8 +1,67 @@
+"""
+##########################################################################
+*
+*   Copyright © 2019-2021 Akashdeep Dhar <t0xic0der@fedoraproject.org>
+*
+*   This program is free software: you can redistribute it and/or modify
+*   it under the terms of the GNU General Public License as published by
+*   the Free Software Foundation, either version 3 of the License, or
+*   (at your option) any later version.
+*
+*   This program is distributed in the hope that it will be useful,
+*   but WITHOUT ANY WARRANTY; without even the implied warranty of
+*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*   GNU General Public License for more details.
+*
+*   You should have received a copy of the GNU General Public License
+*   along with this program.  If not, see <https://www.gnu.org/licenses/>.
+*
+##########################################################################
+"""
+
 import click
-from flask import Flask, render_template
+from flask import Flask, render_template, request, jsonify
+from call import fetch_channel_dict, fetch_datetxt_dict, fetch_meeting_dict, fetch_meeting_logs_and_summary
 
 
 main = Flask(__name__)
+
+
+@main.get("/fragedpt/")
+def fragedpt():
+    rqstdata = request.args.get("rqstdata")
+    response = {}
+    if rqstdata == "listchan":
+        chanobjc = fetch_channel_dict()
+        if chanobjc[0]:
+            response = chanobjc[1]
+        else:
+            print("Channel list could not be retrieved")
+    elif rqstdata == "listdate":
+        channame = request.args.get("channame")
+        dateobjc = fetch_datetxt_dict(channame)
+        if dateobjc[0]:
+            response = dateobjc[1]
+        else:
+            print("Date list could not be retrieved")
+    elif rqstdata == "listmeet":
+        channame = request.args.get("channame")
+        datename = request.args.get("datename")
+        meetobjc = fetch_meeting_dict(channame, datename)
+        if meetobjc[0]:
+            response = meetobjc[1]
+        else:
+            print("Meeting list could not be retrieved")
+    elif rqstdata == "obtntext":
+        meetname = request.args.get("meetname")
+        summlink = request.args.get("summlink")
+        logslink = request.args.get("logslink")
+        obtndata = fetch_meeting_logs_and_summary(meetname, summlink, logslink)
+        if obtndata[0]:
+            response = obtndata[1]
+        else:
+            print("Meeting summary and logs could not be retrieved")
+    return jsonify(response)
 
 
 @main.get("/")

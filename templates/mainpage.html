@@ -5,19 +5,52 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="{{ url_for('static', filename='css3/bootstrap.min.css') }}" rel="stylesheet">
         <script src="{{ url_for('static', filename='jscn/bootstrap.bundle.min.js') }}"></script>
-        <title>Hello, world!</title>
+        <script src="{{ url_for('static', filename='jscn/jquery.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='jscn/fragment.js') }}"></script>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Overpass:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+        <link rel="stylesheet"
+              href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+              integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+              crossorigin="anonymous"/>
+        <title>Fragment</title>
+        <style>
+            .head {
+                font-family: 'Montserrat', sans-serif;
+            }
+            .body {
+                font-family: 'Overpass', sans-serif;
+            }
+            h1, h3 {
+                font-family: 'Montserrat', sans-serif;
+            }
+        </style>
     </head>
-    <body>
-        <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #294172;">
+    <body class="body">
+        <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">Fragment</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <a class="navbar-brand head fw-bold" href="#">Fragment</a>
+                <button class="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Channels</a>
+                            <a class="nav-link active"
+                               aria-current="page"
+                               data-bs-toggle="modal"
+                               data-bs-target="#chanmode"
+                               type="button"
+                               onclick="populate_channel_list();">
+                                Channels
+                            </a>
                         </li>
                     </ul>
                     <form class="d-flex">
@@ -27,7 +60,186 @@
             </div>
         </nav>
         <div class="container">
-            <h1>Hello, world!</h1>
+            <div class="card text-center" style="margin-top: 10%;">
+                <div class="card-body">
+                    <div class="text-center">
+                        <img src="{{ url_for('static', filename='imgs/logo.svg') }}" style="width: 40%; height: 40%;" />
+                        <div class="mt-4">
+                            <p class="h2 head" style="font-weight: bold;">Fragment</p>
+                            <p class="h4 body">Conversation Caretaker</p>
+                        </div>
+                        <a href="#" class="btn btn-light mt-3">
+                            <i class="far fa-dot-circle h1"></i><br/>
+                            About Fragment
+                        </a>
+                        <a href="#" class="btn btn-light mt-3">
+                            <i class="far fa-clock h1"></i><br/>
+                            Recent meetings
+                        </a>
+                        <a href="#"
+                           class="btn btn-light mt-3"
+                           data-bs-toggle="modal"
+                           data-bs-target="#chanmode"
+                           type="button"
+                           onclick="populate_channel_list();">
+                            <i class="far fa-arrow-alt-circle-right h1"></i><br/>
+                            Explore meetings
+                        </a>
+                        <p class="small body mt-4 mb-0">
+                            Many Fedora projects and groups use three IRC channels on irc.libera.chat for their
+                            regular meetings. This makes it easy for people to find and attend meetings of interest,
+                            join groups, and follow what other groups are doing. Please note that the meetings in IRC
+                            channels are normally logged and the logs are often uploaded to public places afterwards.
+                        </p>
+                        <p class="small body mt-3 mb-0">
+                            There are no formal meeting rules - but some of groups have rules or guidelines like the
+                            FESCo meetings guidelines. Normally you are free to speak in meetings of all groups, but
+                            please stick to the topic and help make sure that your comments help make the meeting is
+                            productive. There is a Meetbot IRC bot in every channel to assist with meeting summaries
+                            and logging. The summaries and logs of past meetings can be found at the Fedora Project
+                            Meetbot page. Additional meetings functions are provided by Zodbot.
+                        </p>
+                    </div>
+                </div>
+                <div class="card-footer text-muted">
+                    Fragment &copy 2021 Akashdeep Dhar and others
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true" id="chanmode">
+            <div class="modal-dialog modal-dialog-centered modal-fullscreen modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header bg-light">
+                        <h6 class="modal-title head fw-bold">Explore meetings</h6>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container">
+                            <div class="card mb-2">
+                                <div class="list-group-item bg-light" id="chanhead">
+                                    Loading...
+                                </div>
+                            </div>
+                            <div class="card">
+                                <ul class="list-group list-group-flush" id="listchan-uols"></ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-center bg-light">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true" id="datemode">
+            <div class="modal-dialog modal-dialog-centered modal-fullscreen modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header bg-light">
+                        <h6 class="modal-title head fw-bold">Explore meetings</h6>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container">
+                            <div class="card mb-2">
+                                <div class="list-group-item bg-light" id="datehead">
+                                    Loading...
+                                </div>
+                            </div>
+                            <div class="card">
+                                <ul class="list-group list-group-flush" id="listdate-uols"></ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-center bg-light">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade"
+             aria-hidden="true"
+             data-bs-backdrop="static"
+             data-bs-keyboard="true"
+             id="meetmode">
+            <div class="modal-dialog modal-dialog-centered modal-fullscreen modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header bg-light">
+                        <h6 class="modal-title head fw-bold">Explore meetings</h6>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container">
+                            <div class="card mb-2">
+                                <div class="list-group-item bg-light" id="meethead">
+                                    Loading...
+                                </div>
+                            </div>
+                            <div class="card">
+                                <ul class="list-group list-group-flush" id="listmeet-uols"></ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-center bg-light">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true" id="mainmode">
+            <div class="modal-dialog modal-dialog-centered modal-fullscreen modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header bg-light">
+                        <h6 class="modal-title head fw-bold">Explore meetings</h6>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container">
+                            <div class="card mb-2">
+                                <div class="list-group-item bg-light" id="mainhead">
+                                    Loading...
+                                </div>
+                            </div>
+                            <nav>
+                                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                    <button class="nav-link active"
+                                            id="summ-head"
+                                            data-bs-toggle="tab"
+                                            data-bs-target="#summ-cont"
+                                            type="button"
+                                            role="tab"
+                                            aria-controls="summ-cont"
+                                            aria-selected="true">
+                                        Minutes
+                                    </button>
+                                    <button class="nav-link"
+                                            id="logs-head"
+                                            data-bs-toggle="tab"
+                                            data-bs-target="#logs-cont"
+                                            type="button"
+                                            role="tab"
+                                            aria-controls="logs-cont"
+                                            aria-selected="false">
+                                        Logs
+                                    </button>
+                                </div>
+                            </nav>
+                            <div class="tab-content mt-3" id="nav-tabContent">
+                                <div class="tab-pane fade show active"
+                                     id="summ-cont"
+                                     role="tabpanel"
+                                     aria-labelledby="summ-head">
+                                    <div id="summ-frem"></div>
+                                </div>
+                                <div class="tab-pane fade"
+                                     id="logs-cont"
+                                     role="tabpanel"
+                                     aria-labelledby="logs-head">
+                                    <div id="logs-frem"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-center bg-light">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </body>
 </html>
