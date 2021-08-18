@@ -42,7 +42,8 @@ def fetch_datetxt_dict(channel: str):
         parse_object = btsp.BeautifulSoup(source, "html.parser")
         datetxt_dict = {}
         for datetxt in parse_object.find_all("a")[5:]:
-            datetxt_dict[datetxt.string[0:-1]] = "https://meetbot-raw.fedoraproject.org" + "/" + channel + "/" + datetxt.get("href")
+            datetxt_dict[datetxt.string[0:-1]] = "https://meetbot-raw.fedoraproject.org" + \
+                                                 "/" + channel + "/" + datetxt.get("href")
         return True, datetxt_dict
     except Exception as expt:
         return False, {"exception": str(expt)}
@@ -61,21 +62,29 @@ def fetch_meeting_dict(channel: str, datetxt: str):
                               channel + "/" + datetxt + "/" + meeting.string.replace(".log.html", ".html")
                 meeting_key = meeting.string.replace(".log.html", "")
                 meeting_dict[meeting_key] = {
-                    "logs": meeting_log,
-                    "summary": meeting_sum
+                    "logs_link": meeting_log,
+                    "summary_link": meeting_sum
                 }
         return True, meeting_dict
     except Exception as expt:
         return False, {"exception": str(expt)}
 
 
+def fetch_meeting_content(contlink: str):
+    try:
+        contdata = ulrq.urlopen(ulpr.quote(contlink, safe=":/")).read().decode()
+        return True, contdata
+    except Exception as expt:
+        return False, ""
+
+
 def fetch_meeting_logs_and_summary(summlink: str, logslink: str):
     try:
-        summary_markup = ulrq.urlopen(ulpr.quote(summlink, safe=":/")).read().decode()
-        logs_markup = ulrq.urlopen(ulpr.quote(logslink, safe=":/")).read().decode()
         textitem_dict = {
-            "summary_markup": summary_markup,
-            "logs_markup": logs_markup
+            "summary_markup": fetch_meeting_content(summlink)[1],
+            "logs_markup": fetch_meeting_content(logslink)[1],
+            "logs_slug": logslink.replace("https://meetbot-raw.fedoraproject.org", ""),
+            "summary_slug": summlink.replace("https://meetbot-raw.fedoraproject.org", "")
         }
         return True, textitem_dict
     except Exception as expt:
