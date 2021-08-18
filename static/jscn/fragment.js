@@ -27,9 +27,17 @@ async function populate_channel_list() {
     }, function (data) {
         for (let indx in data) {
             $("#listchan-uols").append(`
-                <li class="list-group-item" type="button" data-bs-toggle="modal" data-bs-dismiss="modal" data-bs-target="#datemode" onclick="populate_datetxt_list('${indx}');">
+                <li class="list-group-item" 
+                    type="button" 
+                    data-bs-toggle="modal" 
+                    data-bs-dismiss="modal" 
+                    data-bs-target="#datemode" 
+                    onclick="populate_datetxt_list('${indx}');">
                     <div class="head h4">${indx}</div>
-                    <div class="body small"><span class="fw-bold">Source: </span><a href="${data[indx]}">${data[indx]}</a></div>
+                    <div class="body small">
+                        <span class="fw-bold">Source: </span>
+                        <a href="${data[indx]}">${data[indx]}</a>
+                    </div>
                 </li>
             `);
         }
@@ -46,9 +54,17 @@ async function populate_datetxt_list(channel) {
     }, function (data) {
         for (let indx in data) {
             $("#listdate-uols").append(`
-                <li class="list-group-item" type="button" data-bs-toggle="modal" data-bs-dismiss="modal" data-bs-target="#meetmode" onclick="populate_meeting_list('${channel}', '${indx}');">
+                <li class="list-group-item" 
+                    type="button" 
+                    data-bs-toggle="modal" 
+                    data-bs-dismiss="modal" 
+                    data-bs-target="#meetmode" 
+                    onclick="populate_meeting_list('${channel}', '${indx}');">
                     <div class="head h4">${indx}</div>
-                    <div class="body small"><span class="fw-bold">Source: </span><a href="${data[indx]}">${data[indx]}</a></div>
+                    <div class="body small">
+                        <span class="fw-bold">Source: </span>
+                        <a href="${data[indx]}">${data[indx]}</a>
+                    </div>
                 </li>
             `);
         }
@@ -67,10 +83,23 @@ async function populate_meeting_list(channel, datetxt) {
         console.log(data);
         for (let indx in data) {
             $("#listmeet-uols").append(`
-                <li class="list-group-item" type="button" data-bs-toggle="modal" data-bs-dismiss="modal" data-bs-target="#mainmode" onclick="render_meeting_logs_and_summary('${indx}', '${data[indx]['logs']}', '${data[indx]['summary']}');">
-                    <div class="head h4">${indx}</div>
-                    <div class="body small"><span class="fw-bold">Logs: </span><a href="${data[indx]['logs']}">${data[indx]['logs']}</a></div>
-                    <div class="body small"><span class="fw-bold">Summary: </span><a href="${data[indx]['summary']}">${data[indx]['summary']}</a></div>
+                <li class="list-group-item" 
+                    type="button" 
+                    data-bs-toggle="modal" 
+                    data-bs-dismiss="modal" 
+                    data-bs-target="#mainmode" 
+                    onclick="render_meeting_logs_and_summary('${indx}', '${data[indx]['logs']}', '${data[indx]['summary']}');">
+                    <div class="head h4">
+                        ${indx}
+                    </div>
+                    <div class="body small">
+                        <span class="fw-bold">Logs: </span>
+                        <a href="${data[indx]['logs']}">${data[indx]['logs']}</a>
+                    </div>
+                    <div class="body small">
+                        <span class="fw-bold">Summary: </span>
+                        <a href="${data[indx]['summary']}">${data[indx]['summary']}</a>
+                    </div>
                 </li>
             `);
         }
@@ -82,14 +111,39 @@ async function render_meeting_logs_and_summary(name, logslink, summlink) {
     document.getElementById("mainhead").innerHTML = "Loading...";
     document.getElementById("summ-cont").innerHTML = "";
     document.getElementById("logs-cont").innerHTML = "";
+    document.getElementById("summ-idiv").innerHTML = `<img id="summ-qrcd" />`;
+    document.getElementById("logs-idiv").innerHTML = `<img id="logs-qrcd" />`;
     await $.getJSON("/fragedpt/", {
         "rqstdata": "obtntext",
         "meetname": name,
         "summlink": summlink,
         "logslink": logslink
     },function (data) {
-        console.log(data);
-        document.getElementById("mainhead").innerText = data["meetname"];
+        var summ_qrcd = new QRious({
+            background: "#ffffff",
+            backgroundAlpha: 0.8,
+            foreground: "#008080",
+            foregroundAlpha: 0.8,
+            level: 'H',
+            size: 320,
+            value: summlink,
+            element: document.getElementById("summ-qrcd")
+        });
+        var logs_qrcd = new QRious({
+            background: "#ffffff",
+            backgroundAlpha: 0.8,
+            foreground: "#008080",
+            foregroundAlpha: 0.8,
+            level: 'H',
+            size: 320,
+            value: logslink,
+            element: document.getElementById("logs-qrcd")
+        });
+        document.getElementById("perm-summ-link").innerText = summlink;
+        document.getElementById("perm-summ-link").setAttribute("href", summlink);
+        document.getElementById("perm-logs-link").innerText = logslink;
+        document.getElementById("perm-logs-link").setAttribute("href", logslink);
+        document.getElementById("mainhead").innerText = name;
         document.getElementById("summ-cont").innerHTML = data["summary_markup"]
         document.getElementById("logs-cont").innerHTML = data["logs_markup"];
     });
