@@ -21,6 +21,7 @@
 
 import bs4 as btsp
 import urllib.request as ulrq
+import urllib.parse as ulpr
 
 
 def fetch_channel_dict():
@@ -70,8 +71,8 @@ def fetch_meeting_dict(channel: str, datetxt: str):
 
 def fetch_meeting_logs_and_summary(meetname: str, summlink: str, logslink: str):
     try:
-        summary_markup = ulrq.urlopen(summlink).read().decode()
-        logs_markup = ulrq.urlopen(logslink).read().decode()
+        summary_markup = ulrq.urlopen(ulpr.quote(summlink, safe=":/")).read().decode()
+        logs_markup = ulrq.urlopen(ulpr.quote(logslink, safe=":/")).read().decode()
         textitem_dict = {
             "meetname": meetname,
             "summary_markup": summary_markup,
