@@ -1,15 +1,17 @@
 <!doctype html>
 <html lang="en">
     <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="{{ url_for('static', filename='css3/bootstrap.min.css') }}" rel="stylesheet">
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link href="{{ url_for('static', filename='css3/bootstrap.min.css') }}" rel="stylesheet"/>
         <script src="{{ url_for('static', filename='jscn/bootstrap.bundle.min.js') }}"></script>
         <script src="{{ url_for('static', filename='jscn/jquery.min.js') }}"></script>
         <script src="{{ url_for('static', filename='jscn/fragment.js') }}"></script>
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Overpass:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+        <script src="{{ url_for('static', filename='jscn/qrious.min.js') }}"></script>
+        <link rel="preconnect" href="https://fonts.googleapis.com"/>
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Overpass:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+              rel="stylesheet"/>
         <link rel="stylesheet"
               href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
               integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
@@ -25,10 +27,13 @@
             h1, h3 {
                 font-family: 'Montserrat', sans-serif;
             }
+            .tealfilt {
+                filter: invert(29%) sepia(84%) saturate(1479%) hue-rotate(154deg) brightness(91%) contrast(101%);
+            }
         </style>
     </head>
     <body class="body">
-        <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar sticky-top navbar-expand-lg navbar-dark" style="background-color: #008080;">
             <div class="container-fluid">
                 <a class="navbar-brand head fw-bold" href="#">Fragment</a>
                 <button class="navbar-toggler"
@@ -69,12 +74,12 @@
                             <p class="h4 body">Conversation Caretaker</p>
                         </div>
                         <a href="#" class="btn btn-light mt-3">
-                            <i class="far fa-dot-circle h1"></i><br/>
-                            About Fragment
+                            <i class="far fa-dot-circle h1 tealfilt"></i><br/>
+                            <span style="color: #008080;">About Fragment</span>
                         </a>
                         <a href="#" class="btn btn-light mt-3">
-                            <i class="far fa-clock h1"></i><br/>
-                            Recent meetings
+                            <i class="far fa-clock h1 tealfilt"></i><br/>
+                            <span style="color: #008080;">Recent conversations</span>
                         </a>
                         <a href="#"
                            class="btn btn-light mt-3"
@@ -82,8 +87,8 @@
                            data-bs-target="#chanmode"
                            type="button"
                            onclick="populate_channel_list();">
-                            <i class="far fa-arrow-alt-circle-right h1"></i><br/>
-                            Explore meetings
+                            <i class="far fa-arrow-alt-circle-right h1 tealfilt"></i><br/>
+                            <span style="color: #008080;">Explore meetings</span>
                         </a>
                         <p class="small body mt-4 mb-0">
                             Many Fedora projects and groups use three IRC channels on irc.libera.chat for their
@@ -107,9 +112,9 @@
             </div>
         </div>
         <div class="modal fade" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true" id="chanmode">
-            <div class="modal-dialog modal-dialog-centered modal-fullscreen modal-dialog-scrollable">
+            <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
                 <div class="modal-content">
-                    <div class="modal-header bg-light">
+                    <div class="modal-header text-white" style="background-color: #008080;">
                         <h6 class="modal-title head fw-bold">Explore meetings</h6>
                     </div>
                     <div class="modal-body">
@@ -124,16 +129,16 @@
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer justify-content-center bg-light">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <div class="modal-footer justify-content-center text-white" style="background-color: #008080;">
+                        <button type="button" class="btn btn-sm btn-light m-0" data-bs-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
         </div>
         <div class="modal fade" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true" id="datemode">
-            <div class="modal-dialog modal-dialog-centered modal-fullscreen modal-dialog-scrollable">
+            <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
                 <div class="modal-content">
-                    <div class="modal-header bg-light">
+                    <div class="modal-header text-white" style="background-color: #008080;">
                         <h6 class="modal-title head fw-bold">Explore meetings</h6>
                     </div>
                     <div class="modal-body">
@@ -148,8 +153,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer justify-content-center bg-light">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <div class="modal-footer justify-content-center text-white" style="background-color: #008080;">
+                        <button type="button" class="btn btn-sm btn-light m-0" data-bs-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
@@ -159,9 +164,9 @@
              data-bs-backdrop="static"
              data-bs-keyboard="true"
              id="meetmode">
-            <div class="modal-dialog modal-dialog-centered modal-fullscreen modal-dialog-scrollable">
+            <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
                 <div class="modal-content">
-                    <div class="modal-header bg-light">
+                    <div class="modal-header text-white" style="background-color: #008080;">
                         <h6 class="modal-title head fw-bold">Explore meetings</h6>
                     </div>
                     <div class="modal-body">
@@ -176,16 +181,16 @@
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer justify-content-center bg-light">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <div class="modal-footer justify-content-center text-white" style="background-color: #008080;">
+                        <button type="button" class="btn btn-sm btn-light m-0" data-bs-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
         </div>
         <div class="modal fade" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true" id="mainmode">
-            <div class="modal-dialog modal-dialog-centered modal-fullscreen modal-dialog-scrollable">
+            <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
                 <div class="modal-content">
-                    <div class="modal-header bg-light">
+                    <div class="modal-header text-white" style="background-color: #008080;">
                         <h6 class="modal-title head fw-bold">Explore meetings</h6>
                     </div>
                     <div class="modal-body">
@@ -196,7 +201,7 @@
                                 </div>
                             </div>
                             <nav>
-                                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                <div class="nav justify-content-center nav-tabs" id="nav-tab" role="tablist">
                                     <button class="nav-link active"
                                             id="summ-head"
                                             data-bs-toggle="tab"
@@ -217,6 +222,16 @@
                                             aria-selected="false">
                                         Logs
                                     </button>
+                                    <button class="nav-link"
+                                            id="perm-head"
+                                            data-bs-toggle="tab"
+                                            data-bs-target="#perm-cont"
+                                            type="button"
+                                            role="tab"
+                                            aria-controls="perm-cont"
+                                            aria-selected="false">
+                                        Permalink
+                                    </button>
                                 </div>
                             </nav>
                             <div class="tab-content mt-3" id="nav-tabContent">
@@ -232,11 +247,58 @@
                                      aria-labelledby="logs-head">
                                     <div id="logs-frem"></div>
                                 </div>
+                                <div class="tab-pane fade"
+                                     id="perm-cont"
+                                     role="tabpanel"
+                                     aria-labelledby="perm-head">
+                                    <div id="perm-frem">
+                                        <div class="row row-cols-md-1 row-cols-lg-2 g-4">
+                                            <div class="col">
+                                                <div class="card text-center">
+                                                    <div class="card-header head fw-bold">
+                                                        Minutes
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <div id="summ-idiv"></div><br/>
+                                                        <button type="button" class="btn btn-sm btn-outline-secondary">
+                                                            View
+                                                        </button>
+                                                    </div>
+                                                    <div class="card-footer text-muted">
+                                                        <p class="card-text small">
+                                                            <span class="fw-bold">SOURCE</span>&nbsp;
+                                                            <a id="perm-summ-link" href="">Unavailable</a>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="card text-center">
+                                                    <div class="card-header head fw-bold">
+                                                        Logs
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <div id="logs-idiv"></div><br/>
+                                                        <button type="button" class="btn btn-sm btn-outline-secondary">
+                                                            View
+                                                        </button>
+                                                    </div>
+                                                    <div class="card-footer text-muted">
+                                                        <p class="card-text small">
+                                                            <span class="fw-bold">SOURCE</span>&nbsp;
+                                                            <a id="perm-logs-link" href="">Unavailable</a>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer justify-content-center bg-light">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <div class="modal-footer justify-content-center text-white" style="background-color: #008080;">
+                        <button type="button" class="btn btn-sm btn-light m-0" data-bs-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>

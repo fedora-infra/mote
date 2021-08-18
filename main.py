@@ -53,10 +53,9 @@ def fragedpt():
         else:
             print("Meeting list could not be retrieved")
     elif rqstdata == "obtntext":
-        meetname = request.args.get("meetname")
         summlink = request.args.get("summlink")
         logslink = request.args.get("logslink")
-        obtndata = fetch_meeting_logs_and_summary(meetname, summlink, logslink)
+        obtndata = fetch_meeting_logs_and_summary(summlink, logslink)
         if obtndata[0]:
             response = obtndata[1]
         else:
