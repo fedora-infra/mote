@@ -27,7 +27,7 @@ async function populate_channel_list() {
     }, function (data) {
         for (let indx in data) {
             $("#listchan-uols").append(`
-                <li class="list-group-item" 
+                <li class="list-group-item list-group-item-action" 
                     type="button" 
                     data-bs-toggle="modal" 
                     data-bs-dismiss="modal" 
@@ -36,7 +36,7 @@ async function populate_channel_list() {
                     <div class="head h4">${indx}</div>
                     <div class="body small">
                         <span class="fw-bold">Source: </span>
-                        <a href="${data[indx]}">${data[indx]}</a>
+                        <a href="${data[indx]}" target="_blank">${data[indx]}</a>
                     </div>
                 </li>
             `);
@@ -54,7 +54,7 @@ async function populate_datetxt_list(channel) {
     }, function (data) {
         for (let indx in data) {
             $("#listdate-uols").append(`
-                <li class="list-group-item" 
+                <li class="list-group-item list-group-item-action" 
                     type="button" 
                     data-bs-toggle="modal" 
                     data-bs-dismiss="modal" 
@@ -63,7 +63,7 @@ async function populate_datetxt_list(channel) {
                     <div class="head h4">${indx}</div>
                     <div class="body small">
                         <span class="fw-bold">Source: </span>
-                        <a href="${data[indx]}">${data[indx]}</a>
+                        <a href="${data[indx]}" target="_blank">${data[indx]}</a>
                     </div>
                 </li>
             `);
@@ -82,22 +82,22 @@ async function populate_meeting_list(channel, datetxt) {
     }, function (data) {
         for (let indx in data) {
             $("#listmeet-uols").append(`
-                <li class="list-group-item" 
+                <li class="list-group-item list-group-item-action" 
                     type="button" 
                     data-bs-toggle="modal" 
                     data-bs-dismiss="modal" 
                     data-bs-target="#mainmode" 
-                    onclick="render_meeting_logs_and_summary('${indx}', '${data[indx]['logs']}', '${data[indx]['summary']}');">
+                    onclick="render_meeting_logs_and_summary('${indx}', '${data[indx]['logs_link']}', '${data[indx]['summary_link']}');">
                     <div class="head h4">
                         ${indx}
                     </div>
                     <div class="body small">
                         <span class="fw-bold">Logs: </span>
-                        <a href="${data[indx]['logs']}">${data[indx]['logs']}</a>
+                        <a href="${data[indx]['logs_link']}" target="_blank">${data[indx]['logs_link']}</a>
                     </div>
                     <div class="body small">
                         <span class="fw-bold">Summary: </span>
-                        <a href="${data[indx]['summary']}">${data[indx]['summary']}</a>
+                        <a href="${data[indx]['summary_link']}" target="_blank">${data[indx]['summary_link']}</a>
                     </div>
                 </li>
             `);
@@ -142,6 +142,8 @@ async function render_meeting_logs_and_summary(name, logslink, summlink) {
         document.getElementById("perm-summ-link").setAttribute("href", summlink);
         document.getElementById("perm-logs-link").innerText = logslink;
         document.getElementById("perm-logs-link").setAttribute("href", logslink);
+        document.getElementById("summ-butn").setAttribute("href", data["summary_slug"])
+        document.getElementById("logs-butn").setAttribute("href", data["logs_slug"])
         document.getElementById("mainhead").innerText = name;
         document.getElementById("summ-cont").innerHTML = data["summary_markup"]
         document.getElementById("logs-cont").innerHTML = data["logs_markup"];
