@@ -110,42 +110,42 @@ async function render_meeting_logs_and_summary(name, logslink, summlink) {
     document.getElementById("mainhead").innerHTML = "Loading...";
     document.getElementById("summ-cont").innerHTML = "";
     document.getElementById("logs-cont").innerHTML = "";
-    document.getElementById("summ-idiv").innerHTML = `<img id="summ-qrcd" />`;
-    document.getElementById("logs-idiv").innerHTML = `<img id="logs-qrcd" />`;
+    document.getElementById("summ-qrcd").innerHTML = "";
+    document.getElementById("logs-qrcd").innerHTML = "";
     await $.getJSON("/fragedpt/", {
         "rqstdata": "obtntext",
         "meetname": name,
         "summlink": summlink,
         "logslink": logslink
     },function (data) {
-        var summ_qrcd = new QRious({
-            background: "#ffffff",
-            backgroundAlpha: 0.8,
-            foreground: "#008080",
-            foregroundAlpha: 0.8,
-            level: 'H',
-            size: 320,
-            value: summlink,
-            element: document.getElementById("summ-qrcd")
+        new QRCode(
+            document.getElementById("summ-qrcd"), {
+                text: summlink,
+                width: 320,
+                height: 320,
+                colorDark:"#008080",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.H,
+                logo: "/static/imgs/logoteal.png"
         });
-        var logs_qrcd = new QRious({
-            background: "#ffffff",
-            backgroundAlpha: 0.8,
-            foreground: "#008080",
-            foregroundAlpha: 0.8,
-            level: 'H',
-            size: 320,
-            value: logslink,
-            element: document.getElementById("logs-qrcd")
+        new QRCode(
+            document.getElementById("logs-qrcd"), {
+                text: logslink,
+                width: 320,
+                height: 320,
+                colorDark:"#008080",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.H,
+                logo: "/static/imgs/logoteal.png"
         });
         document.getElementById("perm-summ-link").innerText = summlink;
         document.getElementById("perm-summ-link").setAttribute("href", summlink);
         document.getElementById("perm-logs-link").innerText = logslink;
         document.getElementById("perm-logs-link").setAttribute("href", logslink);
-        document.getElementById("summ-butn").setAttribute("href", data["summary_slug"])
-        document.getElementById("logs-butn").setAttribute("href", data["logs_slug"])
+        document.getElementById("summ-butn").setAttribute("href", data["summary_slug"]);
+        document.getElementById("logs-butn").setAttribute("href", data["logs_slug"]);
         document.getElementById("mainhead").innerText = name;
-        document.getElementById("summ-cont").innerHTML = data["summary_markup"]
+        document.getElementById("summ-cont").innerHTML = data["summary_markup"];
         document.getElementById("logs-cont").innerHTML = data["logs_markup"];
     });
 }
