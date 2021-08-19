@@ -83,8 +83,8 @@ def fetch_meeting_logs_and_summary(summlink: str, logslink: str):
         textitem_dict = {
             "summary_markup": fetch_meeting_content(summlink)[1],
             "logs_markup": fetch_meeting_content(logslink)[1],
-            "logs_slug": logslink.replace("https://meetbot-raw.fedoraproject.org", ""),
-            "summary_slug": summlink.replace("https://meetbot-raw.fedoraproject.org", "")
+            "logs_slug": ulpr.quote(logslink.replace("https://meetbot-raw.fedoraproject.org", ""), safe=":/"),
+            "summary_slug": ulpr.quote(summlink.replace("https://meetbot-raw.fedoraproject.org", ""), safe=":/")
         }
         return True, textitem_dict
     except Exception as expt:
