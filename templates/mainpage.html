@@ -26,8 +26,9 @@
         <link href="{{ url_for('static', filename='css3/bootstrap.min.css') }}" rel="stylesheet"/>
         <script src="{{ url_for('static', filename='jscn/bootstrap.bundle.min.js') }}"></script>
         <script src="{{ url_for('static', filename='jscn/jquery.min.js') }}"></script>
+        <link rel="icon" href="{{ url_for('static', filename='imgs/logoteal.png') }}" sizes="16x16">
         <script src="{{ url_for('static', filename='jscn/fragment.js') }}"></script>
-        <script src="{{ url_for('static', filename='jscn/qrious.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='jscn/easy.qrcode.min.js') }}"></script>
         <link rel="preconnect" href="https://fonts.googleapis.com"/>
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Overpass:ital,wght@0,400;0,700;1,400;1,700&display=swap"
@@ -126,8 +127,26 @@
                         </p>
                     </div>
                 </div>
-                <div class="card-footer text-white small" style="background-color: #008080;">
-                    Fragment &copy 2021 Akashdeep Dhar and others
+                <div class="card-footer text-center text-white" style="background-color: #008080;">
+                    <span class="h6">
+                        <a class="text-white"
+                           href="https://github.com/t0xic0der/fragment/"
+                           target="_blank">
+                            Fragment
+                        </a>
+                        &copy 2021
+                        <a class="text-white"
+                           href="https://github.com/t0xic0der"
+                           target="_blank">
+                            Akashdeep Dhar
+                        </a>
+                        and
+                        <a class="text-white"
+                           href="https://github.com/t0xic0der/fragment/graphs/contributors"
+                           target="_blank">
+                            others
+                        </a>
+                    </span>
                 </div>
             </div>
         </div>
@@ -319,7 +338,7 @@
                                                         Minutes
                                                     </div>
                                                     <div class="card-body">
-                                                        <div id="summ-idiv"></div><br/>
+                                                        <div id="summ-qrcd"></div><br/>
                                                         <a type="button"
                                                            class="btn btn-sm btn-outline-secondary"
                                                            id="summ-butn"
@@ -345,7 +364,7 @@
                                                         Logs
                                                     </div>
                                                     <div class="card-body">
-                                                        <div id="logs-idiv"></div><br/>
+                                                        <div id="logs-qrcd"></div><br/>
                                                         <a type="button"
                                                            class="btn btn-sm btn-outline-secondary"
                                                            id="logs-butn"
