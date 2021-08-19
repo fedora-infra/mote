@@ -20,8 +20,16 @@
 """
 
 import click
-from flask import Flask, render_template, request, jsonify
-from call import fetch_channel_dict, fetch_datetxt_dict, fetch_meeting_dict, fetch_meeting_logs_and_summary
+from flask import Flask, \
+    render_template, \
+    request, \
+    jsonify, \
+    abort
+from call import fetch_channel_dict, \
+    fetch_datetxt_dict, \
+    fetch_meeting_dict, \
+    fetch_meeting_content, \
+    fetch_meeting_logs_and_summary
 
 
 main = Flask(__name__)
@@ -61,6 +69,30 @@ def fragedpt():
         else:
             print("Meeting summary and logs could not be retrieved")
     return jsonify(response)
+
+
+@main.get("/<channame>/<cldrdate>/<meetname>/")
+def statfile(channame, cldrdate, meetname):
+    meetname = meetname.replace(".log.html", "").replace(".html", "")
+    meetpath = "https://meetbot-raw.fedoraproject.org" + request.path
+    if meetpath[-1] == "/":
+        meetpath = meetpath[0:-1]
+    meetcont = fetch_meeting_content(meetpath)
+    if meetcont[0]:
+        if ".log.html" in request.path:
+            typecont = "Logs"
+        elif ".html" in request.path:
+            typecont = "Minutes"
+        else:
+            typecont = "Contents"
+        return render_template("statfile.html",
+                               channame=channame,
+                               cldrdate=cldrdate,
+                               meetname=meetname,
+                               typecont=typecont,
+                               meetcont=meetcont[1])
+    else:
+        abort(404)
 
 
 @main.get("/")

@@ -1,0 +1,103 @@
+<!doctype html>
+<!--
+##########################################################################
+*
+*   Copyright © 2019-2021 Akashdeep Dhar <t0xic0der@fedoraproject.org>
+*
+*   This program is free software: you can redistribute it and/or modify
+*   it under the terms of the GNU General Public License as published by
+*   the Free Software Foundation, either version 3 of the License, or
+*   (at your option) any later version.
+*
+*   This program is distributed in the hope that it will be useful,
+*   but WITHOUT ANY WARRANTY; without even the implied warranty of
+*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*   GNU General Public License for more details.
+*
+*   You should have received a copy of the GNU General Public License
+*   along with this program.  If not, see <https://www.gnu.org/licenses/>.
+*
+##########################################################################
+-->
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link href="{{ url_for('static', filename='css3/bootstrap.min.css') }}" rel="stylesheet"/>
+        <script src="{{ url_for('static', filename='jscn/bootstrap.bundle.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='jscn/jquery.min.js') }}"></script>
+        <link rel="preconnect" href="https://fonts.googleapis.com"/>
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Overpass:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+              rel="stylesheet"/>
+        <link rel="stylesheet"
+              href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+              integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+              crossorigin="anonymous"/>
+        <title>Fragment</title>
+        <style>
+            .head {
+                font-family: 'Montserrat', sans-serif;
+            }
+            .body {
+                font-family: 'Overpass', sans-serif;
+            }
+            h1, h3 {
+                font-family: 'Montserrat', sans-serif;
+            }
+        </style>
+    </head>
+    <body class="body bg-light">
+        <nav class="navbar sticky-top navbar-expand-lg navbar-dark" style="background-color: #008080;">
+            <div class="container-fluid">
+                <a class="navbar-brand head fw-bold" href="/">Fragment</a>
+                <button class="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item"></li>
+                    </ul>
+                    <form class="d-flex">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    </form>
+                </div>
+            </div>
+        </nav>
+        <div class="container-lg">
+            <div class="text-center mt-4">
+                <i class="display-1 far fa-file-alt"></i>
+            </div>
+            <div class="h4 head text-center mt-4 mb-4">
+                {{ meetname }}
+            </div>
+            <ul class="list-group list-group-flush container-sm col-lg-4 col-md-6 mt-4 mb-4">
+                <li class="list-group-item h6">
+                    <span class="float-left"><i class="far fa-calendar-alt"></i></span>&nbsp;
+                    <span class="float-right">{{ cldrdate }}</span>
+                </li>
+                <li class="list-group-item h6">
+                    <span class="float-left"><i class="fas fa-users"></i></span>&nbsp;
+                    <span class="float-right">{{ channame }}</span>
+                </li>
+            </ul>
+            <div class="card mt-2 mb-2">
+                <div class="card-header text-center head fw-bold h6">
+                    {{ typecont | upper }}
+                </div>
+                <div class="card-body">
+                    {{ meetcont | safe }}
+                </div>
+                <div class="card-footer text-center text-white small" style="background-color: #008080;">
+                    Fragment &copy 2021 Akashdeep Dhar and others
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

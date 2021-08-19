@@ -1,4 +1,24 @@
 <!doctype html>
+<!--
+##########################################################################
+*
+*   Copyright © 2019-2021 Akashdeep Dhar <t0xic0der@fedoraproject.org>
+*
+*   This program is free software: you can redistribute it and/or modify
+*   it under the terms of the GNU General Public License as published by
+*   the Free Software Foundation, either version 3 of the License, or
+*   (at your option) any later version.
+*
+*   This program is distributed in the hope that it will be useful,
+*   but WITHOUT ANY WARRANTY; without even the implied warranty of
+*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*   GNU General Public License for more details.
+*
+*   You should have received a copy of the GNU General Public License
+*   along with this program.  If not, see <https://www.gnu.org/licenses/>.
+*
+##########################################################################
+-->
 <html lang="en">
     <head>
         <meta charset="utf-8"/>
@@ -120,8 +140,8 @@
                     <div class="modal-body">
                         <div class="container">
                             <div class="card mb-3">
-                                <div class="list-group-item bg-light" id="chanhead">
-                                    Loading...
+                                <div class="list-group-item bg-light">
+                                    <span id="chanhead" class="h6 fw-bold">Loading...</span>
                                 </div>
                             </div>
                             <div class="card">
@@ -150,8 +170,8 @@
                     <div class="modal-body">
                         <div class="container">
                             <div class="card mb-3">
-                                <div class="list-group-item bg-light" id="datehead">
-                                    Loading...
+                                <div class="list-group-item bg-light">
+                                    <span id="datehead" class="h6 fw-bold">Loading...</span>
                                 </div>
                             </div>
                             <div class="card">
@@ -195,8 +215,8 @@
                     <div class="modal-body">
                         <div class="container">
                             <div class="card mb-3">
-                                <div class="list-group-item bg-light" id="meethead">
-                                    Loading...
+                                <div class="list-group-item bg-light">
+                                    <span id="meethead" class="h6 fw-bold">Loading...</span>
                                 </div>
                             </div>
                             <div class="card">
@@ -236,8 +256,8 @@
                     <div class="modal-body">
                         <div class="container">
                             <div class="card mb-3">
-                                <div class="list-group-item bg-light" id="mainhead">
-                                    Loading...
+                                <div class="list-group-item bg-light">
+                                    <span id="mainhead" class="h6 fw-bold">Loading...</span>
                                 </div>
                             </div>
                             <nav>
@@ -250,7 +270,7 @@
                                             role="tab"
                                             aria-controls="summ-cont"
                                             aria-selected="true">
-                                        Minutes
+                                        <span class="h6">Minutes</span>
                                     </button>
                                     <button class="nav-link"
                                             id="logs-head"
@@ -260,7 +280,7 @@
                                             role="tab"
                                             aria-controls="logs-cont"
                                             aria-selected="false">
-                                        Logs
+                                        <span class="h6">Logs</span>
                                     </button>
                                     <button class="nav-link"
                                             id="perm-head"
@@ -270,7 +290,7 @@
                                             role="tab"
                                             aria-controls="perm-cont"
                                             aria-selected="false">
-                                        Permalink
+                                        <span class="h6">Permalink</span>
                                     </button>
                                 </div>
                             </nav>
@@ -300,14 +320,21 @@
                                                     </div>
                                                     <div class="card-body">
                                                         <div id="summ-idiv"></div><br/>
-                                                        <button type="button" class="btn btn-sm btn-outline-secondary">
+                                                        <a type="button"
+                                                           class="btn btn-sm btn-outline-secondary"
+                                                           id="summ-butn"
+                                                           href="" target="_blank">
                                                             View
-                                                        </button>
+                                                        </a>
                                                     </div>
                                                     <div class="card-footer text-muted">
                                                         <p class="card-text small">
                                                             <span class="fw-bold">SOURCE</span>&nbsp;
-                                                            <a id="perm-summ-link" href="">Unavailable</a>
+                                                            <a id="perm-summ-link"
+                                                               href=""
+                                                               target="_blank">
+                                                                Unavailable
+                                                            </a>
                                                         </p>
                                                     </div>
                                                 </div>
@@ -319,14 +346,21 @@
                                                     </div>
                                                     <div class="card-body">
                                                         <div id="logs-idiv"></div><br/>
-                                                        <button type="button" class="btn btn-sm btn-outline-secondary">
+                                                        <a type="button"
+                                                           class="btn btn-sm btn-outline-secondary"
+                                                           id="logs-butn"
+                                                           href="" target="_blank">
                                                             View
-                                                        </button>
+                                                        </a>
                                                     </div>
                                                     <div class="card-footer text-muted">
                                                         <p class="card-text small">
                                                             <span class="fw-bold">SOURCE</span>&nbsp;
-                                                            <a id="perm-logs-link" href="">Unavailable</a>
+                                                            <a id="perm-logs-link"
+                                                               href=""
+                                                               target="_blank">
+                                                                Unavailable
+                                                            </a>
                                                         </p>
                                                     </div>
                                                 </div>
