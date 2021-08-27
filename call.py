@@ -72,7 +72,9 @@ def fetch_meeting_dict(channel: str, datetxt: str):
 
 def fetch_meeting_content(contlink: str):
     try:
-        contdata = ulrq.urlopen(ulpr.quote(contlink, safe=":/")).read().decode()
+        source = ulrq.urlopen(ulpr.quote(contlink, safe=":/")).read()
+        parse_object = btsp.BeautifulSoup(source, "html.parser")
+        contdata = parse_object.find("body").decode()
         return True, contdata
     except Exception as expt:
         return False, ""
