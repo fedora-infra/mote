@@ -85,7 +85,12 @@
                             <i class="far fa-dot-circle h1 tealfilt"></i><br/>
                             <span style="color: #008080;">About Fragment</span>
                         </a>
-                        <a href="#" class="btn btn-light mt-3">
+                        <a href="#"
+                           class="btn btn-light mt-3"
+                           data-bs-toggle="modal"
+                           data-bs-target="#rcntmode"
+                           type="button"
+                           onclick="populate_recent_meeting_list();">
                             <i class="far fa-clock h1 tealfilt"></i><br/>
                             <span style="color: #008080;">Recent conversations</span>
                         </a>
@@ -253,6 +258,94 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade"
+             aria-hidden="true"
+             data-bs-backdrop="static"
+             data-bs-keyboard="true"
+             id="rcntmode">
+            <div class="modal-dialog modal-dialog-centered modal-xl modal-fullscreen-lg-down modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header text-white justify-content-center p-2" style="background-color: #008080;">
+                        <h6 class="modal-title head fw-bold">Recent conversations</h6>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container">
+                            <div class="card mb-3">
+                                <div class="list-group-item bg-light">
+                                    <span id="rcnthead" class="fw-bold">Loading...</span>
+                                </div>
+                            </div>
+                            <nav>
+                                <div class="nav justify-content-center nav-tabs" role="tablist">
+                                    <button class="nav-link active"
+                                            id="daya-head"
+                                            data-bs-toggle="tab"
+                                            data-bs-target="#daya-cont"
+                                            type="button"
+                                            role="tab"
+                                            aria-controls="data-cont"
+                                            aria-selected="false">
+                                        <span>Last day</span>
+                                    </button>
+                                    <button class="nav-link"
+                                            id="week-head"
+                                            data-bs-toggle="tab"
+                                            data-bs-target="#week-cont"
+                                            type="button"
+                                            role="tab"
+                                            aria-controls="week-cont"
+                                            aria-selected="true">
+                                        <span>Last week</span>
+                                    </button>
+                                    <button class="nav-link"
+                                            id="mont-head"
+                                            data-bs-toggle="tab"
+                                            data-bs-target="#mont-cont"
+                                            type="button"
+                                            role="tab"
+                                            aria-controls="mont-cont"
+                                            aria-selected="false">
+                                        <span>Last month</span>
+                                    </button>
+                                </div>
+                            </nav>
+                            <div class="tab-content mt-3">
+                                <div class="tab-pane fade show active"
+                                     id="daya-cont"
+                                     role="tabpanel"
+                                     aria-labelledby="daya-head">
+                                    <ul class="list-group" id="listrcnt-daya-uols"></ul>
+                                    <div id="none-daya"></div>
+                                </div>
+                                <div class="tab-pane fade"
+                                     id="week-cont"
+                                     role="tabpanel"
+                                     aria-labelledby="week-head">
+                                    <ul class="list-group" id="listrcnt-week-uols"></ul>
+                                    <div id="none-week"></div>
+                                </div>
+                                <div class="tab-pane fade"
+                                     id="mont-cont"
+                                     role="tabpanel"
+                                     aria-labelledby="mont-head">
+                                    <ul class="list-group" id="listrcnt-mont-uols"></ul>
+                                    <div id="none-mont"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-center text-white p-1" style="background-color: #008080;">
+                        <div class="float-right">
+                            <button type="button"
+                                    class="btn btn-sm btn-light m-0"
+                                    data-bs-dismiss="modal">
+                                Close
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="modal fade" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true" id="mainmode">
             <div class="modal-dialog modal-dialog-centered modal-xl modal-fullscreen-lg-down modal-dialog-scrollable">
                 <div class="modal-content">
@@ -267,7 +360,7 @@
                                 </div>
                             </div>
                             <nav>
-                                <div class="nav justify-content-center nav-tabs" id="nav-tab" role="tablist">
+                                <div class="nav justify-content-center nav-tabs" role="tablist">
                                     <button class="nav-link active"
                                             id="summ-head"
                                             data-bs-toggle="tab"
@@ -300,7 +393,7 @@
                                     </button>
                                 </div>
                             </nav>
-                            <div class="tab-content mt-3" id="nav-tabContent">
+                            <div class="tab-content mt-3">
                                 <div class="tab-pane fade show active"
                                      id="summ-cont"
                                      role="tabpanel"
