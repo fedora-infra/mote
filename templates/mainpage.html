@@ -24,6 +24,7 @@
         <meta charset="utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <link href="{{ url_for('static', filename='css3/bootstrap.min.css') }}" rel="stylesheet"/>
+        <link href="{{ url_for('static', filename='css3/fragment.css') }}" rel="stylesheet"/>
         <script src="{{ url_for('static', filename='jscn/bootstrap.bundle.min.js') }}"></script>
         <script src="{{ url_for('static', filename='jscn/jquery.min.js') }}"></script>
         <link rel="icon" href="{{ url_for('static', filename='imgs/logoteal.png') }}" sizes="16x16">
@@ -38,23 +39,9 @@
               integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
               crossorigin="anonymous"/>
         <title>Fragment</title>
-        <style>
-            .head {
-                font-family: 'Montserrat', sans-serif;
-            }
-            .body {
-                font-family: 'Overpass', sans-serif;
-            }
-            h1, h3 {
-                font-family: 'Montserrat', sans-serif;
-            }
-            .tealfilt {
-                filter: invert(29%) sepia(84%) saturate(1479%) hue-rotate(154deg) brightness(91%) contrast(101%);
-            }
-        </style>
     </head>
     <body class="body bg-light">
-        <nav class="navbar sticky-top navbar-expand-lg navbar-dark" style="background-color: #008080;">
+        <nav class="navbar sticky-top navbar-expand-lg navbar-dark p-1" style="background-color: #008080;">
             <div class="container-fluid">
                 <a class="navbar-brand head fw-bold" href="#">Fragment</a>
                 <button class="navbar-toggler"
@@ -128,7 +115,7 @@
                     </div>
                 </div>
                 <div class="card-footer text-center text-white" style="background-color: #008080;">
-                    <span class="h6">
+                    <span class="small">
                         <a class="text-white"
                            href="https://github.com/t0xic0der/fragment/"
                            target="_blank">
@@ -153,14 +140,14 @@
         <div class="modal fade" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true" id="chanmode">
             <div class="modal-dialog modal-dialog-centered modal-xl modal-fullscreen-lg-down modal-dialog-scrollable">
                 <div class="modal-content">
-                    <div class="modal-header text-white justify-content-center" style="background-color: #008080;">
+                    <div class="modal-header text-white justify-content-center p-2" style="background-color: #008080;">
                         <h6 class="modal-title head fw-bold">Explore meetings</h6>
                     </div>
                     <div class="modal-body">
                         <div class="container">
                             <div class="card mb-3">
                                 <div class="list-group-item bg-light">
-                                    <span id="chanhead" class="h6 fw-bold">Loading...</span>
+                                    <span id="chanhead" class="fw-bold">Loading...</span>
                                 </div>
                             </div>
                             <div class="card">
@@ -168,7 +155,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer justify-content-between text-white" style="background-color: #008080;">
+                    <div class="modal-footer justify-content-between text-white p-1" style="background-color: #008080;">
                         <div class="float-left">
                             <button type="button" class="btn btn-sm btn-light m-0 disabled" id="chanback">Back</button>
                         </div>
@@ -183,14 +170,14 @@
         <div class="modal fade" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true" id="datemode">
             <div class="modal-dialog modal-dialog-centered modal-xl modal-fullscreen-lg-down modal-dialog-scrollable">
                 <div class="modal-content">
-                    <div class="modal-header text-white justify-content-center" style="background-color: #008080;">
+                    <div class="modal-header text-white justify-content-center p-2" style="background-color: #008080;">
                         <h6 class="modal-title head fw-bold">Explore meetings</h6>
                     </div>
                     <div class="modal-body">
                         <div class="container">
                             <div class="card mb-3">
                                 <div class="list-group-item bg-light">
-                                    <span id="datehead" class="h6 fw-bold">Loading...</span>
+                                    <span id="datehead" class="fw-bold">Loading...</span>
                                 </div>
                             </div>
                             <div class="card">
@@ -198,7 +185,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer justify-content-between text-white" style="background-color: #008080;">
+                    <div class="modal-footer justify-content-between text-white p-1" style="background-color: #008080;">
                         <div class="float-left">
                             <button type="button"
                                     class="btn btn-sm btn-light m-0"
@@ -228,14 +215,14 @@
              id="meetmode">
             <div class="modal-dialog modal-dialog-centered modal-xl modal-fullscreen-lg-down modal-dialog-scrollable">
                 <div class="modal-content">
-                    <div class="modal-header text-white justify-content-center" style="background-color: #008080;">
+                    <div class="modal-header text-white justify-content-center p-2" style="background-color: #008080;">
                         <h6 class="modal-title head fw-bold">Explore meetings</h6>
                     </div>
                     <div class="modal-body">
                         <div class="container">
                             <div class="card mb-3">
                                 <div class="list-group-item bg-light">
-                                    <span id="meethead" class="h6 fw-bold">Loading...</span>
+                                    <span id="meethead" class="fw-bold">Loading...</span>
                                 </div>
                             </div>
                             <div class="card">
@@ -243,7 +230,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer justify-content-between text-white" style="background-color: #008080;">
+                    <div class="modal-footer justify-content-between text-white p-1" style="background-color: #008080;">
                         <div class="float-left">
                             <button type="button"
                                     class="btn btn-sm btn-light m-0"
@@ -269,14 +256,14 @@
         <div class="modal fade" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true" id="mainmode">
             <div class="modal-dialog modal-dialog-centered modal-xl modal-fullscreen-lg-down modal-dialog-scrollable">
                 <div class="modal-content">
-                    <div class="modal-header text-white justify-content-center" style="background-color: #008080;">
+                    <div class="modal-header text-white justify-content-center p-2" style="background-color: #008080;">
                         <h6 class="modal-title head fw-bold">Explore meetings</h6>
                     </div>
                     <div class="modal-body">
                         <div class="container">
                             <div class="card mb-3">
                                 <div class="list-group-item bg-light">
-                                    <span id="mainhead" class="h6 fw-bold">Loading...</span>
+                                    <span id="mainhead" class="fw-bold">Loading...</span>
                                 </div>
                             </div>
                             <nav>
@@ -289,7 +276,7 @@
                                             role="tab"
                                             aria-controls="summ-cont"
                                             aria-selected="true">
-                                        <span class="h6">Minutes</span>
+                                        <span>Minutes</span>
                                     </button>
                                     <button class="nav-link"
                                             id="logs-head"
@@ -299,7 +286,7 @@
                                             role="tab"
                                             aria-controls="logs-cont"
                                             aria-selected="false">
-                                        <span class="h6">Logs</span>
+                                        <span>Logs</span>
                                     </button>
                                     <button class="nav-link"
                                             id="perm-head"
@@ -309,7 +296,7 @@
                                             role="tab"
                                             aria-controls="perm-cont"
                                             aria-selected="false">
-                                        <span class="h6">Permalink</span>
+                                        <span>Permalink</span>
                                     </button>
                                 </div>
                             </nav>
@@ -390,7 +377,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer justify-content-between text-white" style="background-color: #008080;">
+                    <div class="modal-footer justify-content-between text-white p-1" style="background-color: #008080;">
                         <div class="float-left">
                             <button type="button"
                                     class="btn btn-sm btn-light m-0"

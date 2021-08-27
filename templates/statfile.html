@@ -24,6 +24,7 @@
         <meta charset="utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <link href="{{ url_for('static', filename='css3/bootstrap.min.css') }}" rel="stylesheet"/>
+        <link href="{{ url_for('static', filename='css3/fragment.css') }}" rel="stylesheet"/>
         <script src="{{ url_for('static', filename='jscn/bootstrap.bundle.min.js') }}"></script>
         <script src="{{ url_for('static', filename='jscn/jquery.min.js') }}"></script>
         <link rel="icon" href="{{ url_for('static', filename='imgs/logoteal.png') }}" sizes="16x16">
@@ -36,20 +37,9 @@
               integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
               crossorigin="anonymous"/>
         <title>Fragment</title>
-        <style>
-            .head {
-                font-family: 'Montserrat', sans-serif;
-            }
-            .body {
-                font-family: 'Overpass', sans-serif;
-            }
-            h1, h3 {
-                font-family: 'Montserrat', sans-serif;
-            }
-        </style>
     </head>
     <body class="body bg-light">
-        <nav class="navbar sticky-top navbar-expand-lg navbar-dark" style="background-color: #008080;">
+        <nav class="navbar sticky-top navbar-expand-lg navbar-dark p-1" style="background-color: #008080;">
             <div class="container-fluid">
                 <a class="navbar-brand head fw-bold" href="/">Fragment</a>
                 <button class="navbar-toggler"
@@ -79,24 +69,24 @@
                 {{ meetname }}
             </div>
             <ul class="list-group list-group-flush container-sm col-lg-4 col-md-6 mt-4 mb-4">
-                <li class="list-group-item h6">
+                <li class="list-group-item">
                     <span class="float-left"><i class="far fa-calendar-alt"></i></span>&nbsp;
                     <span class="float-right">{{ cldrdate }}</span>
                 </li>
-                <li class="list-group-item h6">
+                <li class="list-group-item">
                     <span class="float-left"><i class="fas fa-users"></i></span>&nbsp;
                     <span class="float-right">{{ channame }}</span>
                 </li>
             </ul>
             <div class="card mt-2 mb-2">
-                <div class="card-header text-center head fw-bold h6">
+                <div class="card-header text-center head fw-bold">
                     {{ typecont | upper }}
                 </div>
                 <div class="card-body">
                     {{ meetcont | safe }}
                 </div>
                 <div class="card-footer text-center text-white" style="background-color: #008080;">
-                    <span class="h6">
+                    <span class="small">
                         <a class="text-white"
                            href="https://github.com/t0xic0der/fragment/"
                            target="_blank">
