@@ -162,11 +162,21 @@
                     </div>
                     <div class="modal-footer justify-content-between text-white p-1" style="background-color: #008080;">
                         <div class="float-left">
-                            <button type="button" class="btn btn-sm btn-light m-0 disabled" id="chanback">Back</button>
+                            <button type="button"
+                                    class="btn btn-sm btn-light m-0 disabled"
+                                    id="chanback">
+                                Back
+                            </button>
                         </div>
-                        <span class="small fst-italic">Pick a channel of your choice</span>
+                        <span class="small fst-italic" id="chanfoot">
+                            <span class="spinner-border spinner-border-sm mt-2" role="status" aria-hidden="true"></span>
+                        </span>
                         <div class="float-right">
-                            <button type="button" class="btn btn-sm btn-light m-0" data-bs-dismiss="modal">Close</button>
+                            <button type="button"
+                                    class="btn btn-sm btn-light m-0"
+                                    data-bs-dismiss="modal">
+                                Close
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -201,7 +211,9 @@
                                 Back
                             </button>
                         </div>
-                        <span class="small fst-italic">Pick a date of your choice</span>
+                        <span class="small fst-italic" id="datefoot">
+                            <span class="spinner-border spinner-border-sm mt-2" role="status" aria-hidden="true"></span>
+                        </span>
                         <div class="float-right">
                             <button type="button"
                                     class="btn btn-sm btn-light m-0"
@@ -246,7 +258,9 @@
                                 Back
                             </button>
                         </div>
-                        <span class="small fst-italic">Pick a meeting of your choice</span>
+                        <span class="small fst-italic" id="meetfoot">
+                            <span class="spinner-border spinner-border-sm mt-2" role="status" aria-hidden="true"></span>
+                        </span>
                         <div class="float-right">
                             <button type="button"
                                     class="btn btn-sm btn-light m-0"
@@ -481,6 +495,9 @@
                                 Back
                             </button>
                         </div>
+                        <span class="small fst-italic" id="mainfoot">
+                            <span class="spinner-border spinner-border-sm mt-2" role="status" aria-hidden="true"></span>
+                        </span>
                         <div class="float-right">
                             <button type="button"
                                     class="btn btn-sm btn-light m-0"

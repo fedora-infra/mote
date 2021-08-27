@@ -22,6 +22,9 @@
 async function populate_channel_list() {
     document.getElementById("listchan-uols").innerHTML = "";
     document.getElementById("chanhead").innerHTML = "Loading...";
+    document.getElementById("chanfoot").innerHTML = `
+        <span class="spinner-border spinner-border-sm mt-2" role="status" aria-hidden="true"></span>
+    `;
     await $.getJSON("/fragedpt/", {
         "rqstdata": "listchan"
     }, function (data) {
@@ -42,12 +45,16 @@ async function populate_channel_list() {
             `);
         }
         document.getElementById("chanhead").innerHTML = "Channels";
+        document.getElementById("chanfoot").innerHTML = "Pick a channel of your choice";
     });
 }
 
 async function populate_datetxt_list(channel) {
     document.getElementById("listdate-uols").innerHTML = "";
     document.getElementById("datehead").innerHTML = "Loading...";
+    document.getElementById("datefoot").innerHTML = `
+        <span class="spinner-border spinner-border-sm mt-2" role="status" aria-hidden="true"></span>
+    `;
     await $.getJSON("/fragedpt/", {
         "rqstdata": "listdate",
         "channame": channel,
@@ -69,12 +76,16 @@ async function populate_datetxt_list(channel) {
             `);
         }
         document.getElementById("datehead").innerHTML = "Meeting dates for " + channel;
+        document.getElementById("datefoot").innerHTML = "Pick a date of your choice";
     });
 }
 
 async function populate_meeting_list(channel, datetxt) {
     document.getElementById("listmeet-uols").innerHTML = "";
     document.getElementById("meethead").innerHTML = "Loading...";
+    document.getElementById("meetfoot").innerHTML = `
+        <span class="spinner-border spinner-border-sm mt-2" role="status" aria-hidden="true"></span>
+    `;
     await $.getJSON("/fragedpt/", {
         "rqstdata": "listmeet",
         "channame": channel,
@@ -103,6 +114,7 @@ async function populate_meeting_list(channel, datetxt) {
             `);
         }
         document.getElementById("meethead").innerHTML = "Meetings on " + datetxt + " for " + channel;
+        document.getElementById("meetfoot").innerHTML = "Pick a meeting of your choice";
     });
 }
 
@@ -163,6 +175,9 @@ function populate_recent_meeting_on_dom(data, tabtitle) {
 
 async function render_meeting_logs_and_summary(name, logslink, summlink) {
     document.getElementById("mainhead").innerHTML = "Loading...";
+    document.getElementById("mainfoot").innerHTML = `
+        <span class="spinner-border spinner-border-sm mt-2" role="status" aria-hidden="true"></span>
+    `;
     document.getElementById("summ-cont").innerHTML = "";
     document.getElementById("logs-cont").innerHTML = "";
     document.getElementById("summ-qrcd").innerHTML = "";
@@ -202,5 +217,6 @@ async function render_meeting_logs_and_summary(name, logslink, summlink) {
         document.getElementById("mainhead").innerText = name;
         document.getElementById("summ-cont").innerHTML = data["summary_markup"];
         document.getElementById("logs-cont").innerHTML = data["logs_markup"];
+        document.getElementById("mainfoot").innerHTML = "";
     });
 }
