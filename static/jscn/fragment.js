@@ -106,6 +106,61 @@ async function populate_meeting_list(channel, datetxt) {
     });
 }
 
+async function populate_recent_meeting_list() {
+    document.getElementById("listrcnt-daya-uols").innerHTML = "";
+    document.getElementById("listrcnt-week-uols").innerHTML = "";
+    document.getElementById("listrcnt-mont-uols").innerHTML = "";
+    document.getElementById("none-daya").innerHTML = "";
+    document.getElementById("none-week").innerHTML = "";
+    document.getElementById("none-mont").innerHTML = "";
+    document.getElementById("rcnthead").innerHTML = "Loading...";
+    await $.getJSON("/fragedpt/", {
+        "rqstdata": "rcntlsdy"
+    }, function (data) {
+        populate_recent_meeting_on_dom(data, "daya");
+    });
+    await $.getJSON("/fragedpt/", {
+        "rqstdata": "rcntlswk"
+    }, function (data) {
+        populate_recent_meeting_on_dom(data, "week");
+    });
+    await $.getJSON("/fragedpt/", {
+        "rqstdata": "rcntlsmt"
+    }, function (data) {
+        populate_recent_meeting_on_dom(data, "mont");
+    });
+    document.getElementById("rcnthead").innerHTML = "Recent conversations";
+}
+
+function populate_recent_meeting_on_dom(data, tabtitle) {
+    if (JSON.stringify(data) === JSON.stringify({})) {
+        document.getElementById("none-" + tabtitle).innerHTML = `
+            <div class="text-center mt-4">
+                <i class="display-1 fas fa-comment-slash"></i>
+            </div>
+            <div class="h4 head text-center mt-2 mb-2">
+                Seems like everyone's keeping quiet
+            </div>
+            <div class="small text-center mb-4">
+                Please come back later to get more recent meetings
+            </div>
+        `;
+    } else {
+        for (let indx in data) {
+            $("#listrcnt-" + tabtitle + "-uols").append(`
+                <li class="list-group-item list-group-item-action" type="button">
+                    <div class="head h4">${data[indx]["meeting_topic"]}</div>
+                    <div class="fst-italic small">${data[indx]["time"]} on ${data[indx]["channel"]} channel</div>
+                    <div>
+                        <a class="btn btn-sm btn-outline-secondary" target="_blank" href="${data[indx]['url']['summary']}">View summary</a>
+                        <a class="btn btn-sm btn-outline-secondary" target="_blank" href="${data[indx]['url']['logs']}">View logs</a>
+                    </div>
+                </li>
+            `);
+        }
+    }
+}
+
 async function render_meeting_logs_and_summary(name, logslink, summlink) {
     document.getElementById("mainhead").innerHTML = "Loading...";
     document.getElementById("summ-cont").innerHTML = "";
