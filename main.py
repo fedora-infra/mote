@@ -25,11 +25,12 @@ from flask import Flask, \
     request, \
     jsonify, \
     abort
-from call import fetch_channel_dict, \
+from modules.call import fetch_channel_dict, \
     fetch_datetxt_dict, \
     fetch_meeting_dict, \
     fetch_meeting_content, \
     fetch_meeting_logs_and_summary
+from modules.late import fetch_recent_meetings
 
 
 main = Flask(__name__)
@@ -68,6 +69,24 @@ def fragedpt():
             response = obtndata[1]
         else:
             print("Meeting summary and logs could not be retrieved")
+    elif rqstdata == "rcntlsdy":
+        meetlist = fetch_recent_meetings(1)
+        if meetlist[0]:
+            response = meetlist[1]
+        else:
+            print("List of recent meetings could not retrieved (last day)")
+    elif rqstdata == "rcntlswk":
+        meetlist = fetch_recent_meetings(7)
+        if meetlist[0]:
+            response = meetlist[1]
+        else:
+            print("List of recent meetings could not retrieved (last week)")
+    elif rqstdata == "rcntlsmt":
+        meetlist = fetch_recent_meetings(30)
+        if meetlist[0]:
+            response = meetlist[1]
+        else:
+            print("List of recent meetings could not retrieved (last month)")
     return jsonify(response)
 
 
@@ -120,4 +139,4 @@ def mainfunc(portdata, netprotc):
 
 
 if __name__ == "__main__":
-    mainfunc()@click.command()
+    mainfunc()
