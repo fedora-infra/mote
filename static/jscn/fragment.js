@@ -59,22 +59,32 @@ async function populate_datetxt_list(channel) {
         "rqstdata": "listdate",
         "channame": channel,
     }, function (data) {
-        for (let indx in data) {
+
+        const dataSorted = Object.entries(data);
+        dataSorted.reverse();
+
+        for (let i = 0; i < dataSorted.length; i++) {
+
+            const element = dataSorted[i];
+            const date = element[0];
+            const url = element[1];
+
             $("#listdate-uols").append(`
                 <li class="list-group-item list-group-item-action" 
                     type="button" 
                     data-bs-toggle="modal" 
                     data-bs-dismiss="modal" 
                     data-bs-target="#meetmode" 
-                    onclick="populate_meeting_list('${channel}', '${indx}');">
-                    <div class="head h4">${indx}</div>
+                    onclick="populate_meeting_list('${channel}', '${date}');">
+                    <div class="head h4">${date}</div>
                     <div class="body small">
                         <span class="fw-bold">Source: </span>
-                        <a href="${data[indx]}" target="_blank">${data[indx]}</a>
+                        <a href="${url}" target="_blank">${url}</a>
                     </div>
                 </li>
             `);
         }
+
         document.getElementById("datehead").innerHTML = "Meeting dates for " + channel;
         document.getElementById("datefoot").innerHTML = "Pick a date of your choice";
     });
