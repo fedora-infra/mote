@@ -59,16 +59,12 @@ async function populate_datetxt_list(channel) {
         "rqstdata": "listdate",
         "channame": channel,
     }, function (data) {
-
         const dataSorted = Object.entries(data);
         dataSorted.reverse();
-
         for (let i = 0; i < dataSorted.length; i++) {
-
             const element = dataSorted[i];
             const date = element[0];
             const url = element[1];
-
             $("#listdate-uols").append(`
                 <li class="list-group-item list-group-item-action" 
                     type="button" 
@@ -84,7 +80,6 @@ async function populate_datetxt_list(channel) {
                 </li>
             `);
         }
-
         document.getElementById("datehead").innerHTML = "Meeting dates for " + channel;
         document.getElementById("datefoot").innerHTML = "Pick a date of your choice";
     });
