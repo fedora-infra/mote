@@ -96,27 +96,42 @@ async function populate_meeting_list(channel, datetxt) {
         "channame": channel,
         "datename": datetxt
     }, function (data) {
-        for (let indx in data) {
+        const dataSorted = Object.entries(data)
+        dataSorted.forEach((element)=>{
+            const date_char_starts = element[0].search(/[1-9]/i);
+            const string_date = element[0].substr(date_char_starts, 16)
+            const string_date_with_commas = string_date.replace(/-|\./g, ",");
+            const array_date = string_date_with_commas.split(",")
+            const ready_to_format_date = array_date.map(Number);
+            const date = new Date(...ready_to_format_date);
+            element[2] = date
+        })
+        dataSorted.sort(function(a, b){ return b[2] - a[2] });
+        for (let i = 0; i < dataSorted.length; i++) {
+            const element = dataSorted[i];
+            const element_id = element[0] 
+            const logs_link = element[1].logs_link;
+            const summary_link = element[1].summary_link;
             $("#listmeet-uols").append(`
-                <li class="list-group-item list-group-item-action" 
-                    type="button" 
-                    data-bs-toggle="modal" 
-                    data-bs-dismiss="modal" 
-                    data-bs-target="#mainmode" 
-                    onclick="render_meeting_logs_and_summary('${indx}', '${data[indx]['logs_link']}', '${data[indx]['summary_link']}');">
-                    <div class="head h4">
-                        ${indx}
-                    </div>
-                    <div class="body small">
-                        <span class="fw-bold">Logs: </span>
-                        <a href="${data[indx]['logs_link']}" target="_blank">${data[indx]['logs_link']}</a>
-                    </div>
-                    <div class="body small">
-                        <span class="fw-bold">Summary: </span>
-                        <a href="${data[indx]['summary_link']}" target="_blank">${data[indx]['summary_link']}</a>
-                    </div>
-                </li>
-            `);
+            <li class="list-group-item list-group-item-action" 
+                type="button" 
+                data-bs-toggle="modal" 
+                data-bs-dismiss="modal" 
+                data-bs-target="#mainmode" 
+                onclick="render_meeting_logs_and_summary('${element_id}', '${logs_link}', '${summary_link}');">
+                <div class="head h4">
+                    ${element_id}
+                </div>
+                <div class="body small">
+                    <span class="fw-bold">Logs: </span>
+                    <a href="${logs_link}" target="_blank">${logs_link}</a>
+                </div>
+                <div class="body small">
+                    <span class="fw-bold">Summary: </span>
+                    <a href="${summary_link}" target="_blank">${summary_link}</a>
+                </div>
+            </li>
+        `);        
         }
         document.getElementById("meethead").innerHTML = "Meetings on " + datetxt + " for " + channel;
         document.getElementById("meetfoot").innerHTML = "Pick a meeting of your choice";
