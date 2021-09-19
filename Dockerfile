@@ -8,4 +8,4 @@ RUN pip3 install -r requirements.txt
 
 ENTRYPOINT ["python", "./main.py"]
 
-CMD ["-p 3696", "-4"]
+CMD ["-p 9696", "-4"]
