@@ -15,6 +15,5 @@ Python Flask project used to aggregate and distribute IRC meeting minutes and lo
 
 1. Build the docker image `docker build -t <tag> .`
 2. Start the server `docker run -p <docker host port>:9696 <hash of image>`
-3. To start the server on a non default port: `docker run <docker host port>:<container port> <hash of image> -p <container port> -4`
 
 Detailed documentation would arrive shortly. Inconvenience is regretted.
