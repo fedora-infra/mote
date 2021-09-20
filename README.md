@@ -11,9 +11,9 @@ Python Flask project used to aggregate and distribute IRC meeting minutes and lo
 6. `python3 main.py --help`
 7. `python3 main.py -p 9696 -4`
 
-## How to run using docker
+## How to test changes locally using Podman?
 
-1. Build the docker image `docker build -t <tag> .`
-2. Start the server `docker run -p <docker host port>:9696 <hash of image>`
+1. Build the image `podman build . -f Dockerfile -t fedora-easyfix:latest`.
+2. Start the server `podman run -p 9696:9696 -ti fedora-easyfix:latest -p 9696 -4`
 
 Detailed documentation would arrive shortly. Inconvenience is regretted.
