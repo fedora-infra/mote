@@ -11,4 +11,9 @@ Python Flask project used to aggregate and distribute IRC meeting minutes and lo
 6. `python3 main.py --help`
 7. `python3 main.py -p 9696 -4`
 
+## How to test changes locally using Podman?
+
+1. Build the image `podman build . -f Dockerfile -t fedora-easyfix:latest`.
+2. Start the server `podman run -p 9696:9696 -ti fedora-easyfix:latest -p 9696 -4`
+
 Detailed documentation would arrive shortly. Inconvenience is regretted.
