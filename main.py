@@ -31,6 +31,7 @@ from modules.call import fetch_channel_dict, \
     fetch_meeting_content, \
     fetch_meeting_logs_and_summary
 from modules.late import fetch_recent_meetings
+from modules.find import find_meetings_by_substring
 
 
 main = Flask(__name__)
@@ -69,6 +70,13 @@ def fragedpt():
             response = obtndata[1]
         else:
             print("Meeting summary and logs could not be retrieved")
+    elif rqstdata == "srchmeet":
+        srchtext = request.args.get("srchtext")
+        srchrslt = find_meetings_by_substring(srchtext)
+        if srchrslt[0]:
+            response = srchrslt[1]
+        else:
+            print("Meetings could not be looked up")
     elif rqstdata == "rcntlsdy":
         meetlist = fetch_recent_meetings(1)
         if meetlist[0]:
