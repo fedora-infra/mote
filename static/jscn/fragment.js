@@ -19,6 +19,53 @@
 ##########################################################################
 */
 
+async function search_meetings() {
+    let srchtext = document.getElementById("findtext").value;
+    document.getElementById("listfind-uols").innerHTML = "";
+    document.getElementById("none-find").innerHTML = "";
+    await $.getJSON("/fragedpt/", {
+        "rqstdata": "srchmeet",
+        "srchtext": srchtext
+    }, function (data) {
+        if (JSON.stringify(data) === JSON.stringify([])) {
+            document.getElementById("none-find").innerHTML = `
+                <div class="text-center mt-4">
+                    <i class="display-1 fas fa-comment-slash"></i>
+                </div>
+                <div class="h4 head text-center mt-2 mb-2">
+                    Seems like there aren't any great matches for your search
+                </div>
+                <div class="small text-center mb-4">
+                    Please modify your search string to better fit what you are looking for
+                </div>
+            `;
+        } else {
+            document.getElementById("none-find").innerHTML = "";
+            for (let indx in data) {
+                $("#listfind-uols").append(`
+                    <li class="list-group-item list-group-item-action" type="button">
+                        <div class="head h4">${data[indx]["meeting_topic"]}</div>
+                        <div class="fst-italic small">${data[indx]["time"]} on ${data[indx]["channel"]} channel</div>
+                        <div>
+                            <a class="btn btn-sm btn-outline-secondary"
+                               target="_blank"
+                               href="${data[indx]['url']['summary']}">
+                               View summary
+                            </a>
+                            <a class="btn btn-sm btn-outline-secondary"
+                               target="_blank"
+                               href="${data[indx]['url']['logs']}">
+                               View logs
+                            </a>
+                        </div>
+                    </li>
+                `);
+            }
+        }
+    });
+    document.getElementById("rcnthead").innerHTML = "Recent conversations";
+}
+
 async function populate_channel_list() {
     document.getElementById("listchan-uols").innerHTML = "";
     document.getElementById("chanhead").innerHTML = "Loading...";
