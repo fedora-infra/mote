@@ -19,22 +19,21 @@
 ##########################################################################
 """
 
-import click
-from flask import Flask, \
-    render_template, \
-    request, \
-    jsonify, \
-    abort
-from modules.call import fetch_channel_dict, \
-    fetch_datetxt_dict, \
-    fetch_meeting_dict, \
-    fetch_meeting_content, \
-    fetch_meeting_logs_and_summary
-from modules.late import fetch_recent_meetings
-from modules.find import find_meetings_by_substring
+import re
 
+import click
+from flask import Flask, abort, jsonify, render_template, request
+from modules.call import (
+    fetch_channel_dict,
+    fetch_datetxt_dict,
+    fetch_meeting_content,
+    fetch_meeting_dict,
+)
+from modules.find import find_meetings_by_substring
+from modules.late import fetch_recent_meetings
 
 main = Flask(__name__)
+recognition_pattern = "(.*)[\-\.]([0-9]{4}-[0-9]{2}-[0-9]{2})-([0-9]{2}\.[0-9]{2})"
 
 
 @main.get("/fragedpt/")
@@ -62,14 +61,6 @@ def fragedpt():
             response = meetobjc[1]
         else:
             print("Meeting list could not be retrieved")
-    elif rqstdata == "obtntext":
-        summlink = request.args.get("summlink")
-        logslink = request.args.get("logslink")
-        obtndata = fetch_meeting_logs_and_summary(summlink, logslink)
-        if obtndata[0]:
-            response = obtndata[1]
-        else:
-            print("Meeting summary and logs could not be retrieved")
     elif rqstdata == "srchmeet":
         srchtext = request.args.get("srchtext")
         srchrslt = find_meetings_by_substring(srchtext)
@@ -89,19 +80,15 @@ def fragedpt():
             response = meetlist[1]
         else:
             print("List of recent meetings could not retrieved (last week)")
-    elif rqstdata == "rcntlsmt":
-        meetlist = fetch_recent_meetings(30)
-        if meetlist[0]:
-            response = meetlist[1]
-        else:
-            print("List of recent meetings could not retrieved (last month)")
     return jsonify(response)
 
 
-@main.get("/<channame>/<cldrdate>/<meetname>/")
+@main.get("/<channame>/<cldrdate>/<path:meetname>")
 def statfile(channame, cldrdate, meetname):
     meetname = meetname.replace(".log.html", "").replace(".html", "")
-    meetpath = "https://meetbot-raw.fedoraproject.org" + request.path
+    meeting_title = re.search(recognition_pattern, meetname)
+    meetpath = "/srv/web/meetbot" + request.path
+    print(meetpath)
     if meetpath[-1] == "/":
         meetpath = meetpath[0:-1]
     meetcont = fetch_meeting_content(meetpath)
@@ -112,12 +99,15 @@ def statfile(channame, cldrdate, meetname):
             typecont = "Minutes"
         else:
             typecont = "Contents"
-        return render_template("statfile.html",
-                               channame=channame,
-                               cldrdate=cldrdate,
-                               meetname=meetname,
-                               typecont=typecont,
-                               meetcont=meetcont[1])
+        return render_template(
+            "statfile.html",
+            channame=channame,
+            cldrdate=cldrdate,
+            meetname=meeting_title.group(1),
+            timetext=meeting_title.group(3),
+            typecont=typecont,
+            meetcont=meetcont[1],
+        )
     else:
         abort(404)
 
@@ -128,9 +118,23 @@ def mainpage():
 
 
 @click.command()
-@click.option("-p", "--portdata", "portdata", help="Set the port value [0-65536]", default="9696")
-@click.option("-6", "--ipprotv6", "netprotc", flag_value="ipprotv6", help="Start the server on an IPv6 address")
-@click.option("-4", "--ipprotv4", "netprotc", flag_value="ipprotv4", help="Start the server on an IPv4 address")
+@click.option(
+    "-p", "--portdata", "portdata", help="Set the port value [0-65536]", default="9696"
+)
+@click.option(
+    "-6",
+    "--ipprotv6",
+    "netprotc",
+    flag_value="ipprotv6",
+    help="Start the server on an IPv6 address",
+)
+@click.option(
+    "-4",
+    "--ipprotv4",
+    "netprotc",
+    flag_value="ipprotv4",
+    help="Start the server on an IPv4 address",
+)
 @click.version_option(version="0.1.0", prog_name="Fragment")
 def mainfunc(portdata, netprotc):
     print(" * Starting Fragment...")
