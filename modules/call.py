@@ -19,18 +19,21 @@
 ##########################################################################
 """
 
-import bs4 as btsp
-import urllib.request as ulrq
+import os
+import re
 import urllib.parse as ulpr
+
+import bs4 as btsp
+
+recognition_pattern = "(.*)[\-\.]([0-9]{4}-[0-9]{2}-[0-9]{2})-([0-9]{2}\.[0-9]{2})"
 
 
 def fetch_channel_dict():
     try:
-        source = ulrq.urlopen("https://meetbot-raw.fedoraproject.org").read()
-        parse_object = btsp.BeautifulSoup(source, "html.parser")
         channel_dict = {}
-        for channel in parse_object.find_all("a")[5:]:
-            channel_dict[channel.string[0:-1]] = "https://meetbot-raw.fedoraproject.org" + "/" + channel.get("href")
+        chanlist = os.listdir("/srv/web/meetbot")
+        for channel in chanlist:
+            channel_dict[channel] = "https://meetbot-raw.fedoraproject.org/%s" % channel
         return True, channel_dict
     except Exception as expt:
         return False, {"exception": str(expt)}
@@ -38,12 +41,13 @@ def fetch_channel_dict():
 
 def fetch_datetxt_dict(channel: str):
     try:
-        source = ulrq.urlopen("https://meetbot-raw.fedoraproject.org" + "/" + channel).read()
-        parse_object = btsp.BeautifulSoup(source, "html.parser")
         datetxt_dict = {}
-        for datetxt in parse_object.find_all("a")[5:]:
-            datetxt_dict[datetxt.string[0:-1]] = "https://meetbot-raw.fedoraproject.org" + \
-                                                 "/" + channel + "/" + datetxt.get("href")
+        datelist = os.listdir("/srv/web/meetbot/%s" % channel)
+        for datetxt in datelist:
+            datetxt_dict[datetxt] = "https://meetbot-raw.fedoraproject.org/%s/%s" % (
+                channel,
+                datetxt,
+            )
         return True, datetxt_dict
     except Exception as expt:
         return False, {"exception": str(expt)}
@@ -51,43 +55,60 @@ def fetch_datetxt_dict(channel: str):
 
 def fetch_meeting_dict(channel: str, datetxt: str):
     try:
-        source = ulrq.urlopen("https://meetbot-raw.fedoraproject.org" + "/" + channel + "/" + datetxt + "/").read()
-        parse_object = btsp.BeautifulSoup(source, "html.parser")
-        meeting_dict = {}
-        for meeting in parse_object.find_all("a")[5:]:
-            if ".log.html" in meeting.string:
-                meeting_log = "https://meetbot-raw.fedoraproject.org" + "/" + \
-                              channel + "/" + datetxt + "/" + meeting.string
-                meeting_sum = "https://meetbot-raw.fedoraproject.org" + "/" + \
-                              channel + "/" + datetxt + "/" + meeting.string.replace(".log.html", ".html")
-                meeting_key = meeting.string.replace(".log.html", "")
-                meeting_dict[meeting_key] = {
-                    "logs_link": meeting_log,
-                    "summary_link": meeting_sum
+        meeting_list = []
+        meetlist = os.listdir("/srv/web/meetbot/%s/%s" % (channel, datetxt))
+        for meeting in meetlist:
+            if ".log.html" in meeting:
+                meeting_log = "https://meetbot-raw.fedoraproject.org/%s/%s/%s" % (
+                    channel,
+                    datetxt,
+                    meeting,
+                )
+                meeting_sum = "https://meetbot-raw.fedoraproject.org/%s/%s/%s" % (
+                    channel,
+                    datetxt,
+                    meeting.replace(".log.html", ".html"),
+                )
+                meeting_title = re.search(
+                    recognition_pattern,
+                    meeting.replace(".log.html", ""),
+                )
+                meeting_object = {
+                    "topic": meeting_title.group(1),
+                    "channel": channel,
+                    "date": datetxt,
+                    "time": meeting_title.group(3),
+                    "url": {
+                        "logs": meeting_log,
+                        "summary": meeting_sum,
+                    },
+                    "slug": {
+                        "logs": ulpr.quote(
+                            meeting_log.replace(
+                                "https://meetbot-raw.fedoraproject.org", ""
+                            ),
+                            safe=":/?",
+                        ),
+                        "summary": ulpr.quote(
+                            meeting_sum.replace(
+                                "https://meetbot-raw.fedoraproject.org", ""
+                            ),
+                            safe=":/?",
+                        ),
+                    },
                 }
-        return True, meeting_dict
+                meeting_list.append(meeting_object)
+        return True, meeting_list
     except Exception as expt:
         return False, {"exception": str(expt)}
 
 
-def fetch_meeting_content(contlink: str):
+def fetch_meeting_content(contpath: str):
     try:
-        source = ulrq.urlopen(ulpr.quote(contlink, safe=":/")).read()
+        with open(contpath, "r") as meetfile:
+            source = meetfile.read()
         parse_object = btsp.BeautifulSoup(source, "html.parser")
         contdata = parse_object.find("body").decode()
         return True, contdata
     except Exception as expt:
         return False, ""
-
-
-def fetch_meeting_logs_and_summary(summlink: str, logslink: str):
-    try:
-        textitem_dict = {
-            "summary_markup": fetch_meeting_content(summlink)[1],
-            "logs_markup": fetch_meeting_content(logslink)[1],
-            "logs_slug": ulpr.quote(logslink.replace("https://meetbot-raw.fedoraproject.org", ""), safe=":/"),
-            "summary_slug": ulpr.quote(summlink.replace("https://meetbot-raw.fedoraproject.org", ""), safe=":/")
-        }
-        return True, textitem_dict
-    except Exception as expt:
-        return False, {"exception": str(expt)}
