@@ -19,6 +19,12 @@
 ##########################################################################
 */
 
+$(document).on("keyup", "#findtext", function(event) {
+    if (event.which === 13) {
+        search_meetings();
+    }
+})
+
 async function initialize_search_modal() {
     document.getElementById("find-body").innerHTML = `
         <div id="find-init">
