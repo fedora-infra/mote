@@ -73,7 +73,7 @@ async function search_meetings() {
                        type="button" 
                        href="${data[indx]["slug"]["summary"]}" 
                        target="_blank">
-                        <div class="head h4 mb-0 ellipsis">
+                        <div class="head h4 ellipsis">
                             <span>${data[indx]["topic"]}</span>
                         </div>
                         <div class="fst-italic small text-muted mt-1">
@@ -172,7 +172,7 @@ async function populate_meeting_list(channel, datetxt) {
                     type="button" 
                     href="${data[indx]["slug"]["summary"]}" 
                     target="_blank">
-                    <div class="head h4 mb-0 ellipsis">
+                    <div class="head h4 ellipsis">
                         <span>${data[indx]["topic"]}</span>
                     </div>
                     <div class="fst-italic small text-muted mt-1">
@@ -227,7 +227,7 @@ function populate_recent_meeting_on_dom(data, tabtitle) {
                    type="button" 
                    href="${data[indx]["slug"]["summary"]}" 
                    target="_blank">
-                    <div class="head h4 mb-0 ellipsis">
+                    <div class="head h4 ellipsis">
                         <span>${data[indx]["topic"]}</span>
                     </div>
                     <div class="fst-italic small text-muted mt-1">
