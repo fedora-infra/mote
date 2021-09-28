@@ -1,5 +1,0 @@
--i https://pypi.org/simple
-recommonmark
-sphinx-markdown-tables
-sphinx-rtd-theme
-sphinx

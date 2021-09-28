@@ -1,8 +1,0 @@
-{
-    "Affiliated communities": ["arch_women", "fzug"],
-    "Ambassadors & Advocates": ["apac", "emea", "famna", "latam"],
-    "Engineering Teams": ["epel", "fedora-qa", "fpc", "infrastructure", "releng"],
-    "Globalization Teams": ["g11n", "i18n"],
-    "Leadership Teams": ["council", "diversity_inclusion", "fesco", "mindshare"],
-    "Mindshare Teams": ["badges", "commops", "design", "docs", "marketing", "magazine", "websites"]
-}
