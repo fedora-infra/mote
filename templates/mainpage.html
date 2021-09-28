@@ -50,7 +50,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active"
+                            <a class="nav-link"
                                aria-current="page"
                                data-bs-toggle="modal"
                                data-bs-target="#chanmode"
@@ -60,9 +60,9 @@
                             </a>
                         </li>
                     </ul>
-                    <form class="d-flex">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    </form>
+                    <div class="d-flex">
+                        <a class="text-white" href="https://getfedora.org/" target="_blank" type="button">Get Fedora</a>
+                    </div>
                 </div>
             </div>
         </nav>
@@ -77,7 +77,7 @@
                         </div>
                         <a href="#" class="btn btn-light mt-3">
                             <i class="far fa-dot-circle h1 tealfilt"></i><br/>
-                            <span style="color: #008080;">About Fragment</span>
+                            <span style="color: #008080;">About</span>
                         </a>
                         <a href="#"
                            class="btn btn-light mt-3"
@@ -86,7 +86,7 @@
                            type="button"
                            onclick="populate_recent_meeting_list();">
                             <i class="far fa-clock h1 tealfilt"></i><br/>
-                            <span style="color: #008080;">Recent conversations</span>
+                            <span style="color: #008080;">Recent</span>
                         </a>
                         <a href="#"
                            class="btn btn-light mt-3"
@@ -95,7 +95,16 @@
                            type="button"
                            onclick="populate_channel_list();">
                             <i class="far fa-arrow-alt-circle-right h1 tealfilt"></i><br/>
-                            <span style="color: #008080;">Explore meetings</span>
+                            <span style="color: #008080;">Explore</span>
+                        </a>
+                        <a href="#"
+                           class="btn btn-light mt-3"
+                           data-bs-toggle="modal"
+                           data-bs-target="#findmode"
+                           type="button"
+                           onclick="initialize_search_modal();">
+                            <i class="fas fa-search h1 tealfilt"></i><br/>
+                            <span style="color: #008080;">Lookup</span>
                         </a>
                         <p class="small body mt-4 mb-0">
                             Many Fedora projects and groups use three IRC channels on irc.libera.chat for their
@@ -133,6 +142,47 @@
                             others
                         </a>
                     </span>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade"
+             aria-hidden="true"
+             data-bs-backdrop="static"
+             data-bs-keyboard="true"
+             id="findmode">
+            <div class="modal-dialog modal-dialog-centered modal-xl modal-fullscreen-lg-down modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header text-white justify-content-center p-2" style="background-color: #008080;">
+                        <h6 class="modal-title head fw-bold">Lookup discussions</h6>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container">
+                            <div class="input-group mb-3">
+                                <input type="text"
+                                       class="form-control"
+                                       placeholder="Search for your meetings"
+                                       aria-label="Search for your meetings"
+                                       aria-describedby="findtext"
+                                       id="findtext">
+                                <button class="btn btn-outline-secondary"
+                                        type="button"
+                                        id="findbutn"
+                                        onclick="search_meetings();">
+                                    Search
+                                </button>
+                            </div>
+                            <div class="card mb-3 mt-3" id="find-body"></div>
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-center text-white p-1" style="background-color: #008080;">
+                        <div class="float-right">
+                            <button type="button"
+                                    class="btn btn-sm btn-light m-0"
+                                    data-bs-dismiss="modal">
+                                Close
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -305,16 +355,6 @@
                                             aria-selected="true">
                                         <span>Last week</span>
                                     </button>
-                                    <button class="nav-link"
-                                            id="mont-head"
-                                            data-bs-toggle="tab"
-                                            data-bs-target="#mont-cont"
-                                            type="button"
-                                            role="tab"
-                                            aria-controls="mont-cont"
-                                            aria-selected="false">
-                                        <span>Last month</span>
-                                    </button>
                                 </div>
                             </nav>
                             <div class="tab-content mt-3">
@@ -332,166 +372,10 @@
                                     <ul class="list-group" id="listrcnt-week-uols"></ul>
                                     <div id="none-week"></div>
                                 </div>
-                                <div class="tab-pane fade"
-                                     id="mont-cont"
-                                     role="tabpanel"
-                                     aria-labelledby="mont-head">
-                                    <ul class="list-group" id="listrcnt-mont-uols"></ul>
-                                    <div id="none-mont"></div>
-                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer justify-content-center text-white p-1" style="background-color: #008080;">
-                        <div class="float-right">
-                            <button type="button"
-                                    class="btn btn-sm btn-light m-0"
-                                    data-bs-dismiss="modal">
-                                Close
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true" id="mainmode">
-            <div class="modal-dialog modal-dialog-centered modal-xl modal-fullscreen-lg-down modal-dialog-scrollable">
-                <div class="modal-content">
-                    <div class="modal-header text-white justify-content-center p-2" style="background-color: #008080;">
-                        <h6 class="modal-title head fw-bold">Explore meetings</h6>
-                    </div>
-                    <div class="modal-body">
-                        <div class="container">
-                            <div class="card mb-3">
-                                <div class="list-group-item bg-light">
-                                    <span id="mainhead" class="fw-bold">Loading...</span>
-                                </div>
-                            </div>
-                            <nav>
-                                <div class="nav justify-content-center nav-tabs" role="tablist">
-                                    <button class="nav-link active"
-                                            id="summ-head"
-                                            data-bs-toggle="tab"
-                                            data-bs-target="#summ-cont"
-                                            type="button"
-                                            role="tab"
-                                            aria-controls="summ-cont"
-                                            aria-selected="true">
-                                        <span>Minutes</span>
-                                    </button>
-                                    <button class="nav-link"
-                                            id="logs-head"
-                                            data-bs-toggle="tab"
-                                            data-bs-target="#logs-cont"
-                                            type="button"
-                                            role="tab"
-                                            aria-controls="logs-cont"
-                                            aria-selected="false">
-                                        <span>Logs</span>
-                                    </button>
-                                    <button class="nav-link"
-                                            id="perm-head"
-                                            data-bs-toggle="tab"
-                                            data-bs-target="#perm-cont"
-                                            type="button"
-                                            role="tab"
-                                            aria-controls="perm-cont"
-                                            aria-selected="false">
-                                        <span>Permalink</span>
-                                    </button>
-                                </div>
-                            </nav>
-                            <div class="tab-content mt-3">
-                                <div class="tab-pane fade show active"
-                                     id="summ-cont"
-                                     role="tabpanel"
-                                     aria-labelledby="summ-head">
-                                    <div id="summ-frem"></div>
-                                </div>
-                                <div class="tab-pane fade"
-                                     id="logs-cont"
-                                     role="tabpanel"
-                                     aria-labelledby="logs-head">
-                                    <div id="logs-frem"></div>
-                                </div>
-                                <div class="tab-pane fade"
-                                     id="perm-cont"
-                                     role="tabpanel"
-                                     aria-labelledby="perm-head">
-                                    <div id="perm-frem">
-                                        <div class="row row-cols-md-1 row-cols-lg-2 g-4">
-                                            <div class="col">
-                                                <div class="card text-center">
-                                                    <div class="card-header head fw-bold">
-                                                        Minutes
-                                                    </div>
-                                                    <div class="card-body">
-                                                        <div id="summ-qrcd"></div><br/>
-                                                        <a type="button"
-                                                           class="btn btn-sm btn-outline-secondary"
-                                                           id="summ-butn"
-                                                           href="" target="_blank">
-                                                            View
-                                                        </a>
-                                                    </div>
-                                                    <div class="card-footer text-muted">
-                                                        <p class="card-text small">
-                                                            <span class="fw-bold">SOURCE</span>&nbsp;
-                                                            <a id="perm-summ-link"
-                                                               href=""
-                                                               target="_blank">
-                                                                Unavailable
-                                                            </a>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <div class="card text-center">
-                                                    <div class="card-header head fw-bold">
-                                                        Logs
-                                                    </div>
-                                                    <div class="card-body">
-                                                        <div id="logs-qrcd"></div><br/>
-                                                        <a type="button"
-                                                           class="btn btn-sm btn-outline-secondary"
-                                                           id="logs-butn"
-                                                           href="" target="_blank">
-                                                            View
-                                                        </a>
-                                                    </div>
-                                                    <div class="card-footer text-muted">
-                                                        <p class="card-text small">
-                                                            <span class="fw-bold">SOURCE</span>&nbsp;
-                                                            <a id="perm-logs-link"
-                                                               href=""
-                                                               target="_blank">
-                                                                Unavailable
-                                                            </a>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer justify-content-between text-white p-1" style="background-color: #008080;">
-                        <div class="float-left">
-                            <button type="button"
-                                    class="btn btn-sm btn-light m-0"
-                                    id="mainback"
-                                    data-bs-toggle="modal"
-                                    data-bs-dismiss="modal"
-                                    data-bs-target="#meetmode">
-                                Back
-                            </button>
-                        </div>
-                        <span class="small fst-italic" id="mainfoot">
-                            <span class="spinner-border spinner-border-sm mt-2" role="status" aria-hidden="true"></span>
-                        </span>
                         <div class="float-right">
                             <button type="button"
                                     class="btn btn-sm btn-light m-0"

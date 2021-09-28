@@ -20,9 +20,8 @@
 """
 
 import json
-from time import ctime
 import urllib.request as ulrq
-
+from time import ctime
 
 seconds_delta = 86400
 
@@ -31,22 +30,26 @@ def fetch_recent_meetings(days):
     try:
         datagrepper_base_url = "https://apps.fedoraproject.org"
         topic = "org.fedoraproject.prod.meetbot.meeting.complete"
-        source = "{}/datagrepper/raw?delta={}&topic={}".format(datagrepper_base_url, days * seconds_delta, topic)
+        source = "{}/datagrepper/raw?delta={}&topic={}".format(
+            datagrepper_base_url, days * seconds_delta, topic
+        )
         parse_object = json.loads(ulrq.urlopen(source).read().decode())
         meeting_rawlist = parse_object["raw_messages"]
         meeting_dict = {}
         for indx in meeting_rawlist:
             data = indx["msg"]
-            logs_url = data["url"].replace("https://meetbot.fedoraproject.org", "") + ".log.html"
-            summary_url = data["url"].replace("https://meetbot.fedoraproject.org", "") + ".html"
+            logs_url = (
+                data["url"].replace("https://meetbot.fedoraproject.org", "")
+                + ".log.html"
+            )
+            summary_url = (
+                data["url"].replace("https://meetbot.fedoraproject.org", "") + ".html"
+            )
             meeting_dict[data["details"]["time_"]] = {
-                "meeting_topic": data["meeting_topic"],
-                "url": {
-                    "logs": logs_url,
-                    "summary": summary_url
-                },
+                "topic": data["meeting_topic"],
                 "channel": data["channel"],
-                "time": ctime(data["details"]["time_"])
+                "time": ctime(data["details"]["time_"]),
+                "slug": {"logs": logs_url, "summary": summary_url},
             }
         return True, meeting_dict
     except Exception as expt:

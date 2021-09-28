@@ -50,7 +50,7 @@
                         <li class="nav-item"></li>
                     </ul>
                     <form class="d-flex">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <a class="text-white" href="https://getfedora.org/" target="_blank" type="button">Get Fedora</a>
                     </form>
                 </div>
             </div>
@@ -63,6 +63,10 @@
                 {{ meetname }}
             </div>
             <ul class="list-group list-group-flush container-sm col-lg-4 col-md-6 mt-4 mb-4">
+                <li class="list-group-item">
+                    <span class="float-left"><i class="fas fa-clock"></i></span>&nbsp;
+                    <span class="float-right">{{ timetext }}</span>
+                </li>
                 <li class="list-group-item">
                     <span class="float-left"><i class="far fa-calendar-alt"></i></span>&nbsp;
                     <span class="float-right">{{ cldrdate }}</span>
