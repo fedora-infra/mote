@@ -11,7 +11,7 @@ jobs:
           python-version: 3.8
       - name: Install isort and black
         run: pip install isort black
-      - name: Run isort
-        run: isort --check --diff .
       - name: Run black
         run: black --check --diff .
+      - name: Run isort
+        run: isort --check --diff .
