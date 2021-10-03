@@ -25,6 +25,8 @@ import os
 import re
 import urllib.parse as ulpr
 
+from config import MEETBOT
+
 directory_path = os.path.dirname("/srv/web/meetbot/")
 recognition_pattern = "(.*)[\-\.]([0-9]{4}-[0-9]{2}-[0-9]{2})-([0-9]{2}\.[0-9]{2})"
 
@@ -63,13 +65,13 @@ def find_meetings_by_substring(search_string: str):
                                 "date": meeting_date,
                                 "time": meeting_title.group(3),
                                 "url": {
-                                    "logs": "https://meetbot-raw.fedoraproject.org/%s/%s/%s"
+                                    "logs": MEETBOT + "/%s/%s/%s"
                                     % (
                                         channel_name,
                                         meeting_date,
                                         meeting_log_filename,
                                     ),
-                                    "summary": "https://meetbot-raw.fedoraproject.org/%s/%s/%s"
+                                    "summary": MEETBOT + "/%s/%s/%s"
                                     % (
                                         channel_name,
                                         meeting_date,

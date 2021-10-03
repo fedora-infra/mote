@@ -24,13 +24,15 @@ import json
 import urllib.request as ulrq
 from time import ctime
 
+from config import BASE_URL,TOPIC,MEETBOT
+
 seconds_delta = 86400
 
 
 def fetch_recent_meetings(days):
     try:
-        datagrepper_base_url = "https://apps.fedoraproject.org"
-        topic = "org.fedoraproject.prod.meetbot.meeting.complete"
+        datagrepper_base_url = BASE_URL
+        topic = TOPIC
         source = "{}/datagrepper/raw?delta={}&topic={}".format(
             datagrepper_base_url, days * seconds_delta, topic
         )
@@ -40,11 +42,11 @@ def fetch_recent_meetings(days):
         for indx in meeting_rawlist:
             data = indx["msg"]
             logs_url = (
-                data["url"].replace("https://meetbot.fedoraproject.org", "")
+                data["url"].replace(MEETBOT, "")
                 + ".log.html"
             )
             summary_url = (
-                data["url"].replace("https://meetbot.fedoraproject.org", "") + ".html"
+                data["url"].replace(MEETBOT, "") + ".html"
             )
             meeting_dict[data["details"]["time_"]] = {
                 "topic": data["meeting_topic"],
