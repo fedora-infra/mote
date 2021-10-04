@@ -133,5 +133,5 @@ hr {
 }
 */
 [name^="l-"]:target + .tm, [name^="l-"]:target + .tm + .nk, [name^="l-"]:target + .tm + .nka {
-    background-color: yellow;
+    background-color: #05ffff;
 }
