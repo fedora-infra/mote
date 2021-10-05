@@ -3,6 +3,6 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
-BASE_URL = os.environ["BASE_URL"]
+APP_URL = os.environ["APP_URL"]
 TOPIC = os.environ["TOPIC"]
-MEETBOT = os.environ["MEETBOT"]
+BASE_URL = os.environ["BASE_URL"]

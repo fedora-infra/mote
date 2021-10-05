@@ -24,14 +24,14 @@ import json
 import urllib.request as ulrq
 from time import ctime
 
-from config import BASE_URL,TOPIC,MEETBOT
+from config import APP_URL,TOPIC,BASE_URL
 
 seconds_delta = 86400
 
 
 def fetch_recent_meetings(days):
     try:
-        datagrepper_base_url = BASE_URL
+        datagrepper_base_url = APP_URL
         topic = TOPIC
         source = "{}/datagrepper/raw?delta={}&topic={}".format(
             datagrepper_base_url, days * seconds_delta, topic
@@ -42,11 +42,11 @@ def fetch_recent_meetings(days):
         for indx in meeting_rawlist:
             data = indx["msg"]
             logs_url = (
-                data["url"].replace(MEETBOT, "")
+                data["url"].replace(BASE_URL, "")
                 + ".log.html"
             )
             summary_url = (
-                data["url"].replace(MEETBOT, "") + ".html"
+                data["url"].replace(BASE_URL, "") + ".html"
             )
             meeting_dict[data["details"]["time_"]] = {
                 "topic": data["meeting_topic"],
