@@ -24,7 +24,7 @@ import json
 import urllib.request as ulrq
 from time import ctime
 
-from config import APP_URL,TOPIC,BASE_URL
+from mote.configs.config import APP_URL,TOPIC,BASE_URL
 
 seconds_delta = 86400
 

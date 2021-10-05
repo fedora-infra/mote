@@ -25,7 +25,7 @@ import os
 import re
 import urllib.parse as ulpr
 
-from config import BASE_URL
+from mote.configs.config import BASE_URL
 
 directory_path = os.path.dirname("/srv/web/meetbot/")
 recognition_pattern = "(.*)[\-\.]([0-9]{4}-[0-9]{2}-[0-9]{2})-([0-9]{2}\.[0-9]{2})"

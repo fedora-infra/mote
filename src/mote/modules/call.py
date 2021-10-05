@@ -26,7 +26,7 @@ import urllib.parse as ulpr
 
 import bs4 as btsp
 
-from config import BASE_URL
+from mote.configs.config import BASE_URL
 
 recognition_pattern = "(.*)[\-\.]([0-9]{4}-[0-9]{2}-[0-9]{2})-([0-9]{2}\.[0-9]{2})"
 
