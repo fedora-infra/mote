@@ -24,6 +24,8 @@ import re
 
 import click
 from flask import Flask, abort, jsonify, render_template, request
+
+from mote.__init__ import __version__
 from mote.modules.call import (
     fetch_channel_dict,
     fetch_datetxt_dict,
@@ -32,7 +34,6 @@ from mote.modules.call import (
 )
 from mote.modules.find import find_meetings_by_substring
 from mote.modules.late import fetch_recent_meetings
-from mote.__init__ import __version__
 
 main = Flask(__name__)
 recognition_pattern = "(.*)[\-\.]([0-9]{4}-[0-9]{2}-[0-9]{2})-([0-9]{2}\.[0-9]{2})"
