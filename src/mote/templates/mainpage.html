@@ -1,3 +1,4 @@
+
 <!doctype html>
 <!--
 ##########################################################################
@@ -35,9 +36,9 @@
         <title>Fragment</title>
     </head>
     <body class="body bg-light">
-        <nav class="navbar sticky-top navbar-expand-lg navbar-dark p-1" style="background-image: linear-gradient(180deg,#eee 0,#ddd);">
+        <nav class="navbar sticky-top navbar-expand-lg navbar-light p-1" style="background-image: linear-gradient(180deg,#eee 0,#ddd);">
             <div class="container-fluid">
-                <a style="color:#50638A;" class="navbar-brand head fw-bold" href="#">Fragment</a>
+                <a style="color:#51A2DA;" class="navbar-brand head fw-bold" href="#">Fragment</a>
                 <button class="navbar-toggler"
                         type="button"
                         data-bs-toggle="collapse"
@@ -61,7 +62,7 @@
                         </li>
                     </ul>
                     <div class="d-flex">
-                        <a style="color:#50638A;" class="text-white" href="https://getfedora.org/" target="_blank" type="button">Get Fedora</a>
+                        <a style="color:#676767; text-decoration:none;" href="https://getfedora.org/" target="_blank" type="button">Get Fedora</a>
                     </div>
                 </div>
             </div>
@@ -75,36 +76,40 @@
                             <p class="h2 head" style="font-weight: bold;">Fragment</p>
                             <p class="h4 body">Conversation Caretaker</p>
                         </div>
-                        <a style="text-decoration: none;"href="#" class="btn btn-light mt-3">
+                        <a style="text-decoration: none; 
+                        "href="#" class="btn btn-light mt-3">
                             <i class="far fa-dot-circle h1 tealfilt"></i><br/>
-                            <span style="color: #50638A;">About</span>
+                            <span style="color: #676767;">About</span>
                         </a>
-                        <a style="text-decoration: none;"href="#"
+                        <a style="text-decoration: none; 
+                        "href="#"
                            class="btn btn-light mt-3"
                            data-bs-toggle="modal"
                            data-bs-target="#rcntmode"
                            type="button"
                            onclick="populate_recent_meeting_list();">
                             <i class="far fa-clock h1 tealfilt"></i><br/>
-                            <span style="color: #50638A;">Recent</span>
+                            <span style="color: #676767;">Recent</span>
                         </a>
-                        <a style="text-decoration: none;"href="#"
+                        <a style="text-decoration: none;
+                           "href="#"
                            class="btn btn-light mt-3"
                            data-bs-toggle="modal"
                            data-bs-target="#chanmode"
                            type="button"
                            onclick="populate_channel_list();">
                             <i class="far fa-arrow-alt-circle-right h1 tealfilt"></i><br/>
-                            <span style="color: #50638A;">Explore</span>
+                            <span style="color: #676767;">Explore</span>
                         </a>
-                        <a style="text-decoration: none;"href="#"
+                        <a style="text-decoration: none; 
+                        "href="#"
                            class="btn btn-light mt-3"
                            data-bs-toggle="modal"
                            data-bs-target="#findmode"
                            type="button"
                            onclick="initialize_search_modal();">
                             <i class="fas fa-search h1 tealfilt"></i><br/>
-                            <span style="color: #50638A;">Lookup</span>
+                            <span style="color: #676767;">Lookup</span>
                         </a>
                         <p class="small body mt-4 mb-0">
                             Many Fedora projects and groups use three IRC channels on irc.libera.chat for their
@@ -122,9 +127,9 @@
                         </p>
                     </div>
                 </div>
-                <div class="card-footer text-center text-white" style="background-color: #e6e6e6; color: #8d8d8d;">
+                <div class="card-footer text-center text-white" style="background-color: #e6e6e6; color:  #676767;">
                     <span class="small">
-                        <a style="color: #5d5d5d; "class="text-white"
+                        <a style="color:#676767; text-decoration:none;"
                            href="https://github.com/t0xic0der/fragment/"
                            target="_blank">
                             Fragment
@@ -132,13 +137,13 @@
                         </a>
                         &copy 2021
 
-                        <a style="color: #5d5d5d;"class="text-white"
+                        <a style="color:#676767; text-decoration:none;"
                            href="https://github.com/t0xic0der"
                            target="_blank">
                             Akashdeep Dhar
                         </a>
                         and
-                        <a style="color: #5d5d5d;"class="text-white"
+                        <a style="color:#676767; text-decoration:none;"
                            href="https://github.com/t0xic0der/fragment/graphs/contributors"
                            target="_blank">
                             others
@@ -154,7 +159,7 @@
              id="findmode">
             <div class="modal-dialog modal-dialog-centered modal-xl modal-fullscreen-lg-down modal-dialog-scrollable">
                 <div class="modal-content">
-                    <div class="modal-header text-white justify-content-center p-2" style="background-image: linear-gradient(180deg,#eee 0,#ddd);color:#50638A;" >
+                    <div class="modal-header justify-content-center p-2" style="background-image: linear-gradient(180deg,#eee 0,#ddd);  color:#51A2DA;" >
                         <h6 class="modal-title head fw-bold">Lookup discussions</h6>
                     </div>
                     <div class="modal-body">
@@ -191,7 +196,7 @@
         <div class="modal fade" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true" id="chanmode">
             <div class="modal-dialog modal-dialog-centered modal-xl modal-fullscreen-lg-down modal-dialog-scrollable">
                 <div class="modal-content">
-                    <div class="modal-header text-white justify-content-center p-2" style="background-image: linear-gradient(180deg,#eee 0,#ddd); color:#50638A;">
+                    <div class="modal-header justify-content-center p-2" style="background-image: linear-gradient(180deg,#eee 0,#ddd); color:#51A2DA;">
                         <h6 class="modal-title head fw-bold">Explore meetings</h6>
                     </div>
                     <div class="modal-body">
@@ -231,7 +236,7 @@
         <div class="modal fade" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true" id="datemode">
             <div class="modal-dialog modal-dialog-centered modal-xl modal-fullscreen-lg-down modal-dialog-scrollable">
                 <div class="modal-content">
-                    <div class="modal-header text-white justify-content-center p-2" style="background-image: linear-gradient(180deg,#eee 0,#ddd); color:#50638A;"> 
+                    <div class="modal-header justify-content-center p-2" style="background-image: linear-gradient(180deg,#eee 0,#ddd); color:#51A2DA;"> 
                         <h6 class="modal-title head fw-bold">Explore meetings</h6>
                     </div>
                     <div class="modal-body">
@@ -278,7 +283,7 @@
              id="meetmode">
             <div class="modal-dialog modal-dialog-centered modal-xl modal-fullscreen-lg-down modal-dialog-scrollable">
                 <div class="modal-content">
-                    <div class="modal-header text-white justify-content-center p-2" style="background-image: linear-gradient(180deg,#eee 0,#ddd); color:#50638A;">
+                    <div class="modal-header justify-content-center p-2" style="background-image: linear-gradient(180deg,#eee 0,#ddd); color:#51A2DA;">
                         <h6 class="modal-title head fw-bold">Explore meetings</h6>
                     </div>
                     <div class="modal-body">
@@ -325,7 +330,7 @@
              id="rcntmode">
             <div class="modal-dialog modal-dialog-centered modal-xl modal-fullscreen-lg-down modal-dialog-scrollable">
                 <div class="modal-content">
-                    <div class="modal-header text-white justify-content-center p-2" style="background-image: linear-gradient(180deg,#eee 0,#ddd); color:#50638A;">
+                    <div class="modal-header justify-content-center p-2" style="background-image: linear-gradient(180deg,#eee 0,#ddd); color:#51A2DA;">
                         <h6 class="modal-title head fw-bold">Recent conversations</h6>
                     </div>
                     <div class="modal-body">
