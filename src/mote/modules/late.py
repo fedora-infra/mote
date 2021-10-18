@@ -22,6 +22,7 @@
 
 import json
 import urllib.request as ulrq
+from datetime import datetime
 from time import ctime
 
 seconds_delta = 86400
@@ -39,6 +40,10 @@ def fetch_recent_meetings(days):
         meeting_dict = {}
         for indx in meeting_rawlist:
             data = indx["msg"]
+            formatted_timestamp = data["details"]["time_"]
+            datestring = datetime.fromtimestamp(formatted_timestamp).strftime(
+                "%b %d, %Y %I:%M:%S"
+            )
             logs_url = (
                 data["url"].replace("https://meetbot.fedoraproject.org", "")
                 + ".log.html"
@@ -49,7 +54,7 @@ def fetch_recent_meetings(days):
             meeting_dict[data["details"]["time_"]] = {
                 "topic": data["meeting_topic"],
                 "channel": data["channel"],
-                "time": ctime(data["details"]["time_"]),
+                "time": datestring,
                 "slug": {"logs": logs_url, "summary": summary_url},
             }
         return True, meeting_dict

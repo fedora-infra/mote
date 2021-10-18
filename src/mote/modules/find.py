@@ -24,6 +24,7 @@ import json
 import os
 import re
 import urllib.parse as ulpr
+from datetime import datetime
 
 directory_path = os.path.dirname("/srv/web/meetbot/")
 recognition_pattern = "(.*)[\-\.]([0-9]{4}-[0-9]{2}-[0-9]{2})-([0-9]{2}\.[0-9]{2})"
@@ -48,6 +49,10 @@ def find_meetings_by_substring(search_string: str):
                             location_list[1],
                             location_list[2],
                         )
+                        formatted_timestamp = datetime.strptime(
+                            meeting_date, "%Y-%m-%d"
+                        )
+                        datestring = "{:%b %d, %Y}".format(formatted_timestamp)
                         if ".log.html" in meeting_filename:
                             meeting_log_filename = meeting_filename
                             meeting_summary_filename = meeting_filename.replace(
@@ -60,7 +65,7 @@ def find_meetings_by_substring(search_string: str):
                             meeting_object = {
                                 "topic": meeting_title.group(1),
                                 "channel": channel_name,
-                                "date": meeting_date,
+                                "date": datestring,
                                 "time": meeting_title.group(3),
                                 "url": {
                                     "logs": "https://meetbot-raw.fedoraproject.org/%s/%s/%s"

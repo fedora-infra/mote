@@ -21,6 +21,7 @@
 """
 
 import re
+from datetime import datetime
 
 import click
 from flask import Flask, abort, jsonify, render_template, request
@@ -91,6 +92,8 @@ def statfile(channame, cldrdate, meetname):
     meetname = meetname.replace(".log.html", "").replace(".html", "")
     meeting_title = re.search(recognition_pattern, meetname)
     meetpath = "/srv/web/meetbot" + request.path
+    formatted_timestamp = datetime.strptime(cldrdate, "%Y-%m-%d")
+    cldrdate = "{:%B %d, %Y}".format(formatted_timestamp)
     print(meetpath)
     if meetpath[-1] == "/":
         meetpath = meetpath[0:-1]
