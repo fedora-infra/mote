@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link href="{{ url_for('static', filename='css3/bootstrap.min.css') }}" rel="stylesheet"/>
+        <link href="{{ url_for('static', filename='css3/custom_fonts.css') }}" rel="stylesheet"/>
+        <link href="{{ url_for('static', filename='css3/fragment.css') }}" rel="stylesheet"/>
+        <link href="{{ url_for('static', filename='css3/fontawesome-all.min.css') }}" rel="stylesheet"/>
+        <script src="{{ url_for('static', filename='jscn/bootstrap.bundle.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='jscn/jquery.min.js') }}"></script>
+        <link rel="icon" href="{{ url_for('static', filename='imgs/logoteal.png') }}" sizes="16x16">
+        <script src="{{ url_for('static', filename='jscn/fragment.js') }}"></script>
+        <script src="{{ url_for('static', filename='jscn/easy.qrcode.min.js') }}"></script>
+        <title>Fragment</title>
+    </head>
+    <body class="body bg-light">
+        <nav class="navbar sticky-top navbar-expand-lg navbar-dark p-1" style="background-color: #008080;">
+            <div class="container-fluid">
+                <a class="navbar-brand head fw-bold" href="/">Fragment</a>
+                <button class="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    </ul>
+                    <div class="d-flex">
+                        <a class="text-white" href="https://getfedora.org/" target="_blank" type="button">Get Fedora</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </body>
+    <div class="container-fluid">
+          <div class="text-center" style="margin-top: 5%;">
+              <img src="{{ url_for('static', filename='imgs/404_not_found.svg') }}" style="width: 40%; height: 40%;" />
+              <div class="mt-4">
+                  <p class="h2 head" style="font-weight: bold;">Oops, it seems like you have wandered into a wrong path</p>
+                  <p class="h4 body">404 Not Found</p>
+                  <a href="/"
+                     class="btn mt-2"
+                     type="button">
+                      <span style="color: #80C0C0; font-weight:bold; font-size: 2em">
+                          Back to home page
+                      </span>
+                  </a>
+              </div>
+          </div>
+    </div>
+</html>

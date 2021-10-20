@@ -153,5 +153,10 @@ def mainfunc(portdata, netprotc):
     main.run(port=portdata, host=netpdata)
 
 
+@main.errorhandler(404)
+def page_not_found(error):
+    return render_template("e404page.html"), 404
+
+
 if __name__ == "__main__":
     mainfunc()
