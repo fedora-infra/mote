@@ -39,7 +39,7 @@ h1, h3 {
 }
 
 .tealfilt {
-    filter: invert(29%) sepia(84%) saturate(1479%) hue-rotate(154deg) brightness(91%) contrast(101%);
+    filter: invert(53%) sepia(47%) saturate(573%) hue-rotate(161deg) brightness(103%) contrast(84%);
 }
 
 /* For the .log.html */
