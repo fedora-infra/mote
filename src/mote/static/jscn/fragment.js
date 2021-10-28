@@ -141,6 +141,8 @@ async function populate_datetxt_list(channel) {
         for (let i = 0; i < dataSorted.length; i++) {
             const element = dataSorted[i];
             const date = element[0];
+            const datestring = new Date(date).toDateString().slice(4);
+            const formatted_date = datestring.slice(0, 6) + "," + datestring.slice(6)
             const url = element[1];
             $("#listdate-uols").append(`
                 <li class="list-group-item list-group-item-action" 
@@ -149,7 +151,7 @@ async function populate_datetxt_list(channel) {
                     data-bs-dismiss="modal" 
                     data-bs-target="#meetmode" 
                     onclick="populate_meeting_list('${channel}', '${date}');">
-                    <div class="head h4">${date}</div>
+                    <div class="head h4">${formatted_date}</div>
                     <div class="body small">
                         <span class="fw-bold">Source: </span>
                         <a href="${url}" target="_blank">${url}</a>
@@ -190,7 +192,9 @@ async function populate_meeting_list(channel, datetxt) {
                 </a>
             `);
         }
-        document.getElementById("meethead").innerHTML = "Meetings on " + datetxt + " for " + channel;
+        const datestring = new Date(datetxt).toDateString().slice(4);
+        const formatted_date = datestring.slice(0, 6) + "," + datestring.slice(6)
+        document.getElementById("meethead").innerHTML = "Meetings on " + formatted_date + " for " + channel;
         document.getElementById("meetfoot").innerHTML = "Pick a meeting of your choice";
     });
 }
@@ -229,6 +233,9 @@ function populate_recent_meeting_on_dom(data, tabtitle) {
         `;
     } else {
         for (let indx in data) {
+            let datetime = data[indx]["time"]
+            let date = datetime.slice(0,12)
+            let time = datetime.slice(13,18).replace(":",".")
             $("#listrcnt-" + tabtitle + "-uols").append(`
                 <a class="list-group-item list-group-item-action" 
                    type="button" 
@@ -238,7 +245,8 @@ function populate_recent_meeting_on_dom(data, tabtitle) {
                         <span>${data[indx]["topic"]}</span>
                     </div>
                     <div class="fst-italic small text-muted mt-1">
-                        <i class="fas fa-clock"></i>&nbsp;${data[indx]["time"]}&nbsp;
+                        <i class="fas fa-clock"></i>&nbsp;${time}&nbsp;
+                        <i class="fas fa-calendar"></i>&nbsp;${date}&nbsp;
                         <i class="fas fa-layer-group"></i>&nbsp;${data[indx]["channel"]}&nbsp;
                     </div>
                 </a>

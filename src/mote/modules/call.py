@@ -23,6 +23,7 @@
 import os
 import re
 import urllib.parse as ulpr
+from datetime import datetime
 
 import bs4 as btsp
 
@@ -58,6 +59,8 @@ def fetch_meeting_dict(channel: str, datetxt: str):
     try:
         meeting_list = []
         meetlist = os.listdir("/srv/web/meetbot/%s/%s" % (channel, datetxt))
+        formatted_timestamp = datetime.strptime(datetxt, "%Y-%m-%d")
+        datestring = "{:%b %d, %Y}".format(formatted_timestamp)
         for meeting in meetlist:
             if ".log.html" in meeting:
                 meeting_log = "https://meetbot-raw.fedoraproject.org/%s/%s/%s" % (
@@ -77,7 +80,7 @@ def fetch_meeting_dict(channel: str, datetxt: str):
                 meeting_object = {
                     "topic": meeting_title.group(1),
                     "channel": channel,
-                    "date": datetxt,
+                    "date": datestring,
                     "time": meeting_title.group(3),
                     "url": {
                         "logs": meeting_log,
