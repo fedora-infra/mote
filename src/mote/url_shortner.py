@@ -37,7 +37,7 @@ class URLShortener:
             # Counter increment
             self.id = self.id + 1
 
-        return "www.fedoramoteproject.com/" + shorten_url
+        return "meetbot.fedoraproject.org/" + shorten_url
 
     # Converting b10 to b62(Alphanumeric)
     def convereter_func(self, id):
