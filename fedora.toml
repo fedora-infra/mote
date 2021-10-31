@@ -1,0 +1,71 @@
+amqp_url = "amqps://fedora:@rabbitmq.fedoraproject.org/%2Fpublic_pubsub"
+callback = "fedora_messaging.example:printer"
+
+[tls]
+ca_cert = "src/cacert.pem"
+keyfile = "src/fedora-key.pem"
+certfile = "src/fedora-cert.pem"
+
+[client_properties]
+app = "Example Application"
+# Some suggested extra fields:
+# URL of the project that provides this consumer
+app_url = "https://github.com/fedora-infra/fedora-messaging"
+# Contact emails for the maintainer(s) of the consumer - in case the
+# broker admin needs to contact them, for e.g.
+app_contacts_email = ["jcline@fedoraproject.org"]
+
+[exchanges."amq.topic"]
+type = "topic"
+durable = true
+auto_delete = false
+arguments = {}
+
+[queues.04d67fff-143b-4de9-8413-5ab2dacac704]
+durable = false
+auto_delete = true
+exclusive = true
+arguments = {}
+
+[[bindings]]
+queue = "04d67fff-143b-4de9-8413-5ab2dacac704"
+exchange = "amq.topic"
+routing_keys = ["meetbot"]
+
+[consumer_config]
+example_key = "for my consumer"
+
+[qos]
+prefetch_size = 0
+prefetch_count = 25
+
+[log_config]
+version = 1
+disable_existing_loggers = true
+
+[log_config.formatters.simple]
+format = "[%(levelname)s %(name)s] %(message)s"
+
+[log_config.handlers.console]
+class = "logging.StreamHandler"
+formatter = "simple"
+stream = "ext://sys.stdout"
+
+[log_config.loggers.fedora_messaging]
+level = "INFO"
+propagate = false
+handlers = ["console"]
+
+[log_config.loggers.twisted]
+level = "INFO"
+propagate = false
+handlers = ["console"]
+
+[log_config.loggers.pika]
+level = "WARNING"
+propagate = false
+handlers = ["console"]
+
+[log_config.root]
+level = "ERROR"
+handlers = ["console"]
