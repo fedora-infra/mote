@@ -1,9 +1,6 @@
-import os
-
-from dotenv import load_dotenv
-load_dotenv()
-
-APP_URL = os.environ["APP_URL"]
-TOPIC = os.environ["TOPIC"]
-BASE_URL = os.environ["BASE_URL"]
+configuration = dict(
+    app_url = "https://apps.fedoraproject.org",
+    topic = "org.fedoraproject.prod.meetbot.meeting.complete",
+    base_url = "https://meetbot.fedoraproject.org"
+)
     

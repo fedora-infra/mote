@@ -26,7 +26,7 @@ import urllib.parse as ulpr
 
 import bs4 as btsp
 
-from mote.configs.config import BASE_URL
+from mote.configs.config import configuration
 
 recognition_pattern = "(.*)[\-\.]([0-9]{4}-[0-9]{2}-[0-9]{2})-([0-9]{2}\.[0-9]{2})"
 
@@ -36,7 +36,7 @@ def fetch_channel_dict():
         channel_dict = {}
         chanlist = os.listdir("/srv/web/meetbot")
         for channel in chanlist:
-            channel_dict[channel] = BASE_URL + "/%s" % channel
+            channel_dict[channel] = configuration.base_url + "/%s" % channel
         return True, channel_dict
     except Exception as expt:
         return False, {"exception": str(expt)}
@@ -47,7 +47,7 @@ def fetch_datetxt_dict(channel: str):
         datetxt_dict = {}
         datelist = os.listdir("/srv/web/meetbot/%s" % channel)
         for datetxt in datelist:
-            datetxt_dict[datetxt] = BASE_URL + "/%s/%s" % (
+            datetxt_dict[datetxt] = configuration.base_url + "/%s/%s" % (
                 channel,
                 datetxt,
             )
@@ -62,12 +62,12 @@ def fetch_meeting_dict(channel: str, datetxt: str):
         meetlist = os.listdir("/srv/web/meetbot/%s/%s" % (channel, datetxt))
         for meeting in meetlist:
             if ".log.html" in meeting:
-                meeting_log = BASE_URL + "/%s/%s/%s" % (
+                meeting_log = configuration.base_url + "/%s/%s/%s" % (
                     channel,
                     datetxt,
                     meeting,
                 )
-                meeting_sum = BASE_URL + "/%s/%s/%s" % (
+                meeting_sum = configuration.base_url + "/%s/%s/%s" % (
                     channel,
                     datetxt,
                     meeting.replace(".log.html", ".html"),
@@ -88,13 +88,13 @@ def fetch_meeting_dict(channel: str, datetxt: str):
                     "slug": {
                         "logs": ulpr.quote(
                             meeting_log.replace(
-                                BASE_URL, ""
+                                configuration.base_url, ""
                             ),
                             safe=":/?",
                         ),
                         "summary": ulpr.quote(
                             meeting_sum.replace(
-                                BASE_URL, ""
+                                configuration.base_url, ""
                             ),
                             safe=":/?",
                         ),

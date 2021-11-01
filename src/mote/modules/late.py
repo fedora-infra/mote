@@ -24,15 +24,15 @@ import json
 import urllib.request as ulrq
 from time import ctime
 
-from mote.configs.config import APP_URL,TOPIC,BASE_URL
+from mote.configs.config import configuration
 
 seconds_delta = 86400
 
 
 def fetch_recent_meetings(days):
     try:
-        datagrepper_base_url = APP_URL
-        topic = TOPIC
+        datagrepper_base_url = configuration.app_url
+        topic = configuration.topic
         source = "{}/datagrepper/raw?delta={}&topic={}".format(
             datagrepper_base_url, days * seconds_delta, topic
         )
@@ -42,11 +42,11 @@ def fetch_recent_meetings(days):
         for indx in meeting_rawlist:
             data = indx["msg"]
             logs_url = (
-                data["url"].replace(BASE_URL, "")
+                data["url"].replace(configuration.base_url, "")
                 + ".log.html"
             )
             summary_url = (
-                data["url"].replace(BASE_URL, "") + ".html"
+                data["url"].replace(configuration.base_url, "") + ".html"
             )
             meeting_dict[data["details"]["time_"]] = {
                 "topic": data["meeting_topic"],
