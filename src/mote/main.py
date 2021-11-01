@@ -37,7 +37,7 @@ from mote.modules.find import find_meetings_by_substring
 from mote.modules.late import fetch_recent_meetings
 
 main = Flask(__name__)
-recognition_pattern = "(.*)[\-\.]([0-9]{4}-[0-9]{2}-[0-9]{2})-([0-9]{2}\.[0-9]{2})"
+main.config.from_pyfile("config.py")
 
 
 @main.get("/fragedpt/")
@@ -90,8 +90,8 @@ def fragedpt():
 @main.get("/<channame>/<cldrdate>/<path:meetname>")
 def statfile(channame, cldrdate, meetname):
     meetname = meetname.replace(".log.html", "").replace(".html", "")
-    meeting_title = re.search(recognition_pattern, meetname)
-    meetpath = "/srv/web/meetbot" + request.path
+    meeting_title = re.search(main.config["RECOGNIITION_PATTERN"], meetname)
+    meetpath = main.config["MEETING_DIR"] + request.path
     formatted_timestamp = datetime.strptime(cldrdate, "%Y-%m-%d")
     cldrdate = "{:%B %d, %Y}".format(formatted_timestamp)
     print(meetpath)
