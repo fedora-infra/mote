@@ -23,7 +23,6 @@
 import json
 import urllib.request as ulrq
 from datetime import datetime
-from time import ctime
 
 seconds_delta = 86400
 
