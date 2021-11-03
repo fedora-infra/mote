@@ -84,6 +84,14 @@ def fragedpt():
             response = meetlist[1]
         else:
             print("List of recent meetings could not retrieved (last week)")
+    elif rqstdata == 'contrib':
+        response = {
+            "contributors": [{
+            "Name": "Kedar",
+            "Age": 25
+            }]
+        }
+        # TODO: Change this later
     return jsonify(response)
 
 

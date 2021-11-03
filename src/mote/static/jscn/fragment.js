@@ -126,6 +126,36 @@ async function populate_channel_list() {
     });
 }
 
+async function contributors_list() {
+    document.getElementById("listcontrib-uols").innerHTML = "";
+    document.getElementById("contribhead").innerHTML = "Loading...";
+    document.getElementById("contribfoot").innerHTML = `
+        <span class="spinner-border spinner-border-sm mt-2" role="status" aria-hidden="true"></span>
+    `;
+    await $.getJSON("/fragedpt/", {
+        "rqstdata": "contrib"
+    }, function (data) {
+        for (let indx in data) {
+            var contributors = [];
+            for (let contrib in data[indx]) {
+                var contributorName = data[indx][contrib]['Name'];
+                contributors.push(contributorName)
+            };
+            $("#listcontrib-uols").append(`
+                <li class="list-group-item list-group-item-action" 
+                    type="button" 
+                    data-bs-toggle="modal" 
+                    data-bs-dismiss="modal" 
+                    <div class="head h4">${contributors}</div>
+                </li>
+            `);
+            $('#listcontrib-uols').display = 'block';
+        }
+        document.getElementById("contribhead").innerHTML = "Contributors: ";
+        document.getElementById("contribfoot").innerHTML = "";
+    });
+}
+
 async function populate_datetxt_list(channel) {
     document.getElementById("listdate-uols").innerHTML = "";
     document.getElementById("datehead").innerHTML = "Loading...";

@@ -130,23 +130,20 @@
                 <div class="card-footer text-center" style="background-color: #e6e6e6; color:  #676767;">
                     <span class="small">
                         <a style="color:#676767; text-decoration:none;"
-                           href="https://github.com/t0xic0der/fragment/"
+                           href="https://github.com/fedora-infra/mote"
                            target="_blank">
                             Fragment
 
                         </a>
                         &copy 2021
 
-                        <a style="color:#676767; text-decoration:none;"
-                           href="https://github.com/t0xic0der"
-                           target="_blank">
-                            Akashdeep Dhar
-                        </a>
-                        and
-                        <a style="color:#676767; text-decoration:none;"
-                           href="https://github.com/t0xic0der/fragment/graphs/contributors"
-                           target="_blank">
-                            others
+                        <a 
+                        style="color:#676767; text-decoration:none;"
+                               type="button"
+                               data-bs-toggle="modal"
+                                data-bs-target="#contribmode"
+                               onclick="contributors_list();">
+                                Akashdeep Dhar and others
                         </a>
                     </span>
                 </div>
@@ -233,6 +230,51 @@
                 </div>
             </div>
         </div>
+        <!-- class starts here -->
+        <div class="modal fade" aria-hidden="false" data-bs-backdrop="static" data-bs-keyboard="true" id="contribmode">
+            <div class="modal-dialog modal-dialog-centered modal-xl modal-fullscreen-lg-down modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header justify-content-center p-2" style="background-image: linear-gradient(180deg,#eee 0,#ddd); color:#51A2DA;"> 
+                        <h6 class="modal-title head fw-bold">Explore contributions</h6>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container">
+                            <div class="card mb-3">
+                                <div class="list-group-item bg-light">
+                                    <span id="contribhead" class="fw-bold">Loading...</span>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <ul class="list-group list-group-flush" id="listcontrib-uols"></ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-between p-1" style="background-image: linear-gradient(180deg,#eee 0,#ddd);">
+                        <div class="float-left">
+                            <button type="button"
+                                    class="btn btn-sm btn-light m-0"
+                                    id="dateback"
+                                    data-bs-toggle="modal"
+                                    data-bs-dismiss="modal"
+                                    data-bs-target="#chanmode">
+                                Back
+                            </button>
+                        </div>
+                        <span class="small fst-italic" id="contribfoot">
+                            <span class="spinner-border spinner-border-sm mt-2" role="status" aria-hidden="true"></span>
+                        </span>
+                        <div class="float-right">
+                            <button type="button"
+                                    class="btn btn-sm btn-light m-0"
+                                    data-bs-dismiss="modal">
+                                Close
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- class ends here -->
         <div class="modal fade" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true" id="datemode">
             <div class="modal-dialog modal-dialog-centered modal-xl modal-fullscreen-lg-down modal-dialog-scrollable">
                 <div class="modal-content">
