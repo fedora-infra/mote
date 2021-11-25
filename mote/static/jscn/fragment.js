@@ -25,6 +25,9 @@ $(document).on("keyup", "#findtext", function(event) {
         search_meetings();
     }
 })
+$(document).on("click", "#darkModeSwitch", function(event) {
+  darkmode.toggleDarkMode();
+})
 
 async function initialize_search_modal() {
     document.getElementById("find-body").innerHTML = `

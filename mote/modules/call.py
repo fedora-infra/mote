@@ -34,7 +34,7 @@ def fetch_channel_dict():
         channel_dict = {}
         chanlist = os.listdir(f"{app.config['MEETING_DIR']}")
         for channel in chanlist:
-            channel_dict[channel] = f"{app.config['MEETBOT_URL']}/{channel}"
+            channel_dict[channel] = f"{app.config['MEETBOT_RAW_URL']}/{channel}"
         return True, channel_dict
     except Exception as expt:
         return False, {"exception": str(expt)}
@@ -45,7 +45,7 @@ def fetch_datetxt_dict(channel: str):
         datetxt_dict = {}
         datelist = os.listdir(f"{app.config['MEETING_DIR']}/{channel}")
         for datetxt in datelist:
-            datetxt_dict[datetxt] = f"{app.config['MEETBOT_URL']}/{channel}/{datetxt}"
+            datetxt_dict[datetxt] = f"{app.config['MEETBOT_RAW_URL']}/{channel}/{datetxt}"
         return True, datetxt_dict
     except Exception as expt:
         return False, {"exception": str(expt)}
@@ -59,8 +59,8 @@ def fetch_meeting_dict(channel: str, datetxt: str):
         datestring = "{:%b %d, %Y}".format(formatted_timestamp)
         for meeting in meetlist:
             if ".log.html" in meeting:
-                meeting_log = f"{app.config['MEETBOT_URL']}/{channel}/{datetxt}/{meeting}"
-                meeting_sum = f"{app.config['MEETBOT_URL']}/{channel}/{datetxt}/{meeting.replace('''.log.html''', '''.html''')}"  # noqa
+                meeting_log = f"{app.config['MEETBOT_RAW_URL']}/{channel}/{datetxt}/{meeting}"  # noqa
+                meeting_sum = f"{app.config['MEETBOT_RAW_URL']}/{channel}/{datetxt}/{meeting.replace('''.log.html''', '''.html''')}"  # noqa
                 meeting_title = re.search(
                     app.config["RECOGNIITION_PATTERN"],
                     meeting.replace(".log.html", ""),
@@ -76,11 +76,11 @@ def fetch_meeting_dict(channel: str, datetxt: str):
                     },
                     "slug": {
                         "logs": ulpr.quote(
-                            meeting_log.replace(app.config["MEETBOT_URL"], ""),
+                            meeting_log.replace(app.config["MEETBOT_RAW_URL"], ""),
                             safe=":/?",
                         ),
                         "summary": ulpr.quote(
-                            meeting_sum.replace(app.config["MEETBOT_URL"], ""),
+                            meeting_sum.replace(app.config["MEETBOT_RAW_URL"], ""),
                             safe=":/?",
                         ),
                     },
