@@ -97,8 +97,9 @@ async function search_meetings() {
 }
 
 async function populate_channel_list() {
+    let channelHead = document.getElementById("chanhead");
     document.getElementById("listchan-uols").innerHTML = "";
-    document.getElementById("chanhead").innerHTML = "Loading...";
+    channelHead.innerHTML = "Loading...";
     document.getElementById("chanfoot").innerHTML = `
         <span class="spinner-border spinner-border-sm mt-2" role="status" aria-hidden="true"></span>
     `;
@@ -123,6 +124,25 @@ async function populate_channel_list() {
         }
         document.getElementById("chanhead").innerHTML = "Channels";
         document.getElementById("chanfoot").innerHTML = "Pick a channel of your choice";
+        if (!$("#searchInput").length > 0) {
+            channelHead.parentElement.parentElement.insertAdjacentHTML(
+                "afterend",
+                `<input id="searchInput" class="form-control mb-3" type="text" placeholder="Search channel... 🔎️">`
+            );
+            $("#searchInput").on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                $("#listchan-uols .head").filter(function() {
+                $(this)
+                  .parent()
+                  .toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                });
+            });
+            $("#chanmode").on("shown.bs.modal", function () {
+              $("#searchInput").focus();
+            });
+        } else {
+            $("#searchInput").val("");
+        }
     });
 }
 
