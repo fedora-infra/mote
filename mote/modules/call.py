@@ -36,7 +36,7 @@ from . import sanitize_name
 def fetch_channel_dict():
     try:
         channel_dict = {}
-        chanlist = os.listdir(f"{app.config['MEETING_DIR']}")
+        chanlist = os.listdir(app.config["MEETING_DIR"])
         for channel in chanlist:
             channel_dict[channel] = f"{app.config['MEETBOT_RAW_URL']}/{channel}"
         return True, channel_dict
@@ -109,7 +109,7 @@ def fetch_meeting_content(contpath: str):
         return True, contdata
     except Exception as expt:
         logging.exception(expt)
-        return False, ""
+        return False, {"exception": str(expt)}
 
 
 def fetch_meeting_summary(contpath: str):
@@ -156,6 +156,6 @@ def fetch_meeting_summary(contpath: str):
         event["actions"] = [a.text for a in actions if a.text != "(none)"]
 
         return True, event
-    except Exception as exc:
-        logging.exception(exc)
-        return False, exc
+    except Exception as expt:
+        logging.exception(expt)
+        return False, {"exception": str(expt)}

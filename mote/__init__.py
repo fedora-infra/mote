@@ -34,6 +34,7 @@ __version__ = "0.7.0"
 
 app = Flask(__name__)
 app.config.from_pyfile("config.py")
+app.config.from_prefixed_env()
 
 if app.config["CACHE_TYPE"] == "RedisCache":
     app.redis = Redis.from_url(app.config["CACHE_REDIS_URL"])
