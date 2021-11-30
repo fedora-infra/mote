@@ -26,24 +26,24 @@ import re
 import urllib.parse as ulpr
 from datetime import datetime
 
-directory_path = os.path.dirname("/srv/web/meetbot/")
-recognition_pattern = "(.*)[\-\.]([0-9]{4}-[0-9]{2}-[0-9]{2})-([0-9]{2}\.[0-9]{2})"
+from flask import current_app as app
 
 
 def find_meetings_by_substring(search_string: str):
     """
     Return list of meetings returned from search
     """
+    directory_path = f"{os.path.dirname(app.config['MEETING_DIR'])}"
     try:
         meeting_dictionary = []
         for root, dirs, files in os.walk(directory_path):
             for file in files:
                 if search_string in file and not file.endswith(".tgz"):
-                    location = "%s/%s" % (root, str(file))
-                    if "/srv/web/meetbot/teams/" not in location:
-                        location_list = location.replace("/srv/web/meetbot/", "").split(
-                            "/"
-                        )
+                    location = f"{root}/{str(file)}"
+                    if app.config["MEETING_DIR"] + "/teams/" not in location:
+                        location_list = location.replace(
+                            app.config["MEETING_DIR"] + "/", ""
+                        ).split("/")
                         channel_name, meeting_date, meeting_filename = (
                             location_list[0],
                             location_list[1],
@@ -59,7 +59,7 @@ def find_meetings_by_substring(search_string: str):
                                 ".log.html", ".html"
                             )
                             meeting_title = re.search(
-                                recognition_pattern,
+                                app.config["RECOGNIITION_PATTERN"],
                                 meeting_filename.replace(".log.html", ""),
                             )
                             meeting_object = {
@@ -68,36 +68,16 @@ def find_meetings_by_substring(search_string: str):
                                 "date": datestring,
                                 "time": meeting_title.group(3),
                                 "url": {
-                                    "logs": "https://meetbot-raw.fedoraproject.org/%s/%s/%s"
-                                    % (
-                                        channel_name,
-                                        meeting_date,
-                                        meeting_log_filename,
-                                    ),
-                                    "summary": "https://meetbot-raw.fedoraproject.org/%s/%s/%s"
-                                    % (
-                                        channel_name,
-                                        meeting_date,
-                                        meeting_summary_filename,
-                                    ),
+                                    "logs": f"{app.config['MEETBOT_URL']}/{channel_name}/{meeting_date}/{meeting_log_filename}",
+                                    "summary": f"{app.config['MEETBOT_URL']}/{channel_name}/{meeting_date}/{meeting_summary_filename}",
                                 },
                                 "slug": {
                                     "logs": ulpr.quote(
-                                        "/%s/%s/%s"
-                                        % (
-                                            channel_name,
-                                            meeting_date,
-                                            meeting_log_filename,
-                                        ),
+                                        f"/{channel_name}/{meeting_date}/{meeting_log_filename}",
                                         safe=":/?",
                                     ),
                                     "summary": ulpr.quote(
-                                        "/%s/%s/%s"
-                                        % (
-                                            channel_name,
-                                            meeting_date,
-                                            meeting_summary_filename,
-                                        ),
+                                        f"/{channel_name}/{meeting_date}/{meeting_summary_filename}",
                                         safe=":/?",
                                     ),
                                 },
