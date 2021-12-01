@@ -24,15 +24,16 @@ import json
 import urllib.request as ulrq
 from datetime import datetime
 
+from flask import current_app as app
+
 seconds_delta = 86400
 
 
 def fetch_recent_meetings(days):
     try:
-        datagrepper_base_url = "https://apps.fedoraproject.org"
         topic = "org.fedoraproject.prod.meetbot.meeting.complete"
         source = "{}/datagrepper/raw?delta={}&topic={}".format(
-            datagrepper_base_url, days * seconds_delta, topic
+            app.config["DATAGREPPER_BASE_URL"], days * seconds_delta, topic
         )
         parse_object = json.loads(ulrq.urlopen(source).read().decode())
         meeting_rawlist = parse_object["raw_messages"]
@@ -43,13 +44,8 @@ def fetch_recent_meetings(days):
             datestring = datetime.fromtimestamp(formatted_timestamp).strftime(
                 "%b %d, %Y %I:%M:%S"
             )
-            logs_url = (
-                data["url"].replace("https://meetbot.fedoraproject.org", "")
-                + ".log.html"
-            )
-            summary_url = (
-                data["url"].replace("https://meetbot.fedoraproject.org", "") + ".html"
-            )
+            logs_url = data["url"].replace(app.config["MEETBOT_URL"], "") + ".log.html"
+            summary_url = data["url"].replace(app.config["MEETBOT_URL"], "") + ".html"
             meeting_dict[data["details"]["time_"]] = {
                 "topic": data["meeting_topic"],
                 "channel": data["channel"],

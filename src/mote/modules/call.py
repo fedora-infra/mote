@@ -26,16 +26,15 @@ import urllib.parse as ulpr
 from datetime import datetime
 
 import bs4 as btsp
-
-recognition_pattern = "(.*)[\-\.]([0-9]{4}-[0-9]{2}-[0-9]{2})-([0-9]{2}\.[0-9]{2})"
+from flask import current_app as app
 
 
 def fetch_channel_dict():
     try:
         channel_dict = {}
-        chanlist = os.listdir("/srv/web/meetbot")
+        chanlist = os.listdir(f"{app.config['MEETING_DIR']}")
         for channel in chanlist:
-            channel_dict[channel] = "https://meetbot-raw.fedoraproject.org/%s" % channel
+            channel_dict[channel] = f"{app.config['MEETBOT_URL']}/{channel}"
         return True, channel_dict
     except Exception as expt:
         return False, {"exception": str(expt)}
@@ -44,12 +43,9 @@ def fetch_channel_dict():
 def fetch_datetxt_dict(channel: str):
     try:
         datetxt_dict = {}
-        datelist = os.listdir("/srv/web/meetbot/%s" % channel)
+        datelist = os.listdir(f"{app.config['MEETING_DIR']}/{channel}")
         for datetxt in datelist:
-            datetxt_dict[datetxt] = "https://meetbot-raw.fedoraproject.org/%s/%s" % (
-                channel,
-                datetxt,
-            )
+            datetxt_dict[datetxt] = f"{app.config['MEETBOT_URL']}/{channel}/{datetxt}"
         return True, datetxt_dict
     except Exception as expt:
         return False, {"exception": str(expt)}
@@ -58,23 +54,17 @@ def fetch_datetxt_dict(channel: str):
 def fetch_meeting_dict(channel: str, datetxt: str):
     try:
         meeting_list = []
-        meetlist = os.listdir("/srv/web/meetbot/%s/%s" % (channel, datetxt))
+        meetlist = os.listdir(f"{app.config['MEETING_DIR']}/{channel}/{datetxt}")
         formatted_timestamp = datetime.strptime(datetxt, "%Y-%m-%d")
         datestring = "{:%b %d, %Y}".format(formatted_timestamp)
         for meeting in meetlist:
             if ".log.html" in meeting:
-                meeting_log = "https://meetbot-raw.fedoraproject.org/%s/%s/%s" % (
-                    channel,
-                    datetxt,
-                    meeting,
+                meeting_log = (
+                    f"{app.config['MEETBOT_URL']}/{channel}/{datetxt}/{meeting}"
                 )
-                meeting_sum = "https://meetbot-raw.fedoraproject.org/%s/%s/%s" % (
-                    channel,
-                    datetxt,
-                    meeting.replace(".log.html", ".html"),
-                )
+                meeting_sum = f"{app.config['MEETBOT_URL']}/{channel}/{datetxt}/{meeting.replace('''.log.html''', '''.html''')}"
                 meeting_title = re.search(
-                    recognition_pattern,
+                    app.config["RECOGNIITION_PATTERN"],
                     meeting.replace(".log.html", ""),
                 )
                 meeting_object = {
@@ -88,15 +78,11 @@ def fetch_meeting_dict(channel: str, datetxt: str):
                     },
                     "slug": {
                         "logs": ulpr.quote(
-                            meeting_log.replace(
-                                "https://meetbot-raw.fedoraproject.org", ""
-                            ),
+                            meeting_log.replace(app.config["MEETBOT_URL"], ""),
                             safe=":/?",
                         ),
                         "summary": ulpr.quote(
-                            meeting_sum.replace(
-                                "https://meetbot-raw.fedoraproject.org", ""
-                            ),
+                            meeting_sum.replace(app.config["MEETBOT_URL"], ""),
                             safe=":/?",
                         ),
                     },
