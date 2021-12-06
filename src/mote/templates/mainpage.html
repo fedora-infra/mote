@@ -1,4 +1,3 @@
-
 <!doctype html>
 <!--
 ##########################################################################
@@ -33,6 +32,7 @@
         <link rel="icon" href="{{ url_for('static', filename='imgs/logoteal.png') }}" sizes="16x16">
         <script src="{{ url_for('static', filename='jscn/fragment.js') }}"></script>
         <script src="{{ url_for('static', filename='jscn/easy.qrcode.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='jscn/socket.io.js') }}"></script>
         <title>Fragment</title>
     </head>
     <body class="body bg-light">
@@ -76,12 +76,12 @@
                             <p class="h2 head" style="font-weight: bold;">Fragment</p>
                             <p class="h4 body">Conversation Caretaker</p>
                         </div>
-                        <a style="text-decoration: none; 
+                        <a style="text-decoration: none;
                         "href="#" class="btn btn-light mt-3">
                             <i class="far fa-dot-circle h1 tealfilt"></i><br/>
                             <span style="color: #676767;">About</span>
                         </a>
-                        <a style="text-decoration: none; 
+                        <a style="text-decoration: none;
                         "href="#"
                            class="btn btn-light mt-3"
                            data-bs-toggle="modal"
@@ -101,7 +101,7 @@
                             <i class="far fa-arrow-alt-circle-right h1 tealfilt"></i><br/>
                             <span style="color: #676767;">Explore</span>
                         </a>
-                        <a style="text-decoration: none; 
+                        <a style="text-decoration: none;
                         "href="#"
                            class="btn btn-light mt-3"
                            data-bs-toggle="modal"
@@ -236,7 +236,7 @@
         <div class="modal fade" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true" id="datemode">
             <div class="modal-dialog modal-dialog-centered modal-xl modal-fullscreen-lg-down modal-dialog-scrollable">
                 <div class="modal-content">
-                    <div class="modal-header justify-content-center p-2" style="background-image: linear-gradient(180deg,#eee 0,#ddd); color:#51A2DA;"> 
+                    <div class="modal-header justify-content-center p-2" style="background-image: linear-gradient(180deg,#eee 0,#ddd); color:#51A2DA;">
                         <h6 class="modal-title head fw-bold">Explore meetings</h6>
                     </div>
                     <div class="modal-body">
@@ -394,5 +394,43 @@
                 </div>
             </div>
         </div>
+        <div class="toast-container">
+            <div id="parent" class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+            </div>
+        </div>
     </body>
+    <script>
+        var socket = io.connect();
+        function showToast(meeting_json) {
+            meeting_count = meeting_json.length;
+            const timer = ms => new Promise(res => setTimeout(res, ms));
+            async function load() {
+                for (var i = 0; i < meeting_count; i++) {
+                    var toastDiv = $(`
+                        <div class="toast-body">
+                            <h6 id="meeting-name">`+ meeting_json[i]["msg"]["meeting_topic"] +`</h6>
+                            <div class="mt-2 pt-2 border-top">
+                                <a id="toast-btn" type="button" class="btn btn-primary btn-sm" href="`+ meeting_json[i]["msg"]["url"] +`" target="_blank">Open meeting</a>
+                                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="toast">Close</button>
+                            </div>
+                        </div>
+                    `);
+                    var parentDiv=document.getElementById('parent');
+                    var div = document.createElement('div');
+                    div.setAttribute('class','toast');
+                    div.setAttribute('role','alert');
+                    div.setAttribute('aria-live','assertive');
+                    div.setAttribute('aria-atomic','true');
+                    $(div).append(toastDiv);
+                    $(parentDiv).append(div);
+                    var toast = new bootstrap.Toast(div, {delay: 10000});
+                    toast.show();
+                }
+            }
+            load();
+        }
+        socket.on("show_toast", function(meeting_json) {
+            showToast(meeting_json);
+        });
+    </script>
 </html>

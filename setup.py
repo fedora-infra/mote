@@ -61,7 +61,7 @@ setuptools.setup(
     include_package_data=True,
     zip_safe=False,
     packages=setuptools.find_packages("src"),
-    install_requires=["flask", "beautifulsoup4"],
+    install_requires=["flask", "beautifulsoup4", "flask-socketio"],
     # automatically create console scripts
     entry_points={
         "console_scripts": [

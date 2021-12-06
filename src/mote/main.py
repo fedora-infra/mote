@@ -20,11 +20,15 @@
     SOFTWARE.
 """
 
+import json
 import re
+import urllib.request as ulrq
 from datetime import datetime
+from threading import Event, Lock
 
 import click
 from flask import Flask, abort, jsonify, render_template, request
+from flask_socketio import SocketIO
 
 from mote.__init__ import __version__
 from mote.modules.call import (
@@ -38,6 +42,12 @@ from mote.modules.late import fetch_recent_meetings
 
 main = Flask(__name__)
 main.config.from_pyfile("config.py")
+socketio = SocketIO(main)
+recognition_pattern = "(.*)[\-\.]([0-9]{4}-[0-9]{2}-[0-9]{2})-([0-9]{2}\.[0-9]{2})"
+thread = None
+thread_lock = Lock()
+client_count = 0
+exit_thread = Event()
 
 
 @main.get("/fragedpt/")
@@ -123,6 +133,43 @@ def mainpage():
     return render_template("mainpage.html")
 
 
+def fetch_recently_completed_meetings():
+    while not exit_thread.is_set():
+        datagrepper_base_url = "https://apps.fedoraproject.org"
+        topic = "org.fedoraproject.prod.meetbot.meeting.complete"
+        call_period = 60
+        source = "{}/datagrepper/raw?delta={}&topic={}".format(
+            datagrepper_base_url, call_period, topic
+        )
+        parse_object = json.loads(ulrq.urlopen(source).read().decode())
+        meeting_count = parse_object["total"]
+        if meeting_count != 0:
+            meeting_rawlist = parse_object["raw_messages"]
+            socketio.emit("show_toast", meeting_rawlist)
+        exit_thread.wait(60)
+    exit_thread.clear()
+
+
+@socketio.on("connect")
+def trigger_on_connect():
+    global thread
+    global client_count
+    client_count += 1
+    with thread_lock:
+        if thread is None:
+            thread = socketio.start_background_task(fetch_recently_completed_meetings)
+
+
+@socketio.on("disconnect")
+def trigger_on_disconnect():
+    global client_count
+    global thread
+    client_count -= 1
+    if client_count == 0:
+        exit_thread.set()
+        thread = None
+
+
 @click.command()
 @click.option(
     "-p", "--portdata", "portdata", help="Set the port value [0-65536]", default="9696"
@@ -162,4 +209,4 @@ def page_not_found(error):
 
 
 if __name__ == "__main__":
-    mainfunc()
+    socketio.run(mainfunc())
