@@ -33,12 +33,14 @@
         <script src="{{ url_for('static', filename='jscn/fragment.js') }}"></script>
         <script src="{{ url_for('static', filename='jscn/easy.qrcode.min.js') }}"></script>
         <script src="{{ url_for('static', filename='jscn/socket.io.js') }}"></script>
-        <title>Fragment</title>
+        <title>Meetbot Logs</title>
     </head>
     <body class="body bg-light">
         <nav class="navbar sticky-top navbar-expand-lg navbar-light p-1" style="background-image: linear-gradient(180deg,#eee 0,#ddd);">
-            <div class="container-fluid">
-                <a style="color:#51A2DA;" class="navbar-brand head fw-bold" href="#">Fragment</a>
+            <div class="container"> 
+                <a class="navbar-brand" href="#">
+                    <img class="logo" alt="MEETBOT LOGS" src="{{ url_for('static', filename='imgs/Fedora_logo.png') }}" style="width: 100%; height: auto;" width="200" height="40" />
+                </a>
                 <button class="navbar-toggler"
                         type="button"
                         data-bs-toggle="collapse"
@@ -48,22 +50,24 @@
                         aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <div class="navbar-collapse collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link"
-                               aria-current="page"
-                               data-bs-toggle="modal"
-                               data-bs-target="#chanmode"
-                               type="button"
-                               onclick="populate_channel_list();">
-                                Channels
+                            <a class="nav-link" aria-current="page" data-bs-toggle="modal" data-bs-target="#chanmode" type="button" onclick="populate_channel_list();">
+                                Meetings by Channel
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" type="button" href="#">
+                                Meetings by Group
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" type="button" href="#">
+                                About
                             </a>
                         </li>
                     </ul>
-                    <div class="d-flex">
-                        <a style="color:#676767; text-decoration:none;" href="https://getfedora.org/" target="_blank" type="button">Get Fedora</a>
-                    </div>
                 </div>
             </div>
         </nav>
@@ -71,60 +75,10 @@
             <div class="card text-center" style="margin-top: 10%;">
                 <div class="card-body">
                     <div class="text-center">
-                        <img src="{{ url_for('static', filename='imgs/logo.svg') }}" style="width: 40%; height: 40%;" />
                         <div class="mt-4">
-                            <p class="h2 head" style="font-weight: bold;">Fragment</p>
-                            <p class="h4 body">Conversation Caretaker</p>
+                            <p class="h2 head" style="font-weight: bold;">Mote</p>
+                            <p class="h4 body">Meeting Wrangler</p>
                         </div>
-                        <a style="text-decoration: none;
-                        "href="#" class="btn btn-light mt-3">
-                            <i class="far fa-dot-circle h1 tealfilt"></i><br/>
-                            <span style="color: #676767;">About</span>
-                        </a>
-                        <a style="text-decoration: none;
-                        "href="#"
-                           class="btn btn-light mt-3"
-                           data-bs-toggle="modal"
-                           data-bs-target="#rcntmode"
-                           type="button"
-                           onclick="populate_recent_meeting_list();">
-                            <i class="far fa-clock h1 tealfilt"></i><br/>
-                            <span style="color: #676767;">Recent</span>
-                        </a>
-                        <a style="text-decoration: none;
-                           "href="#"
-                           class="btn btn-light mt-3"
-                           data-bs-toggle="modal"
-                           data-bs-target="#chanmode"
-                           type="button"
-                           onclick="populate_channel_list();">
-                            <i class="far fa-arrow-alt-circle-right h1 tealfilt"></i><br/>
-                            <span style="color: #676767;">Explore</span>
-                        </a>
-                        <a style="text-decoration: none;
-                        "href="#"
-                           class="btn btn-light mt-3"
-                           data-bs-toggle="modal"
-                           data-bs-target="#findmode"
-                           type="button"
-                           onclick="initialize_search_modal();">
-                            <i class="fas fa-search h1 tealfilt"></i><br/>
-                            <span style="color: #676767;">Lookup</span>
-                        </a>
-                        <p class="small body mt-4 mb-0">
-                            Many Fedora projects and groups use three IRC channels on irc.libera.chat for their
-                            regular meetings. This makes it easy for people to find and attend meetings of interest,
-                            join groups, and follow what other groups are doing. Please note that the meetings in IRC
-                            channels are normally logged and the logs are often uploaded to public places afterwards.
-                        </p>
-                        <p class="small body mt-3 mb-0">
-                            There are no formal meeting rules - but some of groups have rules or guidelines like the
-                            FESCo meetings guidelines. Normally you are free to speak in meetings of all groups, but
-                            please stick to the topic and help make sure that your comments help make the meeting is
-                            productive. There is a Meetbot IRC bot in every channel to assist with meeting summaries
-                            and logging. The summaries and logs of past meetings can be found at the Fedora Project
-                            Meetbot page. Additional meetings functions are provided by Zodbot.
-                        </p>
                     </div>
                 </div>
                 <div class="card-footer text-center" style="background-color: #e6e6e6; color:  #676767;">
@@ -236,7 +190,7 @@
         <div class="modal fade" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true" id="datemode">
             <div class="modal-dialog modal-dialog-centered modal-xl modal-fullscreen-lg-down modal-dialog-scrollable">
                 <div class="modal-content">
-                    <div class="modal-header justify-content-center p-2" style="background-image: linear-gradient(180deg,#eee 0,#ddd); color:#51A2DA;">
+                    <div class="modal-header justify-content-center p-2" style="background-image: linear-gradient(180deg,#eee 0,#ddd); color:#51A2DA;"> 
                         <h6 class="modal-title head fw-bold">Explore meetings</h6>
                     </div>
                     <div class="modal-body">
