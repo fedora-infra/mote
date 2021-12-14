@@ -26,11 +26,13 @@
         <link href="{{ url_for('static', filename='css3/bootstrap.min.css') }}" rel="stylesheet"/>
         <link href="{{ url_for('static', filename='css3/custom_fonts.css') }}" rel="stylesheet"/>
         <link href="{{ url_for('static', filename='css3/fragment.css') }}" rel="stylesheet"/>
+        <link href="{{ url_for('static', filename='css3/calendar.css') }}" rel="stylesheet"/>
         <link href="{{ url_for('static', filename='css3/fontawesome-all.min.css') }}" rel="stylesheet"/>
         <script src="{{ url_for('static', filename='jscn/bootstrap.bundle.min.js') }}"></script>
         <script src="{{ url_for('static', filename='jscn/jquery.min.js') }}"></script>
         <link rel="icon" href="{{ url_for('static', filename='imgs/logoteal.png') }}" sizes="16x16">
         <script src="{{ url_for('static', filename='jscn/fragment.js') }}"></script>
+        <!-- <script src="{{ url_for('static', filename='jscn/calendar.js') }}"></script> -->
         <script src="{{ url_for('static', filename='jscn/easy.qrcode.min.js') }}"></script>
         <script src="{{ url_for('static', filename='jscn/socket.io.js') }}"></script>
         <title>Meetbot Logs</title>
@@ -76,8 +78,46 @@
                 <div class="card-body">
                     <div class="text-center">
                         <div class="mt-4">
-                            <p class="h2 head" style="font-weight: bold;">Mote</p>
-                            <p class="h4 body">Meeting Wrangler</p>
+                            <div id="container">
+                                <div id="header">
+                                  <div id="monthDisplay"></div>
+                                  <div>
+                                    <button id="backButton">Back</button>
+                                    <button id="nextButton">Next</button>
+                                  </div>
+                                </div>
+                          
+                                <div id="weekdays">
+                                  <div>Sun</div>
+                                  <div>Mon</div>
+                                  <div>Tue</div>
+                                  <div>Wed</div>
+                                  <div>Thu</div>
+                                  <div>Fri</div>
+                                  <div>Sat</div>
+                                </div>
+                          
+                                <div id="calendar"></div>
+                              </div>
+                          
+                              <div id="newEventModal">
+                                <h2>New Event</h2>
+                          
+                                <input id="eventTitleInput" placeholder="Event Title" />
+                          
+                                <button id="saveButton">Save</button>
+                                <button id="cancelButton">Cancel</button>
+                              </div>
+                          
+                              <div id="deleteEventModal">
+                                <h2>Event</h2>
+                          
+                                <p id="eventText"></p>
+                          
+                                <button id="deleteButton">Delete</button>
+                                <button id="closeButton">Close</button>
+                              </div>
+                              <div id="modalBackDrop"></div>
                         </div>
                     </div>
                 </div>
@@ -353,6 +393,7 @@
             </div>
         </div>
     </body>
+    <script src="../static/jscn/calendar.js"></script>
     <script>
         var socket = io.connect();
         function showToast(meeting_json) {
