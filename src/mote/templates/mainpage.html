@@ -348,43 +348,31 @@
                 </div>
             </div>
         </div>
-        <div class="toast-container">
-            <div id="parent" class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
-            </div>
+        <div class="toast-container position-fixed bottom-0 end-0 p-3"> 
         </div>
     </body>
     <script>
         var socket = io.connect();
-        function showToast(meeting_json) {
-            meeting_count = meeting_json.length;
-            const timer = ms => new Promise(res => setTimeout(res, ms));
-            async function load() {
-                for (var i = 0; i < meeting_count; i++) {
-                    var toastDiv = $(`
-                        <div class="toast-body">
-                            <h6 id="meeting-name">`+ meeting_json[i]["msg"]["meeting_topic"] +`</h6>
-                            <div class="mt-2 pt-2 border-top">
-                                <a id="toast-btn" type="button" class="btn btn-primary btn-sm" href="`+ meeting_json[i]["msg"]["url"] +`" target="_blank">Open meeting</a>
-                                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="toast">Close</button>
-                            </div>
-                        </div>
-                    `);
-                    var parentDiv=document.getElementById('parent');
-                    var div = document.createElement('div');
-                    div.setAttribute('class','toast');
-                    div.setAttribute('role','alert');
-                    div.setAttribute('aria-live','assertive');
-                    div.setAttribute('aria-atomic','true');
-                    $(div).append(toastDiv);
-                    $(parentDiv).append(div);
-                    var toast = new bootstrap.Toast(div, {delay: 10000});
-                    toast.show();
-                }
-            }
-            load();
+        function meetingEnded(msg){
+            var meet_dt = new Date(msg['details']['time_'] * 1000);
+            var toastDiv = $(`
+                <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast-header">
+                        <strong class="me-auto">
+                            Meeting <a href="`+ msg['url'] +`.html" style="font-style: italic;" target="_blank">`+ msg['meeting_topic'] +`</a> has ended
+                        </strong>
+                        <small>`+ meet_dt.toLocaleTimeString() +`</small>
+                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                </div>
+                `);
+            var parentDiv = $('.toast-container');
+            $(parentDiv).append(toastDiv);
+            var toast = new bootstrap.Toast(toastDiv, {autohide: false});
+            toast.show();
         }
-        socket.on("show_toast", function(meeting_json) {
-            showToast(meeting_json);
+        socket.on("show_toast", function (msg) {
+            meetingEnded(msg);
         });
     </script>
 </html>

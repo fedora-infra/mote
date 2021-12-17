@@ -20,15 +20,16 @@
     SOFTWARE.
 """
 
-import json
+import logging
 import re
-import urllib.request as ulrq
 from datetime import datetime
 from threading import Event, Lock
 
 import click
+from fedora_messaging import api
 from flask import Flask, abort, jsonify, render_template, request
 from flask_socketio import SocketIO
+from twisted.internet import reactor
 
 from mote.__init__ import __version__
 from mote.modules.call import (
@@ -43,11 +44,11 @@ from mote.modules.late import fetch_recent_meetings
 main = Flask(__name__)
 main.config.from_pyfile("config.py")
 socketio = SocketIO(main)
-recognition_pattern = "(.*)[\-\.]([0-9]{4}-[0-9]{2}-[0-9]{2})-([0-9]{2}\.[0-9]{2})"
 thread = None
-thread_lock = Lock()
 client_count = 0
-exit_thread = Event()
+logging.basicConfig(
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
+)
 
 
 @main.get("/fragedpt/")
@@ -133,41 +134,43 @@ def mainpage():
     return render_template("mainpage.html")
 
 
-def fetch_recently_completed_meetings():
-    while not exit_thread.is_set():
-        datagrepper_base_url = "https://apps.fedoraproject.org"
-        topic = "org.fedoraproject.prod.meetbot.meeting.complete"
-        call_period = 60
-        source = "{}/datagrepper/raw?delta={}&topic={}".format(
-            datagrepper_base_url, call_period, topic
+@main.before_first_request
+def init_fedora_messaging():
+    global thread
+    if thread is None:
+        thread = socketio.start_background_task(fedora_messaging_consumer)
+
+
+def fedora_messaging_consumer():
+    logging.info("fedora_messaging_consumer: starting thread")
+    api.twisted_consume(consume_fedora_messaging_msg)
+    reactor.run(installSignalHandlers=False)
+    logging.info("fedora_messaging_consumer: exiting thread")
+
+
+def consume_fedora_messaging_msg(message):
+    logging.info(
+        "fedora_messaging - meeting ended: %s in %s"
+        % (
+            message.body["meeting_topic"],
+            message.body["channel"],
         )
-        parse_object = json.loads(ulrq.urlopen(source).read().decode())
-        meeting_count = parse_object["total"]
-        if meeting_count != 0:
-            meeting_rawlist = parse_object["raw_messages"]
-            socketio.emit("show_toast", meeting_rawlist)
-        exit_thread.wait(60)
-    exit_thread.clear()
+    )
+    socketio.emit("show_toast", message.body)
 
 
 @socketio.on("connect")
 def trigger_on_connect():
-    global thread
     global client_count
     client_count += 1
-    with thread_lock:
-        if thread is None:
-            thread = socketio.start_background_task(fetch_recently_completed_meetings)
+    logging.info("trigger_on_connect: client %s" % (client_count,))
 
 
 @socketio.on("disconnect")
 def trigger_on_disconnect():
     global client_count
-    global thread
     client_count -= 1
-    if client_count == 0:
-        exit_thread.set()
-        thread = None
+    logging.info("trigger_on_disconnect: client %s" % (client_count,))
 
 
 @click.command()
