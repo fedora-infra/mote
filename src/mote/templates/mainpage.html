@@ -78,6 +78,25 @@
                 </div>
             </div>
         </nav>
+               <div class="modal-body">
+                   <div class="container">
+                       <div class="input-group mb-3">
+                           <input type="text"
+                                  class="form-control"
+                                  placeholder="Search meeting logs..."
+                                  aria-label="Search meeting logs..."
+                                  aria-describedby="findtext"
+                                  id="findtext">
+                           <button class="btn btn-outline-secondary"
+                                   type="button"
+                                   id="findbutn"
+                                   onclick="search_meetings();">
+                               Search
+                           </button>
+                       </div>
+                       <div class="card mb-3 mt-3" id="find-body"></div>
+                   </div>
+               </div>
         <div class="container-lg">
             <div class="card text-center" style="margin-top: 0%;">
                 <div id="loader"></div>
@@ -125,6 +144,14 @@
                     </div>
                     <div class="modal-body">
                         <div class="container">
+                            <div class="card mb-3">
+                                <div class="list-group-item bg-light">
+                                    <span id="chanhead" class="fw-bold">Loading...</span>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <ul class="list-group list-group-flush" id="listchan-uols"></ul>
+                            </div>
                             <div class="input-group mb-3">
                                 <input type="text"
                                        class="form-control"
@@ -132,7 +159,7 @@
                                        aria-label="Search for your meetings"
                                        aria-describedby="findtext"
                                        id="findtext">
-                                <button class="btn btn-outline-secondary"
+                                        <button class="btn btn-outline-secondary"
                                         type="button"
                                         id="findbutn"
                                         onclick="search_meetings();">
