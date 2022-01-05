@@ -1,0 +1,50 @@
+# A basic configuration for Fedora's message broker, using the example callback
+# which simply prints messages to standard output.
+#
+# This file is in the TOML format.
+amqp_url = "amqps://fedora:@rabbitmq.fedoraproject.org/%2Fpublic_pubsub"
+callback = "fedora_messaging.example:printer"
+
+[tls]
+ca_cert = "/etc/fedora-messaging/cacert.pem"
+keyfile = "/etc/fedora-messaging/fedora-key.pem"
+certfile = "/etc/fedora-messaging/fedora-cert.pem"
+
+[client_properties]
+app = "Mote"
+# Some suggested extra fields:
+# URL of the project that provides this consumer
+app_url = "https://github.com/fedora-infra/mote"
+# Contact emails for the maintainer(s) of the consumer - in case the
+# broker admin needs to contact them, for e.g.
+app_contacts_email = ["darknao@fedoraproject.org", "akashdeep.dhar@gmail.com"]
+
+[exchanges."amq.topic"]
+type = "topic"
+durable = true
+auto_delete = false
+arguments = {}
+
+# Queue names *must* be in the normal UUID format: run "uuidgen" and use the
+# output as your queue name. If your queue is not exclusive, anyone can connect
+# and consume from it, causing you to miss messages, so do not share your queue
+# name. Any queues that are not auto-deleted on disconnect are garbage-collected
+# after approximately one hour.
+#
+# If you require a stronger guarantee about delivery, please talk to Fedora's
+# Infrastructure team.
+[queues.00000000-0000-0000-0000-000000000000]
+durable = false
+auto_delete = true
+exclusive = true
+arguments = {}
+
+[[bindings]]
+queue = "00000000-0000-0000-0000-000000000000"
+exchange = "amq.topic"
+routing_keys = [ "org.fedoraproject.prod.meetbot.meeting.complete" ]  # Set this to the specific topics you are interested in.
+
+[qos]
+prefetch_size = 0
+prefetch_count = 25
+
