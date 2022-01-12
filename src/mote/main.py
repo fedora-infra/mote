@@ -89,6 +89,13 @@ def fragedpt():
             response = meetlist[1]
         else:
             print("List of recent meetings could not retrieved (last day)")
+    elif rqstdata == "clndrmtgs":
+        numdays = request.args.get("numdays")
+        meetlist = fetch_recent_meetings(int(numdays))
+        if meetlist[0]:
+            response = meetlist[1]
+        else:
+            print("List of meetings for the month could not retrieved")
     elif rqstdata == "rcntlswk":
         meetlist = fetch_recent_meetings(7)
         if meetlist[0]:

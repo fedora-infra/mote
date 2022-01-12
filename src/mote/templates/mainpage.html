@@ -27,17 +27,19 @@
         <link href="{{ url_for('static', filename='css3/custom_fonts.css') }}" rel="stylesheet"/>
         <link href="{{ url_for('static', filename='css3/fragment.css') }}" rel="stylesheet"/>
         <link href="{{ url_for('static', filename='css3/fontawesome-all.min.css') }}" rel="stylesheet"/>
+        <link href="{{ url_for('static', filename='css3/fullcalendar.css') }}" rel="stylesheet"/>
         <script src="{{ url_for('static', filename='jscn/bootstrap.bundle.min.js') }}"></script>
         <script src="{{ url_for('static', filename='jscn/jquery.min.js') }}"></script>
         <link rel="icon" href="{{ url_for('static', filename='imgs/logoteal.png') }}" sizes="16x16">
         <script src="{{ url_for('static', filename='jscn/fragment.js') }}"></script>
         <script src="{{ url_for('static', filename='jscn/easy.qrcode.min.js') }}"></script>
         <script src="{{ url_for('static', filename='jscn/socket.io.js') }}"></script>
+        <script src="{{ url_for('static', filename='jscn/fullcalendar.js') }}"></script>
         <title>Meetbot Logs</title>
     </head>
     <body class="body bg-light">
         <nav class="navbar sticky-top navbar-expand-lg navbar-light p-1" style="background-image: linear-gradient(180deg,#eee 0,#ddd);">
-            <div class="container"> 
+            <div class="container-lg"> 
                 <a class="navbar-brand" href="#">
                     <img class="logo" alt="MEETBOT LOGS" src="{{ url_for('static', filename='imgs/Fedora_logo.png') }}" style="width: 100%; height: auto;" width="200" height="40" />
                 </a>
@@ -52,6 +54,8 @@
                 </button>
                 <div class="navbar-collapse collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto">
+                        <li class="nav-item" id="loader">
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link" aria-current="page" data-bs-toggle="modal" data-bs-target="#chanmode" type="button" onclick="populate_channel_list();">
                                 Meetings by Channel
@@ -72,12 +76,11 @@
             </div>
         </nav>
         <div class="container-lg">
-            <div class="card text-center" style="margin-top: 10%;">
-                <div class="card-body">
+            <div class="card text-center mt-1">
+                <div class="card-body pt-0">
                     <div class="text-center">
                         <div class="mt-4">
-                            <p class="h2 head" style="font-weight: bold;">Mote</p>
-                            <p class="h4 body">Meeting Wrangler</p>
+                            <div id='calendar'></div>
                         </div>
                     </div>
                 </div>
@@ -374,5 +377,77 @@
         socket.on("show_toast", function (msg) {
             meetingEnded(msg);
         });
+        var allEvents=[]
+
+        async function getMonthlyMeetings(){
+            const d = new Date();
+            let day = d.getDate();
+            await $.getJSON("/fragedpt/", {
+                "rqstdata": "clndrmtgs",
+                "numdays": day
+            }, function (data) {
+                for (var name in data) {
+                    var dictionary={}
+                    dictionary.title=data[name].topic
+                    dictionary.start=new Date(data[name].time).toISOString().slice(0, 10);
+                    dictionary.url=data[name].slug.summary
+                    dictionary.backgroundColor='#3C6EB4'
+                    allEvents.push(dictionary)
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', async function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          initialView: 'dayGridWeek',
+          handleWindowResize: true,
+          windowResize: function(arg) {
+                calendar.setOption('height', window.innerHeight-170);
+          },
+          customButtons: {
+                monthView: {
+                text: 'Month',
+                click: function() {
+                    calendar.changeView('dayGridMonth');
+                    document.querySelector('[title="Previous month"]').disabled=true
+                    document.querySelector('[title="Next month"]').disabled=true
+                }
+                },
+                weekView: {
+                text: 'Week',
+                click: function() {
+                    calendar.changeView('dayGridWeek');
+                    document.querySelector('[title="Previous week"]').disabled=false
+                    document.querySelector('[title="Next week"]').disabled=false
+                }
+                }
+            },
+          fixedWeekCount:false,
+          height: window.innerHeight-150,
+          headerToolbar: { center: 'monthView,weekView' },
+          views: {
+            dayGridWeek: {
+            headerToolbar:false
+            }
+        }
+        });
+        calendar.render();
+        document.getElementById("loader").innerHTML = `
+        <a class="nav-link active" aria-current="page" type="button" style="padding-top: 1px;">
+            <span class="spinner-border spinner-border-sm mt-2" role="status" aria-hidden="true"></span>
+        Loading meetings...
+        </a>
+        `;
+        await getMonthlyMeetings()
+        document.getElementById("loader").innerHTML = `
+        <a class="nav-link active" aria-current="page" type="button">
+                                Recent meetings
+        </a>
+        `;
+        for(var i=0;i<allEvents.length;i++){
+            calendar.addEvent(allEvents[i]) 
+        }
+      });
     </script>
 </html>
