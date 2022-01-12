@@ -47,6 +47,10 @@ pre {
     white-space: pre-wrap;
 }
 
+.dropdown-item:focus {
+    background-color: #108BD6;
+}
+
 body {
     background: #f0f0f0;
 }
