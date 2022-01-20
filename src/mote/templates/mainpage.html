@@ -38,12 +38,10 @@
         <title>Meetbot Logs</title>
     </head>
     <body class="body bg-light">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light"
-            style="background-image: linear-gradient(180deg,#eee 0,#ddd);">
+        <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light" style="background-image: linear-gradient(180deg,#eee 0,#ddd);">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#" style="padding-top: 0px; padding-bottom: 0px;">
-                    <img class="logo" alt="MEETBOT LOGS" src="{{ url_for('static', filename='imgs/Fedora_logo.png') }}"
-                        style="width: 80%; height: auto; padding-top: 0%;" width="200" height="40" />
+                <a class="navbar-brand" href="#" style="width: 175px; margin-right: 0px;">
+                    <img class="logo" alt="MEETBOT LOGS" src="{{ url_for('static', filename='imgs/Fedora_logo.png') }}" style="width: 95%; height: auto;"/>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -51,26 +49,20 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">  
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="
-                    padding-bottom: 0px;">
-                        <li class="nav-item" id="loader" style="
-                        padding-bottom: 0px;">
-                        </li>
-                        <li class="nav-item" style="
-                        padding-bottom: 0px;">
+                    <ul class="navbar-nav me-auto pt-1">
+                        <li class="nav-item" id="loader"></li>
+                        <li class="nav-item">
                             <a class="nav-link" aria-current="page" data-bs-toggle="modal" data-bs-target="#chanmode"
                                 type="button" onclick="populate_channel_list();">
                                 Meetings by Channel
                             </a>
                         </li>
-                        <li class="nav-item" style="
-                        padding-bottom: 0px;">
+                        <li class="nav-item">
                             <a class="nav-link" type="button" href="#">
                                 Meetings by Group
                             </a>
                         </li>
-                        <li class="nav-item" style="
-                        padding-bottom: 0px;">
+                        <li class="nav-item">
                             <a class="nav-link" type="button" href="#">
                                 About
                             </a>
@@ -79,8 +71,8 @@
                     <div class="d-flex flex-column justify-content-center align-items-center">
                         <div class="input-group">
                             <input type="text" autocomplete="off" class="form-control"
-                                placeholder="Enter four or more characters to search"
-                                aria-label="Enter four or more characters to search" aria-describedby="findtext"
+                                placeholder="Search meeting logs"
+                                aria-label="Search meeting logs" aria-describedby="findtext"
                                 style="width: 350px;" id="findtext">
                         </div>
                         <div class="input-group" data-bs-auto-close="true">
@@ -464,7 +456,6 @@
                         "srchtext": value
                     }, function (data) {
                         results = data
-                        console.log(data);
                         results.sort((a, b) => (new Date(a.date).toLocaleDateString().split("/").reverse().join(
                                 "") < new Date(b.date).toLocaleDateString().split("/").reverse().join(
                                 "")) ? 1 :
@@ -571,16 +562,11 @@
         });
         calendar.render();
         document.getElementById("loader").innerHTML = `
-        <a class="nav-link active" aria-current="page" type="button" style="padding-top: 1px;">
-            <span class="spinner-border spinner-border-sm mt-2" role="status" aria-hidden="true"></span>
-        Loading meetings...
-        </a>
+        <a class="nav-link active" aria-current="page" type="button">Loading meetings...</a>
         `;
-        await getMonthlyMeetings()
+        await getMonthlyMeetings();
         document.getElementById("loader").innerHTML = `
-        <a class="nav-link active" aria-current="page" type="button">
-                                Recent meetings
-        </a>
+        <a class="nav-link active" aria-current="page" type="button">Recent meetings</a>
         `;
         for(var i=0;i<allEvents.length;i++){
             calendar.addEvent(allEvents[i]) 
