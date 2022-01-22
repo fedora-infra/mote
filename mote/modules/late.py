@@ -108,9 +108,14 @@ def fetch_meetings_from_datagreeper(start):
           for indx in meeting_rawlist:
               data = indx["msg"]
               formatted_timestamp = data["details"]["time_"]
+              meeting = re.search(
+                  app.config["RECOGNIITION_PATTERN"],
+                  data["url"].replace(app.config["MEETBOT_URL"], "").replace(".log.html", ""),
+              )
+              date = datetime.strptime(f"{meeting.group(2)} {meeting.group(3)}", "%Y-%m-%d %H.%M")
               meeting_list.append( {
                 "title": data["meeting_topic"],
-                "start": datetime.fromtimestamp(formatted_timestamp).isoformat(),
+                "start": date.isoformat(),
                 "allDay": False,
                 "display": "block",
                 "url": data["url"] + ".html",
