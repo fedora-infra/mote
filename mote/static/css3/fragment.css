@@ -144,3 +144,169 @@ hr {
     color: #108BD6;
 }
 
+.fc-h-event .fc-event-time {
+    overflow: visible !important;
+}
+
+.fc a.fc-col-header-cell-cushion, .fc a.fc-daygrid-day-number {
+  text-decoration: none;
+}
+
+.fc-dayGridWeek-view .fc-day-today .fc-col-header-cell-cushion {
+  background-color: #e59728;
+  color: white;
+}
+
+.fc-day-today .fc-daygrid-day-number {
+  background-color: #e59728;
+  color: white;
+}
+
+.fc-dayGridDay-view .fc-day-today .fc-col-header-cell-cushion {
+  color: #e59728;
+}
+
+.fc a {
+  color: inherit;
+}
+
+.fc-col-header {
+
+  color: #8e8e8e;
+}
+
+.fc a.fc-col-header-cell-cushion {
+  font-variant: all-small-caps;
+  font-size: 1.2em;
+  font-weight: normal;
+}
+
+/*
+.fc a.fc-daygrid-day-number {
+  font-variant: all-small-caps;
+  font-size: 1.2em;
+  font-weight: normal;
+}
+*/
+
+.fc-dayGridWeek-view a.fc-col-header-cell-cushion, .fc-dayGridWeek-view a.fc-daygrid-day-number {
+  border-radius: 50%;
+  height: 60px;
+  width: 60px;
+  line-height: 20px;
+  padding-top: 11px;
+}
+
+.fc-dayGridMonth-view a.fc-daygrid-day-number {
+  border-radius: 50%;
+  padding-top: 7px;
+}
+
+.fc .fc-daygrid-day.fc-day-today {
+  /* background-color: unset !important; */
+  background-color: #f8f9fa !important;
+}
+
+
+.fc-daygrid-day {
+  background-color: #f8f9fa;
+}
+
+
+.fc-theme-standard td, .fc-theme-standard th {
+  border: 2px solid #fff !important;
+}
+
+.fc-dayGridWeek-view table {
+  border-collapse: separate !important;
+}
+
+
+.fc-theme-standard .fc-scrollgrid {
+   border: 0px solid #ddd;
+}
+
+.fc .fc-scrollgrid {
+    border: 0 !important;
+}
+
+.fc-dayGridWeek-view .fc-daygrid-event {
+  white-space: normal;
+}
+
+.fc-dayGridWeek-view .fc-event .fc-event-main {
+    margin: 3px 3px;
+}
+
+:root {
+
+  --fc-neutral-bg-color: white;
+  --fc-event-bg-color: #51a2da;
+  --fc-event-border-color: #51a2da;
+
+}
+
+.fc .fc-daygrid-day-top {
+    display: block !important;
+    text-align: center;
+    color: #8e8e8e;
+  }
+
+.fc-dayGridWeek-view .fc-daygrid-event {
+  border-radius: 8px !important;
+}
+.fc-dayGridMonth-view .fc-daygrid-event {
+  border-radius: 6px !important;
+}
+
+
+/* btn toolbar */
+.btn-primary, .btn-outline-primary:hover, .btn-outline-primary.active {
+   background-color:#51a2da;
+   border-color:#51a2da;
+}
+
+.btn-outline-primary {
+   border-color:#51a2da;
+   color: #51a2da;
+}
+
+.btn {
+  border-radius: 2px;
+  line-height: 1;
+  padding: 0.35rem 0.6rem;
+  font-size: 0.85rem;
+}
+
+i.fas {
+    margin-right: 4px;
+}
+
+.cal-title {
+  color: #51a2da;
+  font-weight: bold;
+  font-size: 1.5rem;
+  line-height: 1;
+  font-family: "Montserrat";
+  width: 282.7px;
+}
+
+.cal-title span {
+  margin-right: 10px;
+}
+
+.cal-nav .fa-lg {
+  font-size: 1.4rem;
+  line-height: 0.5;
+  vertical-align: -.2em;
+}
+
+#curDate {
+  width: 150px;
+}
+
+.cal-title .spinner-border {
+  height: 1.5rem;
+  width: 1.5rem;
+  margin-right: 7px;
+}

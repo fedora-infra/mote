@@ -46,11 +46,15 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                         aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">  
-                    <ul class="navbar-nav me-auto pt-1">
-                        <li class="nav-item" id="loader"></li>
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item" id="loader">
+                          <a class="nav-link active" aria-current="page" type="button">
+                              Recent meetings
+                          </a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link" aria-current="page" data-bs-toggle="modal" data-bs-target="#chanmode"
                                 type="button" onclick="populate_channel_list();">
@@ -85,9 +89,29 @@
         </nav>
         <div class="container-lg">
             <div class="card text-center mt-1">
-                <div class="card-body pt-0">
+                <div class="card-body">
                     <div class="text-center">
-                        <div class="mt-4">
+                        <div class="">
+			    <div class="btn-toolbar justify-content-between p-3" role="toolbar" aria-label="Calendar navigation bar">
+			    <div class="cal-title mb-2 mb-md-0">
+                              <span id="spin" class="far fa-calendar" aria-hidden="true"></span>Recent Meetings
+			    </div>
+
+
+			    <div class="btn-group cal-nav mb-2 mb-md-0" role="group" aria-label="Calendar navigation">
+                              <button type="button" class="btn btn-outline-primary" id="prev"><span class="fas fa-angle-left fa-lg" aria-hidden="true"></span></button>
+                              <button type="button" class="btn btn-outline-primary" disabled id="curDate"></button>
+                              <button type="button" class="btn btn-outline-primary" id="next"><span class="fas fa-angle-right fa-lg" aria-hidden="true"></span></button>
+                            </div>
+
+			    <div class="btn-group" role="group" aria-label="Calendar view">
+                              <button type="button" class="btn btn-outline-primary" id="day"><i class="fas fa-calendar-day fa-lg" aria-hidden="true"></i> Day</button>
+                              <button type="button" class="btn btn-outline-primary active" id="week"><i class="fas fa-calendar-week fa-lg" aria-hidden="true"></i> Week</button>
+                              <button type="button" class="btn btn-outline-primary" id="month"><i class="fas fa-calendar-alt fa-lg" aria-hidden="true"></i> Month</button>
+                              <button type="button" class="btn btn-outline-primary" id="today">Today</button>
+                            </div>
+
+			    </div>
                             <div id='calendar'></div>
                         </div>
                     </div>
@@ -529,48 +553,91 @@
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
           initialView: 'dayGridWeek',
+	  validRange: function(now) {
+	    return {
+	      end: now,
+	    };
+	  },
           handleWindowResize: true,
           windowResize: function(arg) {
-                calendar.setOption('height', window.innerHeight-170);
+                calendar.setOption('height', window.innerHeight-210);
           },
-          customButtons: {
-                monthView: {
-                text: 'Month',
-                click: function() {
-                    calendar.changeView('dayGridMonth');
-                    document.querySelector('[title="Previous month"]').disabled=true
-                    document.querySelector('[title="Next month"]').disabled=true
-                }
-                },
-                weekView: {
-                text: 'Week',
-                click: function() {
-                    calendar.changeView('dayGridWeek');
-                    document.querySelector('[title="Previous week"]').disabled=false
-                    document.querySelector('[title="Next week"]').disabled=false
-                }
-                }
-            },
           fixedWeekCount:false,
-          height: window.innerHeight-150,
-          headerToolbar: { center: 'monthView,weekView' },
+          height: window.innerHeight-210,
+          headerToolbar: false,
+
+	  loading: function(isLoading) {
+            if(isLoading){
+	      $("#spin").removeClass("fa-calendar").addClass("spinner-border");
+	    } else {
+	      $("#spin").removeClass("spinner-border").addClass("fa-calendar");
+	    }
+	  },
+	  
+
           views: {
+	    dayGridMonth: {
+              dayMaxEventRows: 3,
+	      showNonCurrentDates: false,
+	    },
             dayGridWeek: {
-            headerToolbar:false
-            }
-        }
+              headerToolbar: false,
+	      dayHeaderContent: function(arg) {
+              
+	        let weekday = arg.date.toLocaleDateString('en-US', {weekday: 'short'});
+	        let day = arg.date.toLocaleDateString('en-US', {day: 'numeric'});
+              
+                return { html: weekday + "<br /><b>" + day + "</b>" };
+              },
+            },
+	    dayGridDay: {
+              dayHeaderFormat: { weekday: 'long', day: 'numeric', month: "long" }  ,
+	    },
+          },
+          eventTimeFormat: { // like '14:30:00'
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: false,
+	    omitZeroMinute: false,
+          },
+	  defaultTimedEventDuration: '02:00',
+	  nextDayThreshold: '02:00:00',
+	  events: "/cal/events"
         });
+
+	$("#curDate").text(calendar.getDate().toLocaleDateString('en-US', {month: 'long', year: 'numeric'}));
         calendar.render();
-        document.getElementById("loader").innerHTML = `
-        <a class="nav-link active" aria-current="page" type="button">Loading meetings...</a>
-        `;
-        await getMonthlyMeetings();
-        document.getElementById("loader").innerHTML = `
-        <a class="nav-link active" aria-current="page" type="button">Recent meetings</a>
-        `;
-        for(var i=0;i<allEvents.length;i++){
-            calendar.addEvent(allEvents[i]) 
-        }
+
+	document.getElementById('month').addEventListener('click', function() {
+          calendar.changeView('dayGridMonth'); // call method
+	  $("#week").removeClass("active");
+	  $("#day").removeClass("active");
+	  $("#month").addClass("active");
+        });
+	document.getElementById('week').addEventListener('click', function() {
+          calendar.changeView('dayGridWeek'); // call method
+	  $("#month").removeClass("active");
+	  $("#day").removeClass("active");
+	  $("#week").addClass("active");
+        });
+	document.getElementById('day').addEventListener('click', function() {
+          calendar.changeView('dayGridDay'); // call method
+	  $("#month").removeClass("active");
+	  $("#week").removeClass("active");
+	  $("#day").addClass("active");
+        });
+	document.getElementById('prev').addEventListener('click', function() {
+          calendar.prev();
+	  $("#curDate").text(calendar.getDate().toLocaleDateString('en-US', {month: 'long', year: 'numeric'}));
+        });
+	document.getElementById('next').addEventListener('click', function() {
+          calendar.next();
+	  $("#curDate").text(calendar.getDate().toLocaleDateString('en-US', {month: 'long', year: 'numeric'}));
+        });
+	document.getElementById('today').addEventListener('click', function() {
+          calendar.today();
+	  $("#curDate").text(calendar.getDate().toLocaleDateString('en-US', {month: 'long', year: 'numeric'}));
+        });
       });
     </script>
 </html>
