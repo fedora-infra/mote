@@ -144,6 +144,16 @@ hr {
     color: #108BD6;
 }
 
+.logo {
+  width: 200px;
+  height: 40px;
+  background-image: url("../imgs/Fedora_logo.png");
+}
+
+[data-bs-color-scheme="dark"] .logo {
+  background-image: url("../imgs/Fedora_logo_dark.png");
+}
+
 .fc-h-event .fc-event-time {
     overflow: visible !important;
 }
