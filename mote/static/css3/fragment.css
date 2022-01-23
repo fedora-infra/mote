@@ -160,6 +160,14 @@ hr {
   background-image: url("../imgs/Fedora_logo_dark.png");
 }
 
+.fc a {
+  color: inherit;
+}
+
+[data-bs-color-scheme="dark"] .fc a {
+  color: inherit;
+}
+
 .fc-h-event .fc-event-time {
     overflow: visible !important;
 }
@@ -175,16 +183,13 @@ hr {
 
 .fc-day-today .fc-daygrid-day-number {
   background-color: #e59728;
-  color: white;
+  color: white !important;
 }
 
 .fc-dayGridDay-view .fc-day-today .fc-col-header-cell-cushion {
   color: #e59728;
 }
 
-.fc a {
-  color: inherit;
-}
 
 .fc-col-header {
 
@@ -341,6 +346,7 @@ hr {
   line-height: 1;
   /* font-family: "Montserrat"; */
   width: 302.983px;
+  text-align: center;
 }
 
 .cal-title span {
@@ -474,6 +480,9 @@ hr {
 @media (min-width:992px) {
   #darkModeSwitch span {
       display: none !important;
+  }
+  .cal-title {
+      text-align: left;
   }
 }
 

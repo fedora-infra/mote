@@ -97,9 +97,9 @@
             </div>
         </nav>
         <div class="container-lg px-0 px-lg-2">
-            <div class="card text-center mt-1">
+            <div class="card mt-1">
                 <div class="card-body">
-                    <div class="text-center">
+                    <div class="">
                         <div class="font-alt">
 			    <div class="btn-toolbar justify-content-between p-3 pt-0" role="toolbar" aria-label="Calendar navigation bar">
 			    <div class="cal-title mb-2 mb-lg-0 mx-auto mx-lg-0">
@@ -562,11 +562,6 @@
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
           initialView: 'dayGridWeek',
-	  validRange: function(now) {
-	    return {
-	      end: now,
-	    };
-	  },
           handleWindowResize: true,
           windowResize: function(arg) {
                 calendar.setOption('height', window.innerHeight-180);
@@ -586,11 +581,17 @@
 
           views: {
 	    dayGridMonth: {
-              dayMaxEventRows: 3,
+              dayMaxEventRows: true,
 	      showNonCurrentDates: false,
+	      displayEventTime: false,
+	      validRange: function(now) {
+	        return {
+	          end: new Date(now.getFullYear(), now.getMonth()+1, 0),
+	        };
+	      },
 	    },
             dayGridWeek: {
-              headerToolbar: false,
+              dayMaxEventRows: true,
 	      dayHeaderContent: function(arg) {
               
 	        let weekday = arg.date.toLocaleDateString('en-US', {weekday: 'short'});
@@ -598,12 +599,22 @@
               
                 return { html: weekday + "<br /><b>" + day + "</b>" };
               },
+	      validRange: function(now) {
+	        return {
+	          end: now,
+	        };
+	      },
             },
 	    dayGridDay: {
               dayHeaderFormat: { weekday: 'long', day: 'numeric', month: "long" }  ,
+	      validRange: function(now) {
+	        return {
+	          end: now,
+	        };
+	      },
 	    },
           },
-          eventTimeFormat: { // like '14:30:00'
+          eventTimeFormat: { // like '14:30'
             hour: '2-digit',
             minute: '2-digit',
             hour12: false,
