@@ -98,8 +98,8 @@
             <div class="card text-center mt-1">
                 <div class="card-body">
                     <div class="text-center">
-                        <div class="">
-			    <div class="btn-toolbar justify-content-between p-3" role="toolbar" aria-label="Calendar navigation bar">
+                        <div class="font-alt">
+			    <div class="btn-toolbar justify-content-between p-3 pt-0" role="toolbar" aria-label="Calendar navigation bar">
 			    <div class="cal-title mb-2 mb-md-0">
                               <span id="spin" class="far fa-calendar" aria-hidden="true"></span>Recent Meetings
 			    </div>
@@ -567,10 +567,10 @@
 	  },
           handleWindowResize: true,
           windowResize: function(arg) {
-                calendar.setOption('height', window.innerHeight-210);
+                calendar.setOption('height', window.innerHeight-180);
           },
           fixedWeekCount:false,
-          height: window.innerHeight-210,
+          height: window.innerHeight-180,
           headerToolbar: false,
 
 	  loading: function(isLoading) {

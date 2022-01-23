@@ -31,7 +31,11 @@
 }
 
 .body {
-    font-family: 'Overpass', sans-serif;  
+    font-family: 'Open Sans', 'Helvetica', 'Arial', sans-serif;
+}
+
+.font-alt {
+    font-family: 'Montserrat', Georgia, Times, 'Times New Roman', sans-serif;
 }
 
 h1, h3 {
@@ -145,9 +149,11 @@ hr {
 }
 
 .logo {
-  width: 200px;
-  height: 40px;
+  width: 174px;
+  height: 34px;
   background-image: url("../imgs/Fedora_logo.png");
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
 [data-bs-color-scheme="dark"] .logo {
@@ -185,10 +191,13 @@ hr {
   color: #8e8e8e;
 }
 
-.fc a.fc-col-header-cell-cushion {
+.fc th.fc-col-header-cell {
   font-variant: all-small-caps;
   font-size: 1.2em;
   font-weight: normal;
+  line-height: 20px;
+  margin-top: 11px;
+  vertical-align: middle;
 }
 
 /*
@@ -203,13 +212,15 @@ hr {
   border-radius: 50%;
   height: 60px;
   width: 60px;
-  line-height: 20px;
-  padding-top: 11px;
+  padding-top: 10px;
 }
 
 .fc-dayGridMonth-view a.fc-daygrid-day-number {
   border-radius: 50%;
-  padding-top: 7px;
+  width: 30px;
+  display: inline-block;
+  height: 30px;
+  line-height: 23px;
 }
 
 .fc .fc-daygrid-day.fc-day-today {
@@ -315,7 +326,7 @@ hr {
   font-weight: bold;
   font-size: 1.5rem;
   line-height: 1;
-  font-family: "Montserrat";
+  /* font-family: "Montserrat"; */
   width: 282.7px;
 }
 
@@ -329,8 +340,13 @@ hr {
   vertical-align: -.2em;
 }
 
-#curDate {
+.btn#curDate {
   width: 150px;
+  /* padding-top: 0.5rem; */
+}
+
+.btn#today {
+  /* padding-top: 0.5rem; */
 }
 
 .cal-title .spinner-border {
@@ -441,14 +457,18 @@ hr {
     display: none !important;
 }
 
+.navbar-nav .nav-link {
+    padding-top: .39rem;
+}
+
 .d-light-inline {
     display: inline !important;
-    vertical-align: middle;
+   /* vertical-align: middle; */
 }
 
 .d-dark-inline {
     display: none !important;
-    vertical-align: middle;
+    /* vertical-align: middle; */
 }
 
 .btn-group-sm > .btn, .btn-sm {
