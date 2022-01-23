@@ -20,10 +20,10 @@
     SOFTWARE.
 """
 
+import glob
 import json
 import os
 import os.path
-import glob
 import re
 import urllib.request as ulrq
 from datetime import datetime, timedelta
@@ -58,6 +58,7 @@ def fetch_recent_meetings(days):
     except Exception as expt:
         return False, {"exception": str(expt)}
 
+
 def fetch_meeting_by_date(start, end):
     meets = []
     meet_path = app.config["MEETING_DIR"]
@@ -65,34 +66,42 @@ def fetch_meeting_by_date(start, end):
     end_date = datetime.fromisoformat(end)
     cur_date = start_date
     now = datetime.now()
-    if (now.year == start_date.year and now.month == start_date.month):
-      print("fetch from datagreeper..")
-      meets = fetch_meetings_from_datagreeper(start_date)
+    if now.year == start_date.year and now.month == start_date.month:
+        print("fetch from datagreeper..")
+        meets = fetch_meetings_from_datagreeper(start_date)
     else:
-      while(cur_date <= end_date):
-        meetlogs = glob.glob(f"{meet_path}/*/{cur_date.strftime('%Y-%m-%d')}/*.log.html")
-        if len(meetlogs):
-          for meetfile in meetlogs:
-            meeting = re.search(
-                app.config["RECOGNIITION_PATTERN"],
-                os.path.basename(meetfile.replace(".log.html", "")),
+        while cur_date <= end_date:
+            meetlogs = glob.glob(
+                f"{meet_path}/*/{cur_date.strftime('%Y-%m-%d')}/*.log.html"
             )
-            title = meeting.group(1).replace("_"," ")
-            date = datetime.strptime(f"{meeting.group(2)} {meeting.group(3)}", "%Y-%m-%d %H.%M")
-            meets.append( {
-              "title": meeting.group(1).replace("_"," "),
-              "start": date.isoformat(),
-              "allDay": False,
-              "display": "block",
-              "url": meetfile.replace(app.config["MEETING_DIR"], "").replace(".log", ""),
-            })
-        cur_date += timedelta(days=1)
-    return meets 
+            if len(meetlogs):
+                for meetfile in meetlogs:
+                    meeting = re.search(
+                        app.config["RECOGNIITION_PATTERN"],
+                        os.path.basename(meetfile.replace(".log.html", "")),
+                    )
+                    title = meeting.group(1).replace("_", " ")
+                    date = datetime.strptime(
+                        f"{meeting.group(2)} {meeting.group(3)}", "%Y-%m-%d %H.%M"
+                    )
+                    meets.append(
+                        {
+                            "title": meeting.group(1).replace("_", " "),
+                            "start": date.isoformat(),
+                            "allDay": False,
+                            "display": "block",
+                            "url": meetfile.replace(
+                                app.config["MEETING_DIR"], ""
+                            ).replace(".log", ""),
+                        }
+                    )
+            cur_date += timedelta(days=1)
+    return meets
 
 
 def fetch_meetings_from_datagreeper(start):
-    """ For testing purpose only
-        to be removed before release """
+    """For testing purpose only
+    to be removed before release"""
     try:
         topic = "org.fedoraproject.prod.meetbot.meeting.complete"
         source = "{}/datagrepper/raw?start={}&topic={}".format(
@@ -104,31 +113,40 @@ def fetch_meetings_from_datagreeper(start):
         meeting_list = []
         total_pages = parse_object["pages"]
         cur_page = 1
-        while(cur_page <= total_pages):
-          for indx in meeting_rawlist:
-              data = indx["msg"]
-              formatted_timestamp = data["details"]["time_"]
-              meeting = re.search(
-                  app.config["RECOGNIITION_PATTERN"],
-                  data["url"].replace(app.config["MEETBOT_URL"], "").replace(".log.html", ""),
-              )
-              date = datetime.strptime(f"{meeting.group(2)} {meeting.group(3)}", "%Y-%m-%d %H.%M")
-              meeting_list.append( {
-                "title": data["meeting_topic"],
-                "start": date.isoformat(),
-                "allDay": False,
-                "display": "block",
-                "url": data["url"] + ".html",
-              })
-          cur_page += 1
-          if cur_page <= total_pages:
-            source = "{}/datagrepper/raw?start={}&topic={}&page={}".format(
-                app.config["DATAGREPPER_BASE_URL"], start.isoformat(), topic, cur_page
-            )
-            print(source)
-            parse_object = json.loads(ulrq.urlopen(source).read().decode())
-            meeting_rawlist = parse_object["raw_messages"]
-            
+        while cur_page <= total_pages:
+            for indx in meeting_rawlist:
+                data = indx["msg"]
+                formatted_timestamp = data["details"]["time_"]
+                meeting = re.search(
+                    app.config["RECOGNIITION_PATTERN"],
+                    data["url"]
+                    .replace(app.config["MEETBOT_URL"], "")
+                    .replace(".log.html", ""),
+                )
+                date = datetime.strptime(
+                    f"{meeting.group(2)} {meeting.group(3)}", "%Y-%m-%d %H.%M"
+                )
+                meeting_list.append(
+                    {
+                        "title": data["meeting_topic"],
+                        "start": date.isoformat(),
+                        "allDay": False,
+                        "display": "block",
+                        "url": data["url"] + ".html",
+                    }
+                )
+            cur_page += 1
+            if cur_page <= total_pages:
+                source = "{}/datagrepper/raw?start={}&topic={}&page={}".format(
+                    app.config["DATAGREPPER_BASE_URL"],
+                    start.isoformat(),
+                    topic,
+                    cur_page,
+                )
+                print(source)
+                parse_object = json.loads(ulrq.urlopen(source).read().decode())
+                meeting_rawlist = parse_object["raw_messages"]
+
         return meeting_list
     except Exception as expt:
         raise

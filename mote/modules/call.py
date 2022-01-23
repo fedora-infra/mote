@@ -45,7 +45,9 @@ def fetch_datetxt_dict(channel: str):
         datetxt_dict = {}
         datelist = os.listdir(f"{app.config['MEETING_DIR']}/{channel}")
         for datetxt in datelist:
-            datetxt_dict[datetxt] = f"{app.config['MEETBOT_RAW_URL']}/{channel}/{datetxt}"
+            datetxt_dict[
+                datetxt
+            ] = f"{app.config['MEETBOT_RAW_URL']}/{channel}/{datetxt}"
         return True, datetxt_dict
     except Exception as expt:
         return False, {"exception": str(expt)}

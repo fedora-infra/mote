@@ -38,7 +38,7 @@ from mote.modules.call import (
     fetch_meeting_dict,
 )
 from mote.modules.find import find_meetings_by_substring
-from mote.modules.late import fetch_recent_meetings, fetch_meeting_by_date
+from mote.modules.late import fetch_meeting_by_date, fetch_recent_meetings
 
 main = Flask(__name__)
 main.config.from_pyfile("config.py")
@@ -105,10 +105,11 @@ def fragedpt():
 
 
 @main.get("/cal/events")
-def getevents(): 
+def getevents():
     start = request.args.get("start")
     end = request.args.get("end")
     return jsonify(fetch_meeting_by_date(start, end))
+
 
 @main.get("/<channame>/<cldrdate>/<path:meetname>")
 def statfile(channame, cldrdate, meetname):
