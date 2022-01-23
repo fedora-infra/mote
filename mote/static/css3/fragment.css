@@ -215,6 +215,19 @@ hr {
   padding-top: 10px;
 }
 
+@media (max-width:500px) {
+  .fc-dayGridWeek-view a.fc-col-header-cell-cushion, .fc-dayGridWeek-view a.fc-daygrid-day-number {
+    border-radius: 50%;
+    height: 46px;
+    width: 46px;
+    padding-top: 3px;
+  }
+
+  .fc th.fc-col-header-cell {
+    font-size: 1em;
+  }
+}
+
 .fc-dayGridMonth-view a.fc-daygrid-day-number {
   border-radius: 50%;
   width: 30px;
@@ -327,7 +340,7 @@ hr {
   font-size: 1.5rem;
   line-height: 1;
   /* font-family: "Montserrat"; */
-  width: 282.7px;
+  width: 302.983px;
 }
 
 .cal-title span {
@@ -457,6 +470,13 @@ hr {
     display: none !important;
 }
 
+
+@media (min-width:992px) {
+  #darkModeSwitch span {
+      display: none !important;
+  }
+}
+
 .navbar-nav .nav-link {
     padding-top: .39rem;
 }
@@ -470,6 +490,7 @@ hr {
     display: none !important;
     /* vertical-align: middle; */
 }
+
 
 .btn-group-sm > .btn, .btn-sm {
     font-size: 0.800rem;

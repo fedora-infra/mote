@@ -73,9 +73,11 @@
                             </a>
                         </li>
                      <li class="nav-item">
-			<a id="darkModeSwitch" class="btn">
+			<a id="darkModeSwitch" class="nav-link" type="button">
 			  <i class="fas fa-moon fa-fw d-light-inline" title="Switch to dark mode"></i>
 			  <i title="Switch to light mode" class="fas fa-sun d-dark-inline"></i>
+			  <span class="d-dark-inline">Switch to light mode</span>
+			  <span class="d-light-inline">Switch to dark mode</span>
 			</a>
                      </li>
                     </ul>
@@ -94,24 +96,24 @@
                 </div>
             </div>
         </nav>
-        <div class="container-lg">
+        <div class="container-lg px-0 px-lg-2">
             <div class="card text-center mt-1">
                 <div class="card-body">
                     <div class="text-center">
                         <div class="font-alt">
 			    <div class="btn-toolbar justify-content-between p-3 pt-0" role="toolbar" aria-label="Calendar navigation bar">
-			    <div class="cal-title mb-2 mb-md-0">
+			    <div class="cal-title mb-2 mb-lg-0 mx-auto mx-lg-0">
                               <span id="spin" class="far fa-calendar" aria-hidden="true"></span>Recent Meetings
 			    </div>
 
 
-			    <div class="btn-group cal-nav mb-2 mb-md-0" role="group" aria-label="Calendar navigation">
+			    <div class="btn-group cal-nav mb-2 mb-lg-0 mx-auto mx-lg-0" role="group" aria-label="Calendar navigation">
                               <button type="button" class="btn btn-outline-primary" id="prev"><span class="fas fa-angle-left fa-lg" aria-hidden="true"></span></button>
                               <button type="button" class="btn btn-outline-primary" disabled id="curDate"></button>
                               <button type="button" class="btn btn-outline-primary" id="next"><span class="fas fa-angle-right fa-lg" aria-hidden="true"></span></button>
                             </div>
 
-			    <div class="btn-group" role="group" aria-label="Calendar view">
+			    <div class="btn-group mb-2 mb-lg-0 mx-auto mx-lg-0" role="group" aria-label="Calendar view">
                               <button type="button" class="btn btn-outline-primary" id="day"><i class="fas fa-calendar-day fa-lg" aria-hidden="true"></i> Day</button>
                               <button type="button" class="btn btn-outline-primary active" id="week"><i class="fas fa-calendar-week fa-lg" aria-hidden="true"></i> Week</button>
                               <button type="button" class="btn btn-outline-primary" id="month"><i class="fas fa-calendar-alt fa-lg" aria-hidden="true"></i> Month</button>
