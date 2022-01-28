@@ -21,11 +21,13 @@
 """
 
 import logging
+import os
 import re
 from datetime import datetime
 from threading import Event, Lock
 
 import click
+import yaml
 from fedora_messaging import api
 from flask import Flask, abort, jsonify, render_template, request
 from flask_socketio import SocketIO
@@ -216,6 +218,18 @@ def mainfunc(portdata, netprotc):
 @main.errorhandler(404)
 def page_not_found(error):
     return render_template("e404page.html"), 404
+
+
+@main.get("/teams")
+def teamspage():
+    path = os.path.abspath("src/mote/teams.yml")
+    data = dict()
+    with open(path, "r") as stream:
+        try:
+            data = yaml.safe_load(stream)
+        except yaml.YAMLError as exc:
+            print(exc)
+    return render_template("teams.html", teamdata=data)
 
 
 if __name__ == "__main__":
