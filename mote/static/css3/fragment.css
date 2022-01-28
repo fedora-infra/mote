@@ -139,3 +139,54 @@ hr {
 [name^="l-"]:target + .tm, [name^="l-"]:target + .tm + .nk, [name^="l-"]:target + .tm + .nka {
     background-color: #66b3b3;
 }
+
+#bigcard {
+    border: solid transparent;
+  }
+  .card li {
+    color: rgba(60, 110, 180, 1);
+    font-family: 'Montserrat';
+    font-weight: bold;
+
+  }
+
+  .card header {
+    font-family: 'Montserrat';
+    font-weight: bold;
+  }
+
+  .card label {
+    margin-right: auto;
+    color: rgba(81, 162, 218, 1);
+    font-family: 'Montserrat';
+  }
+
+  .checkbox {
+    color: rgba(81, 162, 218, 1);
+    font-family: 'Montserrat';
+    font-style: 'normal';
+    font-size: 22px;
+    font-weight: bold;
+  }
+
+  .table {
+    margin-bottom: 0px;
+  }
+
+  text {
+    color: rgba(81, 162, 218, 1);
+    font-family: 'Open Sans';
+    font-size: 12px;
+  }
+
+  .item {
+    color: rgba(60, 110, 180, 1);
+    font-family: 'Open Sans';
+    font-style: 'normal';
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 0px;
+    text-decoration: none;
+    text-transform: none;
+
+  }
