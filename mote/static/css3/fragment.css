@@ -510,6 +510,10 @@ hr {
     margin-top: 0.25em;
 }
 
+.toast-container {
+    z-index: 100;
+}
+
 [data-bs-color-scheme="dark"] .fc-theme-standard td, [data-bs-color-scheme="dark"]  .fc-theme-standard th {
   border-color: #222 !important;
 }
