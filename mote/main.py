@@ -26,6 +26,7 @@ import re
 from datetime import datetime
 
 import click
+import flask
 import yaml
 from fedora_messaging import api
 from flask import Flask, abort, jsonify, render_template, request
