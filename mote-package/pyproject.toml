@@ -1,0 +1,58 @@
+[tool.poetry]
+name = "mote"
+version = "0.7.0"
+description = "Python Flask project used to aggregate and distribute IRC meeting minutes and logs for the Fedora Project"
+authors = ["Fedora Websites and Apps Team <websites@lists.fedoraproject.org>"]
+maintainers = ["Akashdeep Dhar <t0xic0der@fedoraproject.org>"]
+license="MIT"
+readme = "README.rst"
+homepage = "https://github.com/fedora-infra/mote"
+repository = "https://github.com/fedora-infra/mote"
+documentation = "https://github.com/fedora-infra/mote/mote-package/README.rst"
+keywords = ["minutes", "meetings", "Fedora", "teams", "logs"]
+ classifiers=[
+        "Development Status :: 4 - Beta",
+        "Environment :: Web Environment",
+        "Intended Audience :: System Administrators",
+        "License :: OSI Approved :: MIT License",
+        "Natural Language :: English",
+        "Programming Language :: Python :: 3",
+        "Operating System :: POSIX :: Linux",
+        "Topic :: Internet",
+    ]
+
+
+[tool.poetry.dependencies]
+python = "^3.8"
+Flask = "^2.0.2"
+requests = "^2.20.0"
+beautifulsoup4 = "^4.10.0"
+Flask-SocketIO = "^5.1.1"
+fedora-messaging = "^3.0.0"
+gunicorn = "^20.1.0"
+gevent = "^21.8.0"
+gevent-websocket = "^0.10"
+
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.4.3"
+black = "^22.1.0"
+mypy = "^0.931"
+isort = "^4.3.4"
+
+[tool.isort]
+profile = "black"
+line_length = "100"
+length_sort = "True"
+length_sort_straight = "True"
+
+[tool.black]
+line-length = 100
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+mote = "mote.main:mainfunc"
+
