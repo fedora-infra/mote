@@ -181,9 +181,7 @@ def trigger_on_disconnect():
 
 
 @click.command()
-@click.option(
-    "-p", "--portdata", "portdata", help="Set the port value [0-65536]", default="9696"
-)
+@click.option("-p", "--portdata", "portdata", help="Set the port value [0-65536]", default="9696")
 @click.option(
     "-6",
     "--ipprotv6",

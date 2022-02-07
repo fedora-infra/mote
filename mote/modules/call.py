@@ -59,9 +59,7 @@ def fetch_meeting_dict(channel: str, datetxt: str):
         datestring = "{:%b %d, %Y}".format(formatted_timestamp)
         for meeting in meetlist:
             if ".log.html" in meeting:
-                meeting_log = (
-                    f"{app.config['MEETBOT_URL']}/{channel}/{datetxt}/{meeting}"
-                )
+                meeting_log = f"{app.config['MEETBOT_URL']}/{channel}/{datetxt}/{meeting}"
                 meeting_sum = f"{app.config['MEETBOT_URL']}/{channel}/{datetxt}/{meeting.replace('''.log.html''', '''.html''')}"
                 meeting_title = re.search(
                     app.config["RECOGNIITION_PATTERN"],

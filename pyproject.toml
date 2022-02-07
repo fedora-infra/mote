@@ -5,10 +5,10 @@ description = "Python Flask project used to aggregate and distribute IRC meeting
 authors = ["Fedora Websites and Apps Team <websites@lists.fedoraproject.org>"]
 maintainers = ["Akashdeep Dhar <t0xic0der@fedoraproject.org>"]
 license="MIT"
-readme = "README.rst"
+readme = "README.md"
 homepage = "https://github.com/fedora-infra/mote"
 repository = "https://github.com/fedora-infra/mote"
-documentation = "https://github.com/fedora-infra/mote/mote-package/README.rst"
+documentation = "https://github.com/fedora-infra/mote/README.md"
 keywords = ["minutes", "meetings", "Fedora", "teams", "logs"]
  classifiers=[
         "Development Status :: 4 - Beta",

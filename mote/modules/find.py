@@ -41,17 +41,15 @@ def find_meetings_by_substring(search_string: str):
                 if search_string in file and not file.endswith(".tgz"):
                     location = f"{root}/{str(file)}"
                     if app.config["MEETING_DIR"] + "/teams/" not in location:
-                        location_list = location.replace(
-                            app.config["MEETING_DIR"] + "/", ""
-                        ).split("/")
+                        location_list = location.replace(app.config["MEETING_DIR"] + "/", "").split(
+                            "/"
+                        )
                         channel_name, meeting_date, meeting_filename = (
                             location_list[0],
                             location_list[1],
                             location_list[2],
                         )
-                        formatted_timestamp = datetime.strptime(
-                            meeting_date, "%Y-%m-%d"
-                        )
+                        formatted_timestamp = datetime.strptime(meeting_date, "%Y-%m-%d")
                         datestring = "{:%b %d, %Y}".format(formatted_timestamp)
                         if ".log.html" in meeting_filename:
                             meeting_log_filename = meeting_filename
