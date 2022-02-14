@@ -59,10 +59,8 @@ def fetch_meeting_dict(channel: str, datetxt: str):
         datestring = "{:%b %d, %Y}".format(formatted_timestamp)
         for meeting in meetlist:
             if ".log.html" in meeting:
-                meeting_log = (
-                    f"{app.config['MEETBOT_URL']}/{channel}/{datetxt}/{meeting}"
-                )
-                meeting_sum = f"{app.config['MEETBOT_URL']}/{channel}/{datetxt}/{meeting.replace('''.log.html''', '''.html''')}"
+                meeting_log = f"{app.config['MEETBOT_URL']}/{channel}/{datetxt}/{meeting}"
+                meeting_sum = f"{app.config['MEETBOT_URL']}/{channel}/{datetxt}/{meeting.replace('''.log.html''', '''.html''')}"  # noqa
                 meeting_title = re.search(
                     app.config["RECOGNIITION_PATTERN"],
                     meeting.replace(".log.html", ""),
@@ -100,5 +98,5 @@ def fetch_meeting_content(contpath: str):
         parse_object = btsp.BeautifulSoup(source, "html.parser")
         contdata = parse_object.find("body").decode()
         return True, contdata
-    except Exception as expt:
+    except Exception:
         return False, ""

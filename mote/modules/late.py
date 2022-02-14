@@ -41,9 +41,7 @@ def fetch_recent_meetings(days):
         for indx in meeting_rawlist:
             data = indx["msg"]
             formatted_timestamp = data["details"]["time_"]
-            datestring = datetime.fromtimestamp(formatted_timestamp).strftime(
-                "%b %d, %Y %I:%M:%S"
-            )
+            datestring = datetime.fromtimestamp(formatted_timestamp).strftime("%b %d, %Y %I:%M:%S")
             logs_url = data["url"].replace(app.config["MEETBOT_URL"], "") + ".log.html"
             summary_url = data["url"].replace(app.config["MEETBOT_URL"], "") + ".html"
             meeting_dict[data["details"]["time_"]] = {
