@@ -23,7 +23,6 @@
 import logging
 import re
 from datetime import datetime
-from threading import Event, Lock
 
 import click
 from fedora_messaging import api

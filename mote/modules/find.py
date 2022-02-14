@@ -66,8 +66,8 @@ def find_meetings_by_substring(search_string: str):
                                 "date": datestring,
                                 "time": meeting_title.group(3),
                                 "url": {
-                                    "logs": f"{app.config['MEETBOT_URL']}/{channel_name}/{meeting_date}/{meeting_log_filename}",
-                                    "summary": f"{app.config['MEETBOT_URL']}/{channel_name}/{meeting_date}/{meeting_summary_filename}",
+                                    "logs": f"{app.config['MEETBOT_URL']}/{channel_name}/{meeting_date}/{meeting_log_filename}",  # noqa
+                                    "summary": f"{app.config['MEETBOT_URL']}/{channel_name}/{meeting_date}/{meeting_summary_filename}",  # noqa
                                 },
                                 "slug": {
                                     "logs": ulpr.quote(
@@ -75,7 +75,7 @@ def find_meetings_by_substring(search_string: str):
                                         safe=":/?",
                                     ),
                                     "summary": ulpr.quote(
-                                        f"/{channel_name}/{meeting_date}/{meeting_summary_filename}",
+                                        f"/{channel_name}/{meeting_date}/{meeting_summary_filename}",  # noqa
                                         safe=":/?",
                                     ),
                                 },
