@@ -42,7 +42,11 @@ def get_meeting_type(extension):
 def get_json_cache(meeting_type):
     try:
         with open(config.json_cache_location, mode='r') as json_store:
-            cache = json.load(json_store)
+            try:
+                cache = json.load(json_store)
+            except ValueError:
+                raise RuntimeError("Cache corrupted.")
+
 
             unix_time_expiration = cache["expiry"]
             if time.time() > unix_time_expiration:
