@@ -28,7 +28,6 @@
         <link href="{{ url_for('static', filename='css3/fragment.css') }}" rel="stylesheet"/>
         <link href="{{ url_for('static', filename='css3/fontawesome-all.min.css') }}" rel="stylesheet"/>
         <link href="{{ url_for('static', filename='css3/fullcalendar.css') }}" rel="stylesheet"/>
-        <link href="{{ url_for('static', filename='css3/about.css') }}" rel="stylesheet"/>
         <script src="{{ url_for('static', filename='jscn/bootstrap.bundle.min.js') }}"></script>
         <script src="{{ url_for('static', filename='jscn/jquery.min.js') }}"></script>
         <link rel="icon" href="{{ url_for('static', filename='imgs/logoteal.png') }}" sizes="16x16">
@@ -41,7 +40,7 @@
     <body class="body bg-light">
         <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light" style="background-image: linear-gradient(180deg,#eee 0,#ddd);">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#" style="width: 175px; margin-right: 0px;">
+                <a class="navbar-brand" href="/" style="width: 175px; margin-right: 0px;">
                     <img class="logo" alt="MEETBOT LOGS" src="{{ url_for('static', filename='imgs/Fedora_logo.png') }}" style="width: 95%; height: auto;"/>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -89,335 +88,483 @@
                 <div class="card-body pt-0">
                     <div class="text-center">
                         <div class="mt-4">
-                            <h1 class="head"><u>Mote 2.0</u></h1>
+                            <h1 class="abouthead"><u>Mote 2.0</u></h1>
 
                             <h4>Flask project used to aggregate and distribute IRC meeting minutes and logs for the Fedora Project</h4>
                         
-                             <h2 class="head"><u>Description</u></h2>
+                             <h2 class="abouthead"><u>Description</u></h2>
                 
                             <p>
-                            Mote is a web application purposed to aggregate and distribute the minutes and logs for IRC/Matrix meetings of the Fedora Project community
-                            The project allows looking up meeting info with channel names, dates/times of occurrence and lists recent meetings for quick access
-                            The backend is written in Python with the use of libraries such as Flask micro web framework, BeautifulSoup4, Urllib3, Click, Werkzeug etc
-                            The frontend is written in HTML5, CSS3 and ES6 with the use of libraries such as Bootstrap 5, jQuery, Popper.JS, EasyQRCode etc
+                            Mote is a web application purposed to aggregate and distribute the minutes and logs for IRC/Matrix meetings of the Fedora Project community.
+                            <br>
+                            The project allows looking up meeting info with channel names, dates/times of occurrence and lists recent meetings for quick access.
+                            <br>
+                            The backend is written in Python with the use of libraries such as Flask micro web framework, BeautifulSoup4, Urllib3, Click, Werkzeug etc.
+                            <br>
+                            The frontend is written in HTML5, CSS3 and ES6 with the use of libraries such as Bootstrap 5, jQuery, Popper.JS, EasyQRCode etc.
                             </p>                    
-                            <h2 class="head"><u>List of contributors for mote project</u></h2>
-                              <div class="row row-cols-1 row-cols-md-2 g-4">
-                                <div class="col">
-                                  <div class="card">
+                            <h2 class="abouthead"><u>List of contributors for mote project</u></h2>
+                            <div class="row row-cols-1 row-cols-sm-2  row-cols-lg-3 row-cols-xl-4 g-4">
+                            <div class="col">
+                              <div class="card border-light bg-light mb-3">
+                                <div class="row g-0">
+                                  <div class="col-4">
                                     <a href="https://github.com/cydrobolt">
-                                    <img src= "https://avatars.githubusercontent.com/u/1058150?v=4" style="width: 100px; height: 100px;" class="card-img-top" alt="Chaoyi Zha">
+                                      <img src= "https://avatars.githubusercontent.com/u/1058150?v=4" style="width: 100px; height: 100px;" class="rounded-start" alt="Chaoyi Zha">
                                     </a>
+                                  </div>
+                                  <div class="col-8">
                                     <div class="card-body">
-                                      <h5 class="card-title">Chaoyi Zha</h5>
+                                      <p class="card-text">Chaoyi Zha</p>
                                       <p class="card-text"><small class="text-muted">cydrobolt</small></p>
                                     </div>
                                   </div>
                                 </div>
+                              </div>
+                            </div>
                                 <div class="col">
-                                  <div class="card">
+                                  <div class="card border-light bg-light mb-3">
+                                    <div class="row g-0">
+                                      <div class="col-4">
                                     <a href="https://github.com/t0xic0der">
                                       <img src="https://avatars.githubusercontent.com/u/49605954?v=4" style="width: 100px; height: 100px;" class="img-fluid rounded-start" alt="Akashdeep Dhar">
                                       </a>
+                                    </div>
+                                    <div class="col-8">
                                     <div class="card-body">
-                                      <h5 class="card-title">Akashdeep Dhar</h5>
+                                      <p class="card-text">Akashdeep Dhar</p>
                                       <p class="card-text"><small class="text-muted">t0xic0der</small></p>
                                     </div>
                                   </div>
                                 </div>
+                                  </div>
+                                </div>
                                 <div class="col">
-                                  <div class="card">
+                                  <div class="card border-light bg-light mb-3">
+                                    <div class="row g-0">
+                                      <div class="col-4">
                                     <a href="https://github.com/ralphbean">
                                       <img src="https://avatars.githubusercontent.com/u/331338?v=4" style="width: 100px; height: 100px;" class="img-fluid rounded-start" alt="Ralph Bean">
                                       </a>
+                                    </div>
+                                    <div class="col-8">
                                     <div class="card-body">
-                                      <h5 class="card-title">Ralph Bean</h5>
+                                      <p class="card-text">Ralph Bean</p>
                                       <p class="card-text"><small class="text-muted">ralphbean</small></p>
                                     </div>
                                   </div>
                                 </div>
+                                  </div>
+                                </div>
                                 <div class="col">
-                                  <div class="card">
+                                  <div class="card border-light bg-light mb-3">
+                                    <div class="row g-0">
+                                      <div class="col-4">
                                     <a href="https://github.com/jwflory">
                                       <img src="https://avatars.githubusercontent.com/u/4721034?v=4" style="width: 100px; height: 100px;" class="img-fluid rounded-start" alt="Justin W. Flory">
                                       </a>
+                                    </div>
+                                    <div class="col-8">
                                     <div class="card-body">
-                                      <h5 class="card-title">Justin W. Flory</h5>
+                                      <p class="card-text">Justin W. Flory</p>
                                       <p class="card-text"><small class="text-muted">jwflory</small></p>
                                     </div>
                                   </div>
                                 </div>
-                              </div>
-                              <div class="row row-cols-1 row-cols-md-2 g-4">
+                                  </div>
+                                </div>
                                 <div class="col">
-                                  <div class="card">
+                                  <div class="card border-light bg-light mb-3">
+                                    <div class="row g-0">
+                                      <div class="col-4">
                                     <a href="https://github.com/subhangi2731">
                                       <img src="https://avatars.githubusercontent.com/u/53938490?v=4" style="width: 100px; height: 100px;" class="img-fluid rounded-start" alt="Subhangi Choudhary">
                                       </a>
+                                    </div>
+                                    <div class="col-8">
                                     <div class="card-body">
-                                      <h5 class="card-title">Subhangi Choudhary</h5>
+                                      <p class="card-text">Subhangi Choudhary</p>
                                       <p class="card-text"><small class="text-muted">subhangi2731</small></p>
                                     </div>
                                   </div>
                                 </div>
+                                  </div>
+                                </div>
                                 <div class="col">
-                                  <div class="card">
+                                  <div class="card border-light bg-light mb-3">
+                                    <div class="row g-0">
+                                      <div class="col-4">
                                     <a href="https://github.com/anuragphadnis">
                                       <img src="https://avatars.githubusercontent.com/u/10177121?v=4" style="width: 100px; height: 100px;" class="img-fluid rounded-start" alt="Anurag Phadnis">
                                       </a>
+                                    </div>
+                                    <div class="col-8">
                                     <div class="card-body">
-                                      <h5 class="card-title">Anurag Phadnis</h5>
+                                      <p class="card-text">Anurag Phadnis</p>
                                       <p class="card-text"><small class="text-muted">anuragphadnis</small></p>
                                     </div>
                                   </div>
                                 </div>
+                                  </div>
+                                </div>
                                 <div class="col">
-                                  <div class="card">
+                                  <div class="card border-light bg-light mb-3">
+                                    <div class="row g-0">
+                                    <div class="col-4">
                                     <a href="https://github.com/tuba-mouqeem">
                                       <img src="https://avatars.githubusercontent.com/u/76019991?v=4" style="width: 100px; height: 100px;" class="img-fluid rounded-start" alt="tuba-mouqeem">
                                       </a>
+                                    </div>
+                                    <div class="col-8">
                                     <div class="card-body">
-                                      <h5 class="card-title">tuba-mouqeem</h5>
+                                      <p class="card-text">tuba-mouqeem</p>
                                       <p class="card-text"><small class="text-muted">tuba-mouqeem</small></p>
                                     </div>
                                   </div>
                                 </div>
+                                  </div>
+                                </div>
                                 <div class="col">
-                                  <div class="card">
+                                  <div class="card border-light bg-light mb-3">
+                                    <div class="row g-0">
+                                    <div class="col-4">
                                     <a href="https://github.com/jaehoonhwang">
                                       <img src="https://avatars.githubusercontent.com/u/7682947?v=4" style="width: 100px; height: 100px;" class="img-fluid rounded-start" alt="Jaehoon Hwang">
                                       </a>
+                                    </div>
+                                    <div class="col-8">
                                     <div class="card-body">
-                                      <h5 class="card-title">Jaehoon Hwang</h5>
+                                      <p class="card-text">Jaehoon Hwang</p>
                                       <p class="card-text"><small class="text-muted">jaehoonhwang</small></p>
                                     </div>
                                   </div>
                                 </div>
-                              </div>
-                              <div class="row row-cols-1 row-cols-md-2 g-4">
+                                  </div>
+                                </div>
                                 <div class="col">
-                                  <div class="card">
+                                  <div class="card border-light bg-light mb-3">
+                                    <div class="row g-0">
+                                    <div class="col-4">
                                     <a href="https://github.com/OBITORASU">
                                       <img src="https://avatars.githubusercontent.com/u/65222459?v=4" style="width: 100px; height: 100px;" class="img-fluid rounded-start" alt="Souhit Dey">
                                       </a>
+                                    </div>
+                                    <div class="col-8">
                                     <div class="card-body">
-                                      <h5 class="card-title">Souhit Dey</h5>
+                                      <p class="card-text">Souhit Dey</p>
                                       <p class="card-text"><small class="text-muted">OBITORASU</small></p>
                                     </div>
                                   </div>
                                 </div>
+                                  </div>
+                                </div>
                                 <div class="col">
-                                  <div class="card">
+                                  <div class="card border-light bg-light mb-3">
+                                    <div class="row g-0">
+                                    <div class="col-4">
                                     <a href="https://github.com/mugiwarafx">
                                       <img src="https://avatars.githubusercontent.com/u/58401248?v=4" style="width: 100px; height: 100px;" class="img-fluid rounded-start" alt="mugiwarafx">
                                       </a>
+                                    </div>
+                                    <div class="col-8">
                                     <div class="card-body">
-                                      <h5 class="card-title">mugiwarafx</h5>
+                                      <p class="card-text">mugiwarafx</p>
                                       <p class="card-text"><small class="text-muted">mugiwarafx</small></p>
                                     </div>
                                   </div>
                                 </div>
+                                  </div>
+                                </div>
                                 <div class="col">
-                                  <div class="card">
+                                  <div class="card border-light bg-light mb-3">
+                                    <div class="row g-0">
+                                    <div class="col-4">
                                     <a href="https://github.com/chinmaym07">
                                       <img src="https://avatars.githubusercontent.com/u/44670961?v=4" style="width: 100px; height: 100px;" class="img-fluid rounded-start" alt="Chinmay Mehta">
                                       </a>
+                                    </div>
+                                    <div class="col-8">
                                     <div class="card-body">
-                                      <h5 class="card-title">Chinmay Mehta</h5>
+                                      <p class="card-text">Chinmay Mehta</p>
                                       <p class="card-text"><small class="text-muted">chinmaym07</small></p>
                                     </div>
                                   </div>
                                 </div>
+                                  </div>
+                                </div>
                                 <div class="col">
-                                  <div class="card">
+                                  <div class="card border-light bg-light mb-3">
+                                    <div class="row g-0">
+                                    <div class="col-4">
                                     <a href="https://github.com/Ank221199">
                                       <img src="https://avatars.githubusercontent.com/u/40303711?v=4" style="width: 100px; height: 100px;" class="img-fluid rounded-start" alt="Ankit Sinha">
                                       </a>
+                                    </div>
+                                    <div class="col-8">
                                     <div class="card-body">
-                                      <h5 class="card-title">Ankit Sinha</h5>
+                                      <p class="card-text">Ankit Sinha</p>
                                       <p class="card-text"><small class="text-muted">Ank221199</small></p>
                                     </div>
                                   </div>
                                 </div>
-                              </div>
-                              <div class="row row-cols-1 row-cols-md-2 g-4">
+                                  </div>
+                                </div>
                                 <div class="col">
-                                  <div class="card">
+                                  <div class="card border-light bg-light mb-3">
+                                    <div class="row g-0">
+                                    <div class="col-4">
                                     <a href="https://github.com/nasirhm">
                                       <img src="https://avatars.githubusercontent.com/u/35005234?v=4" style="width: 100px; height: 100px;" class="img-fluid rounded-start" alt="Nasir Hussain">
                                       </a>
+                                    </div>
+                                    <div class="col-8">
                                     <div class="card-body">
-                                      <h5 class="card-title">Nasir Hussain</h5>
+                                      <p class="card-text">Nasir Hussain</p>
                                       <p class="card-text"><small class="text-muted">nasirhm</small></p>
                                     </div>
                                   </div>
                                 </div>
+                                  </div>
+                                </div>
                                 <div class="col">
-                                  <div class="card">
+                                  <div class="card border-light bg-light mb-3">
+                                    <div class="row g-0">
+                                    <div class="col-4">
                                     <a href="https://github.com/ramyaparimi">
                                       <img src="https://avatars.githubusercontent.com/u/33761166?v=4" style="width: 100px; height: 100px;" class="img-fluid rounded-start" alt="Ramya Parimi">
                                       </a>
+                                    </div>
+                                    <div class="col-8">
                                     <div class="card-body">
-                                      <h5 class="card-title">Ramya Parimi</h5>
+                                      <p class="card-text">Ramya Parimi</p>
                                       <p class="card-text"><small class="text-muted">ramyaparimi</small></p>
                                     </div>
                                   </div>
                                 </div>
+                                  </div>
+                                </div>
                                 <div class="col">
-                                  <div class="card">
+                                  <div class="card border-light bg-light mb-3">
+                                    <div class="row g-0">
+                                    <div class="col-4">
                                     <a href="https://github.com/tserafim">
                                       <img src="https://avatars.githubusercontent.com/u/7226969?v=4" style="width: 100px; height: 100px;" class="img-fluid rounded-start" alt="Thiago Serafim">
                                       </a>
+                                    </div>
+                                    <div class="col-8">
                                     <div class="card-body">
-                                      <h5 class="card-title">Thiago Serafim</h5>
+                                      <p class="card-text">Thiago Serafim</p>
                                       <p class="card-text"><small class="text-muted">tserafim</small></p>
                                     </div>
                                   </div>
                                 </div>
+                                  </div>
+                                </div>
                                 <div class="col">
-                                  <div class="card">
+                                  <div class="card border-light bg-light mb-3">
+                                    <div class="row g-0">
+                                    <div class="col-4">
                                     <a href="https://github.com/darknao">
                                       <img src="https://avatars.githubusercontent.com/u/693402?v=4" style="width: 100px; height: 100px;" class="img-fluid rounded-start" alt="darknao">
                                       </a>
+                                    </div>
+                                    <div class="col-8">
                                     <div class="card-body">
-                                      <h5 class="card-title">darknao</h5>
+                                      <p class="card-text">darknao</p>
                                       <p class="card-text"><small class="text-muted">darknao</small></p>
                                     </div>
                                   </div>
                                 </div>
-                              </div>
-                              <div class="row row-cols-1 row-cols-md-2 g-4">
+                                  </div>
+                                </div>
                                 <div class="col">
-                                  <div class="card">
-                                    <a href="https://github.com/vivekanand1101"> -->
+                                  <div class="card border-light bg-light mb-3">
+                                    <div class="row g-0">
+                                    <div class="col-4">
+                                    <a href="https://github.com/vivekanand1101">
                                       <img src="https://avatars.githubusercontent.com/u/9296805?v=4" style="width: 100px; height: 100px;" class="img-fluid rounded-start" alt="Vivek Anand">
                                       </a>
+                                    </div>
+                                    <div class="col-8">
                                     <div class="card-body">
-                                      <h5 class="card-title">Vivek Anand</h5>
+                                      <p class="card-text">Vivek Anand</p>
                                       <p class="card-text"><small class="text-muted">vivekanand1101</small></p>
                                     </div>
                                   </div>
                                 </div>
+                                  </div>
+                                </div>
                                 <div class="col">
-                                  <div class="card">
+                                  <div class="card border-light bg-light mb-3">
+                                    <div class="row g-0">
+                                    <div class="col-4">
                                     <a href="https://github.com/keszybz">
                                       <img src="https://avatars.githubusercontent.com/u/349618?v=4" style="width: 100px; height: 100px;" class="img-fluid rounded-start" alt="Zbigniew Jędrzejewski-Szmek">
                                       </a>
+                                    </div>
+                                    <div class="col-8">
                                     <div class="card-body">
-                                      <h5 class="card-title">Zbigniew Jędrzejewski-Szmek</h5>
+                                      <p class="card-text">Zbigniew Jędrzejewski-Szmek</p>
                                       <p class="card-text"><small class="text-muted">keszybz</small></p>
                                     </div>
                                   </div>
                                 </div>
+                                  </div>
+                                </div>
                                 <div class="col">
-                                  <div class="card">
+                                  <div class="card border-light bg-light mb-3">
+                                    <div class="row g-0">
+                                    <div class="col-4">
                                     <a href="https://github.com/puiterwijk">
                                       <img src="https://avatars.githubusercontent.com/u/967561?v=4" style="width: 100px; height: 100px;" class="img-fluid rounded-start" alt="Patrick Uiterwijk">
                                       </a>
+                                    </div>
+                                    <div class="col-8">
                                     <div class="card-body">
-                                      <h5 class="card-title">Patrick Uiterwijk</h5>
+                                      <p class="card-text">Patrick Uiterwijk</p>
                                       <p class="card-text"><small class="text-muted">puiterwijk</small></p>
                                     </div>
                                   </div>
                                 </div>
+                                  </div>
+                                </div>
                                 <div class="col">
-                                  <div class="card">
+                                  <div class="card border-light bg-light mb-3">
+                                    <div class="row g-0">
+                                    <div class="col-4">
                                     <a href="https://github.com/jet2018">
                                       <img src="https://avatars.githubusercontent.com/u/43230268?v=4" style="width: 100px; height: 100px;" class="img-fluid rounded-start" alt="Tumusiime Ezra">
                                       </a>
+                                    </div>
+                                    <div class="col-8">
                                     <div class="card-body">
-                                      <h5 class="card-title">Tumusiime Ezra</h5>
+                                      <p class="card-text">Tumusiime Ezra</p>
                                       <p class="card-text"><small class="text-muted">jet2018</small></p>
                                     </div>
                                   </div>
                                 </div>
-                              </div>
-                              <div class="row row-cols-1 row-cols-md-2 g-4">
+                                  </div>
+                                </div>
                                 <div class="col">
-                                  <div class="card">
+                                  <div class="card border-light bg-light mb-3">
+                                    <div class="row g-0">
+                                    <div class="col-4">
                                     <a href="https://github.com/yummyweb">
                                       <img src="https://avatars.githubusercontent.com/u/33229117?v=4" style="width: 100px; height: 100px;" class="img-fluid rounded-start" alt="yum">
                                       </a>
+                                    </div>
+                                    <div class="col-8">
                                     <div class="card-body">
-                                      <h5 class="card-title">yum</h5>
+                                      <p class="card-text">yum</p>
                                       <p class="card-text"><small class="text-muted">yummyweb</small></p>
                                     </div>
                                   </div>
                                 </div>
+                                  </div>
+                                </div>
                                 <div class="col">
-                                  <div class="card">
+                                  <div class="card border-light bg-light mb-3">
+                                    <div class="row g-0">
+                                    <div class="col-4">
                                     <a href="https://github.com/gg-dev-05">
                                       <img src="https://avatars.githubusercontent.com/u/59741135?v=4" style="width: 100px; height: 100px;" class="img-fluid rounded-start" alt="Garvit Galgat">
                                       </a>
+                                    </div>
+                                    <div class="col-8">
                                     <div class="card-body">
-                                      <h5 class="card-title">Garvit Galgat</h5>
+                                      <p class="card-text">Garvit Galgat</p>
                                       <p class="card-text"><small class="text-muted">gg-dev-05</small></p>
                                     </div>
                                   </div>
                                 </div>
+                                  </div>
+                                </div>
                                 <div class="col">
-                                  <div class="card">
+                                  <div class="card border-light bg-light mb-3">
+                                    <div class="row g-0">
+                                    <div class="col-4">
                                     <a href="https://github.com/pnemade">
                                       <img src="https://avatars.githubusercontent.com/u/671366?v=4" style="width: 100px; height: 100px;" class="img-fluid rounded-start" alt="Parag Nemade">
                                       </a>
+                                    </div>
+                                    <div class="col-8">
                                     <div class="card-body">
-                                      <h5 class="card-title">Parag Nemade</h5>
+                                      <p class="card-text">Parag Nemade</p>
                                       <p class="card-text"><small class="text-muted">pnemade</small></p>
                                     </div>
                                   </div>
                                 </div>
+                                  </div>
+                                </div>
                                 <div class="col">
-                                  <div class="card">
+                                  <div class="card border-light bg-light mb-3">
+                                    <div class="row g-0">
+                                    <div class="col-4">
                                     <a href="https://github.com/mymindstorm">
                                       <img src="https://avatars.githubusercontent.com/u/27789806?v=4" style="width: 100px; height: 100px;" class="img-fluid rounded-start" alt="mymindstorm">
                                       </a>
+                                    </div>
+                                    <div class="col-8">
                                     <div class="card-body">
-                                      <h5 class="card-title">mymindstorm</h5>
+                                      <p class="card-text">mymindstorm</p>
                                       <p class="card-text"><small class="text-muted">mymindstorm</small></p>
                                     </div>
                                   </div>
                                 </div>
-                              </div>
-                              <div class="row row-cols-1 row-cols-md-2 g-4">
+                                  </div>
+                                </div>
                                 <div class="col">
-                                  <div class="card">
+                                  <div class="card border-light bg-light mb-3">
+                                    <div class="row g-0">
+                                    <div class="col-4">
                                     <a href="https://github.com/alick">
                                       <img src="https://avatars.githubusercontent.com/u/933935?v=4" style="width: 100px; height: 100px;" class="img-fluid rounded-start" alt="Alick Zhao">
                                       </a>
+                                    </div>
+                                    <div class="col-8">
                                     <div class="card-body">
-                                      <h5 class="card-title">Alick Zhao</h5>
+                                      <p class="card-text">Alick Zhao</p>
                                       <p class="card-text"><small class="text-muted">alick</small></p>
                                     </div>
                                   </div>
                                 </div>
+                                  </div>
+                                </div>
                                 <div class="col">
-                                  <div class="card">
+                                  <div class="card border-light bg-light mb-3">
+                                    <div class="row g-0">
+                                    <div class="col-4">
                                     <a href="https://github.com/quintenvandamme">
                                       <img src="https://avatars.githubusercontent.com/u/58103738?v=4" style="width: 100px; height: 100px;" class="img-fluid rounded-start" alt="Quinten Van Damme">
                                       </a>
+                                    </div>
+                                    <div class="col-8">
                                     <div class="card-body">
-                                      <h5 class="card-title">Quinten Van Damme</h5>
+                                      <p class="card-text">Quinten Van Damme</p>
                                       <p class="card-text"><small class="text-muted">quintenvandamme</small></p>
                                     </div>
                                   </div>
                                 </div>
+                                  </div>
+                                </div>
                                 <div class="col">
-                                  <div class="card">
+                                  <div class="card border-light bg-light mb-3">
+                                    <div class="row g-0">
+                                    <div class="col-4">
                                     <a href="https://github.com/tyll">
                                       <img src="https://avatars.githubusercontent.com/u/197720?v=4" style="width: 100px; height: 100px;" class="img-fluid rounded-start" alt="Till Maas">
                                       </a>
+                                    </div>
+                                    <div class="col-8">
                                     <div class="card-body">
-                                      <h5 class="card-title">Till Maas</h5>
+                                      <p class="card-text">Till Maas</p>
                                       <p class="card-text"><small class="text-muted">tyll</small></p>
+                                    </div>
+                                    </div>
                                     </div>
                                   </div>
                                 </div>
-                                  </div>
-                                </div>
                               </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="card-footer text-center" style="background-color: #e6e6e6; color:  #676767;">
                     <span class="small">
                         <a style="color:#676767; text-decoration:none;"
@@ -591,7 +738,7 @@
             document.getElementById('dropdown').classList.remove("show")
         });
         document.getElementById("loader").innerHTML = `
-        <a class="nav-link active" aria-current="page" type="button">Recent meetings</a>
+        <a class="nav-link active" aria-current="page" href = "/" type="button">Recent meetings</a>
         `;
           
     </script>
