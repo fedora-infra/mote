@@ -142,43 +142,44 @@ hr {
 
 #bigcard {
     border: solid transparent;
-  }
-  .card li {
+}
+
+.card li {
     color: rgba(60, 110, 180, 1);
     font-family: 'Montserrat';
     font-weight: bold;
+}
 
-  }
-  
-  .card header {
+.card header {
     font-family: 'Montserrat';
     font-weight: bold;
-  }
-  
-  .card label {
+}
+
+.card label {
     margin-right: auto;
     color: rgba(81, 162, 218, 1);
     font-family: 'Montserrat';
-  }
-  .checkbox {
+}
+
+.checkbox {
     color: rgba(81, 162, 218, 1);
     font-family: 'Montserrat';
     font-style: 'normal';
     font-size: 22px;
     font-weight: bold;
-  }
-  
-  .table {
+}
+
+.table {
     margin-bottom: 0px;
-  }
-  
-  text {
+}
+
+text {
     color: rgba(81, 162, 218, 1);
     font-family: 'Open Sans';
     font-size: 12px;
-  }
-  
-  .item {
+}
+
+.item {
     color: rgba(60, 110, 180, 1);
     font-family: 'Open Sans';
     font-style: 'normal';
@@ -187,5 +188,4 @@ hr {
     letter-spacing: 0px;
     text-decoration: none;
     text-transform: none;
-  
-  }
+}

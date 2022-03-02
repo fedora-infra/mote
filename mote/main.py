@@ -26,8 +26,6 @@ import re
 from datetime import datetime
 
 import click
-import flask
-import yaml
 from fedora_messaging import api
 from flask import Flask, abort, jsonify, render_template, request
 from flask_socketio import SocketIO
@@ -226,8 +224,9 @@ def teamspage():
         try:
             data = yaml.safe_load(stream)
         except yaml.YAMLError as exc:
-            logging.error("exc")
+            logging.error(exc)
     return render_template("teams.html", teamdata=data)
+
 
 if __name__ == "__main__":
     socketio.run(mainfunc())
