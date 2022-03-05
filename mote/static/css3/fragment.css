@@ -168,6 +168,10 @@ hr {
   color: inherit;
 }
 
+.fc table {
+  border-collapse: separate !important;
+}
+
 .fc-h-event .fc-event-time {
     overflow: visible !important;
 }
@@ -184,6 +188,18 @@ hr {
 .fc-day-today .fc-daygrid-day-number {
   background-color: #e59728;
   color: white !important;
+  font-weight: 600 !important;
+}
+
+.fc a.fc-more-link {
+  color: rgb(81, 162, 218);
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 0.75rem;
+}
+
+.fc a.fc-more-link:hover {
+  color: rgb(133, 205, 255);
 }
 
 .fc-dayGridDay-view .fc-day-today .fc-col-header-cell-cushion {
@@ -198,7 +214,7 @@ hr {
 
 .fc th.fc-col-header-cell {
   font-variant: all-small-caps;
-  font-size: 1.2em;
+  font-size: 1em;
   font-weight: normal;
   line-height: 20px;
   margin-top: 11px;
@@ -239,6 +255,9 @@ hr {
   display: inline-block;
   height: 30px;
   line-height: 23px;
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 500;
 }
 
 .fc .fc-daygrid-day.fc-day-today {
@@ -269,12 +288,38 @@ hr {
     border: 0 !important;
 }
 
+.fc-h-event .fc-event-main {
+    padding: 0 5px;
+}
+
+.fc .fc-event-title {
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.fc-event-main-body .fc-event-title {
+  line-height: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.fc-event-main-body .fc-event-text {
+  line-height: 0.7rem;
+  font-size: 0.7rem;
+  font-weight: 500;
+}
+
+.fc .fc-daygrid-event {
+  margin-top: 2px !important;
+}
+
 .fc-dayGridWeek-view .fc-daygrid-event {
   white-space: normal;
 }
 
+.fc-popover .fc-event .fc-event-main,
 .fc-dayGridWeek-view .fc-event .fc-event-main {
-    margin: 3px 3px;
+    margin: 5px 5px;
 }
 
 :root {
@@ -288,8 +333,9 @@ hr {
 
 .fc .fc-daygrid-day-top {
     display: block !important;
-    text-align: center;
+    text-align: right;
     color: #8e8e8e;
+    padding: 5px 5px 0 5px;
   }
 
 .fc-dayGridWeek-view .fc-daygrid-event {
@@ -375,12 +421,12 @@ hr {
 }
 
 [data-bs-color-scheme="dark"] .card {
-    background-color: #222;
-    border: 1px solid rgba(92, 92, 92, 0.13);
+    background-color: rgb(76, 76, 76);
+    border: 1px solid rgba(0, 0, 0, 0.13);
 }
 
 [data-bs-color-scheme="dark"] .bg-light {
-    background-color: rgba(var(--bs-dark-rgb),var(--bs-bg-opacity)) !important;
+    background-color: rgb(64, 64, 64) !important;
 }
 
 [data-bs-color-scheme="dark"] .btn-light {
@@ -437,17 +483,34 @@ hr {
 }
 
 [data-bs-color-scheme="dark"] .card-footer {
-    background-color: #25282b;
+    background-color: #373737;
     border-top: 1px solid rgba(250, 250, 250, 0.04);
     color: #919191;
 }
 
 .navbar {
-    background-image: linear-gradient(rgb(238, 238, 238) 0px, rgb(221, 221, 221));
+    background-color: rgb(222, 222, 222);
+    font-family: "Montserrat";
+    font-weight: 600;
+    font-size: 0.9rem;
 }
 
 [data-bs-color-scheme="dark"] .navbar {
-    background-image: linear-gradient(rgb(33, 37, 41) 0px, rgb(30, 34, 37));
+    background-color: rgb(70, 70, 70);
+}
+
+[data-bs-color-scheme="dark"] .navbar-light .navbar-nav .nav-link.active,
+[data-bs-color-scheme="dark"] .navbar-light .navbar-nav .show > .nav-link {
+  color: rgb(81, 162, 218);
+}
+
+[data-bs-color-scheme="dark"] .navbar-light .navbar-nav .nav-link {
+  color: rgb(255, 255, 255);
+}
+
+[data-bs-color-scheme="dark"] .navbar-light .navbar-nav .nav-link:focus,
+[data-bs-color-scheme="dark"] .navbar-light .navbar-nav .nav-link:hover {
+  color: rgb(133, 205, 255);
 }
 
 .modal-header {
@@ -514,12 +577,15 @@ hr {
     z-index: 100;
 }
 
-[data-bs-color-scheme="dark"] .fc-theme-standard td, [data-bs-color-scheme="dark"]  .fc-theme-standard th {
-  border-color: #222 !important;
+[data-bs-color-scheme="dark"] .fc-theme-standard td,
+[data-bs-color-scheme="dark"]  .fc-theme-standard th {
+  border-color: rgb(76, 76, 76) !important;
 }
 
-[data-bs-color-scheme="dark"] .fc .fc-daygrid-day.fc-day-today, [data-bs-color-scheme="dark"] .fc-daygrid-day {
-  background-color: #f8f9fa0a !important;
+[data-bs-color-scheme="dark"] .fc .fc-daygrid-day.fc-day-today,
+[data-bs-color-scheme="dark"] .fc-daygrid-day {
+  background-color: rgb(92, 92, 92) !important;
+  border-radius: 8px;
 }
 
 [data-bs-color-scheme="dark"] .fc .fc-day-disabled {
@@ -527,10 +593,10 @@ hr {
 }
 
 [data-bs-color-scheme="dark"] .fc-theme-standard .fc-popover {
-  background: #212529;
+  background: rgb(64, 64, 64);
   border: 1px solid #2b2b2b;
 }
 
 [data-bs-color-scheme="dark"] .fc-theme-standard .fc-popover-header {
-  background: #212529;
+  background: rgb(64, 64, 64);
 }
