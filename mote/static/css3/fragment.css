@@ -318,7 +318,8 @@ hr {
 }
 
 .fc-popover .fc-event .fc-event-main,
-.fc-dayGridWeek-view .fc-event .fc-event-main {
+.fc-dayGridWeek-view .fc-event .fc-event-main,
+.fc-dayGridDay-view .fc-event .fc-event-main {
     margin: 5px 5px;
 }
 

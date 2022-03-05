@@ -32,6 +32,10 @@ from flask import current_app as app
 
 seconds_delta = 86400
 
+def sanitize_name(name):
+  r = r"\s*-?\s*\(?\d+-\d+-\d+\)?$"
+  return re.sub(r,"", name.replace("_", " "))
+    
 
 def fetch_recent_meetings(days):
     try:
@@ -66,7 +70,7 @@ def fetch_meeting_by_date(start, end):
     end_date = datetime.fromisoformat(end)
     cur_date = start_date
     now = datetime.now()
-    if now.year == start_date.year and now.month == start_date.month:
+    if now.year == end_date.year and now.month == end_date.month:
         print("fetch from datagreeper..")
         meets = fetch_meetings_from_datagreeper(start_date)
     else:
@@ -128,11 +132,13 @@ def fetch_meetings_from_datagreeper(start):
                 )
                 meeting_list.append(
                     {
-                        "title": data["meeting_topic"],
+                        "title": sanitize_name(data["meeting_topic"]),
                         "start": date.isoformat(),
                         "allDay": False,
                         "display": "block",
                         "url": data["url"] + ".html",
+                        "attendees": len(data["attendees"]),
+                        "lines": data["details"]["linenum"],
                     }
                 )
             cur_page += 1

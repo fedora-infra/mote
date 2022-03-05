@@ -53,7 +53,7 @@
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item" id="loader">
                           <a class="nav-link active" aria-current="page" type="button">
-                              Recent meetings
+                              Meetings by Date
                           </a>
                         </li>
                         <li class="nav-item">
@@ -103,7 +103,7 @@
                         <div class="font-alt">
 			    <div class="btn-toolbar justify-content-between p-3 pt-0" role="toolbar" aria-label="Calendar navigation bar">
 			    <div class="cal-title mb-2 mb-lg-0 mx-auto mx-lg-0">
-                              <span id="spin" class="far fa-calendar" aria-hidden="true"></span>Recent Meetings
+                              <span id="spin" class="far fa-calendar" aria-hidden="true"></span>Meetings by Date
 			    </div>
 
 
@@ -597,7 +597,8 @@
           views: {
 	    dayGridMonth: {
               dayMaxEventRows: true,
-	      showNonCurrentDates: false,
+	      dayMaxEvents: true,
+	      showNonCurrentDates: true,
 	      displayEventTime: false,
 	      validRange: function(now) {
 	        return {
@@ -607,6 +608,18 @@
 	    },
             dayGridWeek: {
               dayMaxEventRows: true,
+	      displayEventTime: false,
+	       eventContent: function(arg) {
+		 console.log(arg);
+	         let el = document.createElement('div');
+		 el.className = "fc-event-main-body";
+		 el.innerHTML = 
+		     `<div class="fc-event-title">`+ arg.event.title +`</div>
+		      <div class="fc-event-text">
+                        `+ arg.event.extendedProps.attendees +` people | `+ arg.event.extendedProps.lines +` lines
+		      </div>`;
+	         return {domNodes: [ el ]}
+               },
 	      dayHeaderContent: function(arg) {
               
 	        let weekday = arg.date.toLocaleDateString('en-US', {weekday: 'short'});
@@ -627,6 +640,17 @@
 	          end: now,
 	        };
 	      },
+	      eventContent: function(arg) {
+	        console.log(arg);
+	        let el = document.createElement('div');
+	        el.className = "fc-event-main-body";
+	        el.innerHTML = 
+	            `<div class="fc-event-title">`+ arg.event.title +`</div>
+	             <div class="fc-event-text">
+                       `+ arg.event.extendedProps.attendees +` peoples | `+ arg.event.extendedProps.topics +` topics
+	             </div>`;
+	        return {domNodes: [ el ]}
+              },
 	    },
           },
           eventTimeFormat: { // like '14:30'
