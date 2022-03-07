@@ -36,7 +36,6 @@
     <script src="{{ url_for('static', filename='jscn/easy.qrcode.min.js') }}"></script>
     <script src="{{ url_for('static', filename='jscn/socket.io.js') }}"></script>
     <script src="{{ url_for('static', filename='jscn/fullcalendar.js') }}"></script>
-    <link href="{{ url_for('static', filename='css3/teams.css') }}" rel="stylesheet" />
     <title>Meetbot Logs</title>
 </head>
 
@@ -65,7 +64,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" type="button" href="#">
+                        <a class="nav-link" type="button" href="">
                             Meetings by Group
                         </a>
                     </li>
@@ -92,16 +91,20 @@
     <div class="container-lg">
         <div class="card mt-1" id="bigcard">
             <div class="card-body pt-0">
-                <article>
-                        <i class="fa fa-users" aria-hidden="true"></i>
-                        Meetings by Group
-                        <input class="form-check-input" type="checkbox">
-                        Hide inactive
-                    </article>
+                <div class="mt-4">
+                    <br><br>
+                    <div class="checkbox">
+                        <div class="d-flex justify-content-between">
+                        <div><i class="fa fa-users" aria-hidden="true"></i> Meetings by Group</div>
+                        <div><input class="form-check-input" type="checkbox"> Hide inactive</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
                     <br><br>
                     <div class="card">
                         <div class="card-header">
-                            23 Groups
+                            {{ teamdata|length }} Groups
                         </div>
                         <table class="table">
                             <tbody>
@@ -114,8 +117,8 @@
                                         </item>
                                         <div class="btn-group" role="group"
                                             aria-label="Basic checkbox toggle button group">
-                                            <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off">
-                                            <label class="btn btn-outline-primary" for="btncheck1"><i
+                                            <input type="checkbox" class="btn-check" autocomplete="off">
+                                            <label class="btn btn-outline-primary" ><i
                                                     class="far fa-calendar-alt"></i> 15 Nov 2021</label>
                                         </div>
                                     </td>
@@ -305,74 +308,7 @@
     $('body').on('click', function (e) {
         document.getElementById('dropdown').classList.remove("show")
     });
-    var allEvents = []
-    async function getMonthlyMeetings() {
-        const d = new Date();
-        let day = d.getDate();
-        await $.getJSON("/fragedpt/", {
-            "rqstdata": "clndrmtgs",
-            "numdays": day
-        }, function (data) {
-            for (var name in data) {
-                var dictionary = {}
-                dictionary.title = data[name].topic
-                dictionary.start = new Date(data[name].time).toISOString().slice(0, 10);
-                dictionary.url = data[name].slug.summary
-                dictionary.backgroundColor = '#3C6EB4'
-                allEvents.push(dictionary)
-            }
-        });
-    }
 
-    document.addEventListener('DOMContentLoaded', async function () {
-        var calendarEl = document.getElementById('calendar');
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-            initialView: 'dayGridWeek',
-            handleWindowResize: true,
-            windowResize: function (arg) {
-                calendar.setOption('height', window.innerHeight - 170);
-            },
-            customButtons: {
-                monthView: {
-                    text: 'Month',
-                    click: function () {
-                        calendar.changeView('dayGridMonth');
-                        document.querySelector('[title="Previous month"]').disabled = true
-                        document.querySelector('[title="Next month"]').disabled = true
-                    }
-                },
-                weekView: {
-                    text: 'Week',
-                    click: function () {
-                        calendar.changeView('dayGridWeek');
-                        document.querySelector('[title="Previous week"]').disabled = false
-                        document.querySelector('[title="Next week"]').disabled = false
-                    }
-                }
-            },
-            fixedWeekCount: false,
-            height: window.innerHeight - 150,
-            headerToolbar: {
-                center: 'monthView,weekView'
-            },
-            views: {
-                dayGridWeek: {
-                    headerToolbar: false
-                }
-            }
-        });
-        calendar.render();
-        document.getElementById("loader").innerHTML = `
-        <a class="nav-link active" aria-current="page" type="button">Loading meetings...</a>
-        `;
-        await getMonthlyMeetings();
-        document.getElementById("loader").innerHTML = `
-        <a class="nav-link active" aria-current="page" type="button">Recent meetings</a>
-        `;
-        for (var i = 0; i < allEvents.length; i++) {
-            calendar.addEvent(allEvents[i])
-        }
-    });
 </script>
 
 </html>
