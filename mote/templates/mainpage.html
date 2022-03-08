@@ -394,6 +394,11 @@
         </div>
         <div class="toast-container position-fixed bottom-0 end-0 p-3"> 
         </div>
+        <div class="modal fade" id="evt-smry">
+            <div class="modal-dialog modal-dialog-centered modal-xl modal-fullscreen-lg-down modal-dialog-scrollable">
+	        <div class="modal-content"></div>
+	    </div>
+	</div>
     </body>
     <script>
         var socket = io.connect();
@@ -605,6 +610,12 @@
 	          end: new Date(now.getFullYear(), now.getMonth()+1, 0),
 	        };
 	      },
+	      dateClick: function(info) {
+		calendar.changeView('dayGridDay', info.dateStr);
+	        $("#month").removeClass("active");
+	        $("#week").removeClass("active");
+	        $("#day").addClass("active");
+              },
 	    },
             dayGridWeek: {
               dayMaxEventRows: true,
@@ -616,7 +627,7 @@
 		 el.innerHTML = 
 		     `<div class="fc-event-title">`+ arg.event.title +`</div>
 		      <div class="fc-event-text">
-                        `+ arg.event.extendedProps.attendees +` people | `+ arg.event.extendedProps.lines +` lines
+                        `+ arg.event.extendedProps.attendees +` peoples | `+ arg.event.extendedProps.topics +` topics
 		      </div>`;
 	         return {domNodes: [ el ]}
                },
@@ -661,7 +672,16 @@
           },
 	  defaultTimedEventDuration: '02:00',
 	  nextDayThreshold: '02:00:00',
-	  events: "/cal/events"
+	  events: "/cal/events",
+	  eventClick: function(info) {
+	    // info.event.title
+	    info.jsEvent.preventDefault();
+	    $('#evt-smry .modal-content').load('/smry/'+info.event.url,function(){
+	      var modal = new bootstrap.Modal(document.getElementById('evt-smry'));
+              modal.show();
+            });
+
+	  }
         });
 
 	$("#curDate").text(calendar.getDate().toLocaleDateString('en-US', {month: 'long', year: 'numeric'}));

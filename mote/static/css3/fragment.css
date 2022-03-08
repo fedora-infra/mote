@@ -578,6 +578,37 @@ hr {
     z-index: 100;
 }
 
+#evt-smry .modal-content {
+  background-color: rgb(177, 178, 181);
+  border: solid 3px rgb(81, 162, 218);
+  color: rgb(64, 64, 64);
+}
+
+#evt-smry .modal-content > .evt-smry-header {
+  border-bottom: solid 1px rgb(222, 222, 222);
+}
+
+.evt-smry-title {
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.evt-smry-length {
+  font-size: 0.6rem;
+}
+
+.evt-smry-body {
+  font-size: 0.7rem;
+  line-height: 1.2;
+  overflow-y: auto;
+}
+
+.evt-smry-col .evt-smry-header {
+  font-weight: 600;
+  font-size: 0.75rem;
+  margin-bottom: 10px;
+}
+
 [data-bs-color-scheme="dark"] .fc-theme-standard td,
 [data-bs-color-scheme="dark"]  .fc-theme-standard th {
   border-color: rgb(76, 76, 76) !important;

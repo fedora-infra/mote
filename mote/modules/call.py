@@ -27,6 +27,7 @@ from datetime import datetime
 
 import bs4 as btsp
 from flask import current_app as app
+from . import sanitize_name
 
 
 def fetch_channel_dict():
@@ -102,3 +103,46 @@ def fetch_meeting_content(contpath: str):
         return True, contdata
     except Exception:
         return False, ""
+
+def fetch_meeting_summary(contpath: str):
+    try:
+        with open(contpath, "r") as meetfile:
+            source = meetfile.read()
+        obj = btsp.BeautifulSoup(source, "html.parser")
+        event = {
+          "peoples" :[],
+          "topics": [],
+          "actions": []
+          }
+        event["title"] = re.sub(r"^.*: ", "", sanitize_name(obj.select_one("title").text))
+
+        re_start = re.compile(r"Meeting started.* at (\d+:\d+:\d+) UTC")
+        re_end = re.compile(r"Meeting ended.* at (\d+:\d+:\d+) UTC")
+        timeStartStr = re.search(re_start, obj.find(text=re_start).text).group(1)
+        timeEndStr = re.search(re_end, obj.find(text=re_end).text).group(1)
+        timeDelta = datetime.strptime(timeEndStr, "%H:%M:%S") - datetime.strptime(timeStartStr, "%H:%M:%S")
+        event["duration"] = timeDelta.seconds // 60
+
+        peoples = obj.find(text=re.compile("People present")).parent.findNext("ol").select("li")
+        # filter known bots and people with 0 lines
+        event["peoples"] = [p.text for p in peoples if re.match(r"^(?!(zodbot|fm-admin))((?!\(0\)).)*$", p.text)]
+
+        topics = obj.select(".TOPIC")
+        topics = obj.find("h3", text="Meeting summary").parent.findNext("ol").findChildren("li", recursive=False)
+        for topic in topics:
+          topicName = "None"
+          topicEl = topic.findNext("b", {"class":"TOPIC"})
+          if topicEl:
+            topicName = topicEl.text
+          topicDict = { "title": topicName, "info": [] }
+          items = topic.select("li")
+          for item in items:
+            item.findNext("span", {"class":"details"}).decompose()
+            topicDict['info'].append(re.sub(r"\s+", " ", item.text))
+          event['topics'].append(topicDict)
+        actions = obj.find(text="Action items").parent.findNext("ol").select("li")
+        event["actions"] = [a.text for a in actions if a.text != "(none)"]
+            
+        return True, event
+    except Exception as exc:
+        return False, exc

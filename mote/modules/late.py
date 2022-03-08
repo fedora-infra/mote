@@ -29,13 +29,10 @@ import urllib.request as ulrq
 from datetime import datetime, timedelta
 
 from flask import current_app as app
+from .call import fetch_meeting_summary
+from . import sanitize_name
 
 seconds_delta = 86400
-
-def sanitize_name(name):
-  r = r"\s*-?\s*\(?\d+-\d+-\d+\)?$"
-  return re.sub(r,"", name.replace("_", " "))
-    
 
 def fetch_recent_meetings(days):
     try:
@@ -80,6 +77,7 @@ def fetch_meeting_by_date(start, end):
             )
             if len(meetlogs):
                 for meetfile in meetlogs:
+                    meet = fetch_meeting_summary(meetfile.replace(".log.html", ".html"))
                     meeting = re.search(
                         app.config["RECOGNIITION_PATTERN"],
                         os.path.basename(meetfile.replace(".log.html", "")),
@@ -90,10 +88,12 @@ def fetch_meeting_by_date(start, end):
                     )
                     meets.append(
                         {
-                            "title": meeting.group(1).replace("_", " "),
+                            "title": meet[1]["title"],
                             "start": date.isoformat(),
                             "allDay": False,
                             "display": "block",
+                            "attendees": len(meet[1]["peoples"]),
+                            "topics": len(meet[1]["topics"]),
                             "url": meetfile.replace(
                                 app.config["MEETING_DIR"], ""
                             ).replace(".log", ""),

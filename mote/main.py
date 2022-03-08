@@ -26,7 +26,7 @@ from datetime import datetime
 
 import click
 from fedora_messaging import api
-from flask import Flask, abort, jsonify, render_template, request
+from flask import Flask, abort, jsonify, render_template, request, url_for
 from flask_socketio import SocketIO
 from twisted.internet import reactor
 
@@ -35,10 +35,11 @@ from mote.modules.call import (
     fetch_channel_dict,
     fetch_datetxt_dict,
     fetch_meeting_content,
+    fetch_meeting_summary,
     fetch_meeting_dict,
 )
 from mote.modules.find import find_meetings_by_substring
-from mote.modules.late import fetch_meeting_by_date, fetch_recent_meetings
+from mote.modules.late import fetch_meeting_by_date, fetch_recent_meetings, sanitize_name
 
 main = Flask(__name__)
 main.config.from_pyfile("config.py")
@@ -141,6 +142,29 @@ def statfile(channame, cldrdate, meetname):
     else:
         abort(404)
 
+@main.get("/smry/<channame>/<cldrdate>/<path:meetname>")
+def evtsmry(channame, cldrdate, meetname):
+    meetname = meetname.replace(".log.html", "").replace(".html", "")
+    permalink = url_for("statfile", channame=channame, cldrdate=cldrdate, meetname=f"{meetname}.html")
+    full_log = url_for("statfile", channame=channame, cldrdate=cldrdate, meetname=f"{meetname}.log.html")
+    meetpath = f"{main.config['MEETING_DIR']}/{channame}/{cldrdate}/{meetname}.html"
+    formatted_timestamp = datetime.strptime(cldrdate, "%Y-%m-%d")
+    cldrdate = "{:%B %d, %Y}".format(formatted_timestamp)
+    print(meetpath)
+    if meetpath[-1] == "/":
+        meetpath = meetpath[0:-1]
+    meet = fetch_meeting_summary(meetpath)
+    print(meet)
+    if meet[0]:
+        return render_template(
+            "event_summary.html",
+            meet=meet[1],
+            startdate=cldrdate,
+            permalink=permalink,
+            full_log=full_log
+        )
+    else:
+        abort(404)
 
 @main.get("/")
 def mainpage():
