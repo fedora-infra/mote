@@ -140,6 +140,11 @@ def mainpage():
     return render_template("mainpage.html")
 
 
+@main.get("/about")
+def aboutpage():
+    return render_template("aboutpage.html")
+
+
 @main.before_first_request
 def init_fedora_messaging():
     global thread
