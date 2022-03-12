@@ -247,16 +247,107 @@ hr {
   .fc th.fc-col-header-cell {
     font-size: 1em;
   }
+
+  .card-body {
+    padding: 1rem 0rem;
+  }
+
+  .fc-dayGridWeek-view .fc-event-text {
+    display: none;
+  }
+
+  .fc-dayGridWeek-view .fc-event-title {
+    font-size: 0.6rem !important;
+    margin: 0 !important;
+  }
+
+  .fc-dayGridMonth-view .fc-event-title {
+    font-size: 0.6rem !important;
+    margin: 0 !important;
+  }
+
+  .fc-dayGridWeek-view .fc-daygrid-day {
+    border-radius: 0 !important;
+  }
+
+  .fc-dayGridWeek-view .fc-daygrid-event {
+  /*  border-radius: 0px !important;*/
+  }
+
+  .fc-dayGridWeek-view .fc-event .fc-event-main {
+    margin: 0 !important;
+    padding: 0 2px;
+    line-height: 1em;
+  }
+
+  .fc-dayGridMonth-view .fc-event .fc-event-main {
+    margin: 0 !important;
+    padding: 0 2px;
+    line-height: 1em;
+  }
+
+  .fc-theme-standard td, .fc-theme-standard th {
+    border: 1px solid #fff !important;
+  }
+
+  .fc-direction-ltr .fc-daygrid-event.fc-event-end,
+  .fc-direction-ltr .fc-daygrid-event.fc-event-start {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  .fc-more-link {
+    font-size: 0.65rem !important;
+    white-space: nowrap;
+  }
+
+  .fc .fc-daygrid-day-bottom {
+    line-height: 1em;
+  }
+
+  .fc-dayGridMonth-view a.fc-daygrid-day-number {
+    height: 16px;
+    width: 16px;
+    line-height: 16px;
+    font-size: 0.7rem;
+    padding: 0;
+  }
+
+  .fc .fc-daygrid-day-top {
+    padding: 2px 5px 0 5px;
+    line-height: 12px;
+  }
+}
+
+@media (min-width:500px) {
+  .fc-dayGridWeek-view .fc-daygrid-event {
+    border-radius: 8px !important;
+  }
+
+  .fc-theme-standard td, .fc-theme-standard th {
+    border: 1px solid #fff !important;
+  }
+
+  .fc-dayGridMonth-view a.fc-daygrid-day-number {
+    height: 30px;
+    width: 30px;
+    line-height: 22px;
+    font-size: 0.9rem;
+  }
+
+  .fc .fc-daygrid-day-top {
+    padding: 5px 5px 0 5px;
+  }
+}
+
+.fc-dayGridDay-view .fc-daygrid-event {
+  border-radius: 5px;
 }
 
 .fc-dayGridMonth-view a.fc-daygrid-day-number {
   border-radius: 50%;
-  width: 30px;
   display: inline-block;
-  height: 30px;
-  line-height: 23px;
   text-align: center;
-  font-size: 0.9rem;
   font-weight: 500;
 }
 
@@ -271,13 +362,7 @@ hr {
 }
 
 
-.fc-theme-standard td, .fc-theme-standard th {
-  border: 2px solid #fff !important;
-}
 
-.fc-dayGridWeek-view table {
-  border-collapse: separate !important;
-}
 
 
 .fc-theme-standard .fc-scrollgrid {
@@ -303,6 +388,12 @@ hr {
   margin-bottom: 5px;
 }
 
+.fc-dayGridDay-view .fc-event-title {
+  margin-bottom: 10px;
+  font-size: 0.85rem;
+  text-overflow: ellipsis;
+}
+
 .fc-event-main-body .fc-event-text {
   line-height: 0.7rem;
   font-size: 0.7rem;
@@ -318,10 +409,14 @@ hr {
 }
 
 .fc-popover .fc-event .fc-event-main,
-.fc-dayGridWeek-view .fc-event .fc-event-main,
-.fc-dayGridDay-view .fc-event .fc-event-main {
+.fc-dayGridWeek-view .fc-event .fc-event-main {
     margin: 5px 5px;
 }
+
+.fc-dayGridDay-view .fc-event .fc-event-main {
+    margin: 10px 5px;
+}
+
 
 :root {
 
@@ -336,12 +431,8 @@ hr {
     display: block !important;
     text-align: right;
     color: #8e8e8e;
-    padding: 5px 5px 0 5px;
   }
 
-.fc-dayGridWeek-view .fc-daygrid-event {
-  border-radius: 8px !important;
-}
 .fc-dayGridMonth-view .fc-daygrid-event {
   border-radius: 6px !important;
 }
@@ -407,7 +498,7 @@ hr {
 }
 
 .btn#curDate {
-  width: 150px;
+  width: 190px;
   /* padding-top: 0.5rem; */
 }
 
@@ -540,6 +631,20 @@ hr {
     display: none !important;
 }
 
+.form-control {
+  font-size: 0.9rem;
+}
+
+[data-bs-color-scheme="dark"] .form-control {
+  background-color: rgb(83, 83, 83);
+  border: 1px solid rgb(76, 76, 76);
+}
+
+[data-bs-color-scheme="dark"] .form-control::placeholder {
+  color: rgb(170, 170, 170);
+}
+
+
 
 @media (min-width:992px) {
   #darkModeSwitch span {
@@ -579,8 +684,22 @@ hr {
 }
 
 #evt-smry .modal-content {
-  background-color: rgb(177, 178, 181);
+  background-color: rgb(255, 255, 255);
   border: solid 3px rgb(81, 162, 218);
+  color: rgb(0, 0, 0);
+}
+
+[data-bs-color-scheme="dark"] #evt-smry .modal-content {
+  background-color: rgb(177, 178, 181);
+  color: rgb(64, 64, 64);
+
+}
+
+.evt-smry-header {
+  color: rgb(140, 140, 140);
+}
+
+[data-bs-color-scheme="dark"] .evt-smry-header {
   color: rgb(64, 64, 64);
 }
 

@@ -14,6 +14,51 @@ function calcCalHeight(){
 }
 
 document.addEventListener('DOMContentLoaded', async function() {
+  function swMonthView(){
+    calendar.changeView('dayGridMonth');
+    $("#curDate").text(calendar.view.title);
+    $("#week").removeClass("active");
+    $("#day").removeClass("active");
+    $("#month").addClass("active");
+  }
+  function swWeekView(){
+    calendar.changeView('dayGridWeek');
+    $("#curDate").text(calendar.view.title);
+    $("#month").removeClass("active");
+    $("#day").removeClass("active");
+    $("#week").addClass("active");
+  }
+  function swDayView(date=none){
+    calendar.changeView('dayGridDay', date);
+    $("#curDate").text(calendar.view.title);
+    $("#month").removeClass("active");
+    $("#week").removeClass("active");
+    $("#day").addClass("active");
+  }
+
+  function eventDetailsHTML(arg){
+    let el = document.createElement('div');
+    el.className = "fc-event-main-body";
+    el.innerHTML = 
+        `<div class="fc-event-title">`+ arg.event.title +`</div>
+         <div class="fc-event-text">
+             `+ arg.event.extendedProps.attendees +` peoples | `+ arg.event.extendedProps.topics +` topics
+         </div>`;
+    return {domNodes: [ el ]}
+  }
+  function eventExtDetailsHTML(arg){
+    let el = document.createElement('div');
+    el.className = "fc-event-main-body";
+    el.innerHTML = 
+        `<div class="fc-event-title">`+ arg.event.title +`</div>
+         <div class="fc-event-text">
+	   <span class="pe-2"><i class="fas fa-clock fa-lg me-2"></i>`+ arg.event.extendedProps.length +` min</span> 
+	   <span class="pe-2"><i class="fas fa-users fa-lg me-2"></i>`+ arg.event.extendedProps.attendees +` peoples</span> 
+           <span><i class="fas fa-comments fa-lg me-2"></i>`+ arg.event.extendedProps.topics +` topics</span>
+         </div>`;
+    return {domNodes: [ el ]}
+  }
+
   var calendarEl = document.getElementById('calendar');
 
   var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -34,6 +79,10 @@ document.addEventListener('DOMContentLoaded', async function() {
       }
     },
 
+    moreLinkClick: function(info) {
+      swDayView(info.date);
+    },
+
     views: {
       dayGridMonth: {
         dayMaxEventRows: true,
@@ -46,27 +95,14 @@ document.addEventListener('DOMContentLoaded', async function() {
           };
         },
         dateClick: function(info) {
-  	calendar.changeView('dayGridDay', info.dateStr);
-          $("#month").removeClass("active");
-          $("#week").removeClass("active");
-          $("#day").addClass("active");
+          swDayView(info.dateStr);
         },
       },
 
       dayGridWeek: {
         dayMaxEventRows: true,
         displayEventTime: false,
-         eventContent: function(arg) {
-  	 console.log(arg);
-           let el = document.createElement('div');
-  	 el.className = "fc-event-main-body";
-  	 el.innerHTML = 
-  	     `<div class="fc-event-title">`+ arg.event.title +`</div>
-  	      <div class="fc-event-text">
-                  `+ arg.event.extendedProps.attendees +` peoples | `+ arg.event.extendedProps.topics +` topics
-  	      </div>`;
-           return {domNodes: [ el ]}
-         },
+        eventContent: eventDetailsHTML,
         dayHeaderContent: function(arg) {
         
           let weekday = arg.date.toLocaleDateString('en-US', {weekday: 'short'});
@@ -88,17 +124,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             end: now,
           };
         },
-        eventContent: function(arg) {
-          console.log(arg);
-          let el = document.createElement('div');
-          el.className = "fc-event-main-body";
-          el.innerHTML = 
-              `<div class="fc-event-title">`+ arg.event.title +`</div>
-               <div class="fc-event-text">
-                 `+ arg.event.extendedProps.attendees +` peoples | `+ arg.event.extendedProps.topics +` topics
-               </div>`;
-          return {domNodes: [ el ]}
-        },
+        eventContent: eventExtDetailsHTML,
       },
     },
     eventTimeFormat: { // like '14:30'
@@ -113,49 +139,38 @@ document.addEventListener('DOMContentLoaded', async function() {
     eventClick: function(info) {
       // info.event.title
       info.jsEvent.preventDefault();
-      $('#evt-smry .modal-content').load('/smry/'+info.event.url,function(){
-        var modal = new bootstrap.Modal(document.getElementById('evt-smry'));
-        modal.show();
+      $('#evt-smry .modal-content').load('/smry/'+info.event.url, function(responseText, textStatus, jqXHR){
+	if(textStatus == "success"){
+          var modal = new bootstrap.Modal(document.getElementById('evt-smry'));
+          modal.show();
+	}
       });
     }
   });
 
-  $("#curDate").text(calendar.getDate().toLocaleDateString('en-US', {month: 'long', year: 'numeric'}));
+  $("#curDate").text(calendar.view.title);
+  // $("#curDate").text(calendar.getDate().toLocaleDateString('en-US', {month: 'long', year: 'numeric'}));
   calendar.render();
 
-  document.getElementById('month').addEventListener('click', function() {
-    calendar.changeView('dayGridMonth'); // call method
-    $("#week").removeClass("active");
-    $("#day").removeClass("active");
-    $("#month").addClass("active");
-  });
-
-  document.getElementById('week').addEventListener('click', function() {
-    calendar.changeView('dayGridWeek'); // call method
-    $("#month").removeClass("active");
-    $("#day").removeClass("active");
-    $("#week").addClass("active");
-  });
-
-  document.getElementById('day').addEventListener('click', function() {
-    calendar.changeView('dayGridDay'); // call method
-    $("#month").removeClass("active");
-    $("#week").removeClass("active");
-    $("#day").addClass("active");
-  });
+  document.getElementById('month').addEventListener('click', swMonthView);
+  document.getElementById('week').addEventListener('click', swWeekView);
+  document.getElementById('day').addEventListener('click', swDayView);
 
   document.getElementById('prev').addEventListener('click', function() {
     calendar.prev();
-    $("#curDate").text(calendar.getDate().toLocaleDateString('en-US', {month: 'long', year: 'numeric'}));
+    $("#curDate").text(calendar.view.title);
+    // $("#curDate").text(calendar.getDate().toLocaleDateString('en-US', {month: 'long', year: 'numeric'}));
   });
 
   document.getElementById('next').addEventListener('click', function() {
     calendar.next();
-    $("#curDate").text(calendar.getDate().toLocaleDateString('en-US', {month: 'long', year: 'numeric'}));
+    $("#curDate").text(calendar.view.title);
+    // $("#curDate").text(calendar.getDate().toLocaleDateString('en-US', {month: 'long', year: 'numeric'}));
   });
 
   document.getElementById('today').addEventListener('click', function() {
     calendar.today();
-    $("#curDate").text(calendar.getDate().toLocaleDateString('en-US', {month: 'long', year: 'numeric'}));
+    $("#curDate").text(calendar.view.title);
+    // $("#curDate").text(calendar.getDate().toLocaleDateString('en-US', {month: 'long', year: 'numeric'}));
   });
 });

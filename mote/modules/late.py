@@ -94,6 +94,7 @@ def fetch_meeting_by_date(start, end):
                             "display": "block",
                             "attendees": len(meet[1]["peoples"]),
                             "topics": len(meet[1]["topics"]),
+                            "length": meet[1]["duration"],
                             "url": meetfile.replace(
                                 app.config["MEETING_DIR"], ""
                             ).replace(".log", ""),
