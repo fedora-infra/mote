@@ -29,10 +29,12 @@ import urllib.request as ulrq
 from datetime import datetime, timedelta
 
 from flask import current_app as app
-from .call import fetch_meeting_summary
+
 from . import sanitize_name
+from .call import fetch_meeting_summary
 
 seconds_delta = 86400
+
 
 def fetch_recent_meetings(days):
     try:
@@ -72,9 +74,7 @@ def fetch_meeting_by_date(start, end):
         meets = fetch_meetings_from_datagreeper(start_date)
     else:
         while cur_date <= end_date:
-            meetlogs = glob.glob(
-                f"{meet_path}/*/{cur_date.strftime('%Y-%m-%d')}/*.log.html"
-            )
+            meetlogs = glob.glob(f"{meet_path}/*/{cur_date.strftime('%Y-%m-%d')}/*.log.html")
             if len(meetlogs):
                 for meetfile in meetlogs:
                     meet = fetch_meeting_summary(meetfile.replace(".log.html", ".html"))
@@ -82,7 +82,6 @@ def fetch_meeting_by_date(start, end):
                         app.config["RECOGNIITION_PATTERN"],
                         os.path.basename(meetfile.replace(".log.html", "")),
                     )
-                    title = meeting.group(1).replace("_", " ")
                     date = datetime.strptime(
                         f"{meeting.group(2)} {meeting.group(3)}", "%Y-%m-%d %H.%M"
                     )
@@ -95,9 +94,9 @@ def fetch_meeting_by_date(start, end):
                             "attendees": len(meet[1]["peoples"]),
                             "topics": len(meet[1]["topics"]),
                             "length": meet[1]["duration"],
-                            "url": meetfile.replace(
-                                app.config["MEETING_DIR"], ""
-                            ).replace(".log", ""),
+                            "url": meetfile.replace(app.config["MEETING_DIR"], "").replace(
+                                ".log", ""
+                            ),
                         }
                     )
             cur_date += timedelta(days=1)
@@ -121,16 +120,11 @@ def fetch_meetings_from_datagreeper(start):
         while cur_page <= total_pages:
             for indx in meeting_rawlist:
                 data = indx["msg"]
-                formatted_timestamp = data["details"]["time_"]
                 meeting = re.search(
                     app.config["RECOGNIITION_PATTERN"],
-                    data["url"]
-                    .replace(app.config["MEETBOT_URL"], "")
-                    .replace(".log.html", ""),
+                    data["url"].replace(app.config["MEETBOT_URL"], "").replace(".log.html", ""),
                 )
-                date = datetime.strptime(
-                    f"{meeting.group(2)} {meeting.group(3)}", "%Y-%m-%d %H.%M"
-                )
+                date = datetime.strptime(f"{meeting.group(2)} {meeting.group(3)}", "%Y-%m-%d %H.%M")
                 meeting_list.append(
                     {
                         "title": sanitize_name(data["meeting_topic"]),
@@ -155,6 +149,6 @@ def fetch_meetings_from_datagreeper(start):
                 meeting_rawlist = parse_object["raw_messages"]
 
         return meeting_list
-    except Exception as expt:
+    except Exception:
         raise
         return []

@@ -21,12 +21,12 @@
 """
 
 import re
+
 from mote.__init__ import __version__ as primvers
 
 __version__ = primvers
 
-def sanitize_name(name):
-  r = r"\s*-?\s*\(?\d+-\d+-\d+\)?$"
-  return re.sub(r,"", name.replace("_", " "))
-    
 
+def sanitize_name(name):
+    r = r"\s*-?\s*\(?\d+-\d+-\d+\)?$"
+    return re.sub(r, "", name.replace("_", " "))

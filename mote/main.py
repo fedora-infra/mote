@@ -35,11 +35,11 @@ from mote.modules.call import (
     fetch_channel_dict,
     fetch_datetxt_dict,
     fetch_meeting_content,
-    fetch_meeting_summary,
     fetch_meeting_dict,
+    fetch_meeting_summary,
 )
 from mote.modules.find import find_meetings_by_substring
-from mote.modules.late import fetch_meeting_by_date, fetch_recent_meetings, sanitize_name
+from mote.modules.late import fetch_meeting_by_date, fetch_recent_meetings
 
 main = Flask(__name__)
 main.config.from_pyfile("config.py")
@@ -142,11 +142,16 @@ def statfile(channame, cldrdate, meetname):
     else:
         abort(404)
 
+
 @main.get("/smry/<channame>/<cldrdate>/<path:meetname>")
 def evtsmry(channame, cldrdate, meetname):
     meetname = meetname.replace(".log.html", "").replace(".html", "")
-    permalink = url_for("statfile", channame=channame, cldrdate=cldrdate, meetname=f"{meetname}.html")
-    full_log = url_for("statfile", channame=channame, cldrdate=cldrdate, meetname=f"{meetname}.log.html")
+    permalink = url_for(
+        "statfile", channame=channame, cldrdate=cldrdate, meetname=f"{meetname}.html"
+    )
+    full_log = url_for(
+        "statfile", channame=channame, cldrdate=cldrdate, meetname=f"{meetname}.log.html"
+    )
     meetpath = f"{main.config['MEETING_DIR']}/{channame}/{cldrdate}/{meetname}.html"
     formatted_timestamp = datetime.strptime(cldrdate, "%Y-%m-%d")
     cldrdate = "{:%B %d, %Y}".format(formatted_timestamp)
@@ -161,10 +166,11 @@ def evtsmry(channame, cldrdate, meetname):
             meet=meet[1],
             startdate=cldrdate,
             permalink=permalink,
-            full_log=full_log
+            full_log=full_log,
         )
     else:
         abort(404)
+
 
 @main.get("/")
 def mainpage():
