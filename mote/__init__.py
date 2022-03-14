@@ -20,4 +20,18 @@
     SOFTWARE.
 """
 
+import logging
+
+from flask import Flask
+from flask_caching import Cache
+from flask_socketio import SocketIO
+
 __version__ = "0.7.0"
+
+app = Flask(__name__)
+app.config.from_pyfile("config.py")
+socketio = SocketIO(app)
+cache = Cache(app)
+logging.basicConfig(
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
+)

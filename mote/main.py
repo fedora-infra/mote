@@ -20,16 +20,16 @@
     SOFTWARE.
 """
 
-import logging
 import re
 from datetime import datetime
 
 import click
 from fedora_messaging import api
-from flask import Flask, abort, jsonify, render_template, request, url_for
-from flask_socketio import SocketIO
+from flask import abort, jsonify, render_template, request, url_for
 from twisted.internet import reactor
 
+from mote import app as main
+from mote import cache, logging, socketio
 from mote.__init__ import __version__
 from mote.modules.call import (
     fetch_channel_dict,
@@ -39,16 +39,10 @@ from mote.modules.call import (
     fetch_meeting_summary,
 )
 from mote.modules.find import find_meetings_by_substring
-from mote.modules.late import fetch_meeting_by_date, fetch_recent_meetings
+from mote.modules.late import fetch_meeting_by_day, fetch_meeting_by_period, fetch_recent_meetings
 
-main = Flask(__name__)
-main.config.from_pyfile("config.py")
-socketio = SocketIO(main)
 thread = None
 client_count = 0
-logging.basicConfig(
-    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
-)
 
 
 @main.get("/fragedpt/")
@@ -109,7 +103,7 @@ def fragedpt():
 def getevents():
     start = request.args.get("start")
     end = request.args.get("end")
-    return jsonify(fetch_meeting_by_date(start, end))
+    return jsonify(fetch_meeting_by_period(start, end))
 
 
 @main.get("/<channame>/<cldrdate>/<path:meetname>")
@@ -204,6 +198,10 @@ def consume_fedora_messaging_msg(message):
             message.body["channel"],
         )
     )
+    # Invalidate today's cache
+    now = datetime.now()
+    cache.delete_memoized(fetch_meeting_by_day, now.strftime("%Y-%m-%d"))
+    # Send client notification
     socketio.emit("show_toast", message.body)
 
 

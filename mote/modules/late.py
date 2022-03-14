@@ -28,7 +28,7 @@ import re
 import urllib.request as ulrq
 from datetime import datetime, timedelta
 
-from flask import current_app as app
+from mote import app, cache
 
 from . import sanitize_name
 from .call import fetch_meeting_summary
@@ -62,44 +62,42 @@ def fetch_recent_meetings(days):
         return False, {"exception": str(expt)}
 
 
-def fetch_meeting_by_date(start, end):
+@cache.memoize(timeout=3600)
+def fetch_meeting_by_day(dateStr):
     meets = []
     meet_path = app.config["MEETING_DIR"]
+    meetlogs = glob.glob(f"{meet_path}/*/{dateStr}/*.log.html")
+    if len(meetlogs):
+        for meetfile in meetlogs:
+            meet = fetch_meeting_summary(meetfile.replace(".log.html", ".html"))
+            meeting = re.search(
+                app.config["RECOGNIITION_PATTERN"],
+                os.path.basename(meetfile.replace(".log.html", "")),
+            )
+            date = datetime.strptime(f"{meeting.group(2)} {meeting.group(3)}", "%Y-%m-%d %H.%M")
+            meets.append(
+                {
+                    "title": meet[1]["title"],
+                    "start": date.isoformat(),
+                    "allDay": False,
+                    "display": "block",
+                    "attendees": len(meet[1]["peoples"]),
+                    "topics": len(meet[1]["topics"]),
+                    "length": meet[1]["duration"],
+                    "url": meetfile.replace(app.config["MEETING_DIR"], "").replace(".log", ""),
+                }
+            )
+    return meets
+
+
+def fetch_meeting_by_period(start, end):
+    meets = []
     start_date = datetime.fromisoformat(start)
     end_date = datetime.fromisoformat(end)
     cur_date = start_date
-    now = datetime.now()
-    if now.year == end_date.year and now.month == end_date.month:
-        print("fetch from datagreeper..")
-        meets = fetch_meetings_from_datagreeper(start_date)
-    else:
-        while cur_date <= end_date:
-            meetlogs = glob.glob(f"{meet_path}/*/{cur_date.strftime('%Y-%m-%d')}/*.log.html")
-            if len(meetlogs):
-                for meetfile in meetlogs:
-                    meet = fetch_meeting_summary(meetfile.replace(".log.html", ".html"))
-                    meeting = re.search(
-                        app.config["RECOGNIITION_PATTERN"],
-                        os.path.basename(meetfile.replace(".log.html", "")),
-                    )
-                    date = datetime.strptime(
-                        f"{meeting.group(2)} {meeting.group(3)}", "%Y-%m-%d %H.%M"
-                    )
-                    meets.append(
-                        {
-                            "title": meet[1]["title"],
-                            "start": date.isoformat(),
-                            "allDay": False,
-                            "display": "block",
-                            "attendees": len(meet[1]["peoples"]),
-                            "topics": len(meet[1]["topics"]),
-                            "length": meet[1]["duration"],
-                            "url": meetfile.replace(app.config["MEETING_DIR"], "").replace(
-                                ".log", ""
-                            ),
-                        }
-                    )
-            cur_date += timedelta(days=1)
+    while cur_date <= end_date:
+        meets += fetch_meeting_by_day(cur_date.strftime("%Y-%m-%d"))
+        cur_date += timedelta(days=1)
     return meets
 
 
