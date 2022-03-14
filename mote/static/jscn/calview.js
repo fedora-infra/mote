@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     eventClick: function(info) {
       // info.event.title
       info.jsEvent.preventDefault();
-      $('#evt-smry .modal-content').load('/smry/'+info.event.url, function(responseText, textStatus, jqXHR){
+      $('#evt-smry .modal-content').load('/smry/'+info.event.url.replace(/^\//, ''), function(responseText, textStatus, jqXHR){
 	if(textStatus == "success"){
           var modal = new bootstrap.Modal(document.getElementById('evt-smry'));
           modal.show();
