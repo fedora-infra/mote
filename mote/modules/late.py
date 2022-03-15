@@ -28,6 +28,8 @@ import re
 import urllib.request as ulrq
 from datetime import datetime, timedelta
 
+import dateutil.parser
+
 from mote import app, cache
 
 from . import sanitize_name
@@ -92,8 +94,8 @@ def fetch_meeting_by_day(dateStr):
 
 def fetch_meeting_by_period(start, end):
     meets = []
-    start_date = datetime.fromisoformat(start)
-    end_date = datetime.fromisoformat(end)
+    start_date = dateutil.parser.parse(start)
+    end_date = dateutil.parser.parse(end)
     cur_date = start_date
     while cur_date <= end_date:
         meets += fetch_meeting_by_day(cur_date.strftime("%Y-%m-%d"))
