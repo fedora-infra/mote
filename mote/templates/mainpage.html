@@ -1,103 +1,12 @@
-<!doctype html>
-<!--
-##########################################################################
-*
-*   Copyright © 2019-2021 Akashdeep Dhar <t0xic0der@fedoraproject.org>
-*
-*   This program is free software: you can redistribute it and/or modify
-*   it under the terms of the GNU General Public License as published by
-*   the Free Software Foundation, either version 3 of the License, or
-*   (at your option) any later version.
-*
-*   This program is distributed in the hope that it will be useful,
-*   but WITHOUT ANY WARRANTY; without even the implied warranty of
-*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-*   GNU General Public License for more details.
-*
-*   You should have received a copy of the GNU General Public License
-*   along with this program.  If not, see <https://www.gnu.org/licenses/>.
-*
-##########################################################################
--->
-<html lang="en" data-bs-color-scheme>
-    <head>
-        <meta charset="utf-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1"/>
-	<meta name="color-scheme" content="light dark">
-        <link rel="icon" href="{{ url_for('static', filename='imgs/logoteal.png') }}" sizes="16x16">
-        <link href="{{ url_for('static', filename='css3/custom_fonts.css') }}" rel="stylesheet"/>
-	<link href="{{ url_for('static', filename='css3/bootstrap-blackbox.min.css') }}" rel="stylesheet">
-        <link href="{{ url_for('static', filename='css3/fragment.css') }}" rel="stylesheet"/>
-        <link href="{{ url_for('static', filename='css3/fontawesome-all.min.css') }}" rel="stylesheet"/>
+{% extends "base.html.j2" %}
+{% block head %}
         <link href="{{ url_for('static', filename='css3/fullcalendar.css') }}" rel="stylesheet"/>
-        <script src="{{ url_for('static', filename='jscn/bootstrap.bundle.min.js') }}"></script>
-        <script src="{{ url_for('static', filename='jscn/jquery.min.js') }}"></script>
-        <script src="{{ url_for('static', filename='jscn/fragment.js') }}"></script>
-        <script src="{{ url_for('static', filename='jscn/easy.qrcode.min.js') }}"></script>
         <script src="{{ url_for('static', filename='jscn/socket.io.js') }}"></script>
         <script src="{{ url_for('static', filename='jscn/fullcalendar.js') }}"></script>
         <script src="{{ url_for('static', filename='jscn/calview.js') }}"></script>
-        <title>Meetbot Logs</title>
-    </head>
-    <body class="body bg-light">
-        <nav class="navbar sticky-top navbar-expand-lg navbar-light p-1">
-            <div class="container-lg"> 
-                <a class="navbar-brand" href="#">
-                    <div class="logo"></div>
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                        aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item" id="loader">
-                          <a class="nav-link active" aria-current="page" type="button">
-                              Meetings by Date
-                          </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" data-bs-toggle="modal" data-bs-target="#chanmode"
-                                type="button" onclick="populate_channel_list();">
-                                Meetings by Channel
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" type="button" href="#">
-                                Meetings by Group
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" type="button" href="/about">
-                                About
-                            </a>
-                        </li>
-                     <li class="nav-item">
-			<a id="darkModeSwitch" class="nav-link" type="button">
-			  <i class="fas fa-moon fa-fw d-light-inline" title="Switch to dark mode"></i>
-			  <i title="Switch to light mode" class="fas fa-sun d-dark-inline"></i>
-			  <span class="d-dark-inline">Switch to light mode</span>
-			  <span class="d-light-inline">Switch to dark mode</span>
-			</a>
-                     </li>
-                    </ul>
-                    <div class="d-flex flex-column justify-content-center align-items-center">
-                        <div class="input-group">
-                            <input type="text" autocomplete="off" class="form-control"
-                                placeholder="Search meeting logs..."
-                                aria-label="Search meeting logs" aria-describedby="findtext"
-                                style="width: 350px;" id="findtext">
-                        </div>
-                        <div class="input-group" data-bs-auto-close="true">
-                            <ul class="dropdown-menu w-100" id="dropdown">
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </nav>
-        <div class="container-lg px-0 px-lg-2">
+{% endblock %}
+
+{% block content %}
             <div class="card mt-1">
                 <div class="card-body">
                     <div class="">
@@ -150,7 +59,9 @@
                     </span>
                 </div>
             </div>
-        </div>
+{% endblock %}
+
+{% block tail %}
         <div class="modal fade"
              aria-hidden="true"
              data-bs-backdrop="static"
@@ -400,7 +311,9 @@
 	        <div class="modal-content"></div>
 	    </div>
 	</div>
-    </body>
+{% endblock %}
+
+{% block endpage %}
     <script>
         var socket = io.connect();
         function meetingEnded(msg){
@@ -424,128 +337,6 @@
         socket.on("show_toast", function (msg) {
             meetingEnded(msg);
         });
-
-        $(document).on("click", "#findtext", function (event) {
-            var dropdownDiv = document.getElementById('dropdown');
-            dropdownDiv.innerHTML =
-                `<li><a class="dropdown-item" type="button">Enter four or more characters to search</a></li>`
-            dropdownDiv.classList.add("show");
-        })
-        $(document).on("keyup", "#findtext", function (event) {
-            var dropdownDiv = document.getElementById('dropdown');
-            dropdownDiv.innerHTML =
-                `<li><a class="dropdown-item" type="button">Enter four or more characters to search</a></li>`
-            dropdownDiv.classList.add("show");
-            search_results();
-        });
-        async function populate_channels(data) {
-            data = JSON.parse(decodeURIComponent(data))
-            initialize_search_modal();
-            document.getElementsByClassName("input-group mb-3")[0].innerHTML = ""
-            document.getElementById("findtext").value = "";
-            document.getElementById("none-find").innerHTML = "";
-            document.getElementById("find-cont").innerHTML = `
-                    <div class="text-center text-muted mt-1 mb-1">${data.length} conversation(s) found</div>
-                    <ul class="list-group" id="listfind-uols"></ul>
-                `;
-            document.getElementById("find-init").innerHTML = "";
-            for (let indx in data) {
-                $("#listfind-uols").append(`
-                        <a class="list-group-item list-group-item-action" 
-                        type="button" 
-                        href="${data[indx]["slug"]["summary"]}" 
-                        target="_blank">
-                            <div class="head h4 ellipsis">
-                                <span>${data[indx]["topic"]}</span>
-                            </div>
-                            <div class="fst-italic small text-muted mt-1">
-                                <i class="fas fa-clock"></i>&nbsp;${data[indx]["time"]}&nbsp;
-                                <i class="fas fa-calendar"></i>&nbsp;${data[indx]["date"]}&nbsp;
-                                <i class="fas fa-layer-group"></i>&nbsp;${data[indx]["channel"]}&nbsp;
-                            </div>
-                        </a>
-                    `);
-            }
-        }
-
-        function debounce(func, timeout = 300) {
-            let timer;
-            return (...args) => {
-                clearTimeout(timer);
-                timer = setTimeout(() => {
-                    func.apply(this, args);
-                }, timeout);
-            };
-        }
-
-        const search_results = debounce(() => fetch_search_results());
-
-        let prevValue = ""
-        async function fetch_search_results() {
-            let value = document.getElementById("findtext").value.toLowerCase();
-            if (value != "") {
-                if (value.length > 3 && value !== prevValue) {
-                    var dropdownDiv = document.getElementById('dropdown');
-                    dropdownDiv.innerHTML =
-                        `<li><a class="dropdown-item" type="button">Loading...</a></li>`
-                    dropdownDiv.classList.add("show")
-                    prevValue = value
-                    await $.getJSON("/fragedpt/", {
-                        "rqstdata": "srchmeet",
-                        "srchtext": value
-                    }, function (data) {
-                        results = data
-                        results.sort((a, b) => (new Date(a.date).toLocaleDateString().split("/").reverse().join(
-                                "") < new Date(b.date).toLocaleDateString().split("/").reverse().join(
-                                "")) ? 1 :
-                            ((new Date(a.date).toLocaleDateString().split("/").reverse().join("") >
-                                new Date(b
-                                    .date).toLocaleDateString().split("/").reverse().join("")) ? -1 : 0))
-                    })
-                    var dropdownDiv = document.getElementById('dropdown');
-                    var htmlData = ""
-                    if (results.length === 0) {
-                        htmlData += `<li><a class="dropdown-item" type="button">No meetings found</a></li>`
-                    } else if (results.length !== undefined) {
-
-                        for (var i = 0; i < 5; i++) {
-                            if (results[i] !== undefined) {
-                                htmlData +=
-                                    `<li><a class="dropdown-item" type="button"
-                                target="_blank"
-                                href=${results[i].slug.summary}>
-                                <div class="head h4 ellipsis">
-                                    <span style="font-size: 16px;">${results[i].topic}</span>
-                                </div>
-                                <div class="fst-italic small text-muted mt-1">
-                                    <i class="fas fa-clock"></i>&nbsp;${results[i].time}&nbsp;
-                                    <i class="fas fa-calendar"></i>&nbsp;${results[i].date}&nbsp;
-                                    <i class="fas fa-layer-group"></i>&nbsp;${results[i].channel}&nbsp;
-                                </div>
-                                </a></li>`
-                            }
-                        }
-                        if (results.length > 5) {
-                            htmlData += `
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" style="font-weight:bold;" id="show-more" type="button" aria-current="page" data-bs-toggle="modal" data-bs-target="#findmode" type="button" onclick="populate_channels('${encodeURIComponent(JSON.stringify(results))}');">Show More</a></li>
-                    `
-                        }
-                    }
-                    dropdownDiv.innerHTML = htmlData
-                    dropdownDiv.classList.add("show")
-                }
-            } else {
-                var dropdownDiv = document.getElementById('dropdown');
-                dropdownDiv.innerHTML =
-                    `<li><a class="dropdown-item" type="button">Enter four or more characters to search</a></li>`
-                dropdownDiv.classList.add("show")
-            }
-        }
-        $('body').on('click', function (e) {
-            document.getElementById('dropdown').classList.remove("show")
-        });
-
     </script>
-    <script src="{{ url_for('static', filename='jscn/darkmode.min.js') }}"></script>
-</html>
+{% endblock %}
+
