@@ -38,11 +38,15 @@ from mote.modules.call import (
     fetch_meeting_dict,
     fetch_meeting_summary,
 )
-from mote.modules.find import find_meetings_by_substring
+from mote.modules.find import find_meetings_by_substring, get_meetings_files
 from mote.modules.late import fetch_meeting_by_day, fetch_meeting_by_period, fetch_recent_meetings
 
 thread = None
 client_count = 0
+
+with main.app_context():
+    # build cache
+    get_meetings_files()
 
 
 @main.get("/fragedpt/")

@@ -62,7 +62,7 @@ def fetch_recent_meetings(days):
         return False, {"exception": str(expt)}
 
 
-@cache.memoize(timeout=3600)
+@cache.memoize(timeout=0)
 def fetch_meeting_by_day(dateStr):
     meets = []
     meet_path = app.config["MEETING_DIR"]
