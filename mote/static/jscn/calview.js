@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     el.innerHTML = 
         `<div class="fc-event-title">`+ arg.event.title +`</div>
          <div class="fc-event-text">
-             `+ arg.event.extendedProps.attendees +` peoples | `+ arg.event.extendedProps.topics +` topics
+             `+ arg.event.extendedProps.attendees +` people | `+ arg.event.extendedProps.topics +` topics
          </div>`;
     return {domNodes: [ el ]}
   }
@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         `<div class="fc-event-title">`+ arg.event.title +`</div>
          <div class="fc-event-text">
 	   <span class="pe-2"><i class="fas fa-clock fa-lg me-2"></i>`+ arg.event.extendedProps.length +` min</span> 
-	   <span class="pe-2"><i class="fas fa-users fa-lg me-2"></i>`+ arg.event.extendedProps.attendees +` peoples</span> 
+	   <span class="pe-2"><i class="fas fa-users fa-lg me-2"></i>`+ arg.event.extendedProps.attendees +` people</span> 
            <span><i class="fas fa-comments fa-lg me-2"></i>`+ arg.event.extendedProps.topics +` topics</span>
          </div>`;
     return {domNodes: [ el ]}
