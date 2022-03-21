@@ -4,6 +4,7 @@ import urllib.request
 
 from mote import app, cache
 from mote.modules.find import get_meetings_files
+from mote.modules.late import fetch_meeting_by_day
 
 
 def build_cache():
@@ -27,3 +28,4 @@ def process_new_meet(meet):
     logging.info(f"downloading {log_url}...")
     urllib.request.urlretrieve(log_url, log_path)
     # TODO: clear cache
+    cache.delete_memoized(fetch_meeting_by_day, basepath.split("/")[2])
