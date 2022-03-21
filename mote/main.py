@@ -24,12 +24,10 @@ import re
 from datetime import datetime
 
 import click
-from fedora_messaging import api
 from flask import abort, jsonify, render_template, request, url_for
-from twisted.internet import reactor
 
 from mote import app as main
-from mote import cache, logging, socketio
+from mote import logging, socketio
 from mote.__init__ import __version__
 from mote.modules.call import (
     fetch_channel_dict,
@@ -38,15 +36,14 @@ from mote.modules.call import (
     fetch_meeting_dict,
     fetch_meeting_summary,
 )
-from mote.modules.find import find_meetings_by_substring, get_meetings_files
-from mote.modules.late import fetch_meeting_by_day, fetch_meeting_by_period, fetch_recent_meetings
+from mote.modules.find import find_meetings_by_substring
+from mote.modules.late import fetch_meeting_by_period, fetch_recent_meetings
 
 thread = None
 client_count = 0
 
-with main.app_context():
-    # build cache
-    get_meetings_files()
+if main.config["CACHE_TYPE"] == "RedisCache":
+    rq_job = main.task_queue.enqueue("mote.tasks.build_cache")
 
 
 @main.get("/fragedpt/")
@@ -178,35 +175,6 @@ def mainpage():
 @main.get("/about")
 def aboutpage():
     return render_template("aboutpage.html")
-
-
-@main.before_first_request
-def init_fedora_messaging():
-    global thread
-    if thread is None:
-        thread = socketio.start_background_task(fedora_messaging_consumer)
-
-
-def fedora_messaging_consumer():
-    logging.info("fedora_messaging_consumer: starting thread")
-    api.twisted_consume(consume_fedora_messaging_msg)
-    reactor.run(installSignalHandlers=False)
-    logging.info("fedora_messaging_consumer: exiting thread")
-
-
-def consume_fedora_messaging_msg(message):
-    logging.info(
-        "fedora_messaging - meeting ended: %s in %s"
-        % (
-            message.body["meeting_topic"],
-            message.body["channel"],
-        )
-    )
-    # Invalidate today's cache
-    now = datetime.now()
-    cache.delete_memoized(fetch_meeting_by_day, now.strftime("%Y-%m-%d"))
-    # Send client notification
-    socketio.emit("show_toast", message.body)
 
 
 @socketio.on("connect")

@@ -22,15 +22,25 @@
 
 import logging
 
+import rq
 from flask import Flask
 from flask_caching import Cache
 from flask_socketio import SocketIO
+from redis import Redis
 
 __version__ = "0.7.0"
 
+
 app = Flask(__name__)
 app.config.from_pyfile("config.py")
-socketio = SocketIO(app)
+
+if app.config["CACHE_TYPE"] == "RedisCache":
+    app.redis = Redis.from_url(app.config["CACHE_REDIS_URL"])
+    app.task_queue = rq.Queue("tasks", connection=app.redis, default_timeout=60 * 10)
+    socketio = SocketIO(app, message_queue=app.config["CACHE_REDIS_URL"])
+else:
+    socketio = SocketIO(app)
+
 cache = Cache(app)
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
