@@ -64,6 +64,25 @@ def fetch_recent_meetings(days):
         return False, {"exception": str(expt)}
 
 
+def get_meeting_info(meetpath):
+    meet = fetch_meeting_summary(f"{meetpath}.html")
+    meeting = re.search(
+        app.config["RECOGNIITION_PATTERN"],
+        os.path.basename(meetpath),
+    )
+    date = datetime.strptime(f"{meeting.group(2)} {meeting.group(3)}", "%Y-%m-%d %H.%M")
+    return {
+        "title": meet[1]["title"],
+        "start": date.isoformat(),
+        "allDay": False,
+        "display": "block",
+        "attendees": len(meet[1]["peoples"]),
+        "topics": len(meet[1]["topics"]),
+        "length": meet[1]["duration"],
+        "url": meetpath.replace(app.config["MEETING_DIR"], "") + ".html",
+    }
+
+
 @cache.memoize(timeout=0)
 def fetch_meeting_by_day(dateStr):
     meets = []
@@ -71,24 +90,7 @@ def fetch_meeting_by_day(dateStr):
     meetlogs = glob.glob(f"{meet_path}/*/{dateStr}/*.log.html")
     if len(meetlogs):
         for meetfile in meetlogs:
-            meet = fetch_meeting_summary(meetfile.replace(".log.html", ".html"))
-            meeting = re.search(
-                app.config["RECOGNIITION_PATTERN"],
-                os.path.basename(meetfile.replace(".log.html", "")),
-            )
-            date = datetime.strptime(f"{meeting.group(2)} {meeting.group(3)}", "%Y-%m-%d %H.%M")
-            meets.append(
-                {
-                    "title": meet[1]["title"],
-                    "start": date.isoformat(),
-                    "allDay": False,
-                    "display": "block",
-                    "attendees": len(meet[1]["peoples"]),
-                    "topics": len(meet[1]["topics"]),
-                    "length": meet[1]["duration"],
-                    "url": meetfile.replace(app.config["MEETING_DIR"], "").replace(".log", ""),
-                }
-            )
+            meets.append(get_meeting_info(meetfile.replace(".log.html", "")))
     return meets
 
 

@@ -173,4 +173,8 @@ document.addEventListener('DOMContentLoaded', async function() {
     $("#curDate").text(calendar.view.title);
     // $("#curDate").text(calendar.getDate().toLocaleDateString('en-US', {month: 'long', year: 'numeric'}));
   });
+
+  socket.on("add_event", function (event) {
+    calendar.addEvent(event, true);
+  });
 });
