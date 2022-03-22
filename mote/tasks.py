@@ -14,7 +14,7 @@ socketio = SocketIO(message_queue=REDIS_URL)
 
 def build_cache():
     logging.info("rebuilding cache")
-    cache.delete_memoized(get_meetings_files)
+    cache.delete("meetings_files")
     get_meetings_files()
 
 
@@ -32,8 +32,15 @@ def process_new_meet(meet):
     urllib.request.urlretrieve(smry_url, smry_path)
     logging.info(f"downloading {log_url}...")
     urllib.request.urlretrieve(log_url, log_path)
+
     # clear cache
     cache.delete_memoized(fetch_meeting_by_day, basepath.split("/")[2])
+
+    # add files to file_cache (root, file)
+    file_cache = cache.get("meetings_files")
+    file_cache.append((os.path.dirname(smry_path), os.path.basename(smry_path)))
+    cache.set("meetings_files", file_cache)
+
     # send new event to clients
     event = get_meeting_info(app.config["MEETING_DIR"] + basepath)
     socketio.emit("add_event", event)

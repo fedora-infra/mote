@@ -29,26 +29,28 @@ from datetime import datetime
 from mote import app, cache, logging
 
 
-@cache.memoize(0)
 def get_meetings_files():
-    files_list = []
-    directory_path = f"{os.path.dirname(app.config['MEETING_DIR'])}"
-    for root, dirs, files in os.walk(directory_path):
-        for file in files:
-            if file.endswith(".log.html") and not root.startswith(
-                app.config["MEETING_DIR"] + "/teams/"
-            ):
-                # validate path format
-                # rootpath/<channel>/<datestr>/<file.log.html>
-                full_path = os.path.join(root, file)
-                if re.search(
-                    r"\/?(?P<channel>[^/]+)\/(?P<datestr>\d{4}-\d{2}-\d{2})\/(?P<filename>[^/]+\.log\.html)$",  # noqa
-                    full_path,
+    files_list = cache.get("meetings_files")
+    if files_list is None:
+        files_list = []
+        directory_path = f"{os.path.dirname(app.config['MEETING_DIR'])}"
+        for root, dirs, files in os.walk(directory_path):
+            for file in files:
+                if file.endswith(".log.html") and not root.startswith(
+                    app.config["MEETING_DIR"] + "/teams/"
                 ):
-                    files_list.append((root, file))
-                else:
-                    logging.error(f"discarding invalid meeting file: {full_path}")
-    logging.info("get_meetings_files completed")
+                    # validate path format
+                    # rootpath/<channel>/<datestr>/<file.log.html>
+                    full_path = os.path.join(root, file)
+                    if re.search(
+                        r"\/?(?P<channel>[^/]+)\/(?P<datestr>\d{4}-\d{2}-\d{2})\/(?P<filename>[^/]+\.log\.html)$",  # noqa
+                        full_path,
+                    ):
+                        files_list.append((root, file))
+                    else:
+                        logging.error(f"discarding invalid meeting file: {full_path}")
+        logging.info("get_meetings_files cache built")
+        cache.set("meetings_files", files_list)
     return files_list
 
 
