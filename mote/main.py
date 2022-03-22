@@ -55,14 +55,16 @@ def fragedpt():
         if chanobjc[0]:
             response = chanobjc[1]
         else:
-            print("Channel list could not be retrieved")
+            logging.error("Channel list could not be retrieved")
+
     elif rqstdata == "listdate":
         channame = request.args.get("channame")
         dateobjc = fetch_datetxt_dict(channame)
         if dateobjc[0]:
             response = dateobjc[1]
         else:
-            print("Date list could not be retrieved")
+            logging.error("Date list could not be retrieved")
+
     elif rqstdata == "listmeet":
         channame = request.args.get("channame")
         datename = request.args.get("datename")
@@ -70,33 +72,39 @@ def fragedpt():
         if meetobjc[0]:
             response = meetobjc[1]
         else:
-            print("Meeting list could not be retrieved")
+            logging.error("Meeting list could not be retrieved")
+
     elif rqstdata == "srchmeet":
+        response = []
         srchtext = request.args.get("srchtext")
         srchrslt = find_meetings_by_substring(srchtext)
         if srchrslt[0]:
             response = srchrslt[1]
         else:
-            print("Meetings could not be looked up")
+            logging.error("Meetings could not be looked up:")
+
     elif rqstdata == "rcntlsdy":
         meetlist = fetch_recent_meetings(1)
         if meetlist[0]:
             response = meetlist[1]
         else:
-            print("List of recent meetings could not retrieved (last day)")
+            logging.error("List of recent meetings could not retrieved (last day)")
+
     elif rqstdata == "clndrmtgs":
         numdays = request.args.get("numdays")
         meetlist = fetch_recent_meetings(int(numdays))
         if meetlist[0]:
             response = meetlist[1]
         else:
-            print("List of meetings for the month could not retrieved")
+            logging.error("List of meetings for the month could not retrieved")
+
     elif rqstdata == "rcntlswk":
         meetlist = fetch_recent_meetings(7)
         if meetlist[0]:
             response = meetlist[1]
         else:
-            print("List of recent meetings could not retrieved (last week)")
+            logging.error("List of recent meetings could not retrieved (last week)")
+
     return jsonify(response)
 
 
@@ -114,7 +122,6 @@ def statfile(channame, cldrdate, meetname):
     meetpath = main.config["MEETING_DIR"] + request.path
     formatted_timestamp = datetime.strptime(cldrdate, "%Y-%m-%d")
     cldrdate = "{:%B %d, %Y}".format(formatted_timestamp)
-    print(meetpath)
     if meetpath[-1] == "/":
         meetpath = meetpath[0:-1]
     meetcont = fetch_meeting_content(meetpath)
@@ -150,11 +157,9 @@ def evtsmry(channame, cldrdate, meetname):
     meetpath = f"{main.config['MEETING_DIR']}/{channame}/{cldrdate}/{meetname}.html"
     formatted_timestamp = datetime.strptime(cldrdate, "%Y-%m-%d")
     cldrdate = "{:%B %d, %Y}".format(formatted_timestamp)
-    print(meetpath)
     if meetpath[-1] == "/":
         meetpath = meetpath[0:-1]
     meet = fetch_meeting_summary(meetpath)
-    print(meet)
     if meet[0]:
         return render_template(
             "event_summary.html",

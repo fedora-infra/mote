@@ -91,6 +91,7 @@ def find_meetings_by_substring(search_string: str):
                     meeting_dictionary.append(meeting_object)
         return True, meeting_dictionary
     except Exception as expt:
+        logging.exception(expt)
         return False, {"exception": str(expt)}
 
 

@@ -30,7 +30,7 @@ from datetime import datetime, timedelta
 
 import dateutil.parser
 
-from mote import app, cache
+from mote import app, cache, logging
 
 from . import sanitize_name
 from .call import fetch_meeting_summary
@@ -61,6 +61,7 @@ def fetch_recent_meetings(days):
             }
         return True, meeting_dict
     except Exception as expt:
+        logging.exception(expt)
         return False, {"exception": str(expt)}
 
 
@@ -113,7 +114,6 @@ def fetch_meetings_from_datagreeper(start):
         source = "{}/datagrepper/raw?start={}&topic={}".format(
             app.config["DATAGREPPER_BASE_URL"], start.isoformat(), topic
         )
-        print(source)
         parse_object = json.loads(ulrq.urlopen(source).read().decode())
         meeting_rawlist = parse_object["raw_messages"]
         meeting_list = []
@@ -146,11 +146,10 @@ def fetch_meetings_from_datagreeper(start):
                     topic,
                     cur_page,
                 )
-                print(source)
                 parse_object = json.loads(ulrq.urlopen(source).read().decode())
                 meeting_rawlist = parse_object["raw_messages"]
 
         return meeting_list
-    except Exception:
-        raise
+    except Exception as expt:
+        logging.exception(expt)
         return []

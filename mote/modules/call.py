@@ -27,6 +27,7 @@ from datetime import datetime
 
 import bs4 as btsp
 from flask import current_app as app
+from mote import logging
 
 from . import sanitize_name
 
@@ -39,6 +40,7 @@ def fetch_channel_dict():
             channel_dict[channel] = f"{app.config['MEETBOT_RAW_URL']}/{channel}"
         return True, channel_dict
     except Exception as expt:
+        logging.exception(expt)
         return False, {"exception": str(expt)}
 
 
@@ -50,6 +52,7 @@ def fetch_datetxt_dict(channel: str):
             datetxt_dict[datetxt] = f"{app.config['MEETBOT_RAW_URL']}/{channel}/{datetxt}"
         return True, datetxt_dict
     except Exception as expt:
+        logging.exception(expt)
         return False, {"exception": str(expt)}
 
 
@@ -92,6 +95,7 @@ def fetch_meeting_dict(channel: str, datetxt: str):
                 meeting_list.append(meeting_object)
         return True, meeting_list
     except Exception as expt:
+        logging.exception(expt)
         return False, {"exception": str(expt)}
 
 
@@ -102,7 +106,8 @@ def fetch_meeting_content(contpath: str):
         parse_object = btsp.BeautifulSoup(source, "html.parser")
         contdata = parse_object.find("body").decode()
         return True, contdata
-    except Exception:
+    except Exception as expt:
+        logging.exception(expt)
         return False, ""
 
 
@@ -151,4 +156,5 @@ def fetch_meeting_summary(contpath: str):
 
         return True, event
     except Exception as exc:
+        logging.exception(exc)
         return False, exc
