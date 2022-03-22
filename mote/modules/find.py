@@ -38,7 +38,16 @@ def get_meetings_files():
             if file.endswith(".log.html") and not root.startswith(
                 app.config["MEETING_DIR"] + "/teams/"
             ):
-                files_list.append((root, file))
+                # validate path format
+                # rootpath/<channel>/<datestr>/<file.log.html>
+                full_path = os.path.join(root, file)
+                if re.search(
+                    r"\/?(?P<channel>[^/]+)\/(?P<datestr>\d{4}-\d{2}-\d{2})\/(?P<filename>[^/]+\.log\.html)$",  # noqa
+                    full_path,
+                ):
+                    files_list.append((root, file))
+                else:
+                    logging.error(f"discarding invalid meeting file: {full_path}")
     logging.info("get_meetings_files completed")
     return files_list
 

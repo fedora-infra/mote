@@ -27,6 +27,7 @@ from datetime import datetime
 
 import bs4 as btsp
 from flask import current_app as app
+
 from mote import logging
 
 from . import sanitize_name

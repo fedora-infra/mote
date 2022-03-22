@@ -21,6 +21,7 @@
 """
 
 import logging
+import os
 
 import rq
 from flask import Flask
@@ -42,6 +43,7 @@ else:
     socketio = SocketIO(app)
 
 cache = Cache(app)
-logging.basicConfig(
-    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
-)
+loglevel = logging.INFO
+if os.environ.get("LOGLEVEL") and os.environ.get("LOGLEVEL").isnumeric():
+    loglevel = int(os.environ.get("LOGLEVEL"))
+logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=loglevel)
