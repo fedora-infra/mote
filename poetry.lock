@@ -650,7 +650,7 @@ tests = ["mock"]
 
 [[package]]
 name = "python-engineio"
-version = "4.3.1"
+version = "4.3.2"
 description = "Engine.IO server and client for Python"
 category = "main"
 optional = false
@@ -1324,8 +1324,8 @@ pytest-isort = [
     {file = "pytest_isort-2.0.0-py3-none-any.whl", hash = "sha256:ab949c593213dad38ba75db32a0ce361fcddd11d4152be4a2c93b85104cc4376"},
 ]
 python-engineio = [
-    {file = "python-engineio-4.3.1.tar.gz", hash = "sha256:6e1d26977ffefe3b7da1b5df7a8750aedc7686da8201cd90daf36693db122489"},
-    {file = "python_engineio-4.3.1-py3-none-any.whl", hash = "sha256:85986067cb9f7695347954d4e03491f7d45152c5428c07109a9707e04e8942cb"},
+    {file = "python-engineio-4.3.2.tar.gz", hash = "sha256:e02f8d6686663408533726be2d4ceb403914fd17285d247791c6a91623777bdd"},
+    {file = "python_engineio-4.3.2-py3-none-any.whl", hash = "sha256:cd3dfa8a939471db60d2704ab0108493c827f399ed5f59c8217e3c3b02c9ea64"},
 ]
 python-socketio = [
     {file = "python-socketio-5.5.2.tar.gz", hash = "sha256:6213f7dfbb87e554472d11151f96bae9059854aa88e4a1e0fa6e97cca1c3fcf4"},
