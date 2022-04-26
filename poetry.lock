@@ -234,7 +234,7 @@ dotenv = ["python-dotenv"]
 
 [[package]]
 name = "flask-socketio"
-version = "5.1.1"
+version = "5.1.2"
 description = "Socket.IO integration for Flask applications"
 category = "main"
 optional = false
@@ -1018,8 +1018,8 @@ flask = [
     {file = "Flask-2.1.0.tar.gz", hash = "sha256:c4dd4a3d8fcae9f892e3f61edfbb1d3cdf9ac03dc72ea1bf8d5c6c964a669674"},
 ]
 flask-socketio = [
-    {file = "Flask-SocketIO-5.1.1.tar.gz", hash = "sha256:1efdaacc7a26e94f2b197a80079b1058f6aa644a6094c0a322349e2b9c41f6b1"},
-    {file = "Flask_SocketIO-5.1.1-py3-none-any.whl", hash = "sha256:07e1899e3b4851978b2ac8642080156c6294f8d0fc5212b4e4bcca713830306a"},
+    {file = "Flask-SocketIO-5.1.2.tar.gz", hash = "sha256:933bcc887ef463a9b78d76f8f86174f63a32d12a5406b99f452cdf3b129ebba3"},
+    {file = "Flask_SocketIO-5.1.2-py3-none-any.whl", hash = "sha256:eb0a1b9924bf899a20311326601e1c659fc9779175f778e495ddc5a438108c54"},
 ]
 gevent = [
     {file = "gevent-21.12.0-cp27-cp27m-macosx_10_14_x86_64.whl", hash = "sha256:2afa3f3ad528155433f6ac8bd64fa5cc303855b97004416ec719a6b1ca179481"},
