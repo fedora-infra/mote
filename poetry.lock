@@ -182,7 +182,7 @@ test = ["pytest (>=6.2.0)", "pytest-benchmark", "pytest-cov", "pytest-subtests",
 
 [[package]]
 name = "fedora-messaging"
-version = "3.0.0"
+version = "3.0.1"
 description = "A set of tools for using Fedora's messaging infrastructure"
 category = "main"
 optional = false
@@ -1008,8 +1008,8 @@ cryptography = [
     {file = "cryptography-37.0.2.tar.gz", hash = "sha256:f224ad253cc9cea7568f49077007d2263efa57396a2f2f78114066fd54b5c68e"},
 ]
 fedora-messaging = [
-    {file = "fedora_messaging-3.0.0-py2.py3-none-any.whl", hash = "sha256:f52b2d5b5f4408e8ca4ef64d8685de38ec66fb179a690b4566d937e3b2ec382e"},
-    {file = "fedora_messaging-3.0.0.tar.gz", hash = "sha256:62f5641ea776f3475657210bf76e8f69841a1149bb53e611c9cc3c837fcbf36a"},
+    {file = "fedora_messaging-3.0.1-py3-none-any.whl", hash = "sha256:782fa2aafaae36ec040c7bfd940cbd5a728b3707d0974f0e4364b24266454358"},
+    {file = "fedora_messaging-3.0.1.tar.gz", hash = "sha256:7c68bd2a2d69606c25bf01693b92f8931e1888876f064667da37c5c635b0e866"},
 ]
 flake8 = [
     {file = "flake8-3.9.2-py2.py3-none-any.whl", hash = "sha256:bf8fd333346d844f616e8d47905ef3a3384edae6b4e9beb0c5101e25e3110907"},
