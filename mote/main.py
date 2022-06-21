@@ -20,34 +20,30 @@
     SOFTWARE.
 """
 
-import logging
 import re
 from datetime import datetime
 
 import click
-from fedora_messaging import api
-from flask import Flask, abort, jsonify, render_template, request
-from flask_socketio import SocketIO
-from twisted.internet import reactor
+from flask import abort, jsonify, render_template, request, url_for
 
+from mote import app as main
+from mote import logging, socketio
 from mote.__init__ import __version__
 from mote.modules.call import (
     fetch_channel_dict,
     fetch_datetxt_dict,
     fetch_meeting_content,
     fetch_meeting_dict,
+    fetch_meeting_summary,
 )
 from mote.modules.find import find_meetings_by_substring
-from mote.modules.late import fetch_recent_meetings
+from mote.modules.late import fetch_meeting_by_period, fetch_recent_meetings
 
-main = Flask(__name__)
-main.config.from_pyfile("config.py")
-socketio = SocketIO(main)
 thread = None
 client_count = 0
-logging.basicConfig(
-    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
-)
+
+if main.config["CACHE_TYPE"] == "RedisCache":
+    rq_job = main.task_queue.enqueue("mote.tasks.build_cache")
 
 
 @main.get("/fragedpt/")
@@ -59,14 +55,16 @@ def fragedpt():
         if chanobjc[0]:
             response = chanobjc[1]
         else:
-            print("Channel list could not be retrieved")
+            logging.error("Channel list could not be retrieved")
+
     elif rqstdata == "listdate":
         channame = request.args.get("channame")
         dateobjc = fetch_datetxt_dict(channame)
         if dateobjc[0]:
             response = dateobjc[1]
         else:
-            print("Date list could not be retrieved")
+            logging.error("Date list could not be retrieved")
+
     elif rqstdata == "listmeet":
         channame = request.args.get("channame")
         datename = request.args.get("datename")
@@ -74,34 +72,47 @@ def fragedpt():
         if meetobjc[0]:
             response = meetobjc[1]
         else:
-            print("Meeting list could not be retrieved")
+            logging.error("Meeting list could not be retrieved")
+
     elif rqstdata == "srchmeet":
+        response = []
         srchtext = request.args.get("srchtext")
         srchrslt = find_meetings_by_substring(srchtext)
         if srchrslt[0]:
             response = srchrslt[1]
         else:
-            print("Meetings could not be looked up")
+            logging.error("Meetings could not be looked up:")
+
     elif rqstdata == "rcntlsdy":
         meetlist = fetch_recent_meetings(1)
         if meetlist[0]:
             response = meetlist[1]
         else:
-            print("List of recent meetings could not retrieved (last day)")
+            logging.error("List of recent meetings could not retrieved (last day)")
+
     elif rqstdata == "clndrmtgs":
         numdays = request.args.get("numdays")
         meetlist = fetch_recent_meetings(int(numdays))
         if meetlist[0]:
             response = meetlist[1]
         else:
-            print("List of meetings for the month could not retrieved")
+            logging.error("List of meetings for the month could not retrieved")
+
     elif rqstdata == "rcntlswk":
         meetlist = fetch_recent_meetings(7)
         if meetlist[0]:
             response = meetlist[1]
         else:
-            print("List of recent meetings could not retrieved (last week)")
+            logging.error("List of recent meetings could not retrieved (last week)")
+
     return jsonify(response)
+
+
+@main.get("/cal/events")
+def getevents():
+    start = request.args.get("start")
+    end = request.args.get("end")
+    return jsonify(fetch_meeting_by_period(start, end))
 
 
 @main.get("/<channame>/<cldrdate>/<path:meetname>")
@@ -111,7 +122,6 @@ def statfile(channame, cldrdate, meetname):
     meetpath = main.config["MEETING_DIR"] + request.path
     formatted_timestamp = datetime.strptime(cldrdate, "%Y-%m-%d")
     cldrdate = "{:%B %d, %Y}".format(formatted_timestamp)
-    print(meetpath)
     if meetpath[-1] == "/":
         meetpath = meetpath[0:-1]
     meetcont = fetch_meeting_content(meetpath)
@@ -135,6 +145,33 @@ def statfile(channame, cldrdate, meetname):
         abort(404)
 
 
+@main.get("/smry/<channame>/<cldrdate>/<path:meetname>")
+def evtsmry(channame, cldrdate, meetname):
+    meetname = meetname.replace(".log.html", "").replace(".html", "")
+    permalink = url_for(
+        "statfile", channame=channame, cldrdate=cldrdate, meetname=f"{meetname}.html"
+    )
+    full_log = url_for(
+        "statfile", channame=channame, cldrdate=cldrdate, meetname=f"{meetname}.log.html"
+    )
+    meetpath = f"{main.config['MEETING_DIR']}/{channame}/{cldrdate}/{meetname}.html"
+    formatted_timestamp = datetime.strptime(cldrdate, "%Y-%m-%d")
+    cldrdate = "{:%B %d, %Y}".format(formatted_timestamp)
+    if meetpath[-1] == "/":
+        meetpath = meetpath[0:-1]
+    meet = fetch_meeting_summary(meetpath)
+    if meet[0]:
+        return render_template(
+            "event_summary.html",
+            meet=meet[1],
+            startdate=cldrdate,
+            permalink=permalink,
+            full_log=full_log,
+        )
+    else:
+        abort(404)
+
+
 @main.get("/")
 def mainpage():
     return render_template("mainpage.html")
@@ -143,31 +180,6 @@ def mainpage():
 @main.get("/about")
 def aboutpage():
     return render_template("aboutpage.html")
-
-
-@main.before_first_request
-def init_fedora_messaging():
-    global thread
-    if thread is None:
-        thread = socketio.start_background_task(fedora_messaging_consumer)
-
-
-def fedora_messaging_consumer():
-    logging.info("fedora_messaging_consumer: starting thread")
-    api.twisted_consume(consume_fedora_messaging_msg)
-    reactor.run(installSignalHandlers=False)
-    logging.info("fedora_messaging_consumer: exiting thread")
-
-
-def consume_fedora_messaging_msg(message):
-    logging.info(
-        "fedora_messaging - meeting ended: %s in %s"
-        % (
-            message.body["meeting_topic"],
-            message.body["channel"],
-        )
-    )
-    socketio.emit("show_toast", message.body)
 
 
 @socketio.on("connect")

@@ -1,367 +1,64 @@
-<!doctype html>
-<!--
-##########################################################################
-*
-*   Copyright © 2019-2021 Akashdeep Dhar <t0xic0der@fedoraproject.org>
-*
-*   This program is free software: you can redistribute it and/or modify
-*   it under the terms of the GNU General Public License as published by
-*   the Free Software Foundation, either version 3 of the License, or
-*   (at your option) any later version.
-*
-*   This program is distributed in the hope that it will be useful,
-*   but WITHOUT ANY WARRANTY; without even the implied warranty of
-*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-*   GNU General Public License for more details.
-*
-*   You should have received a copy of the GNU General Public License
-*   along with this program.  If not, see <https://www.gnu.org/licenses/>.
-*
-##########################################################################
--->
-<html lang="en">
-    <head>
-        <meta charset="utf-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <link href="{{ url_for('static', filename='css3/bootstrap.min.css') }}" rel="stylesheet"/>
-        <link href="{{ url_for('static', filename='css3/custom_fonts.css') }}" rel="stylesheet"/>
-        <link href="{{ url_for('static', filename='css3/fragment.css') }}" rel="stylesheet"/>
-        <link href="{{ url_for('static', filename='css3/fontawesome-all.min.css') }}" rel="stylesheet"/>
+{% extends "base.html.j2" %}
+{% block head %}
         <link href="{{ url_for('static', filename='css3/fullcalendar.css') }}" rel="stylesheet"/>
-        <script src="{{ url_for('static', filename='jscn/bootstrap.bundle.min.js') }}"></script>
-        <script src="{{ url_for('static', filename='jscn/jquery.min.js') }}"></script>
-        <link rel="icon" href="{{ url_for('static', filename='imgs/logoteal.png') }}" sizes="16x16">
-        <script src="{{ url_for('static', filename='jscn/fragment.js') }}"></script>
-        <script src="{{ url_for('static', filename='jscn/easy.qrcode.min.js') }}"></script>
         <script src="{{ url_for('static', filename='jscn/socket.io.js') }}"></script>
         <script src="{{ url_for('static', filename='jscn/fullcalendar.js') }}"></script>
-        <title>Meetbot Logs</title>
-    </head>
-    <body class="body bg-light">
-        <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light" style="background-image: linear-gradient(180deg,#eee 0,#ddd);">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#" style="width: 175px; margin-right: 0px;">
-                    <img class="logo" alt="MEETBOT LOGS" src="{{ url_for('static', filename='imgs/Fedora_logo.png') }}" style="width: 95%; height: auto;"/>
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                        aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">  
-                    <ul class="navbar-nav me-auto pt-1">
-                        <li class="nav-item" id="loader"></li>
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" data-bs-toggle="modal" data-bs-target="#chanmode"
-                                type="button" onclick="populate_channel_list();">
-                                Meetings by Channel
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" type="button" href="#">
-                                Meetings by Group
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" type="button" href="/about">
-                                About
-                            </a>
-                        </li>
-                    </ul>
-                    <div class="d-flex flex-column justify-content-center align-items-center">
-                        <div class="input-group">
-                            <input type="text" autocomplete="off" class="form-control"
-                                placeholder="Search meeting logs"
-                                aria-label="Search meeting logs" aria-describedby="findtext"
-                                style="width: 350px;" id="findtext">
-                        </div>
-                        <div class="input-group" data-bs-auto-close="true">
-                            <ul class="dropdown-menu w-100" id="dropdown">
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </nav>
-        <div class="container-lg">
-            <div class="card text-center mt-1">
-                <div class="card-body pt-0">
-                    <div class="text-center">
-                        <div class="mt-4">
+        <script src="{{ url_for('static', filename='jscn/calview.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+            <div class="card mt-1">
+                <div class="card-body">
+                    <div class="">
+                        <div class="font-alt">
+			    <div class="btn-toolbar justify-content-between p-3 pt-0" role="toolbar" aria-label="Calendar navigation bar">
+			    <div class="cal-title mb-2 mb-lg-0 mx-auto mx-lg-0">
+                              <span id="spin" class="far fa-calendar" aria-hidden="true"></span>Meetings by Date
+			    </div>
+
+
+			    <div class="btn-group cal-nav mb-2 mb-lg-0 mx-auto mx-lg-0" role="group" aria-label="Calendar navigation">
+                              <button type="button" class="btn btn-outline-primary" id="prev"><span class="fas fa-angle-left fa-lg" aria-hidden="true"></span></button>
+                              <button type="button" class="btn btn-outline-primary" disabled id="curDate"></button>
+                              <button type="button" class="btn btn-outline-primary" id="next"><span class="fas fa-angle-right fa-lg" aria-hidden="true"></span></button>
+                            </div>
+
+			    <div class="btn-group mb-2 mb-lg-0 mx-auto mx-lg-0" role="group" aria-label="Calendar view">
+                              <button type="button" class="btn btn-outline-primary" id="day"><i class="fas fa-calendar-day fa-lg" aria-hidden="true"></i> Day</button>
+                              <button type="button" class="btn btn-outline-primary active" id="week"><i class="fas fa-calendar-week fa-lg" aria-hidden="true"></i> Week</button>
+                              <button type="button" class="btn btn-outline-primary" id="month"><i class="fas fa-calendar-alt fa-lg" aria-hidden="true"></i> Month</button>
+                              <button type="button" class="btn btn-outline-primary" id="today">Today</button>
+                            </div>
+
+			    </div>
                             <div id='calendar'></div>
                         </div>
                     </div>
                 </div>
-                <div class="card-footer text-center" style="background-color: #e6e6e6; color:  #676767;">
+                <div class="card-footer text-center">
                     <span class="small">
-                        <a style="color:#676767; text-decoration:none;"
-                           href="https://github.com/t0xic0der/fragment/"
+			Meetbot Logs &copy 2021-2022
+                        <a
+                           href="https://docs.fedoraproject.org/en-US/websites/"
                            target="_blank">
-                            Fragment
-
-                        </a>
-                        &copy 2021
-
-                        <a style="color:#676767; text-decoration:none;"
-                           href="https://github.com/t0xic0der"
-                           target="_blank">
-                            Akashdeep Dhar
-                        </a>
-                        and
-                        <a style="color:#676767; text-decoration:none;"
-                           href="https://github.com/t0xic0der/fragment/graphs/contributors"
-                           target="_blank">
-                            others
+                            Fedora Websites and Apps Team
                         </a>
                     </span>
                 </div>
             </div>
-        </div>
-        <div class="modal fade"
-             aria-hidden="true"
-             data-bs-backdrop="static"
-             data-bs-keyboard="true"
-             id="findmode">
-            <div class="modal-dialog modal-dialog-centered modal-xl modal-fullscreen-lg-down modal-dialog-scrollable">
-                <div class="modal-content">
-                    <div class="modal-header justify-content-center p-2" style="background-image: linear-gradient(180deg,#eee 0,#ddd);  color:#51A2DA;" >
-                        <h6 class="modal-title head fw-bold">Lookup discussions</h6>
-                    </div>
-                    <div class="modal-body">
-                        <div class="container">
-                            <div class="input-group mb-3">
-                                <input type="text"
-                                       class="form-control"
-                                       placeholder="Search for your meetings"
-                                       aria-label="Search for your meetings"
-                                       aria-describedby="findtext"
-                                       id="findtext">
-                                <button class="btn btn-outline-secondary"
-                                        type="button"
-                                        id="findbutn"
-                                        onclick="search_meetings();">
-                                    Search
-                                </button>
-                            </div>
-                            <div class="card mb-3 mt-3" id="find-body"></div>
-                        </div>
-                    </div>
-                    <div class="modal-footer justify-content-center text-white p-1" style="background-image: linear-gradient(180deg,#eee 0,#ddd);">
-                        <div class="float-right">
-                            <button type="button"
-                                    class="btn btn-sm btn-light m-0"
-                                    data-bs-dismiss="modal">
-                                Close
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true" id="chanmode">
-            <div class="modal-dialog modal-dialog-centered modal-xl modal-fullscreen-lg-down modal-dialog-scrollable">
-                <div class="modal-content">
-                    <div class="modal-header justify-content-center p-2" style="background-image: linear-gradient(180deg,#eee 0,#ddd); color:#51A2DA;">
-                        <h6 class="modal-title head fw-bold">Explore meetings</h6>
-                    </div>
-                    <div class="modal-body">
-                        <div class="container">
-                            <div class="card mb-3">
-                                <div class="list-group-item bg-light">
-                                    <span id="chanhead" class="fw-bold">Loading...</span>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <ul class="list-group list-group-flush" id="listchan-uols"></ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer justify-content-between p-1" style="background-image: linear-gradient(180deg,#eee 0,#ddd);">
-                        <div class="float-left">
-                            <button type="button"
-                                    class="btn btn-sm btn-light m-0 disabled"
-                                    id="chanback">
-                                Back
-                            </button>
-                        </div>
-                        <span class="small fst-italic" id="chanfoot">
-                            <span class="spinner-border spinner-border-sm mt-2" role="status" aria-hidden="true"></span>
-                        </span>
-                        <div class="float-right">
-                            <button type="button"
-                                    class="btn btn-sm btn-light m-0"
-                                    data-bs-dismiss="modal">
-                                Close
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true" id="datemode">
-            <div class="modal-dialog modal-dialog-centered modal-xl modal-fullscreen-lg-down modal-dialog-scrollable">
-                <div class="modal-content">
-                    <div class="modal-header justify-content-center p-2" style="background-image: linear-gradient(180deg,#eee 0,#ddd); color:#51A2DA;"> 
-                        <h6 class="modal-title head fw-bold">Explore meetings</h6>
-                    </div>
-                    <div class="modal-body">
-                        <div class="container">
-                            <div class="card mb-3">
-                                <div class="list-group-item bg-light">
-                                    <span id="datehead" class="fw-bold">Loading...</span>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <ul class="list-group list-group-flush" id="listdate-uols"></ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer justify-content-between p-1" style="background-image: linear-gradient(180deg,#eee 0,#ddd);">
-                        <div class="float-left">
-                            <button type="button"
-                                    class="btn btn-sm btn-light m-0"
-                                    id="dateback"
-                                    data-bs-toggle="modal"
-                                    data-bs-dismiss="modal"
-                                    data-bs-target="#chanmode">
-                                Back
-                            </button>
-                        </div>
-                        <span class="small fst-italic" id="datefoot">
-                            <span class="spinner-border spinner-border-sm mt-2" role="status" aria-hidden="true"></span>
-                        </span>
-                        <div class="float-right">
-                            <button type="button"
-                                    class="btn btn-sm btn-light m-0"
-                                    data-bs-dismiss="modal">
-                                Close
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade"
-             aria-hidden="true"
-             data-bs-backdrop="static"
-             data-bs-keyboard="true"
-             id="meetmode">
-            <div class="modal-dialog modal-dialog-centered modal-xl modal-fullscreen-lg-down modal-dialog-scrollable">
-                <div class="modal-content">
-                    <div class="modal-header justify-content-center p-2" style="background-image: linear-gradient(180deg,#eee 0,#ddd); color:#51A2DA;">
-                        <h6 class="modal-title head fw-bold">Explore meetings</h6>
-                    </div>
-                    <div class="modal-body">
-                        <div class="container">
-                            <div class="card mb-3">
-                                <div class="list-group-item bg-light">
-                                    <span id="meethead" class="fw-bold">Loading...</span>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <ul class="list-group list-group-flush" id="listmeet-uols"></ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer justify-content-between p-1" style="background-image: linear-gradient(180deg,#eee 0,#ddd);">
-                        <div class="float-left">
-                            <button type="button"
-                                    class="btn btn-sm btn-light m-0"
-                                    id="meetback"
-                                    data-bs-toggle="modal"
-                                    data-bs-dismiss="modal"
-                                    data-bs-target="#datemode">
-                                Back
-                            </button>
-                        </div>
-                        <span class="small fst-italic" id="meetfoot">
-                            <span class="spinner-border spinner-border-sm mt-2" role="status" aria-hidden="true"></span>
-                        </span>
-                        <div class="float-right">
-                            <button type="button"
-                                    class="btn btn-sm btn-light m-0"
-                                    data-bs-dismiss="modal">
-                                Close
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade"
-             aria-hidden="true"
-             data-bs-backdrop="static"
-             data-bs-keyboard="true"
-             id="rcntmode">
-            <div class="modal-dialog modal-dialog-centered modal-xl modal-fullscreen-lg-down modal-dialog-scrollable">
-                <div class="modal-content">
-                    <div class="modal-header justify-content-center p-2" style="background-image: linear-gradient(180deg,#eee 0,#ddd); color:#51A2DA;">
-                        <h6 class="modal-title head fw-bold">Recent conversations</h6>
-                    </div>
-                    <div class="modal-body">
-                        <div class="container">
-                            <div class="card mb-3">
-                                <div class="list-group-item bg-light">
-                                    <span id="rcnthead" class="fw-bold">Loading...</span>
-                                </div>
-                            </div>
-                            <nav>
-                                <div class="nav justify-content-center nav-tabs" role="tablist">
-                                    <button class="nav-link active"
-                                            id="daya-head"
-                                            data-bs-toggle="tab"
-                                            data-bs-target="#daya-cont"
-                                            type="button"
-                                            role="tab"
-                                            aria-controls="data-cont"
-                                            aria-selected="false">
-                                        <span>Last day</span>
-                                    </button>
-                                    <button class="nav-link"
-                                            id="week-head"
-                                            data-bs-toggle="tab"
-                                            data-bs-target="#week-cont"
-                                            type="button"
-                                            role="tab"
-                                            aria-controls="week-cont"
-                                            aria-selected="true">
-                                        <span>Last week</span>
-                                    </button>
-                                </div>
-                            </nav>
-                            <div class="tab-content mt-3">
-                                <div class="tab-pane fade show active"
-                                     id="daya-cont"
-                                     role="tabpanel"
-                                     aria-labelledby="daya-head">
-                                    <ul class="list-group" id="listrcnt-daya-uols"></ul>
-                                    <div id="none-daya"></div>
-                                </div>
-                                <div class="tab-pane fade"
-                                     id="week-cont"
-                                     role="tabpanel"
-                                     aria-labelledby="week-head">
-                                    <ul class="list-group" id="listrcnt-week-uols"></ul>
-                                    <div id="none-week"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer justify-content-center text-white p-1" style="background-image: linear-gradient(180deg,#eee 0,#ddd);">
-                        <div class="float-right">
-                            <button type="button"
-                                    class="btn btn-sm btn-light m-0"
-                                    data-bs-dismiss="modal">
-                                Close
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+{% endblock %}
+
+{% block tail %}
         <div class="toast-container position-fixed bottom-0 end-0 p-3"> 
         </div>
-    </body>
+        <div class="modal fade" id="evt-smry">
+            <div class="modal-dialog modal-dialog-centered modal-xl modal-fullscreen-lg-down modal-dialog-scrollable">
+	        <div class="modal-content"></div>
+	    </div>
+	</div>
+{% endblock %}
+
+{% block endpage %}
     <script>
         var socket = io.connect();
         function meetingEnded(msg){
@@ -385,192 +82,6 @@
         socket.on("show_toast", function (msg) {
             meetingEnded(msg);
         });
-
-        $(document).on("click", "#findtext", function (event) {
-            var dropdownDiv = document.getElementById('dropdown');
-            dropdownDiv.innerHTML =
-                `<li><a class="dropdown-item" type="button">Enter four or more characters to search</a></li>`
-            dropdownDiv.classList.add("show");
-        })
-        $(document).on("keyup", "#findtext", function (event) {
-            var dropdownDiv = document.getElementById('dropdown');
-            dropdownDiv.innerHTML =
-                `<li><a class="dropdown-item" type="button">Enter four or more characters to search</a></li>`
-            dropdownDiv.classList.add("show");
-            search_results();
-        });
-        async function populate_channels(data) {
-            data = JSON.parse(decodeURIComponent(data))
-            initialize_search_modal();
-            document.getElementsByClassName("input-group mb-3")[0].innerHTML = ""
-            document.getElementById("findtext").value = "";
-            document.getElementById("none-find").innerHTML = "";
-            document.getElementById("find-cont").innerHTML = `
-                    <div class="text-center text-muted mt-1 mb-1">${data.length} conversation(s) found</div>
-                    <ul class="list-group" id="listfind-uols"></ul>
-                `;
-            document.getElementById("find-init").innerHTML = "";
-            for (let indx in data) {
-                $("#listfind-uols").append(`
-                        <a class="list-group-item list-group-item-action" 
-                        type="button" 
-                        href="${data[indx]["slug"]["summary"]}" 
-                        target="_blank">
-                            <div class="head h4 ellipsis">
-                                <span>${data[indx]["topic"]}</span>
-                            </div>
-                            <div class="fst-italic small text-muted mt-1">
-                                <i class="fas fa-clock"></i>&nbsp;${data[indx]["time"]}&nbsp;
-                                <i class="fas fa-calendar"></i>&nbsp;${data[indx]["date"]}&nbsp;
-                                <i class="fas fa-layer-group"></i>&nbsp;${data[indx]["channel"]}&nbsp;
-                            </div>
-                        </a>
-                    `);
-            }
-        }
-
-        function debounce(func, timeout = 300) {
-            let timer;
-            return (...args) => {
-                clearTimeout(timer);
-                timer = setTimeout(() => {
-                    func.apply(this, args);
-                }, timeout);
-            };
-        }
-
-        const search_results = debounce(() => fetch_search_results());
-
-        let prevValue = ""
-        async function fetch_search_results() {
-            let value = document.getElementById("findtext").value.toLowerCase();
-            if (value != "") {
-                if (value.length > 3 && value !== prevValue) {
-                    var dropdownDiv = document.getElementById('dropdown');
-                    dropdownDiv.innerHTML =
-                        `<li><a class="dropdown-item" type="button">Loading...</a></li>`
-                    dropdownDiv.classList.add("show")
-                    prevValue = value
-                    await $.getJSON("/fragedpt/", {
-                        "rqstdata": "srchmeet",
-                        "srchtext": value
-                    }, function (data) {
-                        results = data
-                        results.sort((a, b) => (new Date(a.date).toLocaleDateString().split("/").reverse().join(
-                                "") < new Date(b.date).toLocaleDateString().split("/").reverse().join(
-                                "")) ? 1 :
-                            ((new Date(a.date).toLocaleDateString().split("/").reverse().join("") >
-                                new Date(b
-                                    .date).toLocaleDateString().split("/").reverse().join("")) ? -1 : 0))
-                    })
-                    var dropdownDiv = document.getElementById('dropdown');
-                    var htmlData = ""
-                    if (results.length === 0) {
-                        htmlData += `<li><a class="dropdown-item" type="button">No meetings found</a></li>`
-                    } else if (results.length !== undefined) {
-
-                        for (var i = 0; i < 5; i++) {
-                            if (results[i] !== undefined) {
-                                htmlData +=
-                                    `<li><a class="dropdown-item" type="button"
-                                target="_blank"
-                                href=${results[i].slug.summary}>
-                                <div class="head h4 ellipsis">
-                                    <span style="font-size: 16px;">${results[i].topic}</span>
-                                </div>
-                                <div class="fst-italic small text-muted mt-1">
-                                    <i class="fas fa-clock"></i>&nbsp;${results[i].time}&nbsp;
-                                    <i class="fas fa-calendar"></i>&nbsp;${results[i].date}&nbsp;
-                                    <i class="fas fa-layer-group"></i>&nbsp;${results[i].channel}&nbsp;
-                                </div>
-                                </a></li>`
-                            }
-                        }
-                        if (results.length > 5) {
-                            htmlData += `
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" style="font-weight:bold;" id="show-more" type="button" aria-current="page" data-bs-toggle="modal" data-bs-target="#findmode" type="button" onclick="populate_channels('${encodeURIComponent(JSON.stringify(results))}');">Show More</a></li>
-                    `
-                        }
-                    }
-                    dropdownDiv.innerHTML = htmlData
-                    dropdownDiv.classList.add("show")
-                }
-            } else {
-                var dropdownDiv = document.getElementById('dropdown');
-                dropdownDiv.innerHTML =
-                    `<li><a class="dropdown-item" type="button">Enter four or more characters to search</a></li>`
-                dropdownDiv.classList.add("show")
-            }
-        }
-        $('body').on('click', function (e) {
-            document.getElementById('dropdown').classList.remove("show")
-        });
-        var allEvents=[]
-        async function getMonthlyMeetings(){
-            const d = new Date();
-            let day = d.getDate();
-            await $.getJSON("/fragedpt/", {
-                "rqstdata": "clndrmtgs",
-                "numdays": day
-            }, function (data) {
-                for (var name in data) {
-                    var dictionary={}
-                    dictionary.title=data[name].topic
-                    dictionary.start=new Date(data[name].time).toISOString().slice(0, 10);
-                    dictionary.url=data[name].slug.summary
-                    dictionary.backgroundColor='#3C6EB4'
-                    allEvents.push(dictionary)
-                }
-            });
-        }
-
-        document.addEventListener('DOMContentLoaded', async function() {
-        var calendarEl = document.getElementById('calendar');
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-          initialView: 'dayGridWeek',
-          handleWindowResize: true,
-          windowResize: function(arg) {
-                calendar.setOption('height', window.innerHeight-170);
-          },
-          customButtons: {
-                monthView: {
-                text: 'Month',
-                click: function() {
-                    calendar.changeView('dayGridMonth');
-                    document.querySelector('[title="Previous month"]').disabled=true
-                    document.querySelector('[title="Next month"]').disabled=true
-                }
-                },
-                weekView: {
-                text: 'Week',
-                click: function() {
-                    calendar.changeView('dayGridWeek');
-                    document.querySelector('[title="Previous week"]').disabled=false
-                    document.querySelector('[title="Next week"]').disabled=false
-                }
-                }
-            },
-          fixedWeekCount:false,
-          height: window.innerHeight-150,
-          headerToolbar: { center: 'monthView,weekView' },
-          views: {
-            dayGridWeek: {
-            headerToolbar:false
-            }
-        }
-        });
-        calendar.render();
-        document.getElementById("loader").innerHTML = `
-        <a class="nav-link active" aria-current="page" type="button">Loading meetings...</a>
-        `;
-        await getMonthlyMeetings();
-        document.getElementById("loader").innerHTML = `
-        <a class="nav-link active" aria-current="page" type="button">Recent meetings</a>
-        `;
-        for(var i=0;i<allEvents.length;i++){
-            calendar.addEvent(allEvents[i]) 
-        }
-      });
     </script>
-</html>
+{% endblock %}
+

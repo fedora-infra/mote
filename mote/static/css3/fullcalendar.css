@@ -197,61 +197,6 @@ When it's NOT activated, the fc-button classes won't even be in the DOM.
   /* "primary" coloring */
 
 }
-.fc-monthView-button.fc-button.fc-button-primary {
-  background-color: #108BD6;
-  border: 1px solid #108BD6;
-}
-.fc-weekView-button.fc-button.fc-button-primary {
-  background-color:#108BD6;
-  border: 1px solid #108BD6;
-}
-.fc-monthView-button.fc-button.fc-button-primary:hover {
-  background-color: #108BD6;
-  border: 1px solid #108BD6;
-}
-.fc-weekView-button.fc-button.fc-button-primary:hover {
-  background-color:#108BD6;
-  border: 1px solid #108BD6;
-}
-.fc-today-button.fc-button.fc-button-primary {
-  background-color:#294172;
-}
-.fc-prev-button.fc-button.fc-button-primary {
-  background-color:#7096D0;
-  border: 1px solid #7096D0;
-}
-.fc-next-button.fc-button.fc-button-primary {
-  background-color:#7096D0;
-  border: 1px solid #7096D0;
-}
-.fc-today-button.fc-button.fc-button-primary:disabled {
-  background-color:#294172;
-}
-.fc-prev-button.fc-button.fc-button-primary:disabled {
-  background-color:#7096D0;
-  border: 1px solid #7096D0;
-}
-.fc-next-button.fc-button.fc-button-primary:disabled {
-  background-color:#7096D0;
-  border: 1px solid #7096D0;
-}
-.fc-today-button.fc-button.fc-button-primary:hover {
-  background-color:#294172;
-}
-.fc-prev-button.fc-button.fc-button-primary:hover {
-  background-color:#7096D0;
-  border: 1px solid #7096D0;
-}
-.fc-next-button.fc-button.fc-button-primary:hover {
-  background-color:#7096D0;
-  border: 1px solid #7096D0;
-}
-.fc-col-header-cell-cushion  {
-  color:black;
-}
-.fc-daygrid-day-number {
-  color:black;
-}
 .fc .fc-button-primary {
     color: #fff;
     color: var(--fc-button-text-color, #fff);
@@ -1519,4 +1464,32 @@ A VERTICAL event
   .fc-theme-bootstrap a:not([href]) {
     color: inherit; /* natural color for navlinks */
   }
+
+
+
+  .fc-theme-bootstrap5 a:not([href]) {
+    color: inherit;
+    text-decoration: inherit;
+  }
+
+.fc-theme-bootstrap5 .fc-list,
+  .fc-theme-bootstrap5 .fc-scrollgrid,
+  .fc-theme-bootstrap5 td,
+  .fc-theme-bootstrap5 th {
+    border: 1px solid var(--bs-gray-400);
+  }
+
+.fc-theme-bootstrap5 {
+
+  /* HACK: reapply core styles after highe-precedence border statement above */
+}
+
+.fc-theme-bootstrap5 .fc-scrollgrid {
+    border-right-width: 0;
+    border-bottom-width: 0;
+  }
+
+.fc-theme-bootstrap5-shaded {
+  background-color: var(--bs-gray-200);
+}
 

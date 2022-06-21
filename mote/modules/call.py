@@ -28,15 +28,20 @@ from datetime import datetime
 import bs4 as btsp
 from flask import current_app as app
 
+from mote import logging
+
+from . import sanitize_name
+
 
 def fetch_channel_dict():
     try:
         channel_dict = {}
         chanlist = os.listdir(f"{app.config['MEETING_DIR']}")
         for channel in chanlist:
-            channel_dict[channel] = f"{app.config['MEETBOT_URL']}/{channel}"
+            channel_dict[channel] = f"{app.config['MEETBOT_RAW_URL']}/{channel}"
         return True, channel_dict
     except Exception as expt:
+        logging.exception(expt)
         return False, {"exception": str(expt)}
 
 
@@ -45,9 +50,10 @@ def fetch_datetxt_dict(channel: str):
         datetxt_dict = {}
         datelist = os.listdir(f"{app.config['MEETING_DIR']}/{channel}")
         for datetxt in datelist:
-            datetxt_dict[datetxt] = f"{app.config['MEETBOT_URL']}/{channel}/{datetxt}"
+            datetxt_dict[datetxt] = f"{app.config['MEETBOT_RAW_URL']}/{channel}/{datetxt}"
         return True, datetxt_dict
     except Exception as expt:
+        logging.exception(expt)
         return False, {"exception": str(expt)}
 
 
@@ -59,8 +65,10 @@ def fetch_meeting_dict(channel: str, datetxt: str):
         datestring = "{:%b %d, %Y}".format(formatted_timestamp)
         for meeting in meetlist:
             if ".log.html" in meeting:
-                meeting_log = f"{app.config['MEETBOT_URL']}/{channel}/{datetxt}/{meeting}"
-                meeting_sum = f"{app.config['MEETBOT_URL']}/{channel}/{datetxt}/{meeting.replace('''.log.html''', '''.html''')}"  # noqa
+                meeting_log = (
+                    f"{app.config['MEETBOT_RAW_URL']}/{channel}/{datetxt}/{meeting}"  # noqa
+                )
+                meeting_sum = f"{app.config['MEETBOT_RAW_URL']}/{channel}/{datetxt}/{meeting.replace('''.log.html''', '''.html''')}"  # noqa
                 meeting_title = re.search(
                     app.config["RECOGNIITION_PATTERN"],
                     meeting.replace(".log.html", ""),
@@ -76,11 +84,11 @@ def fetch_meeting_dict(channel: str, datetxt: str):
                     },
                     "slug": {
                         "logs": ulpr.quote(
-                            meeting_log.replace(app.config["MEETBOT_URL"], ""),
+                            meeting_log.replace(app.config["MEETBOT_RAW_URL"], ""),
                             safe=":/?",
                         ),
                         "summary": ulpr.quote(
-                            meeting_sum.replace(app.config["MEETBOT_URL"], ""),
+                            meeting_sum.replace(app.config["MEETBOT_RAW_URL"], ""),
                             safe=":/?",
                         ),
                     },
@@ -88,6 +96,7 @@ def fetch_meeting_dict(channel: str, datetxt: str):
                 meeting_list.append(meeting_object)
         return True, meeting_list
     except Exception as expt:
+        logging.exception(expt)
         return False, {"exception": str(expt)}
 
 
@@ -98,5 +107,55 @@ def fetch_meeting_content(contpath: str):
         parse_object = btsp.BeautifulSoup(source, "html.parser")
         contdata = parse_object.find("body").decode()
         return True, contdata
-    except Exception:
+    except Exception as expt:
+        logging.exception(expt)
         return False, ""
+
+
+def fetch_meeting_summary(contpath: str):
+    try:
+        with open(contpath, "r") as meetfile:
+            source = meetfile.read()
+        obj = btsp.BeautifulSoup(source, "html.parser")
+        event = {"peoples": [], "topics": [], "actions": []}
+        event["title"] = re.sub(r"^.*: ", "", sanitize_name(obj.select_one("title").text))
+
+        re_start = re.compile(r"Meeting started.* at (\d+:\d+:\d+) UTC")
+        re_end = re.compile(r"Meeting ended.* at (\d+:\d+:\d+) UTC")
+        timeStartStr = re.search(re_start, obj.find(text=re_start).text).group(1)
+        timeEndStr = re.search(re_end, obj.find(text=re_end).text).group(1)
+        timeDelta = datetime.strptime(timeEndStr, "%H:%M:%S") - datetime.strptime(
+            timeStartStr, "%H:%M:%S"
+        )
+        event["duration"] = timeDelta.seconds // 60
+
+        peoples = obj.find(text=re.compile("People present")).parent.findNext("ol").select("li")
+        # filter known bots and people with 0 lines
+        event["peoples"] = [
+            p.text for p in peoples if re.match(r"^(?!(zodbot|fm-admin))((?!\(0\)).)*$", p.text)
+        ]
+
+        topics = obj.select(".TOPIC")
+        topics = (
+            obj.find("h3", text="Meeting summary")
+            .parent.findNext("ol")
+            .findChildren("li", recursive=False)
+        )
+        for topic in topics:
+            topicName = "None"
+            topicEl = topic.findNext("b", {"class": "TOPIC"})
+            if topicEl:
+                topicName = topicEl.text
+            topicDict = {"title": topicName, "info": []}
+            items = topic.select("li")
+            for item in items:
+                item.findNext("span", {"class": "details"}).decompose()
+                topicDict["info"].append(re.sub(r"\s+", " ", item.text))
+            event["topics"].append(topicDict)
+        actions = obj.find(text="Action items").parent.findNext("ol").select("li")
+        event["actions"] = [a.text for a in actions if a.text != "(none)"]
+
+        return True, event
+    except Exception as exc:
+        logging.exception(exc)
+        return False, exc
