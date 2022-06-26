@@ -1,4 +1,4 @@
-FROM registry.fedoraproject.org/fedora-minimal as base
+FROM registry.fedoraproject.org/fedora-minimal:36 as base
 FROM base as builder
 RUN microdnf install -y python3-pip && microdnf clean all
 WORKDIR /tmp
@@ -7,7 +7,7 @@ COPY poetry.lock pyproject.toml .
 RUN poetry export --without-hashes --no-interaction --no-ansi -o requirements.txt
 
 FROM base as runtime
-RUN microdnf install -y python3-pip util-linux tar gzip && microdnf clean all
+RUN microdnf update -y && microdnf install -y python3-pip util-linux tar gzip && microdnf clean all
 ADD https://github.com/fedora-infra/fedora-messaging/raw/stable/configs/cacert.pem /etc/fedora-messaging/
 ADD https://github.com/fedora-infra/fedora-messaging/raw/stable/configs/fedora-cert.pem /etc/fedora-messaging/
 ADD https://github.com/fedora-infra/fedora-messaging/raw/stable/configs/fedora-key.pem /etc/fedora-messaging/
