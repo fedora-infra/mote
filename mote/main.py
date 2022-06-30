@@ -24,7 +24,7 @@ import re
 from datetime import datetime
 
 import click
-from flask import abort, jsonify, render_template, request, url_for
+from flask import abort, jsonify, redirect, render_template, request, url_for
 
 from mote import app as main
 from mote import logging, socketio
@@ -124,6 +124,10 @@ def statfile(channame, cldrdate, meetname):
     cldrdate = "{:%B %d, %Y}".format(formatted_timestamp)
     if meetpath[-1] == "/":
         meetpath = meetpath[0:-1]
+    # if txt log, redirect to meetbot-raw
+    if meetname.endswith(".txt"):
+        return redirect(f"{main.config['MEETBOT_RAW_URL']}/{request.path}", code=302)
+
     meetcont = fetch_meeting_content(meetpath)
     if meetcont[0]:
         if ".log.html" in request.path:
