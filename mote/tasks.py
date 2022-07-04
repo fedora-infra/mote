@@ -3,12 +3,11 @@ import os
 
 from flask_socketio import SocketIO
 
-from mote import app, cache
+from mote import app, cache, redis
 from mote.modules.find import get_meetings_files
 from mote.modules.late import fetch_meeting_by_day, get_meeting_info
 
-REDIS_URL = os.environ.get("REDIS_URL") or "redis://"
-socketio = SocketIO(message_queue=REDIS_URL)
+socketio = SocketIO(message_queue=redis.url)
 
 
 def build_cache():

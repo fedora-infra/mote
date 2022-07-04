@@ -19,34 +19,30 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     SOFTWARE.
 """
-
-import logging
 import os
+from urllib.parse import quote, urlparse, urlunparse
 
-import rq
-from flask import Flask
-from flask_caching import Cache
-from flask_socketio import SocketIO
-
-from mote.modules.redis import Redis
-
-__version__ = "0.7.0"
+import redis
 
 
-app = Flask(__name__)
-app.config.from_pyfile("config.py")
-app.config.from_prefixed_env()
+class Redis:
+    def __init__(self, app):
+        self.url = self.get_redis_url(app)
+        self.conn = self.get_conn()
 
-if app.config["CACHE_TYPE"] == "RedisCache":
-    redis = Redis(app)
-    app.config["CACHE_REDIS_URL"] = redis.url
-    app.task_queue = rq.Queue("tasks", connection=redis.conn, default_timeout=60 * 10)
-    socketio = SocketIO(app, message_queue=redis.url)
-else:
-    socketio = SocketIO(app)
+    def get_redis_url(self, app):
+        redis_url = os.environ.get("REDIS_URL") or app.config.get("CACHE_REDIS_URL") or "redis://"
+        redis_pass = os.environ.get("REDIS_PASSWORD") or app.config.get("CACHE_REDIS_PASSWORD")
+        if redis_pass:
+            parts = urlparse(redis_url)
+            netloc = f":{quote(redis_pass)}@{parts.hostname}"
+            if parts.port is not None:
+                netloc += f":{parts.port}"
 
-cache = Cache(app)
-loglevel = logging.INFO
-if os.environ.get("LOGLEVEL") and os.environ.get("LOGLEVEL").isnumeric():
-    loglevel = int(os.environ.get("LOGLEVEL"))
-logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=loglevel)
+            redis_url = urlunparse(
+                (parts.scheme, netloc, parts.path, parts.params, parts.query, parts.fragment)
+            )
+        return redis_url
+
+    def get_conn(self):
+        return redis.Redis.from_url(self.url)
