@@ -1,0 +1,14 @@
+[run]
+branch = true
+parallel = true
+source =
+    mote
+    tests
+omit = 
+  */config.py
+
+[report]
+show_missing = true
+precision = 2
+exclude_lines =
+    if __name__ == .__main__.:

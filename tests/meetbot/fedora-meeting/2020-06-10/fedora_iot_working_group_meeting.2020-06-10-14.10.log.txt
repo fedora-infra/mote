@@ -1,0 +1,23 @@
+14:10:12 <pbrobinson> #startmeeting Fedora IoT Working Group Meeting
+14:10:12 <zodbot> Meeting started Wed Jun 10 14:10:12 2020 UTC.
+14:10:12 <zodbot> This meeting is logged and archived in a public location.
+14:10:12 <zodbot> The chair is pbrobinson. Information about MeetBot at http://wiki.debian.org/MeetBot.
+14:10:12 <zodbot> Useful Commands: #action #agreed #halp #info #idea #link #topic.
+14:10:12 <zodbot> The meeting name has been set to 'fedora_iot_working_group_meeting'
+14:10:12 <pbrobinson> #chair pwhalen pbrobinson bcotton jsmith
+14:10:12 <zodbot> Current chairs: bcotton jsmith pbrobinson pwhalen
+14:10:12 <pbrobinson> #topic roll call
+14:10:26 <bcotton> .hello2
+14:10:27 <zodbot> bcotton: bcotton 'Ben Cotton' <bcotton@redhat.com>
+14:10:30 <pbrobinson> Not sure how many we'll have today, Paul is on PTO
+14:12:43 <bcotton> who authorized that? ;-)
+14:13:08 <pbrobinson> no idea, certainly not me because I would have booked it off at the same time :-D
+14:14:13 * kushal got a chance to say hi ot bcotton and pbrobinson in the same place :)
+14:14:31 * laubersm is surprised she remembered the meeting today
+14:14:53 * laubersm is also procrastinating from a writing assignment
+14:15:04 <pbrobinson> laubersm: :-P
+14:15:08 <bcotton> hi kushal and laubersm!
+14:15:25 <pbrobinson> not sure we actually have a quorum to bother with the meeting today. Thought bcotton?
+14:15:55 <bcotton> if there are things to announce, might as well #info them for the record and then call it a day
+14:16:06 <bcotton> if not, then i'm in favor of #endmeeting
+14:19:29 <pbrobinson> #endmeeting

@@ -24,6 +24,10 @@ jobs:
              source venv/bin/activate
              which python
 
+      - name: Install Redis
+        run: |
+             sudo apt-get install redis
+
       - name: Install the base dependencies
         run: |
              source venv/bin/activate
@@ -40,6 +44,9 @@ jobs:
              poetry install
 
       - name: Check the quality of the code
+        env:
+          FLASK_CACHE_REDIS_URL: "redis://localhost"
+          FLASK_CACHE_TYPE: "RedisCache"
         run: |
              source venv/bin/activate
              pytest

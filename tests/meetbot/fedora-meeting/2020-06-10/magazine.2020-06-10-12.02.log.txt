@@ -1,0 +1,270 @@
+12:02:26 <bcotton> #startmeeting Magazine editorial board
+12:02:26 <zodbot> Meeting started Wed Jun 10 12:02:26 2020 UTC.
+12:02:26 <zodbot> This meeting is logged and archived in a public location.
+12:02:26 <zodbot> The chair is bcotton. Information about MeetBot at http://wiki.debian.org/MeetBot.
+12:02:26 <zodbot> Useful Commands: #action #agreed #halp #info #idea #link #topic.
+12:02:26 <zodbot> The meeting name has been set to 'magazine_editorial_board'
+12:02:27 <bcotton> #meetingname magazine
+12:02:27 <zodbot> The meeting name has been set to 'magazine'
+12:02:46 <sysoplab> .hello2 sysoplab
+12:02:47 <zodbot> sysoplab: sysoplab 'Sean Zipperer' <sysop+fedora@sysoplab.com>
+12:02:48 <bcotton> #topic Roll call
+12:02:49 <bcotton> #chair stickster ryanlerch cverna asamalik sub_pop gregbartholomew jakfrost misc rwaltr bcotton
+12:02:49 <zodbot> Current chairs: asamalik bcotton cverna gregbartholomew jakfrost misc rwaltr ryanlerch stickster sub_pop
+12:03:42 <sysoplab> Morning.
+12:05:28 * bcotton pours sysoplab some coffee
+12:05:32 <asamalik> .hello2
+12:05:33 <zodbot> asamalik: asamalik 'Adam Samalik' <asamalik@redhat.com>
+12:05:58 <asamalik> hi everyone!
+12:06:07 <asamalik> bcotton: looks like you started the meeting already?
+12:06:11 <bcotton> #topic Agenda
+12:06:12 <bcotton> #link https://docs.fedoraproject.org/en-US/fedora-magazine/workflow/
+12:06:14 <bcotton> #info -- 1/ Last week's stats --
+12:06:15 <bcotton> #info -- 2/ In progress followup --
+12:06:17 <bcotton> #info -- 3/ Finished articles to review --
+12:06:18 <bcotton> #info -- 4/ Articles to edit --
+12:06:20 <bcotton> #info -- 5/ Publishing schedule --
+12:06:21 <bcotton> #info -- 6/ Article proposals to clarify / approve --
+12:06:23 <bcotton> #info -- 7/ Open floor --
+12:06:24 <bcotton> asamalik: i did! look at me being responsible
+12:06:27 <bcotton> #topic 1/ Last week's stats
+12:06:38 <asamalik> thanks! excuse excuse irc excuse, but I'm back!
+12:07:41 <bcotton> #info Week of Jun 1: 61.3k page views -- slightly above our recent average
+12:07:47 <bcotton> asamalik: want to take the reins?
+12:07:53 <asamalik> bcotton: do you want to run it today? :)
+12:08:01 <asamalik> ha
+12:08:02 <bcotton> okay, i can do that
+12:08:05 <asamalik> both work for me
+12:08:10 <bcotton> #topic 2/ In progress followup
+12:08:10 <asamalik> bcotton++
+12:08:11 <bcotton> #info Looking at the 'in progress' column, is there something that's been finished? Anything to follow up on with its author?
+12:08:13 <bcotton> #link Board: https://teams.fedoraproject.org/project/asamalik-fedora-magazine/kanban
+12:08:19 * bcotton should have prepared ;-)
+12:08:36 <asamalik> wow there's a lot of stuff today
+12:08:51 <bcotton> #info 6 articles are in the In Progress column
+12:09:02 * asamalik is looking into the unassigned ones in progress
+12:09:11 <bcotton> yeah, i just noticed that. that doesn't seem right
+12:09:19 <sysoplab> I added a card as to review/in progress from Pajure because it was already written and author was asking for reviews.
+12:09:53 <sysoplab> That should have only been one of them though and I said it when I made that one.
+12:10:13 <bcotton> sysoplab: which one was that, do you remember?
+12:10:24 <sysoplab> Let me check quick
+12:11:00 <asamalik> sysoplab: looks like you've accidentally moved all three there?
+12:11:57 <sysoplab> https://teams.fedoraproject.org/project/asamalik-fedora-magazine/us/188?kanban-status=196
+12:12:42 <sysoplab> That one I have noted as already written.  I don't think the others were so if I moved others I messed up.
+12:13:16 <asamalik> 44, 185, 180 are the ones I'm talking about.. no worries, we can just move them back if that was an error
+12:13:36 <bcotton> anything else on the in-progress column?
+12:14:07 <asamalik> moved
+12:14:13 <asamalik> bcotton: I guess we're good
+12:14:28 <bcotton> #topic 3/ Finished articles to review
+12:14:29 <bcotton> #info Looking at the 'review' column, let's decide which articles are good to go. Move each either to the 'to edit' (finished) or to the 'in progress' (needs more work) and provide feedback.
+12:14:31 <bcotton> #link Board: https://teams.fedoraproject.org/project/asamalik-fedora-magazine/kanban
+12:14:39 <bcotton> #info 5 articles need review
+12:14:44 * cverna waives
+12:14:53 <sysoplab> Hi cverna.
+12:14:55 <bcotton> hello cverna!
+12:15:01 <asamalik> o/ cverna
+12:15:23 <sysoplab> I should have some time to help review/edit this week again if needed
+12:15:27 <bcotton> any volunteers on these articles? if not, i'll send a message to the list for review
+12:15:32 <bcotton> sysoplab++
+12:16:02 <bcotton> sysoplab: any of those look particularly interesting to you?
+12:16:35 <sysoplab> I can do the samba one and the docker one
+12:16:44 <gregbartholomew> .hello glb
+12:16:45 <zodbot> gregbartholomew: glb 'Gregory Lee Bartholomew' <gregory.lee.bartholomew@gmail.com>
+12:17:02 <bcotton> #action sysoplab to edit #184 and #188
+12:17:44 <bcotton> sysoplab: can you do images for them, too?
+12:17:47 <bcotton> gregbartholomew: welcome!
+12:17:54 <gregbartholomew> o/
+12:17:57 * cverna cannot really commit to do anything this week with the data center move
+12:18:30 <sysoplab> Never done that before.  I can barely use gimp to add text to an image so you probably don't want me doing image work.
+12:18:31 * bcotton would not let anyone try to make cverna commit to anything :-)
+12:18:50 <bcotton> sysoplab: there are instructions in the docs. i'm not good at it, but i'd be happy to help you if you want to give it a try
+12:19:28 * bcotton avoided making images for the same reason for a long time
+12:19:34 <sysoplab> Ok I'm willing to try if needed.  Not opposed to learning.
+12:19:45 <bcotton> sysoplab++ again!
+12:19:52 <asamalik> I can help with the images!
+12:19:54 <cverna> sysoplab++
+12:20:22 <asamalik> sysoplab: This page is actually very helpful: https://docs.fedoraproject.org/en-US/fedora-magazine/creating-an-image/
+12:20:40 <sysoplab> Saving link for later.
+12:20:42 <bcotton> asamalik++
+12:20:45 <asamalik> there's a link to a site that gives you images
+12:20:49 <asamalik> list of fonts
+12:20:59 <asamalik> both with the right licenses etc.
+12:21:06 <bcotton> anyone else want to take on any of the articles that need review?
+12:21:19 <asamalik> I won't be able to this week :(
+12:21:35 <gregbartholomew> sysoplab: be sure to push your work back to the main git repo -- that last bit is omitted from some of the documentation. :)
+12:21:59 <gregbartholomew> I have some time to edit and article or two in the coming week.
+12:22:12 <bcotton> #action bcotton to add "push your new image to the git repo" to the image docs :-)
+12:22:27 <bcotton> gregbartholomew: pick your favorite of the remaining three and i'll grab another one
+12:22:56 <gregbartholomew> sorry, I missed the start of the meeting.
+12:23:06 <gregbartholomew> The samba one might be ok.
+12:23:13 <gregbartholomew> I have a little experience with that.
+12:23:20 <bcotton> no worries. the samba one is taken, though :-)
+12:23:41 <bcotton> musescore, latex, and connection sharing
+12:23:55 <gregbartholomew> latex then.
+12:24:03 <bcotton> sold!
+12:24:08 <gregbartholomew> I've done a little of that too. :)
+12:24:25 <bcotton> gregbartholomew++
+12:24:37 <bcotton> #action gregbartholomew to edit #175
+12:24:43 <bcotton> #undo
+12:24:43 <zodbot> Removing item from minutes: ACTION by bcotton at 12:24:37 : gregbartholomew to edit #175
+12:24:49 <bcotton> #action gregbartholomew to edit #181
+12:24:56 <bcotton> #action bcotton to edit #175
+12:25:42 <gregbartholomew> 2 editors?
+12:26:11 <gregbartholomew> oh, I see latex is 181
+12:26:22 <bcotton> yeah, i got mixed up :-)
+12:26:31 <sysoplab> Happens
+12:26:34 <bcotton> that still leaves us with 1 unassigned, but that's okay for now because we have four assigned
+12:27:09 <bcotton> #topic 4/ Articles to edit
+12:27:11 <bcotton> #info Looking at the 'to edit' column, assign an editor and a cover image creator.
+12:27:12 <bcotton> #link Board: https://teams.fedoraproject.org/project/asamalik-fedora-magazine/kanban
+12:27:14 <sysoplab> No promises but if I get bored Sunday night I'll do the last one too.  Don't mark me down for it though
+12:27:16 <bcotton> i guess we just did this part
+12:27:19 <bcotton> sysoplab: understood :-)
+12:27:34 <bcotton> this is one of the parts of the workflow that might need a little tweaking
+12:27:36 <bcotton> but that's okay
+12:27:54 <bcotton> there were none in this column when we started, so let's move on
+12:28:06 <sysoplab> I feel like review/edit are more or less the same thing
+12:28:33 <bcotton> yeah. in theory, review is "is this ready for editing or does it need a LOT more work"
+12:28:35 <sysoplab> Not sure why it's split.  If you're going to review it might as well propose edits at the same time
+12:28:43 <asamalik> review is for the author to indicate they're done, anbd edit is for the editors to confirm it's ready
+12:28:51 <asamalik> or they can move it to in progress and ask for tweaks
+12:29:03 <bcotton> i think there are distinct states here, they might just need improved descriptions
+12:29:09 <bcotton> but for now...
+12:29:12 <bcotton> #topic 5/ Publishing schedule
+12:29:13 <bcotton> #info Looking at the 'queued' and 'to edit' columns, decide the publishing schedule for the next week period.
+12:29:14 <bcotton> #info If there is not enough content, we might also need to look at the 'in progress' or even the 'article spec' columns come up with additional content.
+12:29:16 <bcotton> #link Board: https://teams.fedoraproject.org/project/asamalik-fedora-magazine/kanban
+12:29:24 <bcotton> so we don't have anything queued at the moment
+12:29:38 <bcotton> anyone want to volunteer to have something ready for friday?
+12:29:45 <sysoplab> I should be able to get one of the two done by friday
+12:30:00 <sysoplab> Other I'll probably do Saturday morning
+12:30:18 <bcotton> which one do you want to publish friday and which monday?
+12:30:29 <gregbartholomew> friday sounds plausible for me too, but I haven't look very close at the article I'm editing
+12:30:38 <bcotton> assuming they're both close enough that they can get finished, which is not a given :-)
+12:31:04 <sysoplab> Samba for Friday let's say as I've already read that one before making the card
+12:31:12 <bcotton> sounds good
+12:31:33 <sysoplab> It was pretty good already should just be a few minor tweaks if anything
+12:31:36 <gregbartholomew> i'm sure I can get the latex article done by monday.
+12:33:16 <sysoplab> bcotton you can do the latex one on Monday
+12:33:57 <sysoplab> Leaves me time if the other one needs more fixing to work on it my day off
+12:34:20 <bcotton> #proposed #agreed PUBLISHING SCHEDULE: Fri Jun 12, Simple File Sharing With Samba (edit/image: sysoplab) -- Mon Jun 15, Latex document series (edit: glb, image: DONE) -- Wed Jun 17 Internet Connection Sharing with Network Manager (edit/image: bcotton) -- Fri Jun 19 Fedora 32 and Docker (edit/image: sysoplab)
+12:34:42 <gregbartholomew> +1
+12:34:42 <asamalik> +1
+12:34:49 * bcotton should have just put dates on the cards and used asamalik's magical container
+12:34:58 <sysoplab> +1
+12:35:03 <bcotton> #agreed PUBLISHING SCHEDULE: Fri Jun 12, Simple File Sharing With Samba (edit/image: sysoplab) -- Mon Jun 15, Latex document series (edit: glb, image: DONE) -- Wed Jun 17 Internet Connection Sharing with Network Manager (edit/image: bcotton) -- Fri Jun 19 Fedora 32 and Docker (edit/image: sysoplab)
+12:35:22 <bcotton> look at us with content scheduled through the end of next week!
+12:35:39 <bcotton> #topic 6/ Article proposals to clarify / approve
+12:35:40 <asamalik> \o/ that hasn't happened for a while!
+12:35:40 <bcotton> #info Review the the article proposals and decide about what's next — a new article spec? more discussion?
+12:35:41 * gregbartholomew will have to look into this "magical container" thing
+12:35:42 <bcotton> #link Article proposals: https://pagure.io/fedora-magazine-proposals/issues
+12:36:00 <bcotton> gregbartholomew: see https://docs.fedoraproject.org/en-US/fedora-magazine/editorial-meetings/#_5_publishing_schedule
+12:36:10 <sysoplab> I've been clearing out proposals
+12:36:15 <bcotton> sysoplab++
+12:36:18 <sysoplab> Last looked Sunday night though
+12:36:32 <sysoplab> Anything new after that hasn't been checked.
+12:36:37 <asamalik> that was you? nice!
+12:36:46 <asamalik> sysoplab++
+12:36:54 <asamalik> you'll be able to open a cookie store soon!
+12:37:15 <bcotton> i don't see anything requiring immediate discussion. does anyone else?
+12:37:23 <sysoplab> There was a proposed thing in the email from an outreach person
+12:37:29 <gregbartholomew> bcotton: I'll be sure to to study up on that before I volunteer for a week
+12:37:36 * asamalik is just +1'ing a few of the proposals
+12:37:36 <sysoplab> Something about nominating folks/writers
+12:38:01 <sysoplab> Oh if you +1 them I'll make cards in a few hours since for most that'll be 2
+12:38:51 <sysoplab> I also would like to bring up that I can't assign the proposals to the people writing them when cards are made because names don't match despite it all being FAS login
+12:38:56 <bcotton> sysoplab: were you talking about the infographic or something else?
+12:39:18 <sysoplab> One moment let me find the email quick
+12:39:26 <bcotton> sysoplab: they have to log in to taiga first. i think there are instructions in the docs, but if not, we'll add them
+12:40:11 <sysoplab> Yes an infographic
+12:40:22 <bcotton> okay, let's discuss that in open floor
+12:40:30 <bcotton> which starts.... right.....
+12:40:40 <bcotton> #topic 7/ Open floor
+12:40:41 <bcotton> now
+12:41:11 <bcotton> so three things i'm aware of: 1. discourse move, 2. editor of the week proposal, 3. infographic request
+12:41:13 <sysoplab> Last but not least for proposals asamalik said he wants to do the testing during July but the first week there is a holiday...may want to do it slightly longer due to that.  Tried emailing that but not sure it was sent.
+12:41:44 <bcotton> we have 19 minutes, so i don't think we can add anything else, but let's see what we can get through
+12:41:46 <sysoplab> Not sure on contribution history if holidays are busy or slower
+12:42:07 <bcotton> #topic Discourse move
+12:42:25 <sysoplab> Er sorry...see above for my comment on discource
+12:42:43 <bcotton> sysoplab: it made it through, but no one replied :-)
+12:43:06 <bcotton> so asamalik's proposal was that we'd start tomorrow
+12:43:31 <bcotton> it seems like the general consensus is starting 11 June and ending 13 July is a reasonable trial period, although we don't really have success criteria yet
+12:43:38 <sysoplab> So should all current proposals in pajure that I can't close be moved over at that time?
+12:43:50 <bcotton> i would say yes
+12:44:08 <sysoplab> How are we spreading the link for the sub discource ?
+12:44:22 <bcotton> do we still want to start tomorrow or should we push back a bit in order to figure out our plan
+12:44:28 <asamalik> sorry I haven't had chance to look at this since my last message on the list
+12:44:54 <sysoplab> Is it already ready and we just need to use it?  Is the board that's paying for it okay with the plan (asamalik was going to ask I think)
+12:45:07 <asamalik> maybe let's push it a week?
+12:45:07 <bcotton> we'll send a post to the mailing list and update the docs to point to the new location. the mailing list won't go away for now, so we'll probably have to redirect folks as they come along
+12:45:38 <bcotton> we're not going to be a meaningful increase in the usage. adam and i are on the council and we both agree we should just start using it and if it becomes a problem we can deal with it then
+12:45:47 <gregbartholomew> oh boy, more redirect! :)
+12:46:12 <sysoplab> It was noted that discource has a mailing list feature..any way someone could add the discourse to the current mailing list address instead of redirecting.
+12:46:30 <bcotton> proposed #agreed We will delay the dates of the Discourse trial by a week in order to try to figure out our success criteria
+12:46:32 <sysoplab> That would actually make all the people that want the current mailing list happy as replies would go both
+12:46:43 <sysoplab> And no extra effort.
+12:46:59 <bcotton> proposed #action asamalik to finalize the success criteria
+12:47:16 <bcotton> sysoplab: i don't think so. mailing list mode is a per-user setting, there's no discourse user
+12:47:36 <gregbartholomew> sysoplab: are you saying that the discourse thing is already online? Where do I access it?
+12:47:48 <bcotton> gregbartholomew: discussion.fedoraproject.org
+12:47:57 <sysoplab> They said it's hijacking another instance so yes.
+12:48:23 <asamalik> bcotton: +1
+12:48:35 <gregbartholomew> And I can/should test the new system by posted to discourse instead of emailing the list?
+12:49:08 <bcotton> there's nowhere to post yet
+12:49:12 <sysoplab> Yes.  As of next week it seems
+12:49:25 <gregbartholomew> Ah, ok.
+12:49:32 <bcotton> #action bcotton to create magazine sub-topic in Project Conversations (or whatever that topic in discussion.fp.o is called)
+12:50:10 <bcotton> i see (+1,0,-0) on my two proposals above. any objections?
+12:50:17 <sysoplab> Should I still start moving proposals over tomorrow or wait until next week entirely?
+12:50:17 <jakfrost> hello
+12:50:25 <sysoplab> jakfrost hi
+12:50:26 <gregbartholomew> +1
+12:50:28 <bcotton> welcome jakfrost
+12:50:38 <bcotton> sysoplab: that depends on if we're pushing back a week, but it looks like we are
+12:50:56 <jakfrost> bcotton: what was the proposal?
+12:51:00 <bcotton> #agreed We will delay the dates of the Discourse trial by a week in order to try to figure out our success criteria
+12:51:09 <bcotton> #action asamalik to finalize the success criteria
+12:51:10 <jakfrost> agree
+12:51:15 <bcotton> jakfrost: ^ those
+12:51:22 <jakfrost> gotcha
+12:51:46 <bcotton> asamalik, will you email the list to let folks know, since you're in charge of the success criteria
+12:52:07 <asamalik> yep!
+12:52:08 <bcotton> #action asamalik to email the list to let everyone know we're pushing back the discourse trial by a week
+12:52:22 <bcotton> #topic Editor of the Week proposal
+12:52:49 <bcotton> i'd like to give this a little longer for discussion, so let's say we'll try it out starting at the end of next week's meeting?
+12:53:00 <jakfrost> +1
+12:53:11 <sysoplab> I have a concern that it'll tire people out
+12:53:12 <bcotton> there are a couple of open questions i haven't raised yet that i want to bring up on the mailing list still
+12:53:12 <gregbartholomew> +1
+12:53:39 <bcotton> sysoplab: the goal is to do the opposite, so i encourage you to explain your concern on the thread
+12:54:04 <sysoplab> From what I got it's putting all the stuff that's currently distributed out between whoever's available on one person for an entire week
+12:54:15 <gregbartholomew> I like to work in dedicated batchs rather than randomly and continuously myself.
+12:54:38 <bcotton> a little bit, but it's not *only* on them, and it makes sure there's someone actually replying to proposals and the like so that we're not discouraging our writers
+12:54:55 <bcotton> but let's have this conversation on the list
+12:55:02 <sysoplab> Ok
+12:55:09 <jakfrost> I think it is pretty much how we do it now just more formalised
+12:55:11 <bcotton> because there may be ways we can change it to make it better
+12:55:21 <bcotton> #topic Infographic request
+12:55:45 <bcotton> #link https://lists.fedoraproject.org/archives/list/magazine@lists.fedoraproject.org/thread/DBCAVDUOHJ2IQEM26BVTTKHZZVNHAQ5D/
+12:56:09 <sysoplab> Since I've been here asamalik bcotton and jakfrost have done...95 percent of the work so I nominate you three.
+12:56:12 <bcotton> i think it's a good idea, and we can probably find some interesting stuff to publish
+12:56:16 <bcotton> :-D
+12:56:37 <bcotton> i can take doing a first pass of stats, etc and then sharing that with the mailing list unless someone else really wants to :-)
+12:57:21 <jakfrost> bcotton++
+12:57:23 <sysoplab> Can show the trending fairly consistantly
+12:57:44 <gregbartholomew> Are these stats about editors or writers?
+12:57:49 <sysoplab> That's always good news when a project is nice and steady.
+12:57:59 <bcotton> yes
+12:58:10 <jakfrost> to?
+12:58:24 <bcotton> i figure, editors, writers, comments, page views, and uniques are all good things to mine for stats
+12:58:29 <bcotton> yes to everything :-)
+12:58:36 <jakfrost> thought so
+12:59:20 <bcotton> #action bcotton to make a first pass of stats, etc for the infographic and then share to the mailing list for review
+12:59:23 <gregbartholomew> What's "uniques"
+12:59:48 <bcotton> gregbartholomew: unique visitors (e.g. if you visit 10 pages, it counts as 10 views and 1 unique)
+12:59:50 <gregbartholomew> Oh, page views from unique IPs
+13:00:18 <bcotton> okay, we're at the end, very productive meeting! everyone pat yourself on the back
+13:00:21 <bcotton> thanks all!
+13:00:23 <bcotton> #endmeeting

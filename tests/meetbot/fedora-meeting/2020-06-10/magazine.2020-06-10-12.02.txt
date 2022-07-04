@@ -1,0 +1,178 @@
+=========================================
+#fedora-meeting: Magazine editorial board
+=========================================
+
+
+Meeting started by bcotton at 12:02:26 UTC. The full logs are available
+at
+https://meetbot.fedoraproject.org/fedora-meeting/2020-06-10/magazine.2020-06-10-12.02.log.html
+.
+
+
+
+Meeting summary
+---------------
+* Roll call  (bcotton, 12:02:48)
+
+* Agenda  (bcotton, 12:06:11)
+  * LINK: https://docs.fedoraproject.org/en-US/fedora-magazine/workflow/
+    (bcotton, 12:06:12)
+  * -- 1/ Last week's stats --  (bcotton, 12:06:14)
+  * -- 2/ In progress followup --  (bcotton, 12:06:15)
+  * -- 3/ Finished articles to review --  (bcotton, 12:06:17)
+  * -- 4/ Articles to edit --  (bcotton, 12:06:18)
+  * -- 5/ Publishing schedule --  (bcotton, 12:06:20)
+  * -- 6/ Article proposals to clarify / approve --  (bcotton, 12:06:21)
+  * -- 7/ Open floor --  (bcotton, 12:06:23)
+
+* 1/ Last week's stats  (bcotton, 12:06:27)
+  * Week of Jun 1: 61.3k page views -- slightly above our recent average
+    (bcotton, 12:07:41)
+
+* 2/ In progress followup  (bcotton, 12:08:10)
+  * Looking at the 'in progress' column, is there something that's been
+    finished? Anything to follow up on with its author?  (bcotton,
+    12:08:11)
+  * LINK: Board:
+    https://teams.fedoraproject.org/project/asamalik-fedora-magazine/kanban
+    (bcotton, 12:08:13)
+  * 6 articles are in the In Progress column  (bcotton, 12:08:51)
+  * LINK:
+    https://teams.fedoraproject.org/project/asamalik-fedora-magazine/us/188?kanban-status=196
+    (sysoplab, 12:11:57)
+
+* 3/ Finished articles to review  (bcotton, 12:14:28)
+  * Looking at the 'review' column, let's decide which articles are good
+    to go. Move each either to the 'to edit' (finished) or to the 'in
+    progress' (needs more work) and provide feedback.  (bcotton,
+    12:14:29)
+  * LINK: Board:
+    https://teams.fedoraproject.org/project/asamalik-fedora-magazine/kanban
+    (bcotton, 12:14:31)
+  * 5 articles need review  (bcotton, 12:14:39)
+  * ACTION: sysoplab to edit #184 and #188  (bcotton, 12:17:02)
+  * ACTION: bcotton to add "push your new image to the git repo" to the
+    image docs :-)  (bcotton, 12:22:12)
+  * ACTION: gregbartholomew to edit #181  (bcotton, 12:24:49)
+  * ACTION: bcotton to edit #175  (bcotton, 12:24:56)
+
+* 4/ Articles to edit  (bcotton, 12:27:09)
+  * Looking at the 'to edit' column, assign an editor and a cover image
+    creator.  (bcotton, 12:27:11)
+  * LINK: Board:
+    https://teams.fedoraproject.org/project/asamalik-fedora-magazine/kanban
+    (bcotton, 12:27:12)
+
+* 5/ Publishing schedule  (bcotton, 12:29:12)
+  * Looking at the 'queued' and 'to edit' columns, decide the publishing
+    schedule for the next week period.  (bcotton, 12:29:13)
+  * If there is not enough content, we might also need to look at the
+    'in progress' or even the 'article spec' columns come up with
+    additional content.  (bcotton, 12:29:14)
+  * LINK: Board:
+    https://teams.fedoraproject.org/project/asamalik-fedora-magazine/kanban
+    (bcotton, 12:29:16)
+  * AGREED: PUBLISHING SCHEDULE: Fri Jun 12, Simple File Sharing With
+    Samba (edit/image: sysoplab) -- Mon Jun 15, Latex document series
+    (edit: glb, image: DONE) -- Wed Jun 17 Internet Connection Sharing
+    with Network Manager (edit/image: bcotton) -- Fri Jun 19 Fedora 32
+    and Docker (edit/image: sysoplab)  (bcotton, 12:35:03)
+
+* 6/ Article proposals to clarify / approve  (bcotton, 12:35:39)
+  * Review the the article proposals and decide about what's next — a
+    new article spec? more discussion?  (bcotton, 12:35:40)
+  * LINK: Article proposals:
+    https://pagure.io/fedora-magazine-proposals/issues  (bcotton,
+    12:35:42)
+
+* 7/ Open floor  (bcotton, 12:40:40)
+
+* Discourse move  (bcotton, 12:42:07)
+  * ACTION: bcotton to create magazine sub-topic in Project
+    Conversations (or whatever that topic in discussion.fp.o is called)
+    (bcotton, 12:49:32)
+  * AGREED: We will delay the dates of the Discourse trial by a week in
+    order to try to figure out our success criteria  (bcotton, 12:51:00)
+  * ACTION: asamalik to finalize the success criteria  (bcotton,
+    12:51:09)
+  * ACTION: asamalik to email the list to let everyone know we're
+    pushing back the discourse trial by a week  (bcotton, 12:52:08)
+
+* Editor of the Week proposal  (bcotton, 12:52:22)
+
+* Infographic request  (bcotton, 12:55:21)
+  * LINK:
+    https://lists.fedoraproject.org/archives/list/magazine@lists.fedoraproject.org/thread/DBCAVDUOHJ2IQEM26BVTTKHZZVNHAQ5D/
+    (bcotton, 12:55:45)
+  * ACTION: bcotton to make a first pass of stats, etc for the
+    infographic and then share to the mailing list for review  (bcotton,
+    12:59:20)
+
+Meeting ended at 13:00:23 UTC.
+
+
+
+
+Action Items
+------------
+* sysoplab to edit #184 and #188
+* bcotton to add "push your new image to the git repo" to the image docs
+  :-)
+* gregbartholomew to edit #181
+* bcotton to edit #175
+* bcotton to create magazine sub-topic in Project Conversations (or
+  whatever that topic in discussion.fp.o is called)
+* asamalik to finalize the success criteria
+* asamalik to email the list to let everyone know we're pushing back the
+  discourse trial by a week
+* bcotton to make a first pass of stats, etc for the infographic and
+  then share to the mailing list for review
+
+
+
+
+Action Items, by person
+-----------------------
+* asamalik
+  * asamalik to finalize the success criteria
+  * asamalik to email the list to let everyone know we're pushing back
+    the discourse trial by a week
+* bcotton
+  * bcotton to add "push your new image to the git repo" to the image
+    docs :-)
+  * bcotton to edit #175
+  * bcotton to create magazine sub-topic in Project Conversations (or
+    whatever that topic in discussion.fp.o is called)
+  * bcotton to make a first pass of stats, etc for the infographic and
+    then share to the mailing list for review
+* gregbartholomew
+  * gregbartholomew to edit #181
+* sysoplab
+  * sysoplab to edit #184 and #188
+* **UNASSIGNED**
+  * (none)
+
+
+
+
+People Present (lines said)
+---------------------------
+* bcotton (136)
+* sysoplab (52)
+* asamalik (33)
+* gregbartholomew (26)
+* zodbot (11)
+* jakfrost (9)
+* cverna (3)
+* misc (0)
+* rwaltr (0)
+* ryanlerch (0)
+* stickster (0)
+* sub_pop (0)
+
+
+
+
+Generated by `MeetBot`_ 0.1.4
+
+.. _`MeetBot`: http://wiki.debian.org/MeetBot
