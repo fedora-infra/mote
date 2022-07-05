@@ -51,6 +51,10 @@ pre {
     white-space: pre-wrap;
 }
 
+[data-bs-color-scheme="dark"] pre  {
+    color: #ffffff;
+}
+
 .dropdown-item:focus {
     background-color: #108BD6;
 }
@@ -61,7 +65,11 @@ body {
 
 /* time */
 body .tm  {
-    color: #007020
+    color: #555;
+}
+
+[data-bs-color-scheme="dark"] body .tm  {
+    color: #e3e3e3;
 }
 
 /* nick, regular */
@@ -70,10 +78,18 @@ body .nk  {
     font-weight: bold;
 }
 
+[data-bs-color-scheme="dark"] body .nk  {
+    color: #44c2ff;
+}
+
 /* action nick */
 body .nka {
     color: #007020;
     font-weight: bold;
+}
+
+[data-bs-color-scheme="dark"] body .nka  {
+    color: #64ec8b;
 }
 
 /* action line */
@@ -81,9 +97,17 @@ body .ac  {
     color: #00a000;
 }
 
+[data-bs-color-scheme="dark"] body .ac  {
+    color: #00e100;
+}
+
 /* highlights */
 body .hi  {
     color: #4070a0;
+}
+
+[data-bs-color-scheme="dark"] body .hi  {
+    color: #b6ff84;
 }
 
 /* Things to make particular MeetBot commands stick out */
@@ -92,9 +116,17 @@ body .topic {
     font-weight: bold;
 }
 
+[data-bs-color-scheme="dark"] body .topic  {
+    color: #e19f21;
+}
+
 body .topicline {
     color: #000080;
     font-weight: bold;
+}
+
+[data-bs-color-scheme="dark"] body .topicline  {
+    color: #44c2ff;
 }
 
 body .cmd {
@@ -102,8 +134,16 @@ body .cmd {
     font-weight: bold;
 }
 
+[data-bs-color-scheme="dark"] body .cmd  {
+    color: #e19f21;
+}
+
 body .cmdline {
     font-weight: bold;
+}
+
+[data-bs-color-scheme="dark"] body .cmdline  {
+    color: #9fe0ff;
 }
 
 /* This is for the .html in the HTML2 writer */
@@ -158,6 +198,14 @@ hr {
 
 [data-bs-color-scheme="dark"] .logo {
   background-image: url("../imgs/Fedora_logo_dark.png");
+}
+
+[data-bs-color-scheme="dark"] a {
+  color: #5ea7c4;
+}
+
+[data-bs-color-scheme="dark"] a:hover {
+  color: #a9d6e8;
 }
 
 .fc a {
