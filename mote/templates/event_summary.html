@@ -5,8 +5,27 @@
      <span class="evt-smry-length text-nowrap"><i class="far fa-calendar-alt fa-lg me-2" aria-hidden="true"></i>{{ startdate }}</span>
   </div>
   <div class="d-grid gap-2 d-md-block">
-    <a role="button" class="btn btn-primary btn-sm text-nowrap" href="{{ full_log }}" target="_blank"><i class="far fa-list-alt fa-lg pe-2" aria-hidden="true"></i>Full Logs</a>
-    <a role="button" class="btn btn-primary btn-sm text-nowrap" href="{{ permalink }}" target="_blank"><i class="fas fa-link fa-lg pe-2" aria-hidden="true"></i>Permalink</a>
+    <div class="btn-group">
+      <a role="button" class="btn btn-primary btn-sm text-nowrap" href="{{ full_log }}" target="_blank"><i class="far fa-list-alt fa-lg pe-2" aria-hidden="true"></i>Full Logs</a>
+      <button id="full_log_type" type="button" class="btn btn-sm btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+        <span class="visually-hidden">Toggle Dropdown</span>
+      </button>
+      <ul style="" aria-labelledby="full_log_type" class="dropdown-menu dropdown-menu-end">
+        <li><a class="dropdown-item" href="{{ full_log }}" target="_blank">as HTML</a></li>
+        <li><a class="dropdown-item" href="{{ full_log|trim(".html") + ".txt" }}" target="_blank">as plain text</a></li>
+      </ul>
+    </div>
+
+    <div class="btn-group">
+      <a role="button" class="btn btn-primary btn-sm text-nowrap" href="{{ permalink }}" target="_blank"><i class="fas fa-link fa-lg pe-2" aria-hidden="true"></i>Permalink</a>
+      <button id="permalink_type" type="button" class="btn btn-sm btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+        <span class="visually-hidden">Toggle Dropdown</span>
+      </button>
+      <ul style="" aria-labelledby="permalink_type" class="dropdown-menu dropdown-menu-end">
+        <li><a class="dropdown-item" href="{{ permalink }}" target="_blank">as HTML</a></li>
+        <li><a class="dropdown-item" href="{{ permalink|trim(".html") + ".txt" }}" target="_blank">as plain text</a></li>
+      </ul>
+    </div>
     <button type="button" class="btn btn-dark btn-sm" aria-label="Close" data-bs-dismiss="modal"><i class="fas fa-times fa-lg pe-2" aria-hidden="true"></i>Close</button>
   </div>
 </div>
