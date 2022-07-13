@@ -59,6 +59,12 @@ pre {
     background-color: #108BD6;
 }
 
+.btn-group .dropdown-menu {
+  font-size: 0.8rem;
+  min-width: 6rem;
+  padding: 0.2rem 0;
+}
+
 body {
     background: #f0f0f0;
 }
