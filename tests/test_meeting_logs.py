@@ -37,3 +37,13 @@ def test_meeting_log_txt(client):
         "/fedora-meeting/2020-06-10/fedora_iot_working_group_meeting.2020-06-10-14.10.log.txt"
     )
     assert rv.status_code == 302
+
+
+def test_invalid_path_teams(client):
+    rv = client.get("/teams/fesco/fesco.2014-02-19-18.00.log.html")
+    assert rv.status_code == 404
+
+
+def test_invalid_path_meetbot(client):
+    rv = client.get("/meetbot/fedora-meeting/2011-10-06/infrastructure.2011-10-06-19.00.html")
+    assert rv.status_code == 404

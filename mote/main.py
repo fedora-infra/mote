@@ -95,25 +95,26 @@ def getevents():
 
 @main.get("/<channame>/<cldrdate>/<path:meetname>")
 def statfile(channame, cldrdate, meetname):
-    meetname = meetname.replace(".log.html", "").replace(".html", "")
-    meeting_title = re.search(main.config["RECOGNIITION_PATTERN"], meetname)
-    meetpath = main.config["MEETING_DIR"] + request.path
-    formatted_timestamp = datetime.strptime(cldrdate, "%Y-%m-%d")
-    cldrdate = "{:%B %d, %Y}".format(formatted_timestamp)
-    if meetpath[-1] == "/":
-        meetpath = meetpath[0:-1]
-    # if txt log, redirect to meetbot-raw
-    if meetname.endswith(".txt"):
+    if meetname.endswith(".log.html"):
+        typecont = "Logs"
+    elif meetname.endswith(".html"):
+        typecont = "Minutes"
+    elif meetname.endswith(".txt"):
+        # if txt log, redirect to meetbot-raw
         return redirect(f"{main.config['MEETBOT_RAW_URL']}/{request.path}", code=302)
+    else:
+        abort(404)
 
+    meetpath = main.config["MEETING_DIR"] + request.path
     meetcont = fetch_meeting_content(meetpath)
-    if meetcont[0]:
-        if ".log.html" in request.path:
-            typecont = "Logs"
-        elif ".html" in request.path:
-            typecont = "Minutes"
-        else:
-            typecont = "Contents"
+    if not meetcont[0]:
+        abort(404)
+    else:
+        meetname = meetname.replace(".log.html", "").replace(".html", "")
+        meeting_title = re.search(main.config["RECOGNIITION_PATTERN"], meetname)
+        formatted_timestamp = datetime.strptime(cldrdate, "%Y-%m-%d")
+        cldrdate = "{:%B %d, %Y}".format(formatted_timestamp)
+
         return render_template(
             "statfile.html",
             channame=channame,
@@ -123,26 +124,25 @@ def statfile(channame, cldrdate, meetname):
             typecont=typecont,
             meetcont=meetcont[1],
         )
-    else:
-        abort(404)
 
 
 @main.get("/smry/<channame>/<cldrdate>/<path:meetname>")
 def evtsmry(channame, cldrdate, meetname):
     meetname = meetname.replace(".log.html", "").replace(".html", "")
-    permalink = url_for(
-        "statfile", channame=channame, cldrdate=cldrdate, meetname=f"{meetname}.html"
-    )
-    full_log = url_for(
-        "statfile", channame=channame, cldrdate=cldrdate, meetname=f"{meetname}.log.html"
-    )
     meetpath = f"{main.config['MEETING_DIR']}/{channame}/{cldrdate}/{meetname}.html"
-    formatted_timestamp = datetime.strptime(cldrdate, "%Y-%m-%d")
-    cldrdate = "{:%B %d, %Y}".format(formatted_timestamp)
-    if meetpath[-1] == "/":
-        meetpath = meetpath[0:-1]
     meet = fetch_meeting_summary(meetpath)
-    if meet[0]:
+    if not meet[0]:
+        abort(404)
+    else:
+        permalink = url_for(
+            "statfile", channame=channame, cldrdate=cldrdate, meetname=f"{meetname}.html"
+        )
+        full_log = url_for(
+            "statfile", channame=channame, cldrdate=cldrdate, meetname=f"{meetname}.log.html"
+        )
+        formatted_timestamp = datetime.strptime(cldrdate, "%Y-%m-%d")
+        cldrdate = "{:%B %d, %Y}".format(formatted_timestamp)
+
         return render_template(
             "event_summary.html",
             meet=meet[1],
@@ -150,8 +150,6 @@ def evtsmry(channame, cldrdate, meetname):
             permalink=permalink,
             full_log=full_log,
         )
-    else:
-        abort(404)
 
 
 @main.get("/")
