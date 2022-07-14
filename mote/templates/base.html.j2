@@ -354,13 +354,13 @@
         $(document).on("click", "#findtext", function (event) {
             var dropdownDiv = document.getElementById('dropdown');
             dropdownDiv.innerHTML =
-                `<li><a class="dropdown-item" type="button">Enter four or more characters to search</a></li>`
+                `<li><a class="dropdown-item" type="button">Enter three or more characters to search</a></li>`
             dropdownDiv.classList.add("show");
         })
         $(document).on("keyup", "#findtext", function (event) {
             var dropdownDiv = document.getElementById('dropdown');
             dropdownDiv.innerHTML =
-                `<li><a class="dropdown-item" type="button">Enter four or more characters to search</a></li>`
+                `<li><a class="dropdown-item" type="button">Enter three or more characters to search</a></li>`
             dropdownDiv.classList.add("show");
             search_results();
         });
@@ -410,7 +410,7 @@
         async function fetch_search_results() {
             let value = document.getElementById("findtext").value.toLowerCase();
             if (value != "") {
-                if (value.length > 3 && value !== prevValue) {
+                if (value.length >= 3 && value !== prevValue) {
                     var dropdownDiv = document.getElementById('dropdown');
                     dropdownDiv.innerHTML =
                         `<li><a class="dropdown-item" type="button">Loading...</a></li>`
