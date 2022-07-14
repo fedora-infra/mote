@@ -37,7 +37,7 @@ from mote.modules.call import (
     fetch_meeting_summary,
 )
 from mote.modules.find import find_meetings_by_substring
-from mote.modules.late import fetch_meeting_by_period, fetch_recent_meetings
+from mote.modules.late import fetch_meeting_by_period
 
 thread = None
 client_count = 0
@@ -82,28 +82,6 @@ def fragedpt():
             response = srchrslt[1]
         else:
             logging.error("Meetings could not be looked up:")
-
-    elif rqstdata == "rcntlsdy":
-        meetlist = fetch_recent_meetings(1)
-        if meetlist[0]:
-            response = meetlist[1]
-        else:
-            logging.error("List of recent meetings could not retrieved (last day)")
-
-    elif rqstdata == "clndrmtgs":
-        numdays = request.args.get("numdays")
-        meetlist = fetch_recent_meetings(int(numdays))
-        if meetlist[0]:
-            response = meetlist[1]
-        else:
-            logging.error("List of meetings for the month could not retrieved")
-
-    elif rqstdata == "rcntlswk":
-        meetlist = fetch_recent_meetings(7)
-        if meetlist[0]:
-            response = meetlist[1]
-        else:
-            logging.error("List of recent meetings could not retrieved (last week)")
 
     return jsonify(response)
 

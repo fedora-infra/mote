@@ -1,6 +1,3 @@
-from utility import fake_datagrepper
-
-
 def test_fetch_channel(client):
     rv = client.get("/fragedpt/", query_string={"rqstdata": "listchan"})
 
@@ -113,27 +110,7 @@ def test_search_meeting_with_tgz(client):
     assert len(j) == 0
 
 
-def test_fetch_last_day_meeting(client, mocker):
-    mocker.patch("urllib.request.urlopen", side_effect=fake_datagrepper)
-    rv = client.get("/fragedpt/", query_string={"rqstdata": "rcntlsdy"})
-
-    j = rv.get_json()
-    print(j)
-    assert isinstance(j, dict)
-    assert len(j) == 2
-
-
-def test_fetch_last_day_meeting_exc(client, mocker):
-    mocker.patch("urllib.request.urlopen", side_effect=Exception)
-    rv = client.get("/fragedpt/", query_string={"rqstdata": "rcntlsdy"})
-
-    j = rv.get_json()
-    assert isinstance(j, dict)
-    assert len(j) == 0
-
-
-def test_fetch_last_week_meeting(client, mocker):
-    mocker.patch("urllib.request.urlopen", side_effect=fake_datagrepper)
+def test_fetch_last_week_meeting(client):
     rv = client.get("/fragedpt/", query_string={"rqstdata": "rcntlswk"})
 
     j = rv.get_json()

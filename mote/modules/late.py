@@ -32,7 +32,6 @@ import dateutil.parser
 
 from mote import app, cache, logging
 
-from . import sanitize_name
 from .call import fetch_meeting_summary
 
 seconds_delta = 86400
@@ -104,52 +103,3 @@ def fetch_meeting_by_period(start, end):
         meets += fetch_meeting_by_day(cur_date.strftime("%Y-%m-%d"))
         cur_date += timedelta(days=1)
     return meets
-
-
-def fetch_meetings_from_datagreeper(start):
-    """For testing purpose only
-    to be removed before release"""
-    try:
-        topic = "org.fedoraproject.prod.meetbot.meeting.complete"
-        source = "{}/datagrepper/raw?start={}&topic={}".format(
-            app.config["DATAGREPPER_BASE_URL"], start.isoformat(), topic
-        )
-        parse_object = json.loads(ulrq.urlopen(source).read().decode())
-        meeting_rawlist = parse_object["raw_messages"]
-        meeting_list = []
-        total_pages = parse_object["pages"]
-        cur_page = 1
-        while cur_page <= total_pages:
-            for indx in meeting_rawlist:
-                data = indx["msg"]
-                meeting = re.search(
-                    app.config["RECOGNIITION_PATTERN"],
-                    data["url"].replace(app.config["MEETBOT_URL"], "").replace(".log.html", ""),
-                )
-                date = datetime.strptime(f"{meeting.group(2)} {meeting.group(3)}", "%Y-%m-%d %H.%M")
-                meeting_list.append(
-                    {
-                        "title": sanitize_name(data["meeting_topic"]),
-                        "start": date.isoformat(),
-                        "allDay": False,
-                        "display": "block",
-                        "url": data["url"] + ".html",
-                        "attendees": len(data["attendees"]),
-                        "lines": data["details"]["linenum"],
-                    }
-                )
-            cur_page += 1
-            if cur_page <= total_pages:
-                source = "{}/datagrepper/raw?start={}&topic={}&page={}".format(
-                    app.config["DATAGREPPER_BASE_URL"],
-                    start.isoformat(),
-                    topic,
-                    cur_page,
-                )
-                parse_object = json.loads(ulrq.urlopen(source).read().decode())
-                meeting_rawlist = parse_object["raw_messages"]
-
-        return meeting_list
-    except Exception as expt:
-        logging.exception(expt)
-        return []
