@@ -80,7 +80,7 @@ def test_search_meeting(client):
     j = rv.get_json()
     assert len(j) > 0
     assert j[0]["channel"] == "fedora-meeting"
-    assert j[0]["date"] == "Jun 10, 2020"
+    assert j[0]["datetime"].startswith("2020-06-10T")
     assert j[0]["topic"] == "fedora_iot_working_group_meeting"
 
 
