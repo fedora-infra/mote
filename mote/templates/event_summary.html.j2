@@ -4,7 +4,15 @@
      <span class="evt-smry-length text-nowrap me-4"><i class="fas fa-clock fa-lg me-2" aria-hidden="true"></i>{{ meet['duration'] }} min</span>
      <span class="evt-smry-length text-nowrap"><i class="far fa-calendar-alt fa-lg me-2" aria-hidden="true"></i>{{ startdate.strftime("%B %d, %Y") }}</span>
   </div>
-  <div class="d-grid gap-2 d-md-block">
+  <div class="d-grid gap-2 d-md-block evt-smry-toolbar">
+    {% if adj_meetings['prev'] %}
+    <a role="button" id="prev" class="btn btn-primary btn-sm text-nowrap" href="{{ adj_meetings['prev']['slug']['summary'] }}"><i class="far fa-arrow-alt-circle-left fa-lg pe-2" aria-hidden="true"></i>Previous</a>
+    {% endif %}
+    {% if adj_meetings['next'] %}
+    <a role="button" id="next" class="btn btn-primary btn-sm text-nowrap" href="{{ adj_meetings['next']['slug']['summary'] }}"><i class="far fa-arrow-alt-circle-right fa-lg pe-2" aria-hidden="true"></i>Next</a>
+    {% endif %}
+
+
     <div class="btn-group">
       <a role="button" class="btn btn-primary btn-sm text-nowrap" href="{{ full_log }}" target="_blank"><i class="far fa-list-alt fa-lg pe-2" aria-hidden="true"></i>Full Logs</a>
       <button id="full_log_type" type="button" class="btn btn-sm btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">

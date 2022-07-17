@@ -28,6 +28,8 @@ from datetime import datetime
 
 from mote import app, cache, logging
 
+from . import sanitize_name
+
 
 def get_meetings_files():
     files_list = cache.get("meetings_files")
@@ -54,7 +56,7 @@ def get_meetings_files():
     return files_list
 
 
-def find_meetings_by_substring(search_string: str):
+def find_meetings_by_substring(search_string: str, exact_match: bool = False):
     """
     Return list of meetings returned from search
     """
@@ -62,26 +64,32 @@ def find_meetings_by_substring(search_string: str):
         meeting_dictionary = []
         allMeetFiles = get_meetings_files()
         for root, file in allMeetFiles:
-            if search_string in file:
-                location = f"{root}/{str(file)}"
-                location_list = location.replace(app.config["MEETING_DIR"] + "/", "").split("/")
-                channel_name, meeting_date, meeting_filename = (
-                    location_list[0],
-                    location_list[1],
-                    location_list[2],
-                )
-                if ".log.html" in meeting_filename:
+            # if search_string in sanetize_name(file):
+            location = f"{root}/{str(file)}"
+            location_list = location.replace(app.config["MEETING_DIR"] + "/", "").split("/")
+            channel_name, meeting_date, meeting_filename = (
+                location_list[0],
+                location_list[1],
+                location_list[2],
+            )
+            meeting_title = re.search(
+                app.config["RECOGNIITION_PATTERN"],
+                meeting_filename.replace(".log.html", ""),
+            )
+            if meeting_title:
+                meeting_name = sanitize_name(meeting_title.group(1))
+                if (
+                    (search_string == meeting_name)
+                    if exact_match
+                    else (search_string in meeting_name)
+                ):
                     meeting_log_filename = meeting_filename
                     meeting_summary_filename = meeting_filename.replace(".log.html", ".html")
-                    meeting_title = re.search(
-                        app.config["RECOGNIITION_PATTERN"],
-                        meeting_filename.replace(".log.html", ""),
-                    )
                     meeting_datetime = datetime.strptime(
                         f"{meeting_date}T{meeting_title.group(3)}", "%Y-%m-%dT%H.%M"
                     )
                     meeting_object = {
-                        "topic": meeting_title.group(1),
+                        "topic": meeting_name,
                         "channel": channel_name,
                         "datetime": meeting_datetime.isoformat(),
                         "url": {
@@ -101,6 +109,24 @@ def find_meetings_by_substring(search_string: str):
                     }
                     meeting_dictionary.append(meeting_object)
         return True, meeting_dictionary
+    except Exception as expt:
+        logging.exception(expt)
+        return False, {"exception": str(expt)}
+
+
+def get_meeting_adj(search_string: str, date: datetime):
+    """
+    Return adjacent meeting occurrences
+    """
+
+    try:
+        _, meeting_list = find_meetings_by_substring(search_string, exact_match=True)
+        sorted_list = sorted(meeting_list, key=lambda m: datetime.fromisoformat(m["datetime"]))
+        idx = [datetime.fromisoformat(m["datetime"]) for m in sorted_list].index(date)
+        return True, {
+            "prev": sorted_list[idx - 1] if idx - 1 >= 0 else None,
+            "next": sorted_list[idx + 1] if idx + 1 < len(sorted_list) else None,
+        }
     except Exception as expt:
         logging.exception(expt)
         return False, {"exception": str(expt)}

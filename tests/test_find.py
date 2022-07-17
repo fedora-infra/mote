@@ -11,7 +11,7 @@ def test_find_meetings_by_substring_1(client):
     assert len(d) == 1
     assert d[0]["channel"] == "fedora-meeting"
     assert d[0]["datetime"].startswith("2020-06-10T")
-    assert d[0]["topic"] == "fedora_iot_working_group_meeting"
+    assert d[0]["topic"] == "fedora iot working group meeting"
 
 
 @pytest.mark.parametrize(
@@ -21,7 +21,7 @@ def test_find_meetings_by_substring_1(client):
         ("meeting", 1),
         ("fedora-iot", 0),
         ("zine", 1),
-        ("2020-06-10", 2),
+        ("2020-06-10", 0),
         ("infra", 0),
         ("ŇŬƧݺ", 0),
     ),
