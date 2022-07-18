@@ -366,6 +366,7 @@
         });
         async function populate_channels(data) {
             data = JSON.parse(decodeURIComponent(data))
+            locale = Intl.NumberFormat().resolvedOptions().locale;
             initialize_search_modal();
             document.getElementsByClassName("input-group mb-3")[0].innerHTML = ""
             document.getElementById("findtext").value = "";
@@ -376,6 +377,7 @@
                 `;
             document.getElementById("find-init").innerHTML = "";
             for (let indx in data) {
+                date = new Date(data[indx].datetime);
                 $("#listfind-uols").append(`
                         <a class="list-group-item list-group-item-action" 
                         type="button" 
@@ -385,8 +387,8 @@
                                 <span>${data[indx]["topic"]}</span>
                             </div>
                             <div class="fst-italic small text-muted mt-1">
-                                <i class="fas fa-clock"></i>&nbsp;${data[indx]["time"]}&nbsp;
-                                <i class="fas fa-calendar"></i>&nbsp;${data[indx]["date"]}&nbsp;
+                                <i class="fas fa-clock"></i>&nbsp;${date.toLocaleTimeString(locale, {timeStyle: "short"})}&nbsp;
+                                <i class="fas fa-calendar"></i>&nbsp;${date.toLocaleDateString(locale, {dateStyle: "medium"})}&nbsp;
                                 <i class="fas fa-layer-group"></i>&nbsp;${data[indx]["channel"]}&nbsp;
                             </div>
                         </a>
@@ -421,12 +423,8 @@
                         "srchtext": value
                     }, function (data) {
                         results = data
-                        results.sort((a, b) => (new Date(a.date).toLocaleDateString().split("/").reverse().join(
-                                "") < new Date(b.date).toLocaleDateString().split("/").reverse().join(
-                                "")) ? 1 :
-                            ((new Date(a.date).toLocaleDateString().split("/").reverse().join("") >
-                                new Date(b
-                                    .date).toLocaleDateString().split("/").reverse().join("")) ? -1 : 0))
+                        results.sort((a, b) => (new Date(a.datetime) < new Date(b.datetime)) ? 1 :
+                            ((new Date(a.datetime) > new Date(b.datetime)) ? -1 : 0))
                     })
                     var dropdownDiv = document.getElementById('dropdown');
                     var htmlData = ""
@@ -434,8 +432,10 @@
                         htmlData += `<li><a class="dropdown-item" type="button">No meetings found</a></li>`
                     } else if (results.length !== undefined) {
 
+                        locale = Intl.NumberFormat().resolvedOptions().locale;
                         for (var i = 0; i < 5; i++) {
                             if (results[i] !== undefined) {
+			        date = new Date(results[i].datetime);
                                 htmlData +=
                                     `<li><a class="dropdown-item" type="button"
                                 target="_blank"
@@ -444,8 +444,8 @@
                                     <span style="font-size: 16px;">${results[i].topic}</span>
                                 </div>
                                 <div class="fst-italic small text-muted mt-1">
-                                    <i class="fas fa-clock"></i>&nbsp;${results[i].time}&nbsp;
-                                    <i class="fas fa-calendar"></i>&nbsp;${results[i].date}&nbsp;
+                                    <i class="fas fa-clock"></i>&nbsp;${date.toLocaleTimeString(locale, {timeStyle: "short"})}&nbsp;
+                                    <i class="fas fa-calendar"></i>&nbsp;${date.toLocaleDateString(locale, {dateStyle: "medium"})}&nbsp;
                                     <i class="fas fa-layer-group"></i>&nbsp;${results[i].channel}&nbsp;
                                 </div>
                                 </a></li>`

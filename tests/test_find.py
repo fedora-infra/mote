@@ -10,7 +10,7 @@ def test_find_meetings_by_substring_1(client):
     assert r is True
     assert len(d) == 1
     assert d[0]["channel"] == "fedora-meeting"
-    assert d[0]["date"] == "Jun 10, 2020"
+    assert d[0]["datetime"].startswith("2020-06-10T")
     assert d[0]["topic"] == "fedora_iot_working_group_meeting"
 
 
