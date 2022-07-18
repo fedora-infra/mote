@@ -122,14 +122,14 @@ def fetch_meeting_summary(contpath: str):
 
         re_start = re.compile(r"Meeting started.* at (\d+:\d+:\d+) UTC")
         re_end = re.compile(r"Meeting ended.* at (\d+:\d+:\d+) UTC")
-        timeStartStr = re.search(re_start, obj.find(text=re_start).text).group(1)
-        timeEndStr = re.search(re_end, obj.find(text=re_end).text).group(1)
+        timeStartStr = re.search(re_start, obj.find(string=re_start).text).group(1)
+        timeEndStr = re.search(re_end, obj.find(string=re_end).text).group(1)
         timeDelta = datetime.strptime(timeEndStr, "%H:%M:%S") - datetime.strptime(
             timeStartStr, "%H:%M:%S"
         )
         event["duration"] = timeDelta.seconds // 60
 
-        peoples = obj.find(text=re.compile("People present")).parent.findNext("ol").select("li")
+        peoples = obj.find(string=re.compile("People present")).parent.findNext("ol").select("li")
         # filter known bots and people with 0 lines
         event["peoples"] = [
             p.text for p in peoples if re.match(r"^(?!(zodbot|fm-admin))((?!\(0\)).)*$", p.text)
@@ -137,7 +137,7 @@ def fetch_meeting_summary(contpath: str):
 
         topics = obj.select(".TOPIC")
         topics = (
-            obj.find("h3", text="Meeting summary")
+            obj.find("h3", string="Meeting summary")
             .parent.findNext("ol")
             .findChildren("li", recursive=False)
         )
@@ -152,7 +152,7 @@ def fetch_meeting_summary(contpath: str):
                 item.findNext("span", {"class": "details"}).decompose()
                 topicDict["info"].append(re.sub(r"\s+", " ", item.text))
             event["topics"].append(topicDict)
-        actions = obj.find(text="Action items").parent.findNext("ol").select("li")
+        actions = obj.find(string="Action items").parent.findNext("ol").select("li")
         event["actions"] = [a.text for a in actions if a.text != "(none)"]
 
         return True, event
