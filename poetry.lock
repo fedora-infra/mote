@@ -814,8 +814,8 @@ deprecated = ">=1.2.3"
 packaging = ">=20.4"
 
 [package.extras]
-ocsp = ["requests (>=2.26.0)", "cryptography (>=36.0.1)", "pyopenssl (==20.0.1)"]
 hiredis = ["hiredis (>=1.0.0)"]
+ocsp = ["cryptography (>=36.0.1)", "pyopenssl (==20.0.1)", "requests (>=2.26.0)"]
 
 [[package]]
 name = "requests"
@@ -941,20 +941,20 @@ typing-extensions = ">=3.6.5"
 "zope.interface" = ">=4.4.2"
 
 [package.extras]
-windows_platform = ["contextvars (>=2.4,<3)", "pywin32 (!=226)", "priority (>=1.1.0,<2.0)", "h2 (>=3.0,<5.0)", "pyserial (>=3.0)", "bcrypt (>=3.0.0)", "appdirs (>=1.4.0)", "cryptography (>=2.6)", "pyasn1", "idna (>=2.4)", "service-identity (>=18.1.0)", "pyopenssl (>=16.0.0)", "PyHamcrest (>=1.9.0)", "cython-test-exception-raiser (>=1.0.2,<2)", "pywin32 (!=226)"]
-tls = ["idna (>=2.4)", "service-identity (>=18.1.0)", "pyopenssl (>=16.0.0)"]
-test = ["PyHamcrest (>=1.9.0)", "cython-test-exception-raiser (>=1.0.2,<2)"]
-serial = ["pywin32 (!=226)", "pyserial (>=3.0)"]
-osx_platform = ["contextvars (>=2.4,<3)", "pywin32 (!=226)", "priority (>=1.1.0,<2.0)", "h2 (>=3.0,<5.0)", "pyserial (>=3.0)", "bcrypt (>=3.0.0)", "appdirs (>=1.4.0)", "cryptography (>=2.6)", "pyasn1", "idna (>=2.4)", "service-identity (>=18.1.0)", "pyopenssl (>=16.0.0)", "PyHamcrest (>=1.9.0)", "cython-test-exception-raiser (>=1.0.2,<2)", "pyobjc-framework-cocoa", "pyobjc-framework-cfnetwork", "pyobjc-core"]
-mypy = ["pydoctor (>=21.9.0,<21.10.0)", "contextvars (>=2.4,<3)", "python-subunit (>=1.4,<2.0)", "pywin32 (!=226)", "pynacl", "priority (>=1.1.0,<2.0)", "h2 (>=3.0,<5.0)", "pyserial (>=3.0)", "bcrypt (>=3.0.0)", "appdirs (>=1.4.0)", "cryptography (>=2.6)", "pyasn1", "idna (>=2.4)", "service-identity (>=18.1.0)", "pyopenssl (>=16.0.0)", "PyHamcrest (>=1.9.0)", "cython-test-exception-raiser (>=1.0.2,<2)", "coverage (>=6b1,<7)", "twistedchecker (>=0.7,<1.0)", "pyflakes (>=2.2,<3.0)", "sphinx (>=4.1.2,<6)", "readthedocs-sphinx-ext (>=2.1,<3.0)", "sphinx-rtd-theme (>=0.5,<1.0)", "towncrier (>=19.2,<20.0)", "types-pyopenssl", "types-setuptools", "mypy-zope (==0.3.4)", "mypy (==0.930)"]
-macos_platform = ["contextvars (>=2.4,<3)", "pywin32 (!=226)", "priority (>=1.1.0,<2.0)", "h2 (>=3.0,<5.0)", "pyserial (>=3.0)", "bcrypt (>=3.0.0)", "appdirs (>=1.4.0)", "cryptography (>=2.6)", "pyasn1", "idna (>=2.4)", "service-identity (>=18.1.0)", "pyopenssl (>=16.0.0)", "PyHamcrest (>=1.9.0)", "cython-test-exception-raiser (>=1.0.2,<2)", "pyobjc-framework-cocoa", "pyobjc-framework-cfnetwork", "pyobjc-core"]
-http2 = ["priority (>=1.1.0,<2.0)", "h2 (>=3.0,<5.0)"]
-dev_release = ["pydoctor (>=21.9.0,<21.10.0)", "sphinx (>=4.1.2,<6)", "readthedocs-sphinx-ext (>=2.1,<3.0)", "sphinx-rtd-theme (>=0.5,<1.0)", "towncrier (>=19.2,<20.0)"]
-dev = ["pydoctor (>=21.9.0,<21.10.0)", "python-subunit (>=1.4,<2.0)", "coverage (>=6b1,<7)", "twistedchecker (>=0.7,<1.0)", "pyflakes (>=2.2,<3.0)", "sphinx (>=4.1.2,<6)", "readthedocs-sphinx-ext (>=2.1,<3.0)", "sphinx-rtd-theme (>=0.5,<1.0)", "towncrier (>=19.2,<20.0)"]
+all_non_platform = ["cython-test-exception-raiser (>=1.0.2,<2)", "PyHamcrest (>=1.9.0)", "pyopenssl (>=16.0.0)", "service-identity (>=18.1.0)", "idna (>=2.4)", "pyasn1", "cryptography (>=2.6)", "appdirs (>=1.4.0)", "bcrypt (>=3.0.0)", "pyserial (>=3.0)", "h2 (>=3.0,<5.0)", "priority (>=1.1.0,<2.0)", "pywin32 (!=226)", "contextvars (>=2.4,<3)"]
+conch = ["pyasn1", "cryptography (>=2.6)", "appdirs (>=1.4.0)", "bcrypt (>=3.0.0)"]
+conch_nacl = ["pyasn1", "cryptography (>=2.6)", "appdirs (>=1.4.0)", "bcrypt (>=3.0.0)", "pynacl"]
 contextvars = ["contextvars (>=2.4,<3)"]
-conch_nacl = ["pynacl", "bcrypt (>=3.0.0)", "appdirs (>=1.4.0)", "cryptography (>=2.6)", "pyasn1"]
-conch = ["bcrypt (>=3.0.0)", "appdirs (>=1.4.0)", "cryptography (>=2.6)", "pyasn1"]
-all_non_platform = ["contextvars (>=2.4,<3)", "pywin32 (!=226)", "priority (>=1.1.0,<2.0)", "h2 (>=3.0,<5.0)", "pyserial (>=3.0)", "bcrypt (>=3.0.0)", "appdirs (>=1.4.0)", "cryptography (>=2.6)", "pyasn1", "idna (>=2.4)", "service-identity (>=18.1.0)", "pyopenssl (>=16.0.0)", "PyHamcrest (>=1.9.0)", "cython-test-exception-raiser (>=1.0.2,<2)"]
+dev = ["towncrier (>=19.2,<20.0)", "sphinx-rtd-theme (>=0.5,<1.0)", "readthedocs-sphinx-ext (>=2.1,<3.0)", "sphinx (>=4.1.2,<6)", "pyflakes (>=2.2,<3.0)", "twistedchecker (>=0.7,<1.0)", "coverage (>=6b1,<7)", "python-subunit (>=1.4,<2.0)", "pydoctor (>=21.9.0,<21.10.0)"]
+dev_release = ["towncrier (>=19.2,<20.0)", "sphinx-rtd-theme (>=0.5,<1.0)", "readthedocs-sphinx-ext (>=2.1,<3.0)", "sphinx (>=4.1.2,<6)", "pydoctor (>=21.9.0,<21.10.0)"]
+http2 = ["h2 (>=3.0,<5.0)", "priority (>=1.1.0,<2.0)"]
+macos_platform = ["pyobjc-core", "pyobjc-framework-cfnetwork", "pyobjc-framework-cocoa", "cython-test-exception-raiser (>=1.0.2,<2)", "PyHamcrest (>=1.9.0)", "pyopenssl (>=16.0.0)", "service-identity (>=18.1.0)", "idna (>=2.4)", "pyasn1", "cryptography (>=2.6)", "appdirs (>=1.4.0)", "bcrypt (>=3.0.0)", "pyserial (>=3.0)", "h2 (>=3.0,<5.0)", "priority (>=1.1.0,<2.0)", "pywin32 (!=226)", "contextvars (>=2.4,<3)"]
+mypy = ["mypy (==0.930)", "mypy-zope (==0.3.4)", "types-setuptools", "types-pyopenssl", "towncrier (>=19.2,<20.0)", "sphinx-rtd-theme (>=0.5,<1.0)", "readthedocs-sphinx-ext (>=2.1,<3.0)", "sphinx (>=4.1.2,<6)", "pyflakes (>=2.2,<3.0)", "twistedchecker (>=0.7,<1.0)", "coverage (>=6b1,<7)", "cython-test-exception-raiser (>=1.0.2,<2)", "PyHamcrest (>=1.9.0)", "pyopenssl (>=16.0.0)", "service-identity (>=18.1.0)", "idna (>=2.4)", "pyasn1", "cryptography (>=2.6)", "appdirs (>=1.4.0)", "bcrypt (>=3.0.0)", "pyserial (>=3.0)", "h2 (>=3.0,<5.0)", "priority (>=1.1.0,<2.0)", "pynacl", "pywin32 (!=226)", "python-subunit (>=1.4,<2.0)", "contextvars (>=2.4,<3)", "pydoctor (>=21.9.0,<21.10.0)"]
+osx_platform = ["pyobjc-core", "pyobjc-framework-cfnetwork", "pyobjc-framework-cocoa", "cython-test-exception-raiser (>=1.0.2,<2)", "PyHamcrest (>=1.9.0)", "pyopenssl (>=16.0.0)", "service-identity (>=18.1.0)", "idna (>=2.4)", "pyasn1", "cryptography (>=2.6)", "appdirs (>=1.4.0)", "bcrypt (>=3.0.0)", "pyserial (>=3.0)", "h2 (>=3.0,<5.0)", "priority (>=1.1.0,<2.0)", "pywin32 (!=226)", "contextvars (>=2.4,<3)"]
+serial = ["pyserial (>=3.0)", "pywin32 (!=226)"]
+test = ["cython-test-exception-raiser (>=1.0.2,<2)", "PyHamcrest (>=1.9.0)"]
+tls = ["pyopenssl (>=16.0.0)", "service-identity (>=18.1.0)", "idna (>=2.4)"]
+windows_platform = ["pywin32 (!=226)", "cython-test-exception-raiser (>=1.0.2,<2)", "PyHamcrest (>=1.9.0)", "pyopenssl (>=16.0.0)", "service-identity (>=18.1.0)", "idna (>=2.4)", "pyasn1", "cryptography (>=2.6)", "appdirs (>=1.4.0)", "bcrypt (>=3.0.0)", "pyserial (>=3.0)", "h2 (>=3.0,<5.0)", "priority (>=1.1.0,<2.0)", "pywin32 (!=226)", "contextvars (>=2.4,<3)"]
 
 [[package]]
 name = "twisted-iocpsupport"
@@ -1005,11 +1005,14 @@ testing = ["coverage (>=4)", "coverage-enable-subprocess (>=1)", "flaky (>=3)", 
 
 [[package]]
 name = "werkzeug"
-version = "2.1.2"
+version = "2.2.0"
 description = "The comprehensive WSGI web application library."
 category = "main"
 optional = false
 python-versions = ">=3.7"
+
+[package.dependencies]
+MarkupSafe = ">=2.1.1"
 
 [package.extras]
 watchdog = ["watchdog"]
@@ -1682,8 +1685,8 @@ virtualenv = [
     {file = "virtualenv-20.15.1.tar.gz", hash = "sha256:288171134a2ff3bfb1a2f54f119e77cd1b81c29fc1265a2356f3e8d14c7d58c4"},
 ]
 werkzeug = [
-    {file = "Werkzeug-2.1.2-py3-none-any.whl", hash = "sha256:72a4b735692dd3135217911cbeaa1be5fa3f62bffb8745c5215420a03dc55255"},
-    {file = "Werkzeug-2.1.2.tar.gz", hash = "sha256:1ce08e8093ed67d638d63879fd1ba3735817f7a80de3674d293f5984f25fb6e6"},
+    {file = "Werkzeug-2.2.0-py3-none-any.whl", hash = "sha256:81806f8a5b35e6cb1b39a6f28dabf0e123f069c8596119a1a9a43838870016cd"},
+    {file = "Werkzeug-2.2.0.tar.gz", hash = "sha256:fe8bcdcef40275ed915fc734c2527a39d705b57a716d4f09e790296abbd16a7f"},
 ]
 wrapt = [
     {file = "wrapt-1.14.1-cp27-cp27m-macosx_10_9_x86_64.whl", hash = "sha256:1b376b3f4896e7930f1f772ac4b064ac12598d1c38d04907e696cc4d794b43d3"},
