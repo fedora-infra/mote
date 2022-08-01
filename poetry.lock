@@ -837,7 +837,7 @@ use_chardet_on_py3 = ["chardet (>=3.0.2,<6)"]
 
 [[package]]
 name = "rq"
-version = "1.10.1"
+version = "1.11.0"
 description = "RQ is a simple, lightweight, library for creating background jobs, and processing them."
 category = "main"
 optional = false
@@ -1626,8 +1626,8 @@ requests = [
     {file = "requests-2.28.1.tar.gz", hash = "sha256:7c5599b102feddaa661c826c56ab4fee28bfd17f5abca1ebbe3e7f19d7c97983"},
 ]
 rq = [
-    {file = "rq-1.10.1-py2.py3-none-any.whl", hash = "sha256:92f4cf38b2364c1697b541e77c0fe62b7e5242fa864324f262be126ee2a07e3a"},
-    {file = "rq-1.10.1.tar.gz", hash = "sha256:62d06b44c3acfa5d1933c5a4ec3fbc2484144a8af60e318d0b8447c5236271e2"},
+    {file = "rq-1.11.0-py2.py3-none-any.whl", hash = "sha256:c0bbf898b56817da053cdc992ab46da2729a7ccd70dd50316ad9209b7d7b71c1"},
+    {file = "rq-1.11.0.tar.gz", hash = "sha256:50d0cf687cfb2530eac9396c7426e420958a166e8f4666bd2096bdcf7f4ad03e"},
 ]
 service-identity = [
     {file = "service-identity-21.1.0.tar.gz", hash = "sha256:6e6c6086ca271dc11b033d17c3a8bea9f24ebff920c587da090afc9519419d34"},
