@@ -298,7 +298,7 @@ dotenv = ["python-dotenv"]
 
 [[package]]
 name = "flask-caching"
-version = "2.0.0"
+version = "2.0.1"
 description = "Adds caching support to Flask applications."
 category = "main"
 optional = false
@@ -306,7 +306,7 @@ python-versions = ">=3.7"
 
 [package.dependencies]
 cachelib = ">=0.9.0"
-Flask = "<=2.1.2"
+Flask = "<3"
 
 [[package]]
 name = "flask-socketio"
@@ -1284,8 +1284,8 @@ flask = [
     {file = "Flask-2.1.2.tar.gz", hash = "sha256:315ded2ddf8a6281567edb27393010fe3406188bafbfe65a3339d5787d89e477"},
 ]
 flask-caching = [
-    {file = "Flask-Caching-2.0.0.tar.gz", hash = "sha256:3300efccda359d69ce0e6824b90cb571ff895a3907c31266c0342cca4bc40340"},
-    {file = "Flask_Caching-2.0.0-py3-none-any.whl", hash = "sha256:e5ff99af4a0208bd93a24fe48b24e9b47a77236c38c5d6a6aa3d688334040027"},
+    {file = "Flask-Caching-2.0.1.tar.gz", hash = "sha256:10df200a03f032af60077befe41779dd94898b67c82040d34e87210b71ba2638"},
+    {file = "Flask_Caching-2.0.1-py3-none-any.whl", hash = "sha256:703df847cbe904d8ddffd5f5fb320e236a31cb7bebac4a93d6b1701dd16dbf37"},
 ]
 flask-socketio = [
     {file = "Flask-SocketIO-5.2.0.tar.gz", hash = "sha256:19c3d0cea49c53505fa457fedc133b32cb6eeaaa30d28cdab9d6ca8f16045427"},
