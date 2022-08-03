@@ -775,7 +775,7 @@ six = ">=1.5"
 
 [[package]]
 name = "python-engineio"
-version = "4.3.3"
+version = "4.3.4"
 description = "Engine.IO server and client for Python"
 category = "main"
 optional = false
@@ -1619,8 +1619,8 @@ python-dateutil = [
     {file = "python_dateutil-2.8.2-py2.py3-none-any.whl", hash = "sha256:961d03dc3453ebbc59dbdea9e4e11c5651520a876d0f4db161e8674aae935da9"},
 ]
 python-engineio = [
-    {file = "python-engineio-4.3.3.tar.gz", hash = "sha256:18474c452894c60590b2d2339d6c81b93fb9857f1be271a2e91fb2707eb4095d"},
-    {file = "python_engineio-4.3.3-py3-none-any.whl", hash = "sha256:e660fcbac7497f105310d933987d3a82d2e677240a6b493c0a514aa7f91d3b07"},
+    {file = "python-engineio-4.3.4.tar.gz", hash = "sha256:d8d8b072799c36cadcdcc2b40d2a560ce09797ab3d2d596b2ad519a5e4df19ae"},
+    {file = "python_engineio-4.3.4-py3-none-any.whl", hash = "sha256:7454314a529bba20e745928601ffeaf101c1b5aca9a6c4e48ad397803d10ea0c"},
 ]
 python-socketio = [
     {file = "python-socketio-5.7.1.tar.gz", hash = "sha256:5011a0cd2545c954d7df09eef7489ec424c93b001cc146599cd72f1dd20f0d46"},
