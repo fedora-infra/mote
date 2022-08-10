@@ -21,31 +21,31 @@
 */
 
 @font-face {
-    font-family: "Overpass";
+    font-family: "Open Sans";
     font-style: normal;
     font-weight: normal;
-    src: url("../font/Overpass-Regular.ttf");
+    src: url("../font/OpenSans-Regular.ttf");
 }
 
 @font-face {
-    font-family: "Overpass";
+    font-family: "Open Sans";
     font-style: italic;
     font-weight: normal;
-    src: url("../font/Overpass-Italic.ttf");
+    src: url("../font/OpenSans-Italic.ttf");
 }
 
 @font-face {
-    font-family: "Overpass";
+    font-family: "Open Sans";
     font-style: normal;
     font-weight: bold;
-    src: url("../font/Overpass-Bold.ttf");
+    src: url("../font/OpenSans-Bold.ttf");
 }
 
 @font-face {
-    font-family: "Overpass";
+    font-family: "Open Sans";
     font-style: italic;
     font-weight: bold;
-    src: url("../font/Overpass-BoldItalic.ttf");
+    src: url("../font/OpenSans-BoldItalic.ttf");
 }
 
 @font-face {
