@@ -116,7 +116,7 @@ def statfile(channame, cldrdate, meetname):
         cldrdate = "{:%B %d, %Y}".format(formatted_timestamp)
 
         return render_template(
-            "statfile.html",
+            "statfile.html.j2",
             channame=channame,
             cldrdate=cldrdate,
             meetname=meeting_title.group(1),
@@ -144,7 +144,7 @@ def evtsmry(channame, cldrdate, meetname):
         cldrdate = "{:%B %d, %Y}".format(formatted_timestamp)
 
         return render_template(
-            "event_summary.html",
+            "event_summary.html.j2",
             meet=meet[1],
             startdate=cldrdate,
             permalink=permalink,
@@ -154,12 +154,12 @@ def evtsmry(channame, cldrdate, meetname):
 
 @main.get("/")
 def mainpage():
-    return render_template("mainpage.html")
+    return render_template("mainpage.html.j2")
 
 
 @main.get("/about")
 def aboutpage():
-    return render_template("aboutpage.html")
+    return render_template("aboutpage.html.j2")
 
 
 @socketio.on("connect")
@@ -209,7 +209,7 @@ def mainfunc(portdata, netprotc):
 
 @main.errorhandler(404)
 def page_not_found(error):
-    return render_template("e404page.html"), 404
+    return render_template("e404page.html.j2"), 404
 
 
 if __name__ == "__main__":
