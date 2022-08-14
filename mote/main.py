@@ -169,6 +169,14 @@ def evtsmry(channame, cldrdate, meetname):
         )
 
 
+@main.get("/latest/<string:meetname>")
+def get_latest_meeting(meetname):
+    _, meetings = get_meeting_adj(sanitize_name(meetname))
+    if not meetings["prev"]:
+        abort(404)
+    return redirect(meetings["prev"]["slug"]["summary"], code=302)
+
+
 @main.get("/")
 def mainpage():
     return render_template("mainpage.html.j2")

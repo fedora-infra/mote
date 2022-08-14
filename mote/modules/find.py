@@ -25,6 +25,7 @@ import os
 import re
 import urllib.parse as ulpr
 from datetime import datetime
+from typing import Optional
 
 from mote import app, cache, logging
 
@@ -114,15 +115,19 @@ def find_meetings_by_substring(search_string: str, exact_match: bool = False):
         return False, {"exception": str(expt)}
 
 
-def get_meeting_adj(search_string: str, date: datetime):
+def get_meeting_adj(search_string: str, date: Optional[datetime] = None):
     """
-    Return adjacent meeting occurrences
+    Return adjacent meeting occurrences relative to date
+    If date not provided, return latest occurrence in 'prev' key
     """
 
     try:
         _, meeting_list = find_meetings_by_substring(search_string, exact_match=True)
         sorted_list = sorted(meeting_list, key=lambda m: datetime.fromisoformat(m["datetime"]))
-        idx = [datetime.fromisoformat(m["datetime"]) for m in sorted_list].index(date)
+        if date:
+            idx = [datetime.fromisoformat(m["datetime"]) for m in sorted_list].index(date)
+        else:
+            idx = len(sorted_list)
         return True, {
             "prev": sorted_list[idx - 1] if idx - 1 >= 0 else None,
             "next": sorted_list[idx + 1] if idx + 1 < len(sorted_list) else None,
