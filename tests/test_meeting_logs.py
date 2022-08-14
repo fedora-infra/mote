@@ -1,7 +1,4 @@
-def test_non_existing_meeting(client):
-    rv = client.get("/fedora-meeting/2020-06-10/bleh")
-    assert b'<p class="h4 body">404 Not Found</p>' in rv.data
-    assert rv.status_code == 404
+import pytest
 
 
 def test_meeting_summary(client):
@@ -39,11 +36,17 @@ def test_meeting_log_txt(client):
     assert rv.status_code == 302
 
 
-def test_invalid_path_teams(client):
-    rv = client.get("/teams/fesco/fesco.2014-02-19-18.00.log.html")
-    assert rv.status_code == 404
-
-
-def test_invalid_path_meetbot(client):
-    rv = client.get("/meetbot/fedora-meeting/2011-10-06/infrastructure.2011-10-06-19.00.html")
+@pytest.mark.parametrize(
+    "uri",
+    (
+        "/teams/fedora-qa/fedora-qa.2015-10-19-15.00.html",
+        "/teams/fesco/fesco.2014-02-19-18.00.log.html",
+        "/meetbot/fedora-meeting/2011-10-06/infrastructure.2011-10-06-19.00.html",
+        "/fedora-meeting/2020-06-10/bleh",
+        "/fedora-meeting/2013-12-21/",
+    ),
+)
+def test_invalid_uri(client, uri):
+    rv = client.get(uri)
+    assert b'<p class="h4 body">404 Not Found</p>' in rv.data
     assert rv.status_code == 404
