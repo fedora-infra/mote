@@ -164,6 +164,7 @@ def evtsmry(channame, cldrdate, meetname):
             meet=meet[1],
             startdate=cldrdate,
             permalink=permalink,
+            latest_link=latest,
             full_log=full_log,
             adj_meetings=adj_meetings,
         )
