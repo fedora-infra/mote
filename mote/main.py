@@ -21,7 +21,6 @@
 """
 
 import re
-from datetime import datetime
 
 import click
 from flask import abort, jsonify, redirect, render_template, request, url_for
@@ -93,13 +92,13 @@ def getevents():
     return jsonify(fetch_meeting_by_period(start, end))
 
 
-@main.get("/<channame>/<cldrdate>/<path:meetname>")
-def statfile(channame, cldrdate, meetname):
-    if meetname.endswith(".log.html"):
+@main.get("/<string:channame>/<date:cldrdate>/<string:meetname>.<any('html','log.html','txt'):ext>")
+def statfile(channame, cldrdate, meetname, ext):
+    if ext == "log.html":
         typecont = "Logs"
-    elif meetname.endswith(".html"):
+    elif ext == "html":
         typecont = "Minutes"
-    elif meetname.endswith(".txt"):
+    elif ext == "txt":
         # if txt log, redirect to meetbot-raw
         return redirect(f"{main.config['MEETBOT_RAW_URL']}/{request.path}", code=302)
     else:
@@ -110,10 +109,7 @@ def statfile(channame, cldrdate, meetname):
     if not meetcont[0]:
         abort(404)
     else:
-        meetname = meetname.replace(".log.html", "").replace(".html", "")
         meeting_title = re.search(main.config["RECOGNIITION_PATTERN"], meetname)
-        formatted_timestamp = datetime.strptime(cldrdate, "%Y-%m-%d")
-        cldrdate = "{:%B %d, %Y}".format(formatted_timestamp)
 
         return render_template(
             "statfile.html.j2",
@@ -126,22 +122,29 @@ def statfile(channame, cldrdate, meetname):
         )
 
 
-@main.get("/smry/<channame>/<cldrdate>/<path:meetname>")
+@main.get("/smry/<string:channame>/<date:cldrdate>/<string:meetname>.html")
 def evtsmry(channame, cldrdate, meetname):
-    meetname = meetname.replace(".log.html", "").replace(".html", "")
-    meetpath = f"{main.config['MEETING_DIR']}/{channame}/{cldrdate}/{meetname}.html"
+    logging.info(
+        "evtsmry: channame %s, cldrdate: %s, meetname %s"
+        % (
+            channame,
+            cldrdate,
+            meetname,
+        )
+    )
+    logging.info("evtsmry: meetname %s" % (meetname,))
+    meetpath = f"{main.config['MEETING_DIR']}/{channame}/{cldrdate:%Y-%m-%d}/{meetname}.html"
+    logging.info("evtsmry: meetpath %s" % (meetpath,))
     meet = fetch_meeting_summary(meetpath)
     if not meet[0]:
         abort(404)
     else:
         permalink = url_for(
-            "statfile", channame=channame, cldrdate=cldrdate, meetname=f"{meetname}.html"
+            "statfile", channame=channame, cldrdate=cldrdate, meetname=meetname, ext="html"
         )
         full_log = url_for(
-            "statfile", channame=channame, cldrdate=cldrdate, meetname=f"{meetname}.log.html"
+            "statfile", channame=channame, cldrdate=cldrdate, meetname=meetname, ext="log.html"
         )
-        formatted_timestamp = datetime.strptime(cldrdate, "%Y-%m-%d")
-        cldrdate = "{:%B %d, %Y}".format(formatted_timestamp)
 
         return render_template(
             "event_summary.html.j2",

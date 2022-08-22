@@ -19,37 +19,24 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     SOFTWARE.
 """
+from datetime import datetime
 
-import logging
-import os
-
-import rq
-from flask import Flask
-from flask_caching import Cache
-from flask_socketio import SocketIO
-
-from mote.modules.converters import DateConverter
-from mote.modules.redis import Redis
-
-__version__ = "0.7.0"
+from werkzeug.routing import BaseConverter, ValidationError
 
 
-app = Flask(__name__)
-app.config.from_pyfile("config.py")
-app.config.from_prefixed_env()
+class DateConverter(BaseConverter):
+    """This converter only accepts date in YYYY-mm-dd format
 
-if app.config["CACHE_TYPE"] == "RedisCache":
-    redis = Redis(app)
-    app.config["CACHE_REDIS_URL"] = redis.url
-    app.task_queue = rq.Queue("tasks", connection=redis.conn, default_timeout=60 * 10)
-    socketio = SocketIO(app, message_queue=redis.url)
-else:
-    socketio = SocketIO(app)
+    Rule("/page/<date:page>")
+    """
 
-cache = Cache(app)
-loglevel = logging.INFO
-if os.environ.get("LOGLEVEL") and os.environ.get("LOGLEVEL").isnumeric():
-    loglevel = int(os.environ.get("LOGLEVEL"))
-logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=loglevel)
+    regex = r"\d{4}-\d{2}-\d{2}"
 
-app.url_map.converters["date"] = DateConverter
+    def to_python(self, value):
+        try:
+            return datetime.strptime(value, "%Y-%m-%d")
+        except ValueError:
+            raise ValidationError
+
+    def to_url(self, date):
+        return "{:%Y-%m-%d}".format(date)
