@@ -1,105 +1,127 @@
-# Mote 2.0
+# Mote 2.0 (Meetbot Logs 2.0)
 
-Python Flask project used to aggregate and distribute IRC meeting minutes and logs for the Fedora Project.
+Mote (or Meetbot Logs) is a web service that aggregates and distributes summaries, minutes and logs of meetings
+that takes place in an [IRC](https://en.wikipedia.org/wiki/Internet_Relay_Chat) or 
+[Matrix](https://en.wikipedia.org/wiki/Matrix_(protocol)) channel for the Fedora Project.
 
-## Description
+## Features
 
-The project can be described as follows
+The web service has the following features
 
-- Mote is a web application purposed to aggregate and distribute the minutes and logs for IRC/Matrix meetings of the Fedora Project community.
-- The project allows looking up meeting info with channel names, dates/times of occurrence and lists recent meetings for quick access.
-- The backend is written in Python with the use of libraries such as Flask micro web framework, BeautifulSoup4, Urllib3, Click, Werkzeug etc.
-- The frontend is written in HTML5, CSS3 and ES6 with the use of libraries such as Bootstrap 5, jQuery, Popper.JS, EasyQRCode etc.
+- Chronological lookup of meeting summaries, minutes and logs using an interactive calendar view
+- Snappier loading up of content due to application-like interface and behaviour of the web service
+- Channel-wise and date-wise distinction of meeting summaries, minutes and logs within modals
+- Faster intuitive search of meeting summaries, minutes and logs using asynchronous fetching
 
-## View Project
+## Dependencies
 
-Click [this link](https://meetbot.fedoraproject.org/) to view the project.
+### Frontend
 
-## Setting up a local development environment
+- [Bootstrap 5](https://getbootstrap.com/docs/5.0/getting-started/introduction/)
+- [Bootstrap Dark Mode](https://vinorodrigues.github.io/bootstrap-dark-5/)
+- [Easy QR Code 4](https://github.com/ushelp/EasyQRCodeJS)
+- [Font Awesome 5](https://fontawesome.com)
+- [FullCalendar 5](https://fullcalendar.io/)
+- [jQuery 3](https://jquery.com/)
+- [Socket.IO 4](https://socket.io/)
 
-You can download the meeting log archive from the link below
+### Backend
 
-```
-https://mega.nz/file/cJYykbKA#jJozcnIG-WzwlYVQUXF25lqM5A8PNl2knQObQrSpOSk
-```
+- [Beautiful Soup 4](https://www.crummy.com/software/BeautifulSoup/bs4/doc/)
+- [Fedora Messaging 3](https://fedora-messaging.readthedocs.io/en/stable/)
+- [Flask 2](https://flask.palletsprojects.com/)
+- [Flask Caching 2](https://flask-caching.readthedocs.io/en/latest/)
+- [Flask SocketIO 5](https://flask-socketio.readthedocs.io/en/latest/)
+- [Gevent 21](http://www.gevent.org/)
+- [Gunicorn 20](https://gunicorn.org/)
+- [Redis 4](https://github.com/redis/redis-py)
+- [Requests 2](https://requests.readthedocs.io/en/latest/)
 
-1. Clone the repository
-   ```
-   git clone https://github.com/fedora-infra/mote.git
-   ```
-2. Navigate to the cloned repository
-   ```
-   cd mote
-   ```
+### Development
 
-### There are two ways to set up this project
+- [Black 21](https://black.readthedocs.io/en/stable/)
+- [Flake8 3](https://flake8.pycqa.org/en/latest/)
+- [Isort 5](https://pycqa.github.io/isort/)
+- [Poetry](https://python-poetry.org/)
+- [Pytest 6](https://docs.pytest.org/en/7.1.x/)
+- [Tox 3](https://tox.wiki/en/latest/index.html)
 
-#### Containerized setup
+## Setup
 
-3. Install [Podman](https://podman.io/getting-started/installation) (require root privileges) on Fedora
-   ```
-   sudo dnf install podman
-   ```
-4. Extract the meetbot archive
-   ```
-   tar xzf meetbot.tar.gz
-   ```
-5. Build the container image
-   ```
-   podman build -t mote .
-   ```
-6. Run the server
-   ```
-   podman run -it --rm -p 9696:9696 -v ./meetbot:/srv/web/meetbot:Z mote
-   ```
+### Preliminary setup
 
-**Congratulations!** The project is being served on http://localhost:9696.
+1. Fork the repository.
+   ```
+   https://github.com/fedora-infra/mote
+   ```
+2. Download the archive of meeting logs from the link below.
+   ```
+   https://mega.nz/file/cJYykbKA#jJozcnIG-WzwlYVQUXF25lqM5A8PNl2knQObQrSpOSk
+   ```
+3. Clone the forked repository to your local storage.
+   ```
+   $ git clone git@github.com:<username>/mote.git
+   ```
+4. Navigate into the cloned repository.
+   ```
+   $ cd mote
+   ```
+5. Depending on the kind of approach required, follow either of the below sections.
 
-#### Native setup
+### Containerized setup
 
-Mote expects to find meeting logs in `/srv/web/meetbot`.
-
-3. Extract the meetbot archive in `/srv/web` (requires root privileges)
+1. Install [Podman](https://podman.io/getting-started/installation) on Fedora Linux.
    ```
-   sudo mkdir -p /srv/web
-   sudo chown $USER /srv/web
-   tar xzf meetbot.tar.gz -C /srv/web
+   $ sudo dnf install podman
    ```
-4. Create a dedicated virtual environment
+2. Extract the previously downloaded archive of meeting logs in the directory of the cloned repository.
    ```
-   python3 -m venv venv
+   $ tar -xzf meetbot.tar.gz
    ```
-5. Activate the virtualenv
+3. Build the container image.
    ```
-   source venv/bin/activate
+   $ podman build -t mote .
    ```
-6. Install Poetry usig pip package manager.
+4. Start the development server on an IPv4 address and on port 9696.
    ```
-   pip install poetry
-   ```
-7. Install the defined dependencies from lock file using Poetry  
-   The dependencies of this project can be found in `pyproject.toml` and are installed using Poetry
-   ```
-   poetry install
-   ```
-8. Create a package in source as well as wheel format using Poetry
-   ```
-   poetry build
-   ```
-9. Run mote server
-   ```
-   mote
+   $ podman run -it --rm -p 9696:9696 -v ./meetbot:/srv/web/meetbot:Z -v ./mote:/opt/app/mote:Z mote
    ```
 
-The project is served on http://localhost:9696/
+### Native setup
 
-For any help with this format, please run
+1. Install [Python 3](https://www.python.org/), [Virtualenv](https://virtualenv.pypa.io/en/latest/) and [Poetry](https://python-poetry.org/) on Fedora Linux.
+   ```
+   $ sudo dnf install python3 python3-virtualenv poetry
+   ```
+2. Extract the previously downloaded archive of meeting logs in the `/srv/web` directory.
+   ```
+   $ sudo mkdir -p /srv/web
+   $ sudo chown $USER /srv/web
+   $ tar -xzf meetbot.tar.gz -C /srv/web
+   ```
+3. Create and activate the virtual environment.
+   ```
+   $ virtualenv venv
+   $ source venv/bin/activate
+   ```
+4. Install the defined packages from the Python project configuration file.
+   ```
+   $ (venv) poetry install
+   ```
+5. Start the development server on an IPv4 address and on port 9696.
+   ```
+   $ (venv) mote -p 9696 -4
+   ```
 
-```
-mote --help
-```
+## Accessing
+
+The project is be served on http://localhost:9696/ and with appropriate firewall rules, it should be accessible to the devices connected to the same network.
 
 ## Contributing
 
-If you'd like to contribute to this project, you can look at existing issues and fill Pull Requests.  
-You can also connect with the team at [#websites:fedoraproject.org](https://chat.fedoraproject.org/#/room/#websites:fedoraproject.org).
+Folks can contribute to the project by the following means
+
+- Writing [documentation](https://github.com/fedora-infra/mote/blob/main/README.md) to better explain the functionality and development of the web service
+- Testing out the [newly staged versions](https://meetbot.stg.fedoraproject.org/) of the web service and reporting bugs on the [issue tracker](https://github.com/fedora-infra/mote/issues).
+- Collaborating with the [Fedora Websites and Apps Team](https://docs.fedoraproject.org/en-US/websites/) to discuss about new features and advancements.
+- Opening [pull requests](https://github.com/fedora-infra/mote/pulls) to the repository to address existing issues available on the [issue tracker](https://github.com/fedora-infra/mote/issues).
