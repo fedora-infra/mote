@@ -21,6 +21,7 @@
 """
 
 import re
+import urllib.parse
 
 import click
 from flask import abort, jsonify, redirect, render_template, request, url_for
@@ -100,7 +101,8 @@ def statfile(channame, cldrdate, meetname, ext):
         typecont = "Minutes"
     elif ext == "txt":
         # if txt log, redirect to meetbot-raw
-        return redirect(f"{main.config['MEETBOT_RAW_URL']}/{request.path}", code=302)
+        encoded_uri = urllib.parse.quote(request.path)
+        return redirect(f"{main.config['MEETBOT_RAW_URL']}/{encoded_uri}", code=302)
     else:
         abort(404)
 

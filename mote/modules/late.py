@@ -25,6 +25,7 @@ import json
 import os
 import os.path
 import re
+import urllib.parse
 import urllib.request as ulrq
 from datetime import datetime, timedelta
 
@@ -79,7 +80,7 @@ def get_meeting_info(meetpath):
         "attendees": len(meet[1]["peoples"]),
         "topics": len(meet[1]["topics"]),
         "length": meet[1]["duration"],
-        "url": meetpath.replace(app.config["MEETING_DIR"], "") + ".html",
+        "url": urllib.parse.quote(meetpath.replace(app.config["MEETING_DIR"], "") + ".html"),
     }
 
 
