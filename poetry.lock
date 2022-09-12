@@ -310,8 +310,8 @@ cachelib = ">=0.9.0"
 Flask = "<3"
 
 [[package]]
-name = "flask-socketio"
-version = "5.3.0"
+name = "Flask-SocketIO"
+version = "5.3.1"
 description = "Socket.IO integration for Flask applications"
 category = "main"
 optional = false
@@ -1334,9 +1334,9 @@ flask-caching = [
     {file = "Flask-Caching-2.0.1.tar.gz", hash = "sha256:10df200a03f032af60077befe41779dd94898b67c82040d34e87210b71ba2638"},
     {file = "Flask_Caching-2.0.1-py3-none-any.whl", hash = "sha256:703df847cbe904d8ddffd5f5fb320e236a31cb7bebac4a93d6b1701dd16dbf37"},
 ]
-flask-socketio = [
-    {file = "Flask-SocketIO-5.3.0.tar.gz", hash = "sha256:fa547d0c39ccc6223aad191f3f6ef906383eab67d25ffc343b15bfe33d6478fe"},
-    {file = "Flask_SocketIO-5.3.0-py3-none-any.whl", hash = "sha256:77b71d69c0b62ac2ce091efa53ed3ff0498d00059bb171a9ab69a395eb127207"},
+Flask-SocketIO = [
+    {file = "Flask-SocketIO-5.3.1.tar.gz", hash = "sha256:fd0ed0fc1341671d92d5f5b2f5503916deb7aa7e2940e6636cfa2c087c828bf9"},
+    {file = "Flask_SocketIO-5.3.1-py3-none-any.whl", hash = "sha256:ff0c721f20bff1e2cfba77948727a8db48f187e89a72fe50c34478ce6efb3353"},
 ]
 gevent = [
     {file = "gevent-21.12.0-cp27-cp27m-macosx_10_14_x86_64.whl", hash = "sha256:2afa3f3ad528155433f6ac8bd64fa5cc303855b97004416ec719a6b1ca179481"},
