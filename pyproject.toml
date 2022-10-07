@@ -54,7 +54,7 @@ pytest-mock = "^3.8.1"
 [tool.pytest.ini_options]
 addopts = "--black --isort --flake8 --cov"
 flake8-max-line-length = 100
-filterwarnings = ["ignore::DeprecationWarning:flake8:254"]
+filterwarnings = ["ignore::DeprecationWarning:flake8:254", "ignore::DeprecationWarning:flask_socketio:19"]
 norecursedirs = ".git meetbot .tox"
 
 [tool.isort]
@@ -71,4 +71,3 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
 mote = "mote.main:mainfunc"
-
