@@ -23,7 +23,9 @@
     <head>
         <meta charset="utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
-	<meta name="color-scheme" content="light dark">
+        <meta name="color-scheme" content="light dark">
+        <meta property="og:type" content="website">
+        <meta property="og:image" content="{{ url_for('static', filename='imgs/favi.png', _external=True) }}">
         <link rel="icon" href="{{ url_for('static', filename='imgs/favi.png') }}" sizes="16x16">
         <link href="{{ url_for('static', filename='css3/custom_fonts.css') }}" rel="stylesheet"/>
 	<link href="{{ url_for('static', filename='css3/bootstrap-blackbox.min.css') }}" rel="stylesheet">
