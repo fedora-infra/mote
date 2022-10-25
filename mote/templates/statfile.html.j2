@@ -1,7 +1,7 @@
 {% extends "base.html.j2" %}
 
 {% block head %}
-        <meta property="og:title" content="Meetbot Logs">
+        <meta property="og:title" content="{{ meetname }} - {{ typecont }}">
         <meta property="og:description" content="{{ typecont }} of meeting {{ meetname }} in {{ channame }} - {{ cldrdate.strftime("%B %d, %Y") }}">
 {% endblock %}
 
