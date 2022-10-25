@@ -93,17 +93,27 @@ def getevents():
     return jsonify(fetch_meeting_by_period(start, end))
 
 
-@main.get("/<string:channame>/<date:cldrdate>/<string:meetname>.<any('html','log.html','txt'):ext>")
-def statfile(channame, cldrdate, meetname, ext):
-    if ext == "log.html":
-        typecont = "Logs"
-    elif ext == "html":
-        typecont = "Minutes"
-    elif ext == "txt":
+@main.get("/<string:channame>/<date:cldrdate>/<string:meetname>.log.html")
+def getlogs(channame, cldrdate, meetname):
+    return statfile(channame, cldrdate, meetname, typecont="Logs")
+
+
+@main.get("/<string:channame>/<date:cldrdate>/<string:meetname>.html")
+def getminutes(channame, cldrdate, meetname):
+    return statfile(channame, cldrdate, meetname, typecont="Minutes")
+
+
+@main.get("/<string:channame>/<date:cldrdate>/<string:meetname>.txt")
+def getraw(channame, cldrdate, meetname):
+    return statfile(channame, cldrdate, meetname, typecont="Raw")
+
+
+def statfile(channame, cldrdate, meetname, typecont):
+    if typecont == "Raw":
         # if txt log, redirect to meetbot-raw
         encoded_uri = urllib.parse.quote(request.path)
         return redirect(f"{main.config['MEETBOT_RAW_URL']}/{encoded_uri}", code=302)
-    else:
+    if typecont not in ("Minutes", "Logs"):
         abort(404)
 
     meetpath = main.config["MEETING_DIR"] + request.path
@@ -141,12 +151,8 @@ def evtsmry(channame, cldrdate, meetname):
     if not meet[0]:
         abort(404)
     else:
-        permalink = url_for(
-            "statfile", channame=channame, cldrdate=cldrdate, meetname=meetname, ext="html"
-        )
-        full_log = url_for(
-            "statfile", channame=channame, cldrdate=cldrdate, meetname=meetname, ext="log.html"
-        )
+        permalink = url_for("getminutes", channame=channame, cldrdate=cldrdate, meetname=meetname)
+        full_log = url_for("getlogs", channame=channame, cldrdate=cldrdate, meetname=meetname)
 
         return render_template(
             "event_summary.html.j2",
