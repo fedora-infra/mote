@@ -1,5 +1,10 @@
 {% extends "base.html.j2" %}
 
+{% block head %}
+        <meta property="og:title" content="{{ meetname }} - {{ typecont }}">
+        <meta property="og:description" content="{{ typecont }} of meeting {{ meetname }} in {{ channame }} - {{ cldrdate.strftime("%B %d, %Y") }}">
+{% endblock %}
+
 {% block content %}
             <div class="text-center mt-4">
                 <i class="display-1 far fa-file-alt"></i>
