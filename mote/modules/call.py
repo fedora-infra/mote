@@ -74,7 +74,7 @@ def fetch_meeting_dict(channel: str, datetxt: str):
                     meeting.replace(".log.html", ""),
                 )
                 meeting_object = {
-                    "topic": meeting_title.group(1),
+                    "topic": sanitize_name(meeting_title.group(1)),
                     "channel": channel,
                     "date": datestring,
                     "time": meeting_title.group(3),

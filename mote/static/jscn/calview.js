@@ -1,36 +1,66 @@
 function calcCalHeight(){
-	var newHeight;
-	if(window.innerWidth<=580){
+        var newHeight;
+        if(window.innerWidth<=580){
           newHeight = window.innerHeight-250;
-	} else if(window.innerWidth<=896) {
+        } else if(window.innerWidth<=896) {
           newHeight = window.innerHeight-220;
-	} else if(window.innerWidth<=991) {
+        } else if(window.innerWidth<=991) {
           newHeight = window.innerHeight-188;
-	} else {
+        } else {
           newHeight = window.innerHeight-180;
-	}
-	return newHeight;
+        }
+        return newHeight;
 
 }
 
+var calview = {
+  gotoDate(date) {
+    calview.calendar.gotoDate(date);
+    $("#curDate").text(calview.calendar.view.title);
+  },
+
+  clickGotoMeeting(evt) {
+    evt.preventDefault();
+    calview.showEventSummary(evt.currentTarget.pathname);
+    calview.gotoDate(evt.currentTarget.pathname.split("/")[2]);
+  },
+
+  showEventSummary(url) {
+      $('#evt-smry .modal-content').load('/smry/'+url.replace(/^\//, ''), function(responseText, textStatus, jqXHR){
+        if(textStatus == "success"){
+          
+          let next = document.querySelector('#evt-smry #next')
+          if (next){
+            next.addEventListener('click', calview.clickGotoMeeting);
+          }
+          let prev = document.querySelector('#evt-smry #prev')
+          if (prev){
+            prev.addEventListener('click', calview.clickGotoMeeting);
+          }
+          calview.evtSmryModal.show();
+        }
+      });
+   }
+};
+
 document.addEventListener('DOMContentLoaded', async function() {
   function swMonthView(){
-    calendar.changeView('dayGridMonth');
-    $("#curDate").text(calendar.view.title);
+    calview.calendar.changeView('dayGridMonth');
+    $("#curDate").text(calview.calendar.view.title);
     $("#week").removeClass("active");
     $("#day").removeClass("active");
     $("#month").addClass("active");
   }
   function swWeekView(){
-    calendar.changeView('dayGridWeek');
-    $("#curDate").text(calendar.view.title);
+    calview.calendar.changeView('dayGridWeek');
+    $("#curDate").text(calview.calendar.view.title);
     $("#month").removeClass("active");
     $("#day").removeClass("active");
     $("#week").addClass("active");
   }
   function swDayView(date=none){
-    calendar.changeView('dayGridDay', date);
-    $("#curDate").text(calendar.view.title);
+    calview.calendar.changeView('dayGridDay', date);
+    $("#curDate").text(calview.calendar.view.title);
     $("#month").removeClass("active");
     $("#week").removeClass("active");
     $("#day").addClass("active");
@@ -52,20 +82,21 @@ document.addEventListener('DOMContentLoaded', async function() {
     el.innerHTML = 
         `<div class="fc-event-title">`+ arg.event.title +`</div>
          <div class="fc-event-text">
-	   <span class="pe-2"><i class="fas fa-clock fa-lg me-2"></i>`+ arg.event.extendedProps.length +` min</span> 
-	   <span class="pe-2"><i class="fas fa-users fa-lg me-2"></i>`+ arg.event.extendedProps.attendees +` people</span> 
+           <span class="pe-2"><i class="fas fa-clock fa-lg me-2"></i>`+ arg.event.extendedProps.length +` min</span> 
+           <span class="pe-2"><i class="fas fa-users fa-lg me-2"></i>`+ arg.event.extendedProps.attendees +` people</span> 
            <span><i class="fas fa-comments fa-lg me-2"></i>`+ arg.event.extendedProps.topics +` topics</span>
          </div>`;
     return {domNodes: [ el ]}
   }
 
+
   var calendarEl = document.getElementById('calendar');
 
-  var calendar = new FullCalendar.Calendar(calendarEl, {
+  calview.calendar = new FullCalendar.Calendar(calendarEl, {
     initialView: 'dayGridWeek',
     handleWindowResize: true,
     windowResize: function(arg) {
-        calendar.setOption('height', calcCalHeight());
+        calview.calendar.setOption('height', calcCalHeight());
     },
     fixedWeekCount:false,
     height: calcCalHeight(),
@@ -139,42 +170,38 @@ document.addEventListener('DOMContentLoaded', async function() {
     eventClick: function(info) {
       // info.event.title
       info.jsEvent.preventDefault();
-      $('#evt-smry .modal-content').load('/smry/'+info.event.url.replace(/^\//, ''), function(responseText, textStatus, jqXHR){
-	if(textStatus == "success"){
-          var modal = new bootstrap.Modal(document.getElementById('evt-smry'));
-          modal.show();
-	}
-      });
+      calview.showEventSummary(info.event.url);
     }
   });
 
-  $("#curDate").text(calendar.view.title);
+  calview.evtSmryModal = new bootstrap.Modal(document.getElementById('evt-smry'));
+  $("#curDate").text(calview.calendar.view.title);
   // $("#curDate").text(calendar.getDate().toLocaleDateString('en-US', {month: 'long', year: 'numeric'}));
-  calendar.render();
+  calview.calendar.render();
 
   document.getElementById('month').addEventListener('click', swMonthView);
   document.getElementById('week').addEventListener('click', swWeekView);
   document.getElementById('day').addEventListener('click', swDayView);
 
   document.getElementById('prev').addEventListener('click', function() {
-    calendar.prev();
-    $("#curDate").text(calendar.view.title);
+    calview.calendar.prev();
+    $("#curDate").text(calview.calendar.view.title);
     // $("#curDate").text(calendar.getDate().toLocaleDateString('en-US', {month: 'long', year: 'numeric'}));
   });
 
   document.getElementById('next').addEventListener('click', function() {
-    calendar.next();
-    $("#curDate").text(calendar.view.title);
+    calview.calendar.next();
+    $("#curDate").text(calview.calendar.view.title);
     // $("#curDate").text(calendar.getDate().toLocaleDateString('en-US', {month: 'long', year: 'numeric'}));
   });
 
   document.getElementById('today').addEventListener('click', function() {
-    calendar.today();
-    $("#curDate").text(calendar.view.title);
+    calview.calendar.today();
+    $("#curDate").text(calview.calendar.view.title);
     // $("#curDate").text(calendar.getDate().toLocaleDateString('en-US', {month: 'long', year: 'numeric'}));
   });
 
   socket.on("add_event", function (event) {
-    calendar.addEvent(event, true);
+    calview.calendar.addEvent(event, true);
   });
 });

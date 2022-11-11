@@ -50,9 +50,10 @@ def test_fetch_channel_meet(client):
 
     j = rv.get_json()
     assert len(j) > 0
-    assert j[0]["channel"] == "fedora-meeting"
-    assert j[0]["date"] == "Jun 10, 2020"
-    assert j[0]["topic"] in ("fedora_iot_working_group_meeting", "magazine")
+    for i in j:
+        assert i["channel"] == "fedora-meeting"
+        assert i["date"] == "Jun 10, 2020"
+        assert i["topic"] in ("fedora iot working group meeting", "magazine")
 
 
 def test_fetch_channel_meet_exc(client, mocker):
@@ -78,7 +79,7 @@ def test_search_meeting(client):
     assert len(j) > 0
     assert j[0]["channel"] == "fedora-meeting"
     assert j[0]["datetime"].startswith("2020-06-10T")
-    assert j[0]["topic"] == "fedora_iot_working_group_meeting"
+    assert j[0]["topic"] == "fedora iot working group meeting"
 
 
 def test_search_meeting_exc(client, mocker):

@@ -50,3 +50,13 @@ def test_invalid_uri(client, uri):
     rv = client.get(uri)
     assert b'<p class="h4 body">404 Not Found</p>' in rv.data
     assert rv.status_code == 404
+
+
+def test_latest_meeting(client):
+    rv = client.get("/latest/fedora_iot_working_group_meeting")
+    assert rv.status_code == 302
+
+
+def test_non_existing_latest_meeting(client):
+    rv = client.get("/latest/unknown_meeting")
+    assert rv.status_code == 404

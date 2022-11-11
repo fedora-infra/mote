@@ -782,6 +782,10 @@ hr {
   margin-bottom: 10px;
 }
 
+.evt-smry-toolbar .far, .evt-smry-toolbar .fas {
+  vertical-align: -0.12em;
+}
+
 [data-bs-color-scheme="dark"] .fc-theme-standard td,
 [data-bs-color-scheme="dark"]  .fc-theme-standard th {
   border-color: rgb(76, 76, 76) !important;

@@ -22,6 +22,7 @@
 
 import re
 import urllib.parse
+from datetime import datetime
 
 import click
 from flask import abort, jsonify, redirect, render_template, request, url_for
@@ -29,6 +30,7 @@ from flask import abort, jsonify, redirect, render_template, request, url_for
 from mote import app as main
 from mote import logging, socketio
 from mote.__init__ import __version__
+from mote.modules import sanitize_name
 from mote.modules.call import (
     fetch_channel_dict,
     fetch_datetxt_dict,
@@ -36,7 +38,7 @@ from mote.modules.call import (
     fetch_meeting_dict,
     fetch_meeting_summary,
 )
-from mote.modules.find import find_meetings_by_substring
+from mote.modules.find import find_meetings_by_substring, get_meeting_adj
 from mote.modules.late import fetch_meeting_by_period
 
 thread = None
@@ -154,13 +156,32 @@ def evtsmry(channame, cldrdate, meetname):
         permalink = url_for("getminutes", channame=channame, cldrdate=cldrdate, meetname=meetname)
         full_log = url_for("getlogs", channame=channame, cldrdate=cldrdate, meetname=meetname)
 
+        meeting_name_match = re.search(main.config["RECOGNIITION_PATTERN"], meetname)
+        latest = url_for("get_latest_meeting", meetname=meeting_name_match.group(1))
+        meeting_datetime = datetime.combine(
+            cldrdate, datetime.strptime(meeting_name_match.group(3), "%H.%M").time()
+        )
+        _, adj_meetings = get_meeting_adj(
+            sanitize_name(meeting_name_match.group(1)), meeting_datetime
+        )
+
         return render_template(
             "event_summary.html.j2",
             meet=meet[1],
             startdate=cldrdate,
             permalink=permalink,
+            latest_link=latest,
             full_log=full_log,
+            adj_meetings=adj_meetings,
         )
+
+
+@main.get("/latest/<string:meetname>")
+def get_latest_meeting(meetname):
+    _, meetings = get_meeting_adj(sanitize_name(meetname))
+    if not meetings["prev"]:
+        abort(404)
+    return redirect(meetings["prev"]["slug"]["summary"], code=302)
 
 
 @main.get("/")

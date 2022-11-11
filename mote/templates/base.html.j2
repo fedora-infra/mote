@@ -442,7 +442,8 @@
                                 htmlData +=
                                     `<li><a class="dropdown-item" type="button"
                                 target="_blank"
-                                href=${results[i].slug.summary}>
+                                href=${results[i].slug.summary}
+				onclick="calview.clickGotoMeeting(event);">
                                 <div class="head h4 ellipsis">
                                     <span style="font-size: 16px;">${results[i].topic}</span>
                                 </div>
