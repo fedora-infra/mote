@@ -164,14 +164,14 @@ files = [
 
 [[package]]
 name = "cachelib"
-version = "0.10.0"
+version = "0.9.0"
 description = "A collection of cache libraries in the same API interface."
 category = "main"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "cachelib-0.10.0-py3-none-any.whl", hash = "sha256:6fbbae4637491cc78a5e82f7cf623eb6778ea21ad8aa92197f45a1add51dab02"},
-    {file = "cachelib-0.10.0.tar.gz", hash = "sha256:292e89d5f9201fb9570e9f222c202f59085c66f9cb8bdfeefcfffff2b442fb2a"},
+    {file = "cachelib-0.9.0-py3-none-any.whl", hash = "sha256:811ceeb1209d2fe51cd2b62810bd1eccf70feba5c52641532498be5c675493b3"},
+    {file = "cachelib-0.9.0.tar.gz", hash = "sha256:38222cc7c1b79a23606de5c2607f4925779e37cdcea1c2ad21b8bae94b5425a5"},
 ]
 
 [[package]]
@@ -539,18 +539,18 @@ dotenv = ["python-dotenv"]
 
 [[package]]
 name = "flask-caching"
-version = "2.0.1"
+version = "2.0.2"
 description = "Adds caching support to Flask applications."
 category = "main"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "Flask-Caching-2.0.1.tar.gz", hash = "sha256:10df200a03f032af60077befe41779dd94898b67c82040d34e87210b71ba2638"},
-    {file = "Flask_Caching-2.0.1-py3-none-any.whl", hash = "sha256:703df847cbe904d8ddffd5f5fb320e236a31cb7bebac4a93d6b1701dd16dbf37"},
+    {file = "Flask-Caching-2.0.2.tar.gz", hash = "sha256:24b60c552d59a9605cc1b6a42c56cdb39a82a28dab4532bbedb9222ae54ecb4e"},
+    {file = "Flask_Caching-2.0.2-py3-none-any.whl", hash = "sha256:19571f2570e9b8dd9dd9d2f49d7cbee69c14ebe8cc001100b1eb98c379dd80ad"},
 ]
 
 [package.dependencies]
-cachelib = ">=0.9.0"
+cachelib = ">=0.9.0,<0.10.0"
 Flask = "<3"
 
 [[package]]
