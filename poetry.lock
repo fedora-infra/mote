@@ -905,14 +905,14 @@ testing = ["flake8 (<5)", "flufl.flake8", "importlib-resources (>=1.3)", "packag
 
 [[package]]
 name = "importlib-resources"
-version = "5.10.2"
+version = "5.11.1"
 description = "Read resources from Python packages"
 category = "main"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "importlib_resources-5.10.2-py3-none-any.whl", hash = "sha256:7d543798b0beca10b6a01ac7cafda9f822c54db9e8376a6bf57e0cbd74d486b6"},
-    {file = "importlib_resources-5.10.2.tar.gz", hash = "sha256:e4a96c8cc0339647ff9a5e0550d9f276fc5a01ffa276012b58ec108cfd7b8484"},
+    {file = "importlib_resources-5.11.1-py3-none-any.whl", hash = "sha256:04358673182e6b483bc9bab4c6d0b8a7e75a8f33bbe8a9009a90a23a34920146"},
+    {file = "importlib_resources-5.11.1.tar.gz", hash = "sha256:390bfc5c00efd1ef7f7973828604def6d60a9c226c1638fe501faf1e7a3a7582"},
 ]
 
 [package.dependencies]
