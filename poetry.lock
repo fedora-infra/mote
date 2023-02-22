@@ -1600,14 +1600,14 @@ use-chardet-on-py3 = ["chardet (>=3.0.2,<6)"]
 
 [[package]]
 name = "rq"
-version = "1.12.0"
+version = "1.13.0"
 description = "RQ is a simple, lightweight, library for creating background jobs, and processing them."
 category = "main"
 optional = false
-python-versions = ">=3.5"
+python-versions = ">=3.6"
 files = [
-    {file = "rq-1.12.0-py2.py3-none-any.whl", hash = "sha256:b268947a94a1da7de3c5f3925a59db60bffdede782ca1f23da654bf985a83c7a"},
-    {file = "rq-1.12.0.tar.gz", hash = "sha256:16ebbfa8891ece999485cb7d1e0559550ac576da43585138e6951db23654bbf6"},
+    {file = "rq-1.13.0-py2.py3-none-any.whl", hash = "sha256:621966d7cbf96d5609557a4bd3fd77f749d6d10997d2e353a3e89a14e08eea16"},
+    {file = "rq-1.13.0.tar.gz", hash = "sha256:5bb0380a17597200520731686766bb72faf16ebffb602663560d91ea2c9e7103"},
 ]
 
 [package.dependencies]
