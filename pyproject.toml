@@ -27,7 +27,7 @@ classifiers=[
 [tool.poetry.dependencies]
 python = "^3.8"
 Flask = "^2.0.2"
-requests = "^2.20.0"
+requests = "^2.31.0"
 beautifulsoup4 = "^4.10.0"
 Flask-SocketIO = "^5.1.1"
 fedora-messaging = "^3.0.0"
