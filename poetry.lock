@@ -439,13 +439,13 @@ toml = ["tomli"]
 
 [[package]]
 name = "crochet"
-version = "2.0.0"
+version = "2.1.1"
 description = "Use Twisted anywhere!"
 optional = false
-python-versions = ">=3.6.0"
+python-versions = ">=3.8.0"
 files = [
-    {file = "crochet-2.0.0-py3-none-any.whl", hash = "sha256:de7306f0548581b5222c2d91f2175045e672591519896f717affb81ef66c0f5f"},
-    {file = "crochet-2.0.0.tar.gz", hash = "sha256:5f7f6c0d41ec418da16080f0202faac6b30f84a6fca9d8911e9db541f8e4e521"},
+    {file = "crochet-2.1.1-py3-none-any.whl", hash = "sha256:87970cbd1b384a8d3b10152565283d76843d56ea7e087ea3239092a64ffaea0e"},
+    {file = "crochet-2.1.1.tar.gz", hash = "sha256:7ece69de1ce8e63ffc0af8e2331ec4eb898d91ed4271aafa4ccc398523b81cf9"},
 ]
 
 [package.dependencies]
@@ -1815,13 +1815,13 @@ files = [
 
 [[package]]
 name = "typing-extensions"
-version = "4.6.3"
+version = "4.7.1"
 description = "Backported and Experimental Type Hints for Python 3.7+"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "typing_extensions-4.6.3-py3-none-any.whl", hash = "sha256:88a4153d8505aabbb4e13aacb7c486c2b4a33ca3b3f807914a9b4c844c471c26"},
-    {file = "typing_extensions-4.6.3.tar.gz", hash = "sha256:d91d5919357fe7f681a9f2b5b4cb2a5f1ef0a1e9f59c4d8ff0d3491e05c0ffd5"},
+    {file = "typing_extensions-4.7.1-py3-none-any.whl", hash = "sha256:440d5dd3af93b060174bf433bccd69b0babc3b15b1a8dca43789fd7f61514b36"},
+    {file = "typing_extensions-4.7.1.tar.gz", hash = "sha256:b75ddc264f0ba5615db7ba217daeb99701ad295353c45f9e95963337ceeeffb2"},
 ]
 
 [[package]]
