@@ -1,4 +1,4 @@
-FROM registry.fedoraproject.org/fedora-minimal:36 as base
+FROM registry.fedoraproject.org/fedora-minimal:37 as base
 FROM base as builder
 RUN microdnf install -y python3-pip && microdnf clean all
 WORKDIR /tmp
