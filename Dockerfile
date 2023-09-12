@@ -11,6 +11,9 @@ RUN microdnf update -y && microdnf install -y python3-pip util-linux tar gzip &&
 ADD https://github.com/fedora-infra/fedora-messaging/raw/stable/configs/cacert.pem /etc/fedora-messaging/
 ADD https://github.com/fedora-infra/fedora-messaging/raw/stable/configs/fedora-cert.pem /etc/fedora-messaging/
 ADD https://github.com/fedora-infra/fedora-messaging/raw/stable/configs/fedora-key.pem /etc/fedora-messaging/
+ADD https://github.com/fedora-infra/fedora-messaging/raw/stable/configs/stg-cacert.pem /etc/fedora-messaging/
+ADD https://github.com/fedora-infra/fedora-messaging/raw/stable/configs/fedora.stg-cert.pem /etc/fedora-messaging/
+ADD https://github.com/fedora-infra/fedora-messaging/raw/stable/configs/fedora.stg-key.pem /etc/fedora-messaging/
 RUN chmod 640 /etc/fedora-messaging/*.pem
 WORKDIR /opt/app
 COPY --from=builder /tmp/requirements.txt .
