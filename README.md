@@ -113,6 +113,34 @@ The web service has the following features
    $ (venv) mote -p 9696 -4
    ```
 
+## Setup Guide for Mac Users
+
+1. Install [Python 3](https://www.python.org/), [Virtualenv](https://virtualenv.pypa.io/en/latest/) and [Poetry](https://python-poetry.org/) on mac machine.
+   ```
+   $ brew install python@3 virtualenv poetry
+   ```
+2. Extract the previously downloaded archive of meeting logs in the `/srv/web` directory.
+   ```
+   $ mkdir -p /srv/web
+   $ tar -xzf meetbot.tar.gz -C /srv/web
+   ```
+3. Create and activate the virtual environment.
+   Navigate into the directory where you extracted the meeting logs.
+Create and activate a virtual environment:
+   ```
+   $ cd /srv/web
+   $ virtualenv venv
+   $ source venv/bin/activate
+   ```
+4. Install the defined packages from the Python project configuration file.
+   ```
+   $ (venv) poetry install
+   ```
+5. Start the development server on an IPv4 address and on port 9696.
+   ```
+   $ (venv) mote -p 9696 -4
+   ```
+
 ## Accessing
 
 The project is be served on http://localhost:9696/ and with appropriate firewall rules, it should be accessible to the devices connected to the same network.
