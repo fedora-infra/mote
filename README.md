@@ -54,19 +54,15 @@ The web service has the following features
    ```
    https://github.com/fedora-infra/mote
    ```
-2. Download the archive of meeting logs from the link below.
-   ```
-   https://mega.nz/file/cJYykbKA#jJozcnIG-WzwlYVQUXF25lqM5A8PNl2knQObQrSpOSk
-   ```
-3. Clone the forked repository to your local storage.
+2. Clone the forked repository to your local storage.
    ```
    $ git clone git@github.com:<username>/mote.git
    ```
-4. Navigate into the cloned repository.
+3. Navigate into the cloned repository.
    ```
    $ cd mote
    ```
-5. Depending on the kind of approach required, follow either of the below sections.
+4. Depending on the kind of approach required, follow either of the below sections.
 
 ### Containerized setup
 
@@ -74,9 +70,9 @@ The web service has the following features
    ```
    $ sudo dnf install podman
    ```
-2. Extract the previously downloaded archive of meeting logs in the directory of the cloned repository.
+2. Download meeting logs in the directory of the cloned repository.
    ```
-   $ tar -xzf meetbot.tar.gz
+   $ wget -r -P "./meetbot" -nH -R "index.html,robots.txt" -A ".html,.txt" https://meetbot-raw.fedoraproject.org/
    ```
 3. Build the container image.
    ```
@@ -93,11 +89,11 @@ The web service has the following features
    ```
    $ sudo dnf install python3 python3-virtualenv poetry
    ```
-2. Extract the previously downloaded archive of meeting logs in the `/srv/web` directory.
+2. Download meeting logs in the `/srv/web` directory.
    ```
    $ sudo mkdir -p /srv/web
    $ sudo chown $USER /srv/web
-   $ tar -xzf meetbot.tar.gz -C /srv/web
+   $ wget -r -P "/srv/web/meetbot" -nH -R "index.html,robots.txt" -A ".html,.txt" https://meetbot-raw.fedoraproject.org/
    ```
 3. Create and activate the virtual environment.
    ```
