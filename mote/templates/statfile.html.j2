@@ -25,6 +25,17 @@
                     <span class="float-left"><i class="fas fa-users"></i></span>&nbsp;
                     <span class="float-right">{{ channame }}</span>
                 </li>
+                {% if typecont == "Minutes" %}
+                    <li class="list-group-item">
+                        <span class="float-left"><i class="fas fa-link"></i></span>&nbsp;
+                        <span class="float-right"><a href="{{ url_type }}">Logs</a></span>
+                    </li>
+                {% elif typecont == "Logs"%}
+                    <li class="list-group-item">
+                        <span class="float-left"><i class="fas fa-link"></i></span>&nbsp;
+                        <span class="float-right"><a href="{{ url_type }}">Minutes</a></span>
+                    </li>
+                {% endif %}
             </ul>
             <div class="card mt-2 mb-2">
                 <div class="card-header text-center head fw-bold">
