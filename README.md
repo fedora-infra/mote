@@ -74,7 +74,7 @@ The web service has the following features
 
    - To download logs from a specific channel, append the channel name to the URL. For instance, for the "fedora-meeting" channel, use https://meetbot-raw.fedoraproject.org/fedora-meeting/.
    ```
-   $ wget -r -P "/srv/web/meetbot" -nH -R "index.html,robots.txt" -A ".html,.txt" https://meetbot-raw.fedoraproject.org/
+   $ wget -r -P "./meetbot" -nH -R "index.html,robots.txt" -A ".html,.txt" https://meetbot-raw.fedoraproject.org/
    ```
 3. Build the container image.
    ```
