@@ -71,8 +71,10 @@ The web service has the following features
    $ sudo dnf install podman
    ```
 2. Download meeting logs in the directory of the cloned repository.
+
+   - To download logs from a specific channel, append the channel name to the URL. For instance, for the "fedora-meeting" channel, use https://meetbot-raw.fedoraproject.org/fedora-meeting/.
    ```
-   $ wget -r -P "./meetbot" -nH -R "index.html,robots.txt" -A ".html,.txt" https://meetbot-raw.fedoraproject.org/
+   $ wget -r -P "/srv/web/meetbot" -nH -R "index.html,robots.txt" -A ".html,.txt" https://meetbot-raw.fedoraproject.org/
    ```
 3. Build the container image.
    ```
@@ -90,6 +92,8 @@ The web service has the following features
    $ sudo dnf install python3 python3-virtualenv poetry
    ```
 2. Download meeting logs in the `/srv/web` directory.
+
+   - To download logs from a specific channel, append the channel name to the URL. For instance, for the "fedora-meeting" channel, use https://meetbot-raw.fedoraproject.org/fedora-meeting/.
    ```
    $ sudo mkdir -p /srv/web
    $ sudo chown $USER /srv/web
