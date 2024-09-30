@@ -62,7 +62,7 @@ def fetch_meeting_dict(channel: str, datetxt: str):
         meeting_list = []
         meetlist = os.listdir(f"{app.config['MEETING_DIR']}/{channel}/{datetxt}")
         formatted_timestamp = datetime.strptime(datetxt, "%Y-%m-%d")
-        datestring = "{:%b %d, %Y}".format(formatted_timestamp)
+        datestring = f"{formatted_timestamp:%b %d, %Y}"
         for meeting in meetlist:
             if ".log.html" in meeting:
                 meeting_log = (
@@ -102,7 +102,7 @@ def fetch_meeting_dict(channel: str, datetxt: str):
 
 def fetch_meeting_content(contpath: str):
     try:
-        with open(contpath, "r") as meetfile:
+        with open(contpath) as meetfile:
             source = meetfile.read()
         parse_object = btsp.BeautifulSoup(source, "html.parser")
         contdata = parse_object.find("body").decode()
@@ -114,7 +114,7 @@ def fetch_meeting_content(contpath: str):
 
 def fetch_meeting_summary(contpath: str):
     try:
-        with open(contpath, "r") as meetfile:
+        with open(contpath) as meetfile:
             source = meetfile.read()
         obj = btsp.BeautifulSoup(source, "html.parser")
         event = {"peoples": [], "topics": [], "actions": []}

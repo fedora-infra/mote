@@ -13,7 +13,7 @@ jobs:
 
       - name: Install the base dependencies
         run: |
-             python3 -m pip install --upgrade poetry tox
+             python3 -m pip install --upgrade poetry tox ruff
 
       - name: Check the correctness of the project config
         run: |
@@ -21,15 +21,13 @@ jobs:
 
       - name: Check the quality of the code
         run: |
-             tox -e black
-             tox -e flake8
-             tox -e isort
+             tox -e cleaning
 
   ci-tests:
     strategy:
       fail-fast: false
       matrix:
-        tox-env: ["py38", "py39", "py310"]
+        tox-env: ["py38", "py39", "py310", "py311", "py312"]
     runs-on: ubuntu-latest
     container: fedorapython/fedora-python-tox:latest
     steps:

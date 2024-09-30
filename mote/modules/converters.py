@@ -39,4 +39,4 @@ class DateConverter(BaseConverter):
             raise ValidationError
 
     def to_url(self, date):
-        return "{:%Y-%m-%d}".format(date)
+        return f"{date:%Y-%m-%d}"
