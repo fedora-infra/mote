@@ -1561,18 +1561,18 @@ files = [
 
 [[package]]
 name = "rq"
-version = "2.3.3"
+version = "2.3.2"
 description = "RQ is a simple, lightweight, library for creating background jobs, and processing them."
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "rq-2.3.3-py3-none-any.whl", hash = "sha256:2202c4409c4c527ac4bee409867d6c02515dd110030499eb0de54c7374aee0ce"},
-    {file = "rq-2.3.3.tar.gz", hash = "sha256:20c41c977b6f27c852a41bd855893717402bae7b8d9607dca21fe9dd55453e22"},
+    {file = "rq-2.3.2-py3-none-any.whl", hash = "sha256:bf4dc622a7b9d5f7d4a39444f26d89ce6de8a1d6db61b21060612114dbf8d5ff"},
+    {file = "rq-2.3.2.tar.gz", hash = "sha256:5bd212992724428ec1689736abde783d245e7856bca39d89845884f5d580f5f1"},
 ]
 
 [package.dependencies]
 click = ">=5"
-redis = ">=3.5,<6.0.0 || >6.0.0"
+redis = ">=3.5"
 
 [[package]]
 name = "ruff"
