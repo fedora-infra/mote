@@ -2,7 +2,7 @@ FROM registry.fedoraproject.org/fedora-minimal:42 as base
 FROM base as builder
 RUN microdnf install -y python3-pip && microdnf clean all
 WORKDIR /tmp
-RUN pip3 install --disable-pip-version-check poetry
+RUN pip3 install --disable-pip-version-check poetry poetry-plugin-export
 COPY poetry.lock pyproject.toml .
 RUN poetry export --without-hashes --no-interaction --no-ansi -o requirements.txt
 
