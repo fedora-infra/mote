@@ -1,10 +1,9 @@
 import logging
 
-from rq import Connection, Queue, Worker
+from rq import Queue, Worker
 
 from mote import redis
 
-listen = ["tasks"]
 
 if __name__ == "__main__":
     handler = logging.StreamHandler()
@@ -16,6 +15,7 @@ if __name__ == "__main__":
     log.setLevel(logging.DEBUG)
     log.addHandler(handler)
 
-    with Connection(redis.conn):
-        worker = Worker(list(map(Queue, listen)))
-        worker.work()
+    tasks = Queue("tasks", connection=redis.conn)
+
+    worker = Worker([tasks], connection=redis.conn)
+    worker.work()
