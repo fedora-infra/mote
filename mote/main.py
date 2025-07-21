@@ -97,12 +97,14 @@ def getevents():
 
 @main.get("/<string:channame>/<date:cldrdate>/<string:meetname>.log.html")
 def getlogs(channame, cldrdate, meetname):
-    return statfile(channame, cldrdate, meetname, typecont="Logs")
+    url_type = url_for("getminutes", channame=channame, cldrdate=cldrdate, meetname=meetname)
+    return statfile(channame, cldrdate, meetname, typecont="Logs", url_type=url_type)
 
 
 @main.get("/<string:channame>/<date:cldrdate>/<string:meetname>.html")
 def getminutes(channame, cldrdate, meetname):
-    return statfile(channame, cldrdate, meetname, typecont="Minutes")
+    url_type = url_for("getlogs", channame=channame, cldrdate=cldrdate, meetname=meetname)
+    return statfile(channame, cldrdate, meetname, typecont="Minutes", url_type=url_type)
 
 
 @main.get("/<string:channame>/<date:cldrdate>/<string:meetname>.txt")
@@ -110,7 +112,7 @@ def getraw(channame, cldrdate, meetname):
     return statfile(channame, cldrdate, meetname, typecont="Raw")
 
 
-def statfile(channame, cldrdate, meetname, typecont):
+def statfile(channame, cldrdate, meetname, typecont, url_type):
     if typecont == "Raw":
         # if txt log, redirect to meetbot-raw
         encoded_uri = urllib.parse.quote(request.path)
@@ -133,6 +135,7 @@ def statfile(channame, cldrdate, meetname, typecont):
             timetext=meeting_title.group(3),
             typecont=typecont,
             meetcont=meetcont[1],
+            url_type=url_type
         )
 
 
