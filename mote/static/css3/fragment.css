@@ -738,23 +738,7 @@ hr {
 }
 
 #evt-smry .modal-content {
-  background-color: rgb(255, 255, 255);
   border: solid 3px rgb(81, 162, 218);
-  color: rgb(0, 0, 0);
-}
-
-[data-bs-color-scheme="dark"] #evt-smry .modal-content {
-  background-color: rgb(177, 178, 181);
-  color: rgb(64, 64, 64);
-
-}
-
-.evt-smry-header {
-  color: rgb(140, 140, 140);
-}
-
-[data-bs-color-scheme="dark"] .evt-smry-header {
-  color: rgb(64, 64, 64);
 }
 
 #evt-smry .modal-content > .evt-smry-header {
