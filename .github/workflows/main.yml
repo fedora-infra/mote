@@ -27,7 +27,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        tox-env: ["py38", "py39", "py310", "py311", "py312"]
+        tox-env: ["py310", "py311", "py312"]
     runs-on: ubuntu-latest
     container: fedorapython/fedora-python-tox:latest
     steps:

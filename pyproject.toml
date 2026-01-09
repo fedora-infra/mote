@@ -16,16 +16,12 @@ classifiers=[
     "Intended Audience :: System Administrators",
     "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
     "Natural Language :: English",
-    "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.11",
     "Operating System :: POSIX :: Linux",
     "Topic :: Internet",
 ]
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.9"
 Flask = "^2.0.2 || ^3.0.0"
 requests = "^2.32.0"
 beautifulsoup4 = "^4.10.0"
