@@ -1,4 +1,4 @@
-from distutils import dir_util
+from shutil import copytree
 
 import pytest
 
@@ -19,5 +19,5 @@ def client(meetbot_data):
 @pytest.fixture(scope="session")
 def meetbot_data(tmpdir_factory):
     path = tmpdir_factory.mktemp("meetbot")
-    dir_util.copy_tree("tests/meetbot", str(path))
+    copytree("tests/meetbot", str(path), dirs_exist_ok=True)
     return str(path)
