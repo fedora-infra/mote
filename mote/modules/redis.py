@@ -1,24 +1,25 @@
 """
-    Copyright (c) 2021 Fedora Websites and Apps
+Copyright (c) 2021 Fedora Websites and Apps
 
-    Permission is hereby granted, free of charge, to any person obtaining a copy
-    of this software and associated documentation files (the "Software"), to deal
-    in the Software without restriction, including without limitation the rights
-    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-    copies of the Software, and to permit persons to whom the Software is
-    furnished to do so, subject to the following conditions:
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-    The above copyright notice and this permission notice shall be included in all
-    copies or substantial portions of the Software.
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-    SOFTWARE.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 """
+
 import os
 from urllib.parse import quote, urlparse, urlunparse
 
@@ -31,8 +32,14 @@ class Redis:
         self.conn = self.get_conn()
 
     def get_redis_url(self, app):
-        redis_url = os.environ.get("REDIS_URL") or app.config.get("CACHE_REDIS_URL") or "redis://"
-        redis_pass = os.environ.get("REDIS_PASSWORD") or app.config.get("CACHE_REDIS_PASSWORD")
+        redis_url = (
+            os.environ.get("REDIS_URL")
+            or app.config.get("CACHE_REDIS_URL")
+            or "redis://"
+        )
+        redis_pass = os.environ.get("REDIS_PASSWORD") or app.config.get(
+            "CACHE_REDIS_PASSWORD"
+        )
         if redis_pass:
             parts = urlparse(redis_url)
             netloc = f":{quote(redis_pass)}@{parts.hostname}"
@@ -40,7 +47,14 @@ class Redis:
                 netloc += f":{parts.port}"
 
             redis_url = urlunparse(
-                (parts.scheme, netloc, parts.path, parts.params, parts.query, parts.fragment)
+                (
+                    parts.scheme,
+                    netloc,
+                    parts.path,
+                    parts.params,
+                    parts.query,
+                    parts.fragment,
+                )
             )
         return redis_url
 

@@ -1,23 +1,23 @@
 """
-    Copyright (c) 2021 Fedora Websites and Apps
+Copyright (c) 2021 Fedora Websites and Apps
 
-    Permission is hereby granted, free of charge, to any person obtaining a copy
-    of this software and associated documentation files (the "Software"), to deal
-    in the Software without restriction, including without limitation the rights
-    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-    copies of the Software, and to permit persons to whom the Software is
-    furnished to do so, subject to the following conditions:
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-    The above copyright notice and this permission notice shall be included in all
-    copies or substantial portions of the Software.
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-    SOFTWARE.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 """
 
 import os
@@ -51,7 +51,9 @@ def fetch_datetxt_dict(channel: str):
         datetxt_dict = {}
         datelist = os.listdir(f"{app.config['MEETING_DIR']}/{channel}")
         for datetxt in datelist:
-            datetxt_dict[datetxt] = f"{app.config['MEETBOT_RAW_URL']}/{channel}/{datetxt}"
+            datetxt_dict[datetxt] = (
+                f"{app.config['MEETBOT_RAW_URL']}/{channel}/{datetxt}"
+            )
         return True, datetxt_dict
     except Exception as expt:
         logging.exception(expt)
@@ -66,9 +68,7 @@ def fetch_meeting_dict(channel: str, datetxt: str):
         datestring = f"{formatted_timestamp:%b %d, %Y}"
         for meeting in meetlist:
             if ".log.html" in meeting:
-                meeting_log = (
-                    f"{app.config['MEETBOT_RAW_URL']}/{channel}/{datetxt}/{meeting}"  # noqa
-                )
+                meeting_log = f"{app.config['MEETBOT_RAW_URL']}/{channel}/{datetxt}/{meeting}"  # noqa
                 meeting_sum = f"{app.config['MEETBOT_RAW_URL']}/{channel}/{datetxt}/{meeting.replace('''.log.html''', '''.html''')}"  # noqa
                 meeting_title = re.search(
                     app.config["RECOGNIITION_PATTERN"],
@@ -119,7 +119,9 @@ def fetch_meeting_summary(contpath: str):
             source = meetfile.read()
         obj = btsp.BeautifulSoup(source, "html.parser")
         event = {"peoples": [], "topics": [], "actions": []}
-        event["title"] = re.sub(r"^.*: ", "", sanitize_name(obj.select_one("title").text))
+        event["title"] = re.sub(
+            r"^.*: ", "", sanitize_name(obj.select_one("title").text)
+        )
 
         re_start = re.compile(r"Meeting started.* at (\d+:\d+:\d+) UTC")
         re_end = re.compile(r"Meeting ended.* at (\d+:\d+:\d+) UTC")
@@ -130,10 +132,16 @@ def fetch_meeting_summary(contpath: str):
         )
         event["duration"] = timeDelta.seconds // 60
 
-        peoples = obj.find(string=re.compile("People present")).parent.findNext("ol").select("li")
+        peoples = (
+            obj.find(string=re.compile("People present"))
+            .parent.findNext("ol")
+            .select("li")
+        )
         # filter known bots and people with 0 lines
         event["peoples"] = [
-            p.text for p in peoples if re.match(r"^(?!(zodbot|fm-admin))((?!\(0\)).)*$", p.text)
+            p.text
+            for p in peoples
+            if re.match(r"^(?!(zodbot|fm-admin))((?!\(0\)).)*$", p.text)
         ]
 
         topics = obj.select(".TOPIC")

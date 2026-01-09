@@ -73,7 +73,9 @@ def test_fetch_channel_meet_exc(client, mocker):
 
 
 def test_search_meeting(client):
-    rv = client.get("/fragedpt/", query_string={"rqstdata": "srchmeet", "srchtext": "iot"})
+    rv = client.get(
+        "/fragedpt/", query_string={"rqstdata": "srchmeet", "srchtext": "iot"}
+    )
 
     j = rv.get_json()
     assert len(j) > 0
@@ -85,7 +87,9 @@ def test_search_meeting(client):
 def test_search_meeting_exc(client, mocker):
     walk = mocker.patch("os.walk")
     walk.side_effect = Exception()
-    rv = client.get("/fragedpt/", query_string={"rqstdata": "srchmeet", "srchtext": "iot"})
+    rv = client.get(
+        "/fragedpt/", query_string={"rqstdata": "srchmeet", "srchtext": "iot"}
+    )
 
     j = rv.get_json()
     assert len(j) == 0

@@ -4,10 +4,11 @@ from rq import Queue, Worker
 
 from mote import redis
 
-
 if __name__ == "__main__":
     handler = logging.StreamHandler()
-    formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+    formatter = logging.Formatter(
+        "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    )
     handler.setFormatter(formatter)
     handler.setLevel(logging.DEBUG)
 
