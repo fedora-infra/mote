@@ -27,6 +27,7 @@ from datetime import datetime
 
 import bs4 as btsp
 from flask import current_app as app
+from markdown import markdown
 
 from mote import logging
 
@@ -154,6 +155,12 @@ def fetch_meeting_summary(contpath: str):
             event["topics"].append(topicDict)
         actions = obj.find(string="Action items").parent.findNext("ol").select("li")
         event["actions"] = [a.text for a in actions if a.text != "(none)"]
+
+        summary_path = contpath.replace(".html", ".summary.md")
+        event["summary"] = None
+        if os.path.exists(summary_path):
+            with open(summary_path) as fh:
+                event["summary"] = markdown(fh.read())
 
         return True, event
     except Exception as expt:

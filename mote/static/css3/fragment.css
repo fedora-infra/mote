@@ -786,6 +786,11 @@ hr {
   vertical-align: -0.12em;
 }
 
+.evt-smry-summary h3 {
+  font-size: 0.9rem;
+  font-family: sans-serif;
+}
+
 [data-bs-color-scheme="dark"] .fc-theme-standard td,
 [data-bs-color-scheme="dark"]  .fc-theme-standard th {
   border-color: rgb(76, 76, 76) !important;

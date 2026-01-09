@@ -73,4 +73,14 @@
       </ul>
     </div>
   </div>
+  {% if meet["summary"] %}
+  <div class="row">
+    <div class="evt-smry-col col-12">
+      <p class="evt-smry-header"><i class="fas fa-pencil-alt fa-lg me-2"></i>Summary</p>
+      <div class="evt-smry-summary">
+        {{ meet["summary"]| safe }}
+      </div>
+    </div>
+  </div>
+  {% endif %}
 </div>
