@@ -13,7 +13,7 @@ jobs:
 
       - name: Install the base dependencies
         run: |
-             python3 -m pip install --upgrade poetry tox ruff
+             python3 -m pip install --upgrade poetry tox
 
       - name: Check the correctness of the project config
         run: |
@@ -35,7 +35,7 @@ jobs:
 
       - name: Install the base dependencies
         run: |
-             python3 -m pip install --upgrade tox
+             python3 -m pip install --upgrade poetry tox
 
       - name: Install Redis
         run: |
