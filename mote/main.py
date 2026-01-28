@@ -110,9 +110,14 @@ def getraw(channame, cldrdate, meetname):
     return statfile(channame, cldrdate, meetname, typecont="Raw")
 
 
+@main.get("/<string:channame>/<date:cldrdate>/<string:meetname>.summary.md")
+def getsummary(channame, cldrdate, meetname):
+    return statfile(channame, cldrdate, meetname, typecont="Summary")
+
+
 def statfile(channame, cldrdate, meetname, typecont):
-    if typecont == "Raw":
-        # if txt log, redirect to meetbot-raw
+    if typecont in ("Raw", "Summary"):
+        # if txt log or summary, redirect to meetbot-raw
         encoded_uri = urllib.parse.quote(request.path)
         return redirect(f"{main.config['MEETBOT_RAW_URL']}/{encoded_uri}", code=302)
     if typecont not in ("Minutes", "Logs"):

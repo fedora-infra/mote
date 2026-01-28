@@ -33,6 +33,9 @@
         <li><a class="dropdown-item" href="{{ permalink }}" target="_blank">as HTML</a></li>
         <li><a class="dropdown-item" href="{{ latest_link }}" target="_blank">as HTML (latest)</a></li>
         <li><a class="dropdown-item" href="{{ permalink|trim(".html") + ".txt" }}" target="_blank">as plain text</a></li>
+        {% if meet["summary"] %}
+        <li><a class="dropdown-item" href="{{ permalink|trim(".html") + ".summary.md" }}" target="_blank">summary (as Markdown)</a></li>
+        {% endif %}
       </ul>
     </div>
     <button type="button" class="btn btn-dark btn-sm" aria-label="Close" data-bs-dismiss="modal"><i class="fas fa-times fa-lg pe-2" aria-hidden="true"></i>Close</button>
