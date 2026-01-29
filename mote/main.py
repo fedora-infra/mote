@@ -1,23 +1,23 @@
 """
-    Copyright (c) 2021 Fedora Websites and Apps
+Copyright (c) 2021 Fedora Websites and Apps
 
-    Permission is hereby granted, free of charge, to any person obtaining a copy
-    of this software and associated documentation files (the "Software"), to deal
-    in the Software without restriction, including without limitation the rights
-    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-    copies of the Software, and to permit persons to whom the Software is
-    furnished to do so, subject to the following conditions:
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-    The above copyright notice and this permission notice shall be included in all
-    copies or substantial portions of the Software.
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-    SOFTWARE.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 """
 
 import re
@@ -110,9 +110,14 @@ def getraw(channame, cldrdate, meetname):
     return statfile(channame, cldrdate, meetname, typecont="Raw")
 
 
+@main.get("/<string:channame>/<date:cldrdate>/<string:meetname>.summary.md")
+def getsummary(channame, cldrdate, meetname):
+    return statfile(channame, cldrdate, meetname, typecont="Summary")
+
+
 def statfile(channame, cldrdate, meetname, typecont):
-    if typecont == "Raw":
-        # if txt log, redirect to meetbot-raw
+    if typecont in ("Raw", "Summary"):
+        # if txt log or summary, redirect to meetbot-raw
         encoded_uri = urllib.parse.quote(request.path)
         return redirect(f"{main.config['MEETBOT_RAW_URL']}/{encoded_uri}", code=302)
     if typecont not in ("Minutes", "Logs"):
@@ -147,14 +152,20 @@ def evtsmry(channame, cldrdate, meetname):
         )
     )
     logging.info("evtsmry: meetname %s" % (meetname,))
-    meetpath = f"{main.config['MEETING_DIR']}/{channame}/{cldrdate:%Y-%m-%d}/{meetname}.html"
+    meetpath = (
+        f"{main.config['MEETING_DIR']}/{channame}/{cldrdate:%Y-%m-%d}/{meetname}.html"
+    )
     logging.info("evtsmry: meetpath %s" % (meetpath,))
     meet = fetch_meeting_summary(meetpath)
     if not meet[0]:
         abort(404)
     else:
-        permalink = url_for("getminutes", channame=channame, cldrdate=cldrdate, meetname=meetname)
-        full_log = url_for("getlogs", channame=channame, cldrdate=cldrdate, meetname=meetname)
+        permalink = url_for(
+            "getminutes", channame=channame, cldrdate=cldrdate, meetname=meetname
+        )
+        full_log = url_for(
+            "getlogs", channame=channame, cldrdate=cldrdate, meetname=meetname
+        )
 
         meeting_name_match = re.search(main.config["RECOGNIITION_PATTERN"], meetname)
         latest = url_for("get_latest_meeting", meetname=meeting_name_match.group(1))
@@ -209,7 +220,9 @@ def trigger_on_disconnect():
 
 
 @click.command()
-@click.option("-p", "--portdata", "portdata", help="Set the port value [0-65536]", default="9696")
+@click.option(
+    "-p", "--portdata", "portdata", help="Set the port value [0-65536]", default="9696"
+)
 @click.option(
     "-6",
     "--ipprotv6",

@@ -1,23 +1,23 @@
 """
-    Copyright (c) 2021 Fedora Websites and Apps
+Copyright (c) 2021 Fedora Websites and Apps
 
-    Permission is hereby granted, free of charge, to any person obtaining a copy
-    of this software and associated documentation files (the "Software"), to deal
-    in the Software without restriction, including without limitation the rights
-    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-    copies of the Software, and to permit persons to whom the Software is
-    furnished to do so, subject to the following conditions:
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-    The above copyright notice and this permission notice shall be included in all
-    copies or substantial portions of the Software.
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-    SOFTWARE.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 """
 
 import json
@@ -25,7 +25,6 @@ import os
 import re
 import urllib.parse as ulpr
 from datetime import datetime
-from typing import Optional
 
 from mote import app, cache, logging
 
@@ -67,7 +66,9 @@ def find_meetings_by_substring(search_string: str, exact_match: bool = False):
         for root, file in allMeetFiles:
             # if search_string in sanetize_name(file):
             location = f"{root}/{str(file)}"
-            location_list = location.replace(app.config["MEETING_DIR"] + "/", "").split("/")
+            location_list = location.replace(app.config["MEETING_DIR"] + "/", "").split(
+                "/"
+            )
             channel_name, meeting_date, meeting_filename = (
                 location_list[0],
                 location_list[1],
@@ -85,7 +86,9 @@ def find_meetings_by_substring(search_string: str, exact_match: bool = False):
                     else (search_string in meeting_name)
                 ):
                     meeting_log_filename = meeting_filename
-                    meeting_summary_filename = meeting_filename.replace(".log.html", ".html")
+                    meeting_summary_filename = meeting_filename.replace(
+                        ".log.html", ".html"
+                    )
                     meeting_datetime = datetime.strptime(
                         f"{meeting_date}T{meeting_title.group(3)}", "%Y-%m-%dT%H.%M"
                     )
@@ -115,7 +118,7 @@ def find_meetings_by_substring(search_string: str, exact_match: bool = False):
         return False, {"exception": str(expt)}
 
 
-def get_meeting_adj(search_string: str, date: Optional[datetime] = None):
+def get_meeting_adj(search_string: str, date: datetime | None = None):
     """
     Return adjacent meeting occurrences relative to date
     If date not provided, return latest occurrence in 'prev' key
@@ -123,9 +126,13 @@ def get_meeting_adj(search_string: str, date: Optional[datetime] = None):
 
     try:
         _, meeting_list = find_meetings_by_substring(search_string, exact_match=True)
-        sorted_list = sorted(meeting_list, key=lambda m: datetime.fromisoformat(m["datetime"]))
+        sorted_list = sorted(
+            meeting_list, key=lambda m: datetime.fromisoformat(m["datetime"])
+        )
         if date:
-            idx = [datetime.fromisoformat(m["datetime"]) for m in sorted_list].index(date)
+            idx = [datetime.fromisoformat(m["datetime"]) for m in sorted_list].index(
+                date
+            )
         else:
             idx = len(sorted_list)
         return True, {

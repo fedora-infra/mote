@@ -33,6 +33,9 @@
         <li><a class="dropdown-item" href="{{ permalink }}" target="_blank">as HTML</a></li>
         <li><a class="dropdown-item" href="{{ latest_link }}" target="_blank">as HTML (latest)</a></li>
         <li><a class="dropdown-item" href="{{ permalink|trim(".html") + ".txt" }}" target="_blank">as plain text</a></li>
+        {% if meet["summary"] %}
+        <li><a class="dropdown-item" href="{{ permalink|trim(".html") + ".summary.md" }}" target="_blank">summary (as Markdown)</a></li>
+        {% endif %}
       </ul>
     </div>
     <button type="button" class="btn btn-dark btn-sm" aria-label="Close" data-bs-dismiss="modal"><i class="fas fa-times fa-lg pe-2" aria-hidden="true"></i>Close</button>
@@ -64,6 +67,7 @@
 	{% endfor %}
       </ul>
     </div>
+    {% if meet['actions'] %}
     <div class="evt-smry-col col-12 col-lg-5 p-2">
       <p class="evt-smry-header"><i class="fas fa-clipboard-list fa-lg me-2"></i>Action Items ({{ meet['actions']|length }})</p>
       <ul class="">
@@ -72,5 +76,16 @@
 	{% endfor %}
       </ul>
     </div>
+    {% endif %}
   </div>
+  {% if meet["summary"] %}
+  <div class="row">
+    <div class="evt-smry-col col-12">
+      <p class="evt-smry-header"><i class="fas fa-pencil-alt fa-lg me-2"></i>Summary</p>
+      <div class="evt-smry-summary">
+        {{ meet["summary"]| safe }}
+      </div>
+    </div>
+  </div>
+  {% endif %}
 </div>

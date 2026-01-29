@@ -12,6 +12,8 @@ The web service has the following features
 - Snappier loading up of content due to application-like interface and behaviour of the web service
 - Channel-wise and date-wise distinction of meeting summaries, minutes and logs within modals
 - Faster intuitive search of meeting summaries, minutes and logs using asynchronous fetching
+- Display the summaries produced by the [meeting-summary](https://github.com/fedora-infra/maubot-meeting-summary)
+  plugin (which uses an LLM to produce summaries of the meeting logs.
 
 ## Dependencies
 
