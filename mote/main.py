@@ -129,6 +129,8 @@ def statfile(channame, cldrdate, meetname, typecont):
         abort(404)
     else:
         meeting_title = re.search(main.config["RECOGNIITION_PATTERN"], meetname)
+        # Generate URL for the summary page
+        summary_url = url_for('evtsmry', channame=channame, cldrdate=cldrdate, meetname=meetname)
 
         return render_template(
             "statfile.html.j2",
@@ -138,6 +140,7 @@ def statfile(channame, cldrdate, meetname, typecont):
             timetext=meeting_title.group(3),
             typecont=typecont,
             meetcont=meetcont[1],
+            summary_url=summary_url, # URL for the summary page
         )
 
 
