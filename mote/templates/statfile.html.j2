@@ -32,6 +32,11 @@
                 </div>
                 <div class="card-body">
                     {{ meetcont | safe }}
+
+                    {% if summary_url %}
+                        <a href="{{ summary_url }}">Back to Event Summary</a>
+                    {% endif %}
+
                 </div>
                 <div class="card-footer text-center">
                     <span class="small">
