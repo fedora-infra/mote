@@ -3,6 +3,11 @@
 {% block head %}
         <meta property="og:title" content="{{ meetname }} - {{ typecont }}">
         <meta property="og:description" content="{{ typecont }} of meeting {{ meetname }} in {{ channame }} - {{ cldrdate.strftime("%B %d, %Y") }}">
+        <style>
+            #meetcont li {
+                white-space: pre-word;
+            }
+        </style>
 {% endblock %}
 
 {% block content %}
@@ -30,7 +35,7 @@
                 <div class="card-header text-center head fw-bold">
                     {{ typecont | upper }}
                 </div>
-                <div class="card-body">
+                <div class="card-body" id="meetcont">
                     {{ meetcont | safe }}
                 </div>
                 <div class="card-footer text-center">
